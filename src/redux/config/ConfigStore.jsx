@@ -1,7 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-// import __emailLogin from "../modules/loginSlice";
+import LoginSlice from "../modules/LoginSlice";
+
 const store = configureStore({
-  //   reducer: { __emailLogin },
+  reducer: { LoginSlice },
 });
 
 export default store;

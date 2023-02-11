@@ -5,8 +5,9 @@ import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 import ReactModal from "react-modal";
-import store from "./redux/config/store";
+import store from "./redux/config/ConfigStore";
 import { Provider } from "react-redux";
+
 ReactModal.setAppElement("#root");
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
