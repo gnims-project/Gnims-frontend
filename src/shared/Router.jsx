@@ -7,6 +7,7 @@ import SignupPage from "../page/SingupPage";
 import KakaoLogin from "../components/login/KakaoLogin";
 import KakaoLoginLoding from "../components/login/KakaoLoginLoding";
 import FollowList from "../components/follow/FollowList";
+import ScheduleRegisterPage from "../page/ScheduleRegisterPage";
 
 const Router = () => {
   return (
@@ -20,6 +21,7 @@ const Router = () => {
             <Route path="/kakaoLogin" element={<KakaoLogin />} />
             <Route path="auth/kakao/callback" element={<KakaoLoginLoding />} />
             <Route path="/follow" element={<FollowList />} />
+            <Route path="/schedule" element={<ScheduleRegisterPage />} />
           </Routes>
         </Layout>
       </Container>

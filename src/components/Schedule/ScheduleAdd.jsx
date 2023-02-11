@@ -48,7 +48,7 @@ const ScheduleAdd = () => {
   const scheduleAddHandler = async (e) => {
     e.preventDefault();
 
-    if (subject.length > 0 && selectedDate.toString().length > 0) {
+    if (subject.length > 0 && [selectedDate].toString().length > 0) {
       const newSchedule = {
         cardColor: selectedColor,
         date: selectedDate.toISOString().slice(0, 10),
@@ -73,7 +73,7 @@ const ScheduleAdd = () => {
   };
 
   useEffect(() => {
-    console.log(selectedDate.toString().length > 0);
+    console.log(today);
   }, [selectedDate, selectedColor]);
 
   return (
@@ -117,7 +117,7 @@ const ScheduleAdd = () => {
               placeholderText="날짜를 선택해주세요!(필수)"
             />
           </div>
-          참여자 input을 클릭시 친구 리스트가
+          {/* 참여자 input을 클릭시 친구 리스트가 */}
           <div className="mt-6 font-semibold underline decoration-indigo-500/30">
             참여자 (우선 Id로 받습니다)
             <input
