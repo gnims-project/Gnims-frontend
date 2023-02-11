@@ -8,6 +8,8 @@ import KakaoLogin from "../components/login/KakaoLogin";
 import KakaoLoginLoding from "../components/login/KakaoLoginLoding";
 import FollowList from "../components/follow/FollowList";
 import ScheduleRegisterPage from "../page/ScheduleRegisterPage";
+import NaverLoginPage from "../page/NaverLoginPage";
+import Callback from "../page/callback";
 
 const Router = () => {
   return (
@@ -22,6 +24,8 @@ const Router = () => {
             <Route path="auth/kakao/callback" element={<KakaoLoginLoding />} />
             <Route path="/follow" element={<FollowList />} />
             <Route path="/schedule" element={<ScheduleRegisterPage />} />
+            <Route path="/naver/login" element={<NaverLoginPage />} />
+            <Route path="/callback" element={<Callback />} />
           </Routes>
         </Layout>
       </Container>

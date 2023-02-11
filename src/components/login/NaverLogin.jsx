@@ -4,7 +4,7 @@ import { useEffect } from "react";
 const NaverLogin = () => {
   const { naver } = window;
   //    깃헙에 올릴 땐 아래의 env활용
-  const NAVER_CLIENT_ID = "T9R5hFNUTuTa1UqoVBcO";
+  const NAVER_CLIENT_ID = "wFlLccRoEYosu_ZBoweG";
   // process.env.REACT_APP_NAVER_CLIENT_ID;
   const NAVER_CALLBACK_URL = "http://localhost:3000/callback";
   // process.env.REACT_APP_NAVER_CALLBACK_URL;

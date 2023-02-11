@@ -1,6 +1,10 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { __postSchedule } from "../../redux/modules/ScheduleSlice";
 // CSS Modules, react-datepicker-cssmodules.css
 // import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 
@@ -12,7 +16,17 @@ const ScheduleAdd = () => {
   const [subject, setSubject] = useState("");
   const [content, setContent] = useState("");
   const [participants, setParticipants] = useState("");
-
+  const [schedules, setSchedules] = useState({
+    id: 0,
+    cardColor: "",
+    date: "",
+    time: "",
+    subject: "",
+    content: "",
+    participantsId: "",
+  });
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const today = new Date().toISOString().slice(0, 10);
 
   //색상지정시 카드의 백그라운드컬러가 바뀌면서 selectedColor에 값이 입혀진다.
@@ -55,11 +69,9 @@ const ScheduleAdd = () => {
         time: time,
         subject: subject,
         content: content,
-        participantsId: participants,
+        participantsId: [participants],
       };
-      //     // await dispatch(__addSchedule(newSchedule));
-      //     // setTodo("");
-      //   }
+      await dispatch(__postSchedule(newSchedule));
       setSubject("");
       setContent("");
       setParticipants("");
@@ -74,6 +86,7 @@ const ScheduleAdd = () => {
 
   useEffect(() => {
     console.log(today);
+    // fetchSchedules();
   }, [selectedDate, selectedColor]);
 
   return (
