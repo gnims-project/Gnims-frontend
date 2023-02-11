@@ -69,7 +69,7 @@ const ScheduleAdd = () => {
         time: time,
         subject: subject,
         content: content,
-        participantsId: [participants],
+        participantsId: participants.split(","),
       };
       await dispatch(__postSchedule(newSchedule));
       setSubject("");
