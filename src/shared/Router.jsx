@@ -2,12 +2,17 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "../components/layout/Layout";
 import styled from "styled-components";
+import LoginPage from "../page/LoginPage";
+import SignupPage from "../page/SingupPage";
 const Router = () => {
   return (
     <BrowserRouter>
       <Container>
         <Layout>
-          <h1 className="text-3xl font-bold underline">Hello world!</h1>
+          <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignupPage />} />
+          </Routes>
         </Layout>
       </Container>
     </BrowserRouter>

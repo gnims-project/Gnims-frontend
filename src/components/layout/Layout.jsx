@@ -29,7 +29,7 @@ const Container = styled.div`
     display: none;
   }
   @media screen and (max-width: 768px) {
-    width: 600px;
+    width: 375px;
     background-color: #f4f5f7;
     background-size: contain;
     background-position: center;
