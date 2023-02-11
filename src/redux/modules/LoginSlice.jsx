@@ -1,5 +1,32 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { instance } from "../../shared/AxiosInstance"
 import axios from "axios";
+
+export const __emailLogin = ({ user, navigate, onModalOpen, setModalStr }) => {
+  return async function (dispatch) {
+    await instance
+      // 백단 연결시 API : /api/user/login
+      .post("/auth/login", user)
+      .then((response) => {
+        const accessToken = response.headers.get("Authorization");
+        const { email, nickname } = response.data;
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("email", email);
+        localStorage.setItem("nickname", nickname);
+        dispatch(isLogin(true));
+        dispatch(isLoading(true));
+        alert(`${nickname}님 어서오세요.`);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+        if (error.response.status === 401) {
+          setModalStr("아이디 또는 비밀번호를 확인해주세요");
+          onModalOpen();
+        }
+      });
+  };
+};
 
 export const __kakaologin = createAsyncThunk(
   "kakaologin",
@@ -37,7 +64,20 @@ export const __kakaologin = createAsyncThunk(
 const LoginSlice = createSlice({
   name: "login",
   initialState: {},
-  reducer: {},
+  reducer: {
+    isLoading: (state, action) => {
+      state.isLoading = action.payload;
+    },
+    isLogin: (state, action) => {
+      state.isLogin = action.payload;
+    },
+    userInfo: (state, action) => {
+      state.userInfo = action.payload;
+    },
+    setMessage: (state, action) => {
+      state.message = action.payload;
+    },
+  },
   extraReducers: {
     //로그인
     [__kakaologin.pending]: (state) => {
@@ -54,4 +94,5 @@ const LoginSlice = createSlice({
   },
 });
 
+export const { isLoading, isLogin, userInfo, setMessage } = LoginSlice.actions;
 export default LoginSlice.reducer;

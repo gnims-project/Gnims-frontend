@@ -2,8 +2,8 @@ import { instance } from "../shared/AxiosInstance";
 
 export const EmailLoginApi = {
   EmailLogin: async (payload) => {
-    console.log(payload);
-    return await instance.post("/auth/login", payload);
+    const { data } = await instance.post("/auth/login", payload);
+    return data;
   },
 };
 
