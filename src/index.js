@@ -5,16 +5,18 @@ import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 import ReactModal from "react-modal";
-import { RecoilRoot } from "recoil";
+import store from "./redux/config/ConfigStore";
+import { Provider } from "react-redux";
 
 ReactModal.setAppElement("#root");
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
 root.render(
-  <RecoilRoot>
+  <Provider store={store}>
     <React.StrictMode>
       <App />
     </React.StrictMode>
-  </RecoilRoot>
+  </Provider>
 );
 
 // If you want your app to work offline and load faster, you can change
