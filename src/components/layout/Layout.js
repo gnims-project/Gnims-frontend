@@ -17,7 +17,7 @@ const Container = styled.div`
   box-sizing: border-box;
 
   -ms-overflow-style: none;
-  background-color: white;
+  background-color: #f4f5f7;
 
   //스크롤창 숨기기
   overflow-y: scroll;
