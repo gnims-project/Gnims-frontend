@@ -25,13 +25,13 @@ instance.interceptors.request.use(
   }
 );
 
-//서버 요청받음
-instance.interceptors.response.use(
-  (response) => {
-    console.log("응답확인" + response);
-    return response;
-  },
-  (error) => {
-    return error;
-  }
-);
+// //서버 요청받음
+// instance.interceptors.response.use(
+//   (response) => {
+//     console.log("응답확인" + response);
+//     return response;
+//   },
+//   (error) => {
+//     return error;
+//   }
+// );
