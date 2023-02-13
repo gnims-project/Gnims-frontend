@@ -94,38 +94,39 @@ const ScheduleAdd = () => {
   }, [selectedDate, selectedColor]);
 
   return (
-    <div className="mt-6 ">
-      <div className={`${bgColor} flex w-screen h-screen p-4`}>
+    <div className="text-[#12396F]">
+      <div className="pt-[14px] h-[48px] font-bold justify-center bg-white text-center text-[20px] ">
+        일정 추가
+      </div>
+      <div className={`${bgColor} flex w-screen  p-[20px] text-base`}>
         <form>
-          <div
-            className={"font-semibold underline mt-6 decoration-indigo-500/30"}
-          >
+          <div className={"font-medium  mt-[20px]"}>
             카드 테마 색상
             <div className="mt-4 flex-row flex  ">
               <div
-                className="rounded ml-6 w-8 h-8 bg-sky-400 "
+                className="rounded w-[42px] h-[42px] bg-[#538EDF] "
                 onClick={eventHandlerBlue}
               >
                 {}
               </div>
               <div
-                className="rounded ml-6 w-8 h-8 bg-teal-300  "
+                className="rounded ml-[17px] w-[42px] h-[42px] bg-[#015397]  "
                 onClick={eventHandlerGreen}
               >
                 {""}
               </div>
               <div
-                className="rounded ml-6 w-8 h-8 bg-violet-400 "
+                className="rounded ml-[17px] w-[42px] h-[42px] bg-[#1098ED] "
                 onClick={eventHandlerPurple}
               >
                 {""}
               </div>
             </div>
           </div>
-          <div className="mt-6 justify-center font-semibold underline decoration-indigo-500/30 ">
+          <div className="mt-6 justify-center font-medium ">
             날짜와 시간
             <DatePicker
-              className="shadow ml-6 w-full h-12 mt-4 bg-white justify-center text-l hover:bg-sky-100 rounded-md text-black font-medium  text-center"
+              className="shadow w-[335px] h-12 mt-4 bg-white justify-center text-l hover:bg-sky-100 rounded-md text-black font-light  text-center"
               dateFormat="yyyy년 MM월 dd일 h:mm aa"
               selected={selectedDate}
               minDate={new Date()}
@@ -135,7 +136,7 @@ const ScheduleAdd = () => {
             />
           </div>
           {/* 참여자 input을 클릭시 친구 리스트가 */}
-          <div className="mt-6 font-semibold underline decoration-indigo-500/30">
+          <div className="mt-6 flex-col flex font-semibold ">
             참여자 (우선 Id로 받습니다)
             <input
               value={participants}
@@ -143,20 +144,20 @@ const ScheduleAdd = () => {
               placeholder="일정을 함께할 친구가 있나요?"
               className="mt-4 shadow
               hover:bg-sky-100
-              ml-6
-              w-full
+              text-center
+              w-[335px]
               h-12
               bg-white
               justify-center
               text-l
               rounded-md
               text-black
-              font-medium
+              font-light
               p-4
              "
             />
           </div>
-          <div className="mt-6 font-semibold underline decoration-indigo-500/30">
+          <div className="mt-6 flex-col flex font-medium ">
             일정 제목{" "}
             <input
               value={subject}
@@ -164,19 +165,19 @@ const ScheduleAdd = () => {
               placeholder="일정의 제목을 입력해주세요!(필수)"
               className="mt-4 shadow
               hover:bg-sky-100
-              ml-6
-              w-full
+              text-center
+              w-[335px]
               h-12
               bg-white
               justify-center
               text-l
               rounded-md
               text-black
-              font-medium
+              font-light
               p-4"
             />
           </div>
-          <div className="mt-6 font-semibold underline decoration-indigo-500/30">
+          <div className="mt-6 flex-col flex font-medium ">
             일정 내용
             <input
               value={content}
@@ -185,23 +186,23 @@ const ScheduleAdd = () => {
               className="mt-4 
               shadow
               hover:bg-sky-100
-              ml-6
-              w-full
+              text-center
+              w-[335px]
               h-56
               bg-white
               text-l
               rounded-md
               text-black
-              font-medium
+              font-light
              p-4
              place-itmes-start"
             />
           </div>
           <button
             onClick={scheduleAddHandler}
-            className="mt-8 rounded-lg text-center align-middle border-white w-full h-12 border justify-center flex shadow"
+            className="mt-8 rounded-lg text-[16px] pt-[10px] font-semibold bg-[#015397] text-white text-center align-middle w-[335px] h-[40px] justify-center flex shadow"
           >
-            등록
+            등록 완료
           </button>
         </form>
       </div>

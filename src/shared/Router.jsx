@@ -10,6 +10,7 @@ import FollowList from "../components/follow/FollowList";
 import ScheduleRegisterPage from "../page/ScheduleRegisterPage";
 import NaverLoginPage from "../page/NaverLoginPage";
 import Callback from "../page/callback";
+import ScheduleDetailPage from "../page/ScheduleDetailPage";
 
 const Router = () => {
   return (
@@ -26,6 +27,7 @@ const Router = () => {
             <Route path="/schedule" element={<ScheduleRegisterPage />} />
             <Route path="/naver/login" element={<NaverLoginPage />} />
             <Route path="/callback" element={<Callback />} />
+            <Route path="/detail" element={<ScheduleDetailPage />} />
           </Routes>
         </Layout>
       </Container>
