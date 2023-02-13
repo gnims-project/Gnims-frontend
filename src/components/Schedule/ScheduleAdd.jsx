@@ -16,30 +16,30 @@ const ScheduleAdd = () => {
   const [subject, setSubject] = useState("");
   const [content, setContent] = useState("");
   const [participants, setParticipants] = useState("");
-  const [schedules, setSchedules] = useState({
-    id: 0,
-    cardColor: "",
-    date: "",
-    time: "",
-    subject: "",
-    content: "",
-    participantsId: "",
-  });
+  // const [schedules, setSchedules] = useState({
+  //   id: 0,
+  //   cardColor: "",
+  //   date: "",
+  //   time: "",
+  //   subject: "",
+  //   content: "",
+  //   participantsId: "",
+  // });
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const today = new Date().toISOString().slice(0, 10);
 
   //색상지정시 카드의 백그라운드컬러가 바뀌면서 selectedColor에 값이 입혀진다.
   const eventHandlerBlue = () => {
-    setColorSelected("blue");
+    setColorSelected("BLUE");
     setBgColor("bg-sky-400/20");
   };
   const eventHandlerGreen = () => {
-    setColorSelected("green");
+    setColorSelected("GREEN");
     setBgColor("bg-teal-300/20");
   };
   const eventHandlerPurple = () => {
-    setColorSelected("purple");
+    setColorSelected("PURPLE");
     setBgColor("bg-violet-400/20");
   };
 
@@ -53,12 +53,16 @@ const ScheduleAdd = () => {
   const onParticipantsChangeHandler = (e) => {
     setParticipants(e.target.value);
   };
+  const [participantss, setParticipantss] = useState([]);
+  if (participants.length > 0) {
+    setParticipantss(participants);
+  }
 
   //time값 구하는 작업
   const splicedDate = [selectedDate].toString().split(" ");
   const time = splicedDate[4];
 
-  //전체내용을 서버로 보내는 부분. 리코일을 적용시켜야한다.
+  //전체내용을 서버로 보내는 부분.
   const scheduleAddHandler = async (e) => {
     e.preventDefault();
 
@@ -69,7 +73,7 @@ const ScheduleAdd = () => {
         time: time,
         subject: subject,
         content: content,
-        participantsId: participants.split(","),
+        participantsId: participantss,
       };
       await dispatch(__postSchedule(newSchedule));
       setSubject("");
