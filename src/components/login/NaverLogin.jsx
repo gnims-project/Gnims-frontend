@@ -1,7 +1,11 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import NaverUnion from "../../img/NaverUnion.png";
 
 const NaverLogin = () => {
+  const navigate = useNavigate();
+  const naverRef = useRef();
   const { naver } = window;
   //    깃헙에 올릴 땐 아래의 env활용
   const NAVER_CLIENT_ID = "wFlLccRoEYosu_ZBoweG";
@@ -14,8 +18,8 @@ const NaverLogin = () => {
       clientId: NAVER_CLIENT_ID,
       callbackUrl: NAVER_CALLBACK_URL,
       isPopup: false,
-      loginButton: { color: "green", type: 1, height: 58 },
-      callbackHandle: true,
+      loginButton: { color: "green", type: 3, height: 58 },
+      callbackHandler: true,
     });
     naverLogin.init();
 
@@ -38,23 +42,28 @@ const NaverLogin = () => {
 
   // URL에서 네이버토큰을 추출한다.
   const userAccessToken = () => {
-    window.location.href.includes("access_token") && getToken();
+    window.location.href.includes("Naver_token") && getToken();
   };
 
   const getToken = () => {
     const navertoken = window.location.href.split("=")[1].split("&")[0];
     console.log(navertoken);
     // URL에서 추출한 access token을 로컬 스토리지에 저장
-    localStorage.setItem("NaverAuthorization", navertoken);
+    localStorage.setItem("Naver_token", navertoken);
   };
 
   const sendTokenAndGetAuthorization = async () => {
     const { data } = await axios
       .get(`http://hayangaeul.shop/naver/login`, {
-        headers: { token: localStorage.getItem("NaverAuthorization") },
+        headers: { token: localStorage.getItem("Naver_token") },
       })
       .then((res) => {
         localStorage.setItem("Authorization", res.headers.get("Authorization"));
+        //  useEffect(() => {
+        //   if (res.data.message === "non-member") {
+        //     navigate("/profilesetting");
+        //   }
+        // });
       });
     console.log(data);
   };
@@ -65,11 +74,15 @@ const NaverLogin = () => {
     userAccessToken();
     sendTokenAndGetAuthorization();
   }, []);
+  const handleClick = () => {
+    naverRef.current.children[0].click();
+  };
 
   return (
     <>
       {/*네이버 로그인아이콘표시 */}
-      <div id="naverIdLogin" />
+      <div ref={naverRef} id="naverIdLogin" />
+      <img onClick={handleClick} className="h-[80px]" src={NaverUnion} />
     </>
   );
 };
