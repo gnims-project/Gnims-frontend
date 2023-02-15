@@ -4,8 +4,10 @@ import profilImg from "../../img/ProfilImg.png";
 import { SignupApi } from "../../api/Signup";
 import IsModal from "../modal/Modal";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const SetProfileImg = () => {
+  const navigator = useNavigate();
   const [isOpen, setOpen] = useState(false);
   const [ModalStr, setModalStr] = useState("");
   const { singup, NameNickName, userInfo } = useSelector(
