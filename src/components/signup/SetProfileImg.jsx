@@ -50,6 +50,7 @@ const SetProfileImg = () => {
         username: NameNickName.nickname,
         nickname: NameNickName.username,
         email: window.localStorage.getItem("email"),
+        socialCode: window.localStorage.getItem("socialCode"),
       };
 
       //소셜 회원가입 API가 나왔을때
