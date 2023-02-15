@@ -28,13 +28,16 @@ const SetProfileImg = () => {
 
   const onSingup = async () => {
     //폼데이터 변환
+    console.log(imgRef.current.files[0]);
     setImageFile(imgRef.current.files[0]);
     const imgFile = imgRef.current.files[0];
-    console.log(imgFile);
     const formData = new FormData();
-    formData.append("image", imgFile);
-    console.log(formData);
-    console.log(singup);
+    if (imgFile !== undefined) {
+      formData.append("image", imgFile);
+    } else {
+      formData.append("image", null);
+    }
+
     if (singup === "emailLogin") {
       const url = "http://hayangaeul.shop/auth/signup";
       const data = {
@@ -68,6 +71,7 @@ const SetProfileImg = () => {
 
   //이메일 회원가입시 백단 연결
   const sginupAxios = async ({ formData, data, url }) => {
+    console.log(data);
     const json = JSON.stringify(data);
     const blob = new Blob([json], { type: "application/json" });
     formData.append("data", blob);
@@ -85,12 +89,13 @@ const SetProfileImg = () => {
         navigator("/login");
       })
       .catch((error) => {
-        const { data } = error.response;
-        if (data.status === 401) {
-          console.log(data.message);
-          setModalStr(data.message);
-          onModalOpen();
-        }
+        console.log(error);
+        // const { data } = error.response;
+        // if (data.status === 401) {
+        //   console.log(data.message);
+        //   setModalStr(data.message);
+        //   onModalOpen();
+        // }
       });
   };
 
