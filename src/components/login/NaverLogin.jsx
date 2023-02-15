@@ -2,7 +2,6 @@ import { useEffect, useRef } from "react";
 import NaverUnion from "../../img/NaverUnion.png";
 
 const NaverLogin = () => {
-
   const naverRef = useRef();
   const { naver } = window;
   //    깃헙에 올릴 땐 아래의 env활용
