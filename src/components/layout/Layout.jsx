@@ -17,7 +17,7 @@ const Container = styled.div`
   box-sizing: border-box;
 
   -ms-overflow-style: none;
-  background-color: #f4f5f7;
+  background-color: #edf7ff;
 
   //스크롤창 숨기기
   overflow-y: scroll;
@@ -30,7 +30,7 @@ const Container = styled.div`
   }
   @media screen and (max-width: 768px) {
     width: 375px;
-    background-color: #f4f5f7;
+    background-color: #edf7ff;
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
