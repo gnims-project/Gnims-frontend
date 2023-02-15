@@ -1,6 +1,10 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { __postSchedule } from "../../redux/modules/ScheduleSlice";
 // CSS Modules, react-datepicker-cssmodules.css
 // import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 
@@ -12,20 +16,30 @@ const ScheduleAdd = () => {
   const [subject, setSubject] = useState("");
   const [content, setContent] = useState("");
   const [participants, setParticipants] = useState("");
-
+  // const [schedules, setSchedules] = useState({
+  //   id: 0,
+  //   cardColor: "",
+  //   date: "",
+  //   time: "",
+  //   subject: "",
+  //   content: "",
+  //   participantsId: "",
+  // });
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const today = new Date().toISOString().slice(0, 10);
 
   //색상지정시 카드의 백그라운드컬러가 바뀌면서 selectedColor에 값이 입혀진다.
   const eventHandlerBlue = () => {
-    setColorSelected("blue");
+    setColorSelected("BLUE");
     setBgColor("bg-sky-400/20");
   };
   const eventHandlerGreen = () => {
-    setColorSelected("green");
+    setColorSelected("GREEN");
     setBgColor("bg-teal-300/20");
   };
   const eventHandlerPurple = () => {
-    setColorSelected("purple");
+    setColorSelected("PURPLE");
     setBgColor("bg-violet-400/20");
   };
 
@@ -39,27 +53,29 @@ const ScheduleAdd = () => {
   const onParticipantsChangeHandler = (e) => {
     setParticipants(e.target.value);
   };
+  const [participantss, setParticipantss] = useState([]);
+  if (participants.length > 0) {
+    setParticipantss(participants);
+  }
 
   //time값 구하는 작업
   const splicedDate = [selectedDate].toString().split(" ");
   const time = splicedDate[4];
 
-  //전체내용을 서버로 보내는 부분. 리코일을 적용시켜야한다.
+  //전체내용을 서버로 보내는 부분.
   const scheduleAddHandler = async (e) => {
     e.preventDefault();
 
-    if (subject.length > 0 && selectedDate.toString().length > 0) {
+    if (subject.length > 0 && [selectedDate].toString().length > 0) {
       const newSchedule = {
         cardColor: selectedColor,
         date: selectedDate.toISOString().slice(0, 10),
         time: time,
         subject: subject,
         content: content,
-        participantsId: participants,
+        participantsId: participantss,
       };
-      //     // await dispatch(__addSchedule(newSchedule));
-      //     // setTodo("");
-      //   }
+      await dispatch(__postSchedule(newSchedule));
       setSubject("");
       setContent("");
       setParticipants("");
@@ -73,42 +89,44 @@ const ScheduleAdd = () => {
   };
 
   useEffect(() => {
-    console.log(selectedDate.toString().length > 0);
+    console.log(today);
+    // fetchSchedules();
   }, [selectedDate, selectedColor]);
 
   return (
-    <div className="mt-6 ">
-      <div className={`${bgColor} flex w-screen h-screen p-4`}>
+    <div className="text-[#12396F]">
+      <div className="pt-[14px] h-[48px] font-bold justify-center bg-white text-center text-[20px] ">
+        일정 추가
+      </div>
+      <div className={`${bgColor} flex w-screen  p-[20px] text-base`}>
         <form>
-          <div
-            className={"font-semibold underline mt-6 decoration-indigo-500/30"}
-          >
+          <div className={"font-medium  mt-[20px]"}>
             카드 테마 색상
             <div className="mt-4 flex-row flex  ">
               <div
-                className="rounded ml-6 w-8 h-8 bg-sky-400 "
+                className="rounded w-[42px] h-[42px] bg-[#538EDF] "
                 onClick={eventHandlerBlue}
               >
                 {}
               </div>
               <div
-                className="rounded ml-6 w-8 h-8 bg-teal-300  "
+                className="rounded ml-[17px] w-[42px] h-[42px] bg-[#015397]  "
                 onClick={eventHandlerGreen}
               >
                 {""}
               </div>
               <div
-                className="rounded ml-6 w-8 h-8 bg-violet-400 "
+                className="rounded ml-[17px] w-[42px] h-[42px] bg-[#1098ED] "
                 onClick={eventHandlerPurple}
               >
                 {""}
               </div>
             </div>
           </div>
-          <div className="mt-6 justify-center font-semibold underline decoration-indigo-500/30 ">
+          <div className="mt-6 justify-center font-medium ">
             날짜와 시간
             <DatePicker
-              className="shadow ml-6 w-full h-12 mt-4 bg-white justify-center text-l hover:bg-sky-100 rounded-md text-black font-medium  text-center"
+              className="shadow w-[335px] h-12 mt-4 bg-white justify-center text-l hover:bg-sky-100 rounded-md text-black font-light  text-center"
               dateFormat="yyyy년 MM월 dd일 h:mm aa"
               selected={selectedDate}
               minDate={new Date()}
@@ -117,8 +135,8 @@ const ScheduleAdd = () => {
               placeholderText="날짜를 선택해주세요!(필수)"
             />
           </div>
-          참여자 input을 클릭시 친구 리스트가
-          <div className="mt-6 font-semibold underline decoration-indigo-500/30">
+          {/* 참여자 input을 클릭시 친구 리스트가 */}
+          <div className="mt-6 flex-col flex font-semibold ">
             참여자 (우선 Id로 받습니다)
             <input
               value={participants}
@@ -126,20 +144,20 @@ const ScheduleAdd = () => {
               placeholder="일정을 함께할 친구가 있나요?"
               className="mt-4 shadow
               hover:bg-sky-100
-              ml-6
-              w-full
+              text-center
+              w-[335px]
               h-12
               bg-white
               justify-center
               text-l
               rounded-md
               text-black
-              font-medium
+              font-light
               p-4
              "
             />
           </div>
-          <div className="mt-6 font-semibold underline decoration-indigo-500/30">
+          <div className="mt-6 flex-col flex font-medium ">
             일정 제목{" "}
             <input
               value={subject}
@@ -147,19 +165,19 @@ const ScheduleAdd = () => {
               placeholder="일정의 제목을 입력해주세요!(필수)"
               className="mt-4 shadow
               hover:bg-sky-100
-              ml-6
-              w-full
+              text-center
+              w-[335px]
               h-12
               bg-white
               justify-center
               text-l
               rounded-md
               text-black
-              font-medium
+              font-light
               p-4"
             />
           </div>
-          <div className="mt-6 font-semibold underline decoration-indigo-500/30">
+          <div className="mt-6 flex-col flex font-medium ">
             일정 내용
             <input
               value={content}
@@ -168,23 +186,23 @@ const ScheduleAdd = () => {
               className="mt-4 
               shadow
               hover:bg-sky-100
-              ml-6
-              w-full
+              text-center
+              w-[335px]
               h-56
               bg-white
               text-l
               rounded-md
               text-black
-              font-medium
+              font-light
              p-4
              place-itmes-start"
             />
           </div>
           <button
             onClick={scheduleAddHandler}
-            className="mt-8 rounded-lg text-center align-middle border-white w-full h-12 border justify-center flex shadow"
+            className="mt-8 rounded-lg text-[16px] pt-[10px] font-semibold bg-[#015397] text-white text-center align-middle w-[335px] h-[40px] justify-center flex shadow"
           >
-            등록
+            등록 완료
           </button>
         </form>
       </div>
