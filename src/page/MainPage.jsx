@@ -1,7 +1,7 @@
 import React from "react";
 
-const EmailLogin = () => {
+const MainPage = () => {
   return <div></div>;
 };
 
-export default EmailLogin;
+export default MainPage;
