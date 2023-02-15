@@ -1,33 +1,42 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { instance } from "../../shared/AxiosInstance"
+import { instance } from "../../shared/AxiosInstance";
 import axios from "axios";
+import { LoginApi } from "../../api/LoginApi";
+import { setSingup } from "./SingupSlice";
 
-export const __emailLogin = ({ user, navigate, onModalOpen, setModalStr }) => {
+//이메일 로그인
+export const __emailLogin = ({
+  email,
+  password,
+  navigate,
+  onModalOpen,
+  setModalStr,
+}) => {
   return async function (dispatch) {
-    await instance
-      // 백단 연결시 API : /api/user/login
-      .post("/auth/login", user)
+    await LoginApi.EmailLogin({ email: email, password: password })
       .then((response) => {
         const accessToken = response.headers.get("Authorization");
-        const { email, nickname } = response.data;
+        const { email, nickname, profileImage } = response.data;
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("email", email);
         localStorage.setItem("nickname", nickname);
-        dispatch(isLogin(true));
-        dispatch(isLoading(true));
+        localStorage.setItem("profileImage", profileImage);
         alert(`${nickname}님 어서오세요.`);
-        navigate("/");
+        navigate("/main");
       })
       .catch((error) => {
         console.log(error);
-        if (error.response.status === 401) {
-          setModalStr("아이디 또는 비밀번호를 확인해주세요");
-          onModalOpen();
-        }
+        // const { data } = error.response;
+        // console.log(data);
+        // if (data.status === 401) {
+        //   setModalStr(data.message);
+        //   onModalOpen();
+        // }
       });
   };
 };
 
+//카카오 로그인
 export const __kakaologin = createAsyncThunk(
   "kakaologin",
   //전달 받은 코드 비동기로 처리
@@ -35,24 +44,31 @@ export const __kakaologin = createAsyncThunk(
     try {
       console.log("페이로드?", code);
       const data = await axios
-        .post("https://eb.jxxhxxx.shop/kakao/login", { code })
+        .post("http://hayangaeul.shop/kakao/login", { code })
         .then((res) => {
-          console.log("서버로 보내는값?", res.data);
-          const accessToken = res.headers.get("Authorization");
-          const nickname = res.data.nickname;
-          const email = res.data.email;
-
-          //유저 토큰,닉네임,이메일이 있다면 가져온 후 세팅
-          if (accessToken && nickname && email) {
-            localStorage.setItem("token", accessToken);
-            localStorage.setItem("nickname", nickname);
-            localStorage.setItem("email", email);
-            alert(`소셜로그인 인증 완료! ${nickname}님 환영합니다!`);
-            return window.location.assign("/");
-          } else {
-            alert("인증 오류! 다시 시도해주세요!");
-            return window.location.assign("/");
+          console.log("서버에서 보내는값?", res.data);
+          if (res.data.message !== "non-member") {
+            alert("그님스에 오신걸 환영합니다");
+            return window.location.assign("/main");
+          } else if (res.data.message === "non-member") {
+            alert("그님스를 이용하려면 프로필 정보를 입력해줘야합니다.");
           }
+          // const accessToken = res.headers.get("Authorization");
+          // const nickname = res.data.nickname;
+          // const email = res.data.email;
+
+          // // 유저 토큰,닉네임,이메일이 있다면 가져온 후 세팅
+          // if (accessToken && nickname && email) {
+          //   localStorage.setItem("token", accessToken);
+          //   localStorage.setItem("nickname", nickname);
+          //   localStorage.setItem("email", email);
+          //   alert(`소셜로그인 인증 완료! ${nickname}님 환영합니다!`);
+          //   return window.location.assign("/");
+          // }
+          // else {
+          //   alert("인증 오류! 다시 시도해주세요!");
+          //   return window.location.assign("/");
+          // }
         });
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
@@ -61,31 +77,34 @@ export const __kakaologin = createAsyncThunk(
     }
   }
 );
+
+const initialState = {
+  error: null,
+  isLoading: false,
+  message: "",
+  email: "",
+};
+
 const LoginSlice = createSlice({
   name: "login",
-  initialState: {},
-  reducer: {
+  initialState,
+  reducers: {
     isLoading: (state, action) => {
       state.isLoading = action.payload;
-    },
-    isLogin: (state, action) => {
-      state.isLogin = action.payload;
-    },
-    userInfo: (state, action) => {
-      state.userInfo = action.payload;
     },
     setMessage: (state, action) => {
       state.message = action.payload;
     },
   },
   extraReducers: {
-    //로그인
+    //카카오 소셜로그인
     [__kakaologin.pending]: (state) => {
       state.isLoading = true;
     },
     [__kakaologin.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.loginCheck = true;
+      state.email = action.payload;
     },
     [__kakaologin.rejected]: (state, action) => {
       state.isLoading = false;
@@ -94,5 +113,5 @@ const LoginSlice = createSlice({
   },
 });
 
-export const { isLoading, isLogin, userInfo, setMessage } = LoginSlice.actions;
+export const { isLoading, isLogin, setMessage } = LoginSlice.actions;
 export default LoginSlice.reducer;

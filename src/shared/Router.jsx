@@ -1,5 +1,6 @@
-import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import Layout from "../components/layout/Layout";
 import styled from "styled-components";
 import LoginPage from "../page/LoginPage";
@@ -11,6 +12,9 @@ import ScheduleRegisterPage from "../page/ScheduleRegisterPage";
 import NaverLoginPage from "../page/NaverLoginPage";
 import Callback from "../page/callback";
 import ScheduleDetailPage from "../page/ScheduleDetailPage";
+import MainPage from "../page/MainPage";
+import SetProfileNamePage from "../page/SetProfileNamePage";
+import SetProfileImgPage from "../page/SetProfileImgPage";
 
 const Router = () => {
   return (
@@ -18,7 +22,12 @@ const Router = () => {
       <Container>
         <Layout>
           <Routes>
-            <Route path="/" element={<LoginPage />} />
+            <Route path="/main" element={<MainPage />} />
+            {localStorage.getItem("email") ? (
+              <Route path="/" element={<MainPage />} />
+            ) : (
+              <Route path="/" element={<LoginPage />} />
+            )}
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/kakaoLogin" element={<KakaoLogin />} />
@@ -28,6 +37,14 @@ const Router = () => {
             <Route path="/naver/login" element={<NaverLoginPage />} />
             <Route path="/callback" element={<Callback />} />
             <Route path="/detail" element={<ScheduleDetailPage />} />
+            <Route
+              path="/signup/setProfileName"
+              element={<SetProfileNamePage />}
+            />
+            <Route
+              path="/signup/setProfileImg"
+              element={<SetProfileImgPage />}
+            />
           </Routes>
         </Layout>
       </Container>
