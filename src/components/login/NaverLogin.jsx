@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import NaverUnion from "../../img/NaverUnion.png";
+
 const NaverLogin = () => {
   const naverRef = useRef();
   const { naver } = window;
