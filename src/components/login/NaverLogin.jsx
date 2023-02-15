@@ -1,7 +1,11 @@
 import { useEffect, useRef } from "react";
 import NaverUnion from "../../img/NaverUnion.png";
 const NaverLogin = () => {
+<<<<<<< Updated upstream
   const naverRef = useRef();
+=======
+
+>>>>>>> Stashed changes
   const { naver } = window;
   //    깃헙에 올릴 땐 아래의 env활용
   const NAVER_CLIENT_ID = "T9R5hFNUTuTa1UqoVBcO";

@@ -108,11 +108,11 @@ const EmailLogin = () => {
   };
 
   return (
-    <>
-      <div className="container h-[100vh] max-sm bg-red-100 text-center">
-        <div className=" bg-red-200 grid grid-rows-2 gap-4">
-          <div className="m-auto  row-start-1 ">
-            <div className="m-auto w-[250px] h-[50px] overflow-hidden">
+    <div className="bg-[#EDF7FF]">
+      <div className="">
+        <div className="">
+          <div className="">
+            <div className="m-auto w-[67px] h-[64px] overflow-hidden gap-[10px] bg-red-900">
               <img
                 src="https://pbs.twimg.com/media/FACQ9-hUcAcA_11.jpg "
                 alt="곰캐릭터가 우쭐거리며 왠지 잘될 것 같은 기분포즈 중"
@@ -120,7 +120,7 @@ const EmailLogin = () => {
               />
             </div>
           </div>
-          <form className="bg-red-400 border-solid border-4 p-3 mt-[-50px]">
+          <form className="">
             <div className="grid grid-row-3 gap-3">
               <div className="bg-red-700 h-[100px]">
                 <div className=" bg-red-500 grid grid-row-2 gap-2">
@@ -185,10 +185,10 @@ const EmailLogin = () => {
           <div>
             <button onClick={() => navigate(`/signup`)}>회원가입</button>
           </div>
-          <div className="hr-sect">
+          <div className="">
             <div>간편 로그인</div>
           </div>
-          <div className="m-auto grid grid-flow-col gap-12">
+          <div className="">
             <LoginButton onEvent={onClickKakaoLongin} img={kakaologo} />
             <LoginButton onEvent={onClickKakaoLongin} img={naverlogo} />
             {/* <NaverLoginPage /> */}
@@ -198,7 +198,7 @@ const EmailLogin = () => {
           </IsModal>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
