@@ -103,13 +103,22 @@ const SetProfileName = () => {
     const nameValue = userNameCurrent.value;
     const nickNameValue = userNickNameCurrent.value;
 
-    if (nameValue.trim() === "") {
-      SetRegulation(() => ({
-        ...regulation,
-        regulationName: "이메일을 입력해주세요.",
-      }));
-      userNameCurrent.focus();
-      return;
+    if (userNameCurrent) {
+      if (nameValue.trim() === "") {
+        SetRegulation(() => ({
+          ...regulation,
+          regulationName: "이름을 입력해주세요.",
+        }));
+        userNameCurrent.focus();
+        return;
+      } else if (!nameRegulationExp.test(nameValue)) {
+        SetRegulation(() => ({
+          ...regulation,
+          regulationName: "한글 또는 영어로 작성해주세요.",
+        }));
+        userNameCurrent.focus();
+        return;
+      }
     }
 
     if (nickNameValue.trim() === "") {

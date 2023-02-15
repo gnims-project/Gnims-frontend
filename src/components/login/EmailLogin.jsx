@@ -8,7 +8,7 @@ import LoginButton from "../button/LoginButton";
 import "../style/login.css";
 import { __emailLogin } from "../../redux/modules/LoginSlice";
 import { useDispatch, useSelector } from "react-redux";
-import NaverLoginPage from "../../page/NaverLoginPage";
+import NaverLogin from "../../page/NaverLoginPage";
 
 const EmailLogin = () => {
   const dispatch = useDispatch();
@@ -102,11 +102,6 @@ const EmailLogin = () => {
     window.location.href = KAKAO_AUTH_URL;
   };
 
-  // 네이버 로그인
-  const onClickNaverLogin = () => {
-    //window.location.href =
-  };
-
   return (
     <div className="bg-[#EDF7FF]">
       <div className="">
@@ -190,8 +185,7 @@ const EmailLogin = () => {
           </div>
           <div className="">
             <LoginButton onEvent={onClickKakaoLongin} img={kakaologo} />
-            <LoginButton onEvent={onClickKakaoLongin} img={naverlogo} />
-            {/* <NaverLoginPage /> */}
+            <NaverLogin />
           </div>
           <IsModal isModalOpen={isOpen.isOpen} onMoalClose={onMoalClose}>
             {ModalStr}
