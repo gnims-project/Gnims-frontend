@@ -32,7 +32,12 @@ const NaverLogin = () => {
     <>
       {/*네이버 로그인아이콘표시 */}
       <div ref={naverRef} id="naverIdLogin" />
-      <img onClick={handleClick} className="h-[80px]" src={NaverUnion} />
+      <img
+        onClick={handleClick}
+        className="h-[60px]"
+        src={NaverUnion}
+        alt="네이버로고이미지"
+      />
     </>
   );
 };

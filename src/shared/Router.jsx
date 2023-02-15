@@ -22,7 +22,7 @@ const Router = () => {
         <Layout>
           <Routes>
             <Route path="/main" element={<MainPage />} />
-            {localStorage.getItem("email") ? (
+            {localStorage.getItem("nickname") ? (
               <Route path="/" element={<MainPage />} />
             ) : (
               <Route path="/" element={<LoginPage />} />

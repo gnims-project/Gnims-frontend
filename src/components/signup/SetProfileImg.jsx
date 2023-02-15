@@ -4,10 +4,16 @@ import profilImg from "../../img/ProfilImg.png";
 import { SignupApi } from "../../api/Signup";
 import IsModal from "../modal/Modal";
 import axios from "axios";
+import { useNavigate } from "react-router";
 
 const SetProfileImg = () => {
+  const navigate = useNavigate();
+
   const [isOpen, setOpen] = useState(false);
-  const [ModalStr, setModalStr] = useState("");
+  const [ModalStr, setModalStr] = useState({
+    modalTitle: "",
+    modalMessage: "",
+  });
   const { singup, NameNickName, userInfo } = useSelector(
     (state) => state.SingupSlice
   );
@@ -28,7 +34,6 @@ const SetProfileImg = () => {
 
   const onSingup = async () => {
     //폼데이터 변환
-    console.log(imgRef.current.files[0]);
     setImageFile(imgRef.current.files[0]);
     const imgFile = imgRef.current.files[0];
     const formData = new FormData();
@@ -74,6 +79,7 @@ const SetProfileImg = () => {
     console.log(data);
     const json = JSON.stringify(data);
     const blob = new Blob([json], { type: "application/json" });
+    console.log(blob);
     formData.append("data", blob);
 
     await axios
@@ -86,7 +92,7 @@ const SetProfileImg = () => {
         console.log(response);
         setModalStr(() => response.message);
         onModalOpen();
-        navigator("/login");
+        navigate("/login");
       })
       .catch((error) => {
         console.log(error);
