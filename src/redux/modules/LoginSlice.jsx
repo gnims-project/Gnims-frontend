@@ -26,12 +26,16 @@ export const __emailLogin = ({
       })
       .catch((error) => {
         console.log(error);
-        // const { data } = error.response;
-        // console.log(data);
-        // if (data.status === 401) {
-        //   setModalStr(data.message);
-        //   onModalOpen();
-        // }
+        const { data } = error.response;
+        console.log(data);
+        if (data.status === 401) {
+          setModalStr({
+            modalTitle: "ID를 찾을 수 없어요.",
+            modalMessage:
+              "아이디(이메일)과 비밀번호를    다시 한 번 확인해주세요.",
+          });
+          onModalOpen();
+        }
       });
   };
 };
