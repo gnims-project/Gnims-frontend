@@ -34,9 +34,9 @@ const NaverLogin = () => {
       <div ref={naverRef} id="naverIdLogin" />
       <img
         onClick={handleClick}
-        className="h-[80px]"
+        className="h-[60px]"
         src={NaverUnion}
-        alt="로그인버튼"
+        alt="네이버로고이미지"
       />
     </>
   );

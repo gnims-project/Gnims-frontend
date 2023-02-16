@@ -12,13 +12,14 @@ const Container = styled.div`
   width: 100%;
   max-width: 375px;
   height: 100vh;
-  position: relative;
+  position: absolute;
   opacity: 1;
   box-sizing: border-box;
-
+  top: "calc(50% - 167px/2)";
   -ms-overflow-style: none;
-  background-color: #f4f5f7;
+  background-color: #edf7ff;
 
+  font-family: Pretendard-Regular;
   //스크롤창 숨기기
   overflow-y: scroll;
   /* IE and Edge */
@@ -30,7 +31,7 @@ const Container = styled.div`
   }
   @media screen and (max-width: 768px) {
     width: 375px;
-    background-color: #f4f5f7;
+    background-color: #edf7ff;
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
