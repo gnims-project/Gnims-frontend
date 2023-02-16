@@ -172,6 +172,7 @@ const ScheduleAdd = () => {
               일정 제목{" "}
               <input
                 value={subject}
+                maxLength={20}
                 onChange={onSubjectChangeHandler}
                 placeholder="일정 제목을 입력해주세요!(필수)"
                 className="mt-4 shadow
