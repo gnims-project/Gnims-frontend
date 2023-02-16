@@ -47,26 +47,46 @@ const Profile = () => {
       <div className="flex flex-col items-baseline pt-10">
         <div
           onClick={() => {
-            navigate("/");
+            navigate();
           }}
           className="flex gap-[130px] p-[15px] border-b-[1px] border-[#BBD7FF] border-solid bg-white w-[375px] h-[50px]"
         >
           <span className="text-sm w-[175px] h-[20px]">비밀번호 재설정</span>
           <img src={Vector} alr="화살표" />
         </div>
-        <div className="flex gap-[130px] p-[15px] border-b-[1px] border-[#BBD7FF] border-solid bg-white w-[375px] h-[50px]">
+        <div
+          onClick={() => {
+            navigate();
+          }}
+          className="flex gap-[130px] p-[15px] border-b-[1px] border-[#BBD7FF] border-solid bg-white w-[375px] h-[50px]"
+        >
           <span className="text-sm w-[175px] h-[20px]">나의 지난 일정</span>
           <img src={Vector} alr="화살표" />
         </div>
-        <div className="flex gap-[130px] p-[15px] border-b-[1px] border-[#BBD7FF] border-solid bg-white w-[375px] h-[50px]">
+        <div
+          onClick={() => {
+            navigate();
+          }}
+          className="flex gap-[130px] p-[15px] border-b-[1px] border-[#BBD7FF] border-solid bg-white w-[375px] h-[50px]"
+        >
           <span className="text-sm w-[175px] h-[20px]">내게 온 초대 목록</span>
           <img src={Vector} alr="화살표" />
         </div>
-        <div className="flex gap-[130px] p-[15px] border-b-[1px] border-[#BBD7FF] border-solid bg-white w-[375px] h-[50px]">
+        <div
+          onClick={() => {
+            navigate();
+          }}
+          className="flex gap-[130px] p-[15px] border-b-[1px] border-[#BBD7FF] border-solid bg-white w-[375px] h-[50px]"
+        >
           <span className="text-sm w-[175px] h-[20px]">알림 설정</span>
           <img src={Vector} alr="화살표" />
         </div>
-        <div className="flex gap-[130px] p-[15px] border-b-[1px] border-[#BBD7FF] border-solid bg-white w-[375px] h-[50px]">
+        <div
+          onClick={() => {
+            navigate();
+          }}
+          className="flex gap-[130px] p-[15px] border-b-[1px] border-[#BBD7FF] border-solid bg-white w-[375px] h-[50px]"
+        >
           <span className="text-sm w-[175px] h-[20px]">
             그님스 피드백 보내기
           </span>
