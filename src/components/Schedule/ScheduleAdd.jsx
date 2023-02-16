@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useCallback, useEffect, useMemo, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch } from "react-redux";
@@ -22,15 +22,6 @@ const ScheduleAdd = () => {
   const [borderParang, setBorderParang] = useState("border-none");
   const [modalOpen, setModalOpen] = useState(false);
 
-  // const [schedules, setSchedules] = useState({
-  //   id: 0,
-  //   cardColor: "",
-  //   date: "",
-  //   time: "",
-  //   subject: "",
-  //   content: "",
-  //   participantsId: "",
-  // });
   const dispatch = useDispatch();
   const today = new Date().toISOString().slice(0, 10);
 
@@ -67,6 +58,8 @@ const ScheduleAdd = () => {
   const onParticipantsChangeHandler = (e) => {
     setParticipants(e.target.value);
   };
+
+  //ㅅㅓ버로 보내기 위한 데이터 형태. 참여자를 선택하지 않으면 빈 배열[]만 넘어감.
   const [participantss, setParticipantss] = useState([]);
   if (participants.length > 0) {
     setParticipantss(participants);
@@ -158,7 +151,7 @@ const ScheduleAdd = () => {
               참여자 (우선 Id로 받습니다)
               <input
                 value={participants}
-                onChange={onParticipantsChangeHandler}
+                onChange={() => onParticipantsChangeHandler}
                 placeholder="함께할 친구들을 선택해주세요. (최대 4명)"
                 className="mt-4 shadow 
               hover:bg-sky-100
@@ -200,7 +193,7 @@ const ScheduleAdd = () => {
               <input
                 value={content}
                 onChange={onContentChangeHandler}
-                placeholder="일정 내용을 입력해주세요. 필수로 입력하지 않아도 일정이 생성돼요."
+                placeholder="일정 내용을 입력해주세요. &#13;&#10; 필수로 입력하지 않아도 일정이 생성돼요."
                 className="mt-4
               shadow
               hover:bg-sky-100 placeholder-textNavy
