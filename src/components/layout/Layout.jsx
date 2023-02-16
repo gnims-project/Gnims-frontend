@@ -12,13 +12,14 @@ const Container = styled.div`
   width: 100%;
   max-width: 375px;
   height: 100vh;
-  position: relative;
+  position: absolute;
   opacity: 1;
   box-sizing: border-box;
-
+  top: "calc(50% - 167px/2)";
   -ms-overflow-style: none;
   background-color: #edf7ff;
 
+  font-family: Pretendard-Regular;
   //스크롤창 숨기기
   overflow-y: scroll;
   /* IE and Edge */
