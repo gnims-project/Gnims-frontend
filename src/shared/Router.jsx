@@ -14,7 +14,7 @@ import ScheduleDetailPage from "../page/ScheduleDetailPage";
 import MainPage from "../page/MainPage";
 import SetProfileNamePage from "../page/SetProfileNamePage";
 import SetProfileImgPage from "../page/SetProfileImgPage";
-
+import NotificationsPage from "../page/NotificationsPage";
 const Router = () => {
   return (
     <BrowserRouter>
@@ -22,7 +22,7 @@ const Router = () => {
         <Layout>
           <Routes>
             <Route path="/main" element={<MainPage />} />
-            {localStorage.getItem("email") ? (
+            {localStorage.getItem("nickname") ? (
               <Route path="/" element={<MainPage />} />
             ) : (
               <Route path="/" element={<LoginPage />} />
@@ -44,6 +44,7 @@ const Router = () => {
               path="/signup/setProfileImg"
               element={<SetProfileImgPage />}
             />
+            <Route path="/notification" element={<NotificationsPage />} />
           </Routes>
         </Layout>
       </Container>
