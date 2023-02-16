@@ -1,5 +1,7 @@
 import React, { useRef, useState } from "react";
 import kebab from "../../img/kebab.png";
+import BottomNavi from "../layout/BottomNavi";
+import TopNavBar from "../layout/TopNavBar";
 import KebabModal from "../modal/KebabButtonModal";
 
 const ScheduleDetail = () => {
@@ -11,14 +13,14 @@ const ScheduleDetail = () => {
 
   return (
     <div className="bg-[#EDF7FF] h-[734px] width-[375px]">
-      <div className="h-[48px]">네비바상단영역</div>
+      <TopNavBar />
       <div>
         {modalOpen && <KebabModal setModalOpen={setModalOpen} />}
         {/* bg는 유저가 등록시에 선택한 cardColor로   */}
-        <div className="h-[202px] bg-[#538EDF] pl-[18px] pt-[23px] pr-[21px] text-white">
+        <div className="h-[250px] bg-[#538EDF] pl-[18px] pt-[71px] pr-[21px] text-white">
           <div className="flex flex-row-reverse">
             <img
-              className="h-[20px] w-[20px] flex "
+              className="h-[20px] flex "
               src={kebab}
               alt="케밥메뉴"
               onClick={showModalHandler}
@@ -49,9 +51,7 @@ const ScheduleDetail = () => {
           </div>
         </div>{" "}
       </div>
-      <div className="h-[50px] bg-white inset-x-0 bottom-0 flex absolute">
-        네비바하단영역
-      </div>
+      <BottomNavi />
     </div>
   );
 };
