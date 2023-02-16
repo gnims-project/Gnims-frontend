@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 
-const IsModal = ({ isModalOpen, onMoalClose, children }) => {
+const IsModal = ({ isModalOpen, onMoalClose, message }) => {
+  const modalStr = message.ModalStr;
+
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const modalStyle = {
     overlay: {
@@ -10,21 +12,22 @@ const IsModal = ({ isModalOpen, onMoalClose, children }) => {
       left: 10,
       right: 10,
       bottom: 0,
-      backgroundColor: "rgba(255, 255, 255, 0.45)",
+      backgroundColor: "#53535339",
       zIndex: 10,
     },
     content: {
       justifyContent: "center",
       background: "#fcfcfc",
       overflow: "auto",
-      top: "42vh",
-      left: "40vw",
-      right: "40vw",
-      bottom: "42vh",
+      left: "calc(50% - 300px/2 + 0.5px)",
+      top: "calc(50% - 167px/2)",
+      height: "167px",
+      width: "300px",
       WebkitOverflowScrolling: "touch",
-      borderRadius: "14px",
+      borderRadius: "16px",
       outline: "none",
       zIndex: 10,
+      padding: "16px",
     },
   };
   return (
@@ -39,10 +42,22 @@ const IsModal = ({ isModalOpen, onMoalClose, children }) => {
       shouldCloseOnEsc={false}
       onRequestClose={() => setModalIsOpen(false)}
     >
-      <div id="heading">{children}</div>
-      <button className="mt-10" onClick={onMoalClose}>
-        확인
-      </button>
+      <div className="grid grid-flow-row gap-[20px] text-center">
+        <div className="flex flex-col items-center gap-[14px] mt-[10px]">
+          <h1 className="px-[10px]  text-[#12396F] text-[18px] font-[700] whitespace-pre-line">
+            {modalStr.modalTitle}
+          </h1>
+          <p className="font-[400] text-[14px] text-[#12396F]">
+            {modalStr.modalMessage}
+          </p>
+        </div>
+        <button
+          className="w-full bg-[#002C51] h-[40px] rounded-[4px] font-[600] text-[#fff]"
+          onClick={onMoalClose}
+        >
+          확인
+        </button>
+      </div>
     </Modal>
   );
 };

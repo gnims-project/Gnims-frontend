@@ -2,13 +2,14 @@
   display: flex;
   flex-basis: 100%;
   align-items: center;
-  margin: 8px 0px;
+  color: #12396f;
+  margin-top: 26px;
 }
 .hr-sect::before,
 .hr-sect::after {
   content: "";
   flex-grow: 1;
-  background: rgba(0, 0, 0, 0.35);
+  background: #12396f;
   height: 1px;
   font-size: 0px;
   line-height: 0px;
