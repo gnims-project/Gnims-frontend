@@ -138,7 +138,7 @@ const ScheduleAdd = () => {
             <div className="mt-6 justify-center font-medium ">
               날짜와 시간
               <DatePicker
-                className="relative placeholder-textNavy shadow w-[335px] h-12 mt-4 bg-white justify-center text-l hover:bg-sky-100 rounded-md font-light text-center"
+                className="relative placeholder-textNavy text-textNavy shadow w-[335px] h-12 mt-4 bg-white justify-center text-l hover:bg-sky-100 rounded-md font-light text-center"
                 dateFormat="yyyy년 MM월 dd일 h:mm aa"
                 selected={selectedDate}
                 minDate={new Date()}
@@ -195,7 +195,7 @@ const ScheduleAdd = () => {
               <input
                 value={content}
                 onChange={onContentChangeHandler}
-                placeholder="일정 내용을 입력해주세요. &#13;&#10; 필수로 입력하지 않아도 일정이 생성돼요."
+                placeholder="일정 내용을 입력해주세요. (선택)"
                 className="mt-4
               shadow
               hover:bg-sky-100 placeholder-textNavy

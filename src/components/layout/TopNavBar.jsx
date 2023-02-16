@@ -8,8 +8,8 @@ const TopNavBar = () => {
   return (
     <div className="relative">
       <div className="h-[48px] w-screen top-0 fixed bg-white opacity-80 flex ">
-        <div className="h-[48px] w-[217px] bg-slate-600">
-          GNIMS로고들어갈자리
+        <div className="h-[48px] w-[217px] text-white bg-textNavy text-[40px] pl-4">
+          GNIMS
         </div>
         <img
           className="h-[24px] w-[24px] flex absolute left-[255px] mt-[13px]"
