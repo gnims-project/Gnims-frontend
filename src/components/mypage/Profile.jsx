@@ -9,14 +9,14 @@ const Profile = () => {
   const navigate = useNavigate();
 
   // 임시로 사용하는 데이터
-  // window.localStorage.setItem("nickname", "동퐈");
-  // window.localStorage.setItem("email", "cdh0283@gmail.com");
-  // window.localStorage.setItem("profileImage", "");
+  // localStorage.setItem("nickname", "동퐈");
+  // localStorage.setItem("email", "cdh0283@gmail.com");
+  // localStorage.setItem("profileImage", "");
 
   //로컬 스토리지에 있는 데이터를 가져오는 코드
-  const nickname = window.localStorage.getItem("nickname");
-  const email = window.localStorage.getItem("email");
-  const profileImage = window.localStorage.getItem("profileImage");
+  const nickname = localStorage.getItem("nickname");
+  const email = localStorage.getItem("email");
+  const profileImage = localStorage.getItem("profileImage");
 
   //페이지 렌더링시 팔로우 정보를 가져와야함
   useEffect(() => {}, []);
@@ -65,7 +65,7 @@ const Profile = () => {
         </div>
         <div
           onClick={() => {
-            navigate();
+            navigate("/scheduleinvitation");
           }}
           className="flex gap-[130px] p-[15px] border-b-[1px] border-[#BBD7FF] border-solid bg-white w-[375px] h-[50px]"
         >
