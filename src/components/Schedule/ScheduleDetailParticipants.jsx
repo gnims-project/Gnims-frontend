@@ -6,7 +6,7 @@ const ScheduleDetailParticipants = () => {
 
   const fetchTodos = async () => {
     await axios
-      .get(`https://eb.jxxhxxx.shop/events/8`, {
+      .get(`https://eb.jxxhxxx.shop/events/10`, {
         // .get(`https://eb.jxxhxxx.shop/events/${id}`, {
         // .get("http://localhost:3001/todos", {
         headers: {
@@ -23,17 +23,18 @@ const ScheduleDetailParticipants = () => {
   // setIndex(id);
   useEffect(() => {
     fetchTodos();
-    // console.log(schedule.joiner.split(","));
-    // console.log(joiners);
   }, []);
   console.log(schedule);
+  // const joiners = schedule.data.invitees;
+  //joiners는 나를 포함한 참여자 배열
+  // console.log(joiners);
   return (
     <div>
-      {schedule.data.invitees.length !== 1 ? (
+      {schedule.data.invitees?.length !== 1 ? (
         <div className="mt-[30px] h-[98px] ml-[20px]">
           참여자{" "}
           <div className="bg-[#CEE4F8] h-[50px] w-[335px] mt-[20px] p-[15px] shadow flex rounded-lg">
-            {schedule.joiner}
+            {schedule.data.invitees}
           </div>
         </div>
       ) : (

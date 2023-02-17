@@ -20,7 +20,7 @@ const ScheduleDetail = () => {
   const [schedule, setSchedule] = useState([]);
   const fetchTodos = async () => {
     await axios
-      .get(`https://eb.jxxhxxx.shop/v2/events/8`, {
+      .get(`https://eb.jxxhxxx.shop/v2/events/10`, {
         // .get(`https://eb.jxxhxxx.shop/events/${id}`, {
         // .get("http://localhost:3001/todos", {
         headers: {
@@ -39,10 +39,8 @@ const ScheduleDetail = () => {
     fetchTodos();
   }, [id]);
   console.log(schedule);
-  const time = schedule.time.split(":", 2).join(":");
-  console.log(time);
-  // console.log(schedule.data.cardColor);
-  // console.log(subject);
+  const time = schedule.time?.split(":", 2).join(":");
+
   return (
     <div className="bg-[#EDF7FF] h-[734px] width-[375px]">
       <TopNavBar />
@@ -68,7 +66,8 @@ const ScheduleDetail = () => {
             {schedule.subject}
           </div>{" "}
           <div className="place-content-end font-light flex text-[18px] mt-[70px]">
-            D-{schedule.dday}
+            d-
+            {schedule.dday === 0 ? <div>day</div> : <div>{schedule.dday}</div>}
           </div>
         </div>
         <div className="text-[#12396F]">
@@ -81,7 +80,7 @@ const ScheduleDetail = () => {
           </div>
         </div>{" "}
       </div>
-      <BottomNavi />
+      {modalOpen ? false : <BottomNavi />}
     </div>
   );
 };
