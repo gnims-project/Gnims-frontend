@@ -4,7 +4,7 @@ export const instance = axios.create({
   //로컬
   //baseURL: "http://localhost:3001",
   //본서버
-  // baseURL: "https://eb.jxxhxxx.shop",
+  //baseURL: "https://eb.jxxhxxx.shop",
   //민우님 개인서버
   //baseURL: "http://hayangaeul.shop/auth/login",
   baseURL: "http://hayangaeul.shop",

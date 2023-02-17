@@ -90,45 +90,71 @@ const SetProfileImg = () => {
       })
       .then((response) => {
         console.log(response);
-        setModalStr(() => response.message);
-        onModalOpen();
+        alert(`${response.data.message}`);
         navigate("/login");
       })
       .catch((error) => {
-        console.log(error);
-        // const { data } = error.response;
-        // if (data.status === 401) {
-        //   console.log(data.message);
-        //   setModalStr(data.message);
-        //   onModalOpen();
-        // }
+        console.log(error.response);
+        const { data } = error.response;
+        if (data.status === 400) {
+          console.log(data.message);
+          setModalStr({
+            modalTitle: data.messages,
+            modalMessage: "닉네임과 이름을 다시 한 번 확인해주세요.",
+          });
+          onModalOpen();
+        }
       });
   };
 
   //소셜회원가입시 백단 연결
 
   return (
-    <div>
-      <div className="App" style={{ marginTop: "100px" }}>
-        <img src={image} alt="프로필이미지" />
-        <label htmlFor="profileImg">프로필 이미지 추가</label>
-        <input
-          //모든타입의 이미지허용
-          accept="image/*"
-          id="profileImg"
-          type="file"
-          ref={imgRef}
-          style={{ display: "none" }}
-          multiple
-          onChange={imagePreview}
-        />
+    <div className="App container md mt-[110px] ">
+      <div className="grid grid-flow-row ml-[20px] mr-[20px]">
         <div>
-          <button onClick={onSingup}>그님스시작하기</button>
+          <label
+            htmlFor="userName"
+            className="cursor-pointer text-[#12396F] font-[500] text-[16px]"
+          >
+            프로필 사진을 설정해주세요.
+          </label>
+        </div>
+        <div>
+          <div className="mt-[53px]">
+            <label htmlFor="profileImg">
+              <div className=" h-[86px] w-[86px] justify-center mx-auto">
+                <img
+                  className="rounded-full h-full w-full"
+                  src={image}
+                  alt="프로필이미지"
+                />
+              </div>
+            </label>
+            <input
+              //모든타입의 이미지허용
+              accept="image/*"
+              id="profileImg"
+              type="file"
+              ref={imgRef}
+              style={{ display: "none" }}
+              multiple
+              onChange={imagePreview}
+            />
+          </div>
+          <button
+            onClick={onSingup}
+            className="h-[50px] rounded w-full bg-[#002C51] font-[700] text-[#ffff] mt-[24px]"
+          >
+            그님스시작하기
+          </button>
         </div>
       </div>
-      <IsModal isModalOpen={isOpen.isOpen} onMoalClose={onMoalClose}>
-        {ModalStr}
-      </IsModal>
+      <IsModal
+        isModalOpen={isOpen.isOpen}
+        onMoalClose={onMoalClose}
+        message={{ ModalStr }}
+      />
     </div>
   );
 };

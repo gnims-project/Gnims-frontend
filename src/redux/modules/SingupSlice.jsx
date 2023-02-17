@@ -2,25 +2,34 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { Action } from "@remix-run/router";
 import { SignupApi } from "../../api/Signup";
 
-//이메일 중복확인
-export const __emailDoubleCheck = ({ nickname, onModalOpen, setModalStr }) => {
+//닉네임 중복확인
+export const __nickNameCheck = ({ nickname, onModalOpen, setModalStr }) => {
   return async function (dispatch) {
     console.log(nickname);
     SignupApi.nickNameDoubleCheck({ nickname: nickname })
       .then((response) => {
         console.log(response);
-        setModalStr(() => response.message);
+        setModalStr({
+          modalTitle: response.message,
+          modalMessage: "",
+        });
         onModalOpen();
         dispatch(isNickNameDoubleCheck(true));
       })
       .catch((error) => {
         const { data } = error.response;
         if (data.status === 400) {
-          console.log(data.message);
-          setModalStr(data.message);
+          setModalStr({
+            modalTitle: "닉네임을 확인해주세요.",
+            modalMessage: data.message,
+          });
           onModalOpen();
         } else {
-          console.log(error);
+          setModalStr({
+            modalTitle: "닉네임을 확인해주세요.",
+            modalMessage: data.message,
+          });
+          onModalOpen();
         }
       });
   };

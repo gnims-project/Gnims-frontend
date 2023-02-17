@@ -16,7 +16,10 @@ export const __emailLogin = ({
     await LoginApi.EmailLogin({ email: email, password: password })
       .then((response) => {
         const accessToken = response.headers.get("Authorization");
-        const { email, nickname, profileImage } = response.data;
+        console.log(response);
+        const { email, nickname, profileImage } = response.data.data;
+
+        
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("email", email);
         localStorage.setItem("nickname", nickname);
