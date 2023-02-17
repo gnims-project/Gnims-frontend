@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       fontSize: {
         sm: ["16px", "19px"],
+        md: ["20px", "24px"],
       },
       colors: {
         sora: "#538EDF",
