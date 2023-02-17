@@ -16,6 +16,7 @@ import MainPage from "../page/MainPage";
 import SetProfileNamePage from "../page/SetProfileNamePage";
 import SetProfileImgPage from "../page/SetProfileImgPage";
 import NotificationsPage from "../page/NotificationsPage";
+import ScheduleInvitation from "../components/mypage/ScheduleInvitation";
 
 const Router = () => {
   return (
@@ -48,6 +49,10 @@ const Router = () => {
               element={<SetProfileImgPage />}
             />
             <Route path="/notification" element={<NotificationsPage />} />
+            <Route
+              path="/scheduleinvitation"
+              element={<ScheduleInvitation />}
+            />
           </Routes>
         </Layout>
       </Container>
