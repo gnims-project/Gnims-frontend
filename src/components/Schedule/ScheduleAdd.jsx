@@ -2,7 +2,8 @@ import React, { memo, useCallback, useEffect, useMemo, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch } from "react-redux";
-import { __postSchedule } from "../../redux/modules/ScheduleSlice";
+import { __AddSchedule } from "../../redux/modules/ScheduleSlice";
+import { instance } from "../../shared/AxiosInstance";
 import BottomNavi from "../layout/BottomNavi";
 import TopNavBar from "../layout/TopNavBar";
 import ScheduleModal from "../modal/ScheduleModal";
@@ -13,7 +14,7 @@ import ScheduleModal from "../modal/ScheduleModal";
 const ScheduleAdd = () => {
   //필요한 변수들
   const [selectedDate, setSelectedDate] = useState();
-  const [selectedColor, setColorSelected] = useState("");
+  const [selectedColor, setColorSelected] = useState("SORA");
   const [bgColor, setBgColor] = useState("bg-sora");
   const [subject, setSubject] = useState("");
   const [content, setContent] = useState("");
@@ -42,7 +43,7 @@ const ScheduleAdd = () => {
     setBorderParang("border-none");
   };
   const eventHandlerParang = () => {
-    setColorSelected("PARNG");
+    setColorSelected("PARANG");
     setBgColor("bg-parang");
     setBorderSora("border-none");
     setBorderNam("border-none");
@@ -83,7 +84,7 @@ const ScheduleAdd = () => {
         content: content,
         participantsId: participantss,
       };
-      await dispatch(__postSchedule(newSchedule));
+      await dispatch(__AddSchedule(newSchedule));
       setSubject("");
       setContent("");
       setParticipants("");

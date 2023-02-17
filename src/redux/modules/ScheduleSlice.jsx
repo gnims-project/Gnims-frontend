@@ -1,7 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-
-const BASE_URL = process.env.REACT_APP_BASE_URL;
+import { ScheduleAPI } from "../../api/Schedule";
 const initialState = {
   id: 0,
   cardColor: "",
@@ -13,22 +11,11 @@ const initialState = {
   isLoading: false,
 };
 
-export const __postSchedule = createAsyncThunk(
+export const __AddSchedule = createAsyncThunk(
   "schedule/postSchedules",
   async (payload, thunkAPI) => {
     try {
-      let Authorization = localStorage.getItem("Authorization");
-      const config = {
-        headers: {
-          "Content-type": "application/json",
-          Authorization: `Bearer ${Authorization}`,
-        },
-      };
-      const data = await axios.post(
-        "https://eb.jxxhxxx.shop/events",
-        payload,
-        config
-      );
+      const data = await ScheduleAPI.scheduleAdd(payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -41,13 +28,13 @@ export const ScheduleSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [__postSchedule.pending]: (state) => {
+    [__AddSchedule.pending]: (state) => {
       state.isLoading = true;
     },
-    [__postSchedule.fulfilled]: (state, action) => {
+    [__AddSchedule.fulfilled]: (state, action) => {
       state.schedules = [...state.schedules, action.payload];
     },
-    [__postSchedule.rejected]: (state, action) => {
+    [__AddSchedule.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },
