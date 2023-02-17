@@ -1,22 +1,37 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { ScheduleAPI } from "../../api/Schedule";
-const initialState = [
-  {
-    id: 0,
-    cardColor: "",
-    date: null,
-    time: null,
-    subject: "",
-    content: "",
-    participantsId: null,
-    isLoading: false,
-  },
-];
-export const __AddSchedule = createAsyncThunk(
+import axios from "axios";
+import { ScheduleApi } from "../../api/Schedule";
+
+const BASE_URL = process.env.REACT_APP_BASE_URL;
+const initialState = {
+  schedules: [],
+  id: 0,
+  cardColor: "",
+  date: null,
+  time: null,
+  subject: "",
+  content: "",
+  participantsId: null,
+  isLoading: false,
+};
+
+// export const __getSchedule = createAsyncThunk(
+//   "schedule/getSchedules",
+//   async (payload, thunkAPI) => {
+//     try {
+//       console.log("Slice" + payload);
+//       const { data } = await ScheduleApi.getSccheduleApi(payload);
+//       console.log(data.data);
+//       return thunkAPI.fulfillWithValue(data.data);
+//     } catch {}
+//   }
+// );
+
+export const __postSchedule = createAsyncThunk(
   "schedule/postSchedules",
   async (payload, thunkAPI) => {
     try {
-      const data = await ScheduleAPI.scheduleAdd(payload);
+      const data = ScheduleApi.scheduleAdd(payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -29,14 +44,24 @@ export const ScheduleSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [__AddSchedule.pending]: (state) => {
+    // [__getSchedule.pending]: (state) => {
+    //   state.isLoading = true;
+    // },
+    // [__getSchedule.fulfilled]: (state, action) => {
+    //   state.schedules = action.payload;
+    // },
+    // [__getSchedule.rejected]: (state, action) => {
+    //   state.isLoading = false;
+    //   state.error = action.payload;
+    // },
+
+    [__postSchedule.pending]: (state) => {
       state.isLoading = true;
     },
-    [__AddSchedule.fulfilled]: (state, action) => {
-      state.isLoading = false;
+    [__postSchedule.fulfilled]: (state, action) => {
       state.schedules = [...state.schedules, action.payload];
     },
-    [__AddSchedule.rejected]: (state, action) => {
+    [__postSchedule.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },

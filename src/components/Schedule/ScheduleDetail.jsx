@@ -20,16 +20,16 @@ const ScheduleDetail = () => {
   const [schedule, setSchedule] = useState([]);
   const fetchTodos = async () => {
     await axios
-      // .get(`https://eb.jxxhxxx.shop/events/11`, {
-      // .get(`https://eb.jxxhxxx.shop/events-${id}`, {
-      .get("http://localhost:3001/todos", {
+      .get(`https://eb.jxxhxxx.shop/v2/events/8`, {
+        // .get(`https://eb.jxxhxxx.shop/events/${id}`, {
+        // .get("http://localhost:3001/todos", {
         headers: {
           Authorization: localStorage.getItem("Authorization"),
         },
       })
       .then((appData) => {
         //useparam으로 id찾는게 가능해지면 data[index]로 처리.
-        setSchedule(appData.data[1]);
+        setSchedule(appData.data.data);
       }, []);
   };
   // const subject = schedule.data.subject;
@@ -39,6 +39,8 @@ const ScheduleDetail = () => {
     fetchTodos();
   }, [id]);
   console.log(schedule);
+  const time = schedule.time.split(":", 2).join(":");
+  console.log(time);
   // console.log(schedule.data.cardColor);
   // console.log(subject);
   return (
@@ -60,7 +62,7 @@ const ScheduleDetail = () => {
             />
           </div>
           <div className="flex space-x-3 text-[18px] mt-[-18px] font-light ">
-            <div>{schedule.date}</div> <div> {schedule.time}</div>{" "}
+            <div>{schedule.date}</div> <div> {time}</div>{" "}
           </div>
           <div className="mt-[28px] font-semibold text-[24px]">
             {schedule.subject}
