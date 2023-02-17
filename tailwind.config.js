@@ -3,9 +3,6 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
-      fontWeight: {
-        lg: ["700"],
-      },
       fontSize: {
         sm: ["16px", "19px"],
       },
