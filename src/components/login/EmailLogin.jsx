@@ -109,7 +109,7 @@ const EmailLogin = () => {
   return (
     <div className="container md">
       <div className="ml-[20px] mr-[20px]">
-        <div className="grid grid-rows place-content-center">
+        <div className="grid grid-rows ">
           <div className=" h-[150px] mt-[94px]">
             <div className="mx-auto w-[87px] h-[64px] overflow-hidden gap-[10px] ">
               <img
@@ -123,7 +123,7 @@ const EmailLogin = () => {
             <div className=" grid grid-row-3 gap-[10px]">
               <div className="">
                 <div className=" grid grid-row-2">
-                  <Label>이메일</Label>
+                  <Label htmlFor="userEmail">이메일</Label>
                   <LoginSignupInputBox
                     id="userEmail"
                     ref={userEmailRef}
@@ -133,7 +133,7 @@ const EmailLogin = () => {
                 </div>
                 <div className="flex items-center ">
                   <p
-                    className="h-[40px] w-full font-[500] text-[16px] text-[#DE0D0D] flex items-center"
+                    className="h-[40px]  w-full font-[500] text-[16px] text-[#DE0D0D] flex items-center"
                     hidden={regulation.regulationEmail}
                   >
                     아이디(이메일)을 입력해주세요.
@@ -142,7 +142,7 @@ const EmailLogin = () => {
               </div>
               <div className="">
                 <div className="grid grid-row-2">
-                  <Label>비밀번호</Label>
+                  <Label htmlFor="userPassword">비밀번호</Label>
                   <LoginSignupInputBox
                     ref={userPasswordRef}
                     onChange={onValidity}
