@@ -2,16 +2,20 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
-  __emailDoubleCheck,
+  __nickNameCheck,
   setNameNickName,
 } from "../../redux/modules/SingupSlice";
+import LoginSignupInputBox from "../layout/LoginSignupInputBox";
 import IsModal from "../modal/Modal";
 
 const SetProfileName = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isOpen, setOpen] = useState(false);
-  const [ModalStr, setModalStr] = useState("");
+  const [ModalStr, setModalStr] = useState({
+    modalTitle: "",
+    modalMessage: "",
+  });
 
   const userNameRef = useRef();
   const userNickNameRef = useRef();
@@ -21,6 +25,7 @@ const SetProfileName = () => {
   );
 
   useEffect(() => {
+    //로컬스토리지
     console.log("실행");
     console.log(NameNickName);
     if (NameNickName !== null) {
@@ -76,6 +81,7 @@ const SetProfileName = () => {
   const onNickNameCheck = (event) => {
     event.preventDefault();
     const nickNameCurrent = userNickNameRef.current;
+    console.log(nickNameCurrent);
     if (nickNameCurrent.value.trim() === "") {
       SetRegulation(() => ({
         ...regulation,
@@ -85,7 +91,7 @@ const SetProfileName = () => {
       return;
     }
     dispatch(
-      __emailDoubleCheck({
+      __nickNameCheck({
         nickname: nickNameCurrent.value,
         onModalOpen,
         setModalStr,
@@ -141,46 +147,78 @@ const SetProfileName = () => {
   };
   return (
     <>
-      <div>
-        <form>
-          <div>
+      <div className="container md ">
+        <form className="grid grid-flow-row ml-[20px] mr-[20px] mt-[101px]">
+          <div className="grid grid-rows-2 gap-[10px]">
             <div>
-              <div>
-                <h1>이름을 입력해주세요</h1>
+              <div className="h-[40px] flex items-center">
+                <div>
+                  <label
+                    htmlFor="userName"
+                    className="text-[16px] cursor-pointer text-[#12396F] font-[500]"
+                  >
+                    이름을 입력해주세요.
+                  </label>
+                </div>
               </div>
               <div>
-                <input
+                <LoginSignupInputBox
                   id="userName"
                   ref={userNameRef}
                   placeholder="사용자의 이름을 입력해주세요."
                   onChange={onValidity}
-                ></input>
+                />
               </div>
-              <p>{regulation.regulationName}</p>
+              <p className="h-[40px] w-full font-[500] text-[16px] text-[#DE0D0D] flex items-center">
+                {regulation.regulationName}
+              </p>
             </div>
             <div>
-              <div>
-                <h1>사용하실 닉네임을 입력해주세요</h1>
+              <div className="h-[40px] flex items-center">
+                <div>
+                  <label
+                    htmlFor="userNickName"
+                    className="cursor-pointer text-[#12396F] font-[500]"
+                  >
+                    사용하실 닉네임을 입력해주세요.
+                  </label>
+                </div>
               </div>
               <div>
                 <input
                   id="userNickName"
                   ref={userNickNameRef}
-                  placeholder="2~8자리 숫자, 한글, 영문을 입력해주세요"
+                  placeholder="2~8자리 숫자,한글,영문을 입력해주세요."
                   onChange={onValidity}
+                  className="w-full px-1 h-[50px] text-[16px] focus:placeholder-[#12396f] placeholder-[#12396fa1]"
                 ></input>
-                <button onClick={onNickNameCheck}>중복 확인</button>
-                <p>{regulation.regulationNickName}</p>
+                <button
+                  className="absolute right-[24px]  mt-[18px] font-[600] text-textNavy text-[16px]"
+                  onClick={onNickNameCheck}
+                >
+                  중복 확인
+                </button>
+
+                <p className="h-[40px] w-full font-[500] text-[16px] text-[#DE0D0D] flex items-center">
+                  {regulation.regulationNickName}
+                </p>
               </div>
             </div>
           </div>
           <div>
-            <button onClick={onNavigateProfilImgPage}>다음</button>
+            <button
+              onClick={onNavigateProfilImgPage}
+              className="h-[50px] rounded w-full bg-[#002C51] font-[700] text-[#ffff] mt-[24px]"
+            >
+              다음
+            </button>
           </div>
         </form>
-        <IsModal isModalOpen={isOpen.isOpen} onMoalClose={onMoalClose}>
-          {ModalStr}
-        </IsModal>
+        <IsModal
+          isModalOpen={isOpen.isOpen}
+          onMoalClose={onMoalClose}
+          message={{ ModalStr }}
+        />
       </div>
     </>
   );
