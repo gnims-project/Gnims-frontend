@@ -5,6 +5,7 @@ import { SignupApi } from "../../api/Signup";
 import IsModal from "../modal/Modal";
 import axios from "axios";
 import { useNavigate } from "react-router";
+import { instance } from "../../shared/AxiosInstance";
 
 const SetProfileImg = () => {
   const navigate = useNavigate();
@@ -44,7 +45,7 @@ const SetProfileImg = () => {
     }
 
     if (singup === "emailLogin") {
-      const url = "http://hayangaeul.shop/auth/signup";
+      const url = "https://eb.jxxhxxx.shop/auth/signup";
       const data = {
         username: userInfo.username,
         nickname: userInfo.nickname,
@@ -53,7 +54,7 @@ const SetProfileImg = () => {
       };
       sginupAxios({ data, formData, url });
     } else {
-      const url = "http://hayangaeul.shop/social/signup";
+      const url = "https://eb.jxxhxxx.shop/social/signup";
       const data = {
         username: NameNickName.nickname,
         nickname: NameNickName.username,
@@ -125,7 +126,7 @@ const SetProfileImg = () => {
             <label htmlFor="profileImg">
               <div className=" h-[86px] w-[86px] justify-center mx-auto">
                 <img
-                  className="rounded-full h-full w-full"
+                  className="w-full h-full rounded-full"
                   src={image}
                   alt="프로필이미지"
                 />
