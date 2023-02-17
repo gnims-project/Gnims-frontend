@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useCallback, useEffect, useMemo, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch } from "react-redux";
-import { __postSchedule } from "../../redux/modules/ScheduleSlice";
+import { __AddSchedule } from "../../redux/modules/ScheduleSlice";
+import { instance } from "../../shared/AxiosInstance";
+import BottomNavi from "../layout/BottomNavi";
 import TopNavBar from "../layout/TopNavBar";
 import ScheduleModal from "../modal/ScheduleModal";
 //네비바테스트 후 TopNavBar지워야합니다
@@ -12,7 +14,7 @@ import ScheduleModal from "../modal/ScheduleModal";
 const ScheduleAdd = () => {
   //필요한 변수들
   const [selectedDate, setSelectedDate] = useState();
-  const [selectedColor, setColorSelected] = useState("");
+  const [selectedColor, setColorSelected] = useState("SORA");
   const [bgColor, setBgColor] = useState("bg-sora");
   const [subject, setSubject] = useState("");
   const [content, setContent] = useState("");
@@ -22,15 +24,6 @@ const ScheduleAdd = () => {
   const [borderParang, setBorderParang] = useState("border-none");
   const [modalOpen, setModalOpen] = useState(false);
 
-  // const [schedules, setSchedules] = useState({
-  //   id: 0,
-  //   cardColor: "",
-  //   date: "",
-  //   time: "",
-  //   subject: "",
-  //   content: "",
-  //   participantsId: "",
-  // });
   const dispatch = useDispatch();
   const today = new Date().toISOString().slice(0, 10);
 
@@ -50,7 +43,7 @@ const ScheduleAdd = () => {
     setBorderParang("border-none");
   };
   const eventHandlerParang = () => {
-    setColorSelected("PARNG");
+    setColorSelected("PARANG");
     setBgColor("bg-parang");
     setBorderSora("border-none");
     setBorderNam("border-none");
@@ -67,6 +60,8 @@ const ScheduleAdd = () => {
   const onParticipantsChangeHandler = (e) => {
     setParticipants(e.target.value);
   };
+
+  //ㅅㅓ버로 보내기 위한 데이터 형태. 참여자를 선택하지 않으면 빈 배열[]만 넘어감.
   const [participantss, setParticipantss] = useState([]);
   if (participants.length > 0) {
     setParticipantss(participants);
@@ -89,7 +84,7 @@ const ScheduleAdd = () => {
         content: content,
         participantsId: participantss,
       };
-      await dispatch(__postSchedule(newSchedule));
+      await dispatch(__AddSchedule(newSchedule));
       setSubject("");
       setContent("");
       setParticipants("");
@@ -113,7 +108,7 @@ const ScheduleAdd = () => {
       {/* //네비바테스트 후 TopNavBar지워야합니다  */}
       <TopNavBar />
       {modalOpen && <ScheduleModal setModalOpen={setModalOpen} />}
-      <div className="text-white">
+      <div className="text-white h-screen">
         <div
           className={`${bgColor} flex w-screen pt-[50px] p-[20px] text-base`}
         >
@@ -144,7 +139,7 @@ const ScheduleAdd = () => {
             <div className="mt-6 justify-center font-medium ">
               날짜와 시간
               <DatePicker
-                className="static placeholder-textNavy shadow w-[335px] h-12 mt-4 bg-white justify-center text-l hover:bg-sky-100 rounded-md text-black font-light  text-center"
+                className="relative placeholder-textNavy text-textNavy shadow w-[335px] h-12 mt-4 bg-white justify-center text-l hover:bg-sky-100 rounded-md font-light text-center"
                 dateFormat="yyyy년 MM월 dd일 h:mm aa"
                 selected={selectedDate}
                 minDate={new Date()}
@@ -158,7 +153,7 @@ const ScheduleAdd = () => {
               참여자 (우선 Id로 받습니다)
               <input
                 value={participants}
-                onChange={onParticipantsChangeHandler}
+                onChange={() => onParticipantsChangeHandler}
                 placeholder="함께할 친구들을 선택해주세요. (최대 4명)"
                 className="mt-4 shadow 
               hover:bg-sky-100
@@ -179,6 +174,7 @@ const ScheduleAdd = () => {
               일정 제목{" "}
               <input
                 value={subject}
+                maxLength={20}
                 onChange={onSubjectChangeHandler}
                 placeholder="일정 제목을 입력해주세요!(필수)"
                 className="mt-4 shadow
@@ -200,7 +196,7 @@ const ScheduleAdd = () => {
               <input
                 value={content}
                 onChange={onContentChangeHandler}
-                placeholder="일정 내용을 입력해주세요. 필수로 입력하지 않아도 일정이 생성돼요."
+                placeholder="일정 내용을 입력해주세요. (선택)"
                 className="mt-4
               shadow
               hover:bg-sky-100 placeholder-textNavy
@@ -218,12 +214,13 @@ const ScheduleAdd = () => {
             </div>
             <button
               onClick={scheduleAddHandler}
-              className="mt-8 rounded-lg text-[16px] pt-[15px] font-semibold bg-[#002C51] text-white text-center align-middle w-[335px] h-[50px] justify-center flex shadow"
+              className="mt-8 mb-12 rounded-lg text-[16px] pt-[15px] font-semibold bg-[#002C51] text-white text-center align-middle w-[335px] h-[50px] justify-center flex shadow"
             >
               등록 완료
             </button>
           </form>
-        </div>
+        </div>{" "}
+        <BottomNavi />
       </div>
     </>
   );

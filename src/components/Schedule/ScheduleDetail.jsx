@@ -1,6 +1,11 @@
-import React, { useRef, useState } from "react";
+import axios from "axios";
+import React, { memo, useEffect, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
 import kebab from "../../img/kebab.png";
+import BottomNavi from "../layout/BottomNavi";
+import TopNavBar from "../layout/TopNavBar";
 import KebabModal from "../modal/KebabButtonModal";
+import ScheduleDetailParticipants from "./ScheduleDetailParticipants";
 
 const ScheduleDetail = () => {
   //  모달 노출시키는 여부
@@ -8,52 +13,73 @@ const ScheduleDetail = () => {
   const showModalHandler = () => {
     setModalOpen(true);
   };
+  //id구하기
+  const { id } = useParams();
+
+  //데이터베이스를 담을 schedule변수.
+  const [schedule, setSchedule] = useState([]);
+  const fetchTodos = async () => {
+    await axios
+      // .get(`https://eb.jxxhxxx.shop/events-${id}`, {
+      .get("http://localhost:3001/todos", {
+        headers: {
+          Authorization: localStorage.getItem("Authorization"),
+        },
+      })
+      .then((appData) => {
+        //useparam으로 id찾는게 가능해지면 data[index]로 처리.
+        setSchedule(appData.data[1]);
+      }, []);
+  };
+
+  // const [index, setIndex] = useState("0");
+  // setIndex(id);
+  useEffect(() => {
+    fetchTodos();
+  }, [id]);
+  console.log(schedule);
 
   return (
     <div className="bg-[#EDF7FF] h-[734px] width-[375px]">
-      <div className="h-[48px]">네비바상단영역</div>
+      <TopNavBar />
       <div>
         {modalOpen && <KebabModal setModalOpen={setModalOpen} />}
         {/* bg는 유저가 등록시에 선택한 cardColor로   */}
-        <div className="h-[202px] bg-[#538EDF] pl-[18px] pt-[23px] pr-[21px] text-white">
+        <div
+          // ${schedule[0].cardColor}
+          className={`h-[250px] bg-${schedule.cardColor} pl-[18px] pt-[71px] pr-[21px] text-white`}
+        >
           <div className="flex flex-row-reverse">
             <img
-              className="h-[20px] w-[20px] flex "
+              className="h-[20px] flex "
               src={kebab}
               alt="케밥메뉴"
               onClick={showModalHandler}
             />
           </div>
           <div className="flex space-x-3 text-[18px] mt-[-18px] font-light ">
-            <div>23.02.06</div> <div> 오후 6:00</div>{" "}
+            <div>{schedule.date}</div> <div> {schedule.time}</div>{" "}
           </div>
           <div className="mt-[28px] font-semibold text-[24px]">
-            선희랑 마라탕 먹으러 가기
+            {schedule.subject}
           </div>{" "}
           <div className="place-content-end font-light flex text-[18px] mt-[70px]">
-            D-Day
+            D-{schedule.dday}
           </div>
         </div>
         <div className="text-[#12396F]">
-          <div className="mt-[30px] h-[98px] ml-[20px]">
-            참여자{" "}
-            <div className="bg-[#CEE4F8] h-[50px] w-[335px] mt-[20px] p-[15px] shadow flex rounded-lg">
-              본인 포함 4명, 참여자 없으면 아예 뜨지 않습니다
-            </div>
-          </div>
+          <ScheduleDetailParticipants />
           <div className="h-[234px] mt-[30px] mb-[8px] ml-[20px]">
             일정내용{" "}
             <div className="bg-[#CEE4F8] shadow h-[186px] w-[335px] mt-[20px] p-[15px] flex rounded-lg">
-              여기에 내용이 들어갑니다
+              {schedule.content}
             </div>
           </div>
         </div>{" "}
       </div>
-      <div className="h-[50px] bg-white inset-x-0 bottom-0 flex absolute">
-        네비바하단영역
-      </div>
+      <BottomNavi />
     </div>
   );
 };
 
-export default ScheduleDetail;
+export default memo(ScheduleDetail);

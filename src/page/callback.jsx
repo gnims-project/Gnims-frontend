@@ -56,7 +56,7 @@ function Callback() {
 
   return (
     <div>
-      <h1>loding...</h1>
+      <div>loding...</div>
     </div>
   );
 }
