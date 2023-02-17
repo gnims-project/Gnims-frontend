@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { __postSchedule } from "../../redux/modules/ScheduleSlice";
 import TopNavBar from "../layout/TopNavBar";
 import ScheduleModal from "../modal/ScheduleModal";
@@ -21,16 +22,7 @@ const ScheduleAdd = () => {
   const [borderNam, setBorderNam] = useState("border-none");
   const [borderParang, setBorderParang] = useState("border-none");
   const [modalOpen, setModalOpen] = useState(false);
-
-  // const [schedules, setSchedules] = useState({
-  //   id: 0,
-  //   cardColor: "",
-  //   date: "",
-  //   time: "",
-  //   subject: "",
-  //   content: "",
-  //   participantsId: "",
-  // });
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const today = new Date().toISOString().slice(0, 10);
 
@@ -87,7 +79,7 @@ const ScheduleAdd = () => {
         time: time,
         subject: subject,
         content: content,
-        participantsId: participantss,
+        participantsId: [3],
       };
       await dispatch(__postSchedule(newSchedule));
       setSubject("");
@@ -97,6 +89,7 @@ const ScheduleAdd = () => {
       setBgColor("bg-sora");
       alert("등록이 완료되었습니다!");
       console.log(newSchedule);
+      navigate("/main");
     } else {
       setModalOpen(true);
     }
@@ -158,7 +151,7 @@ const ScheduleAdd = () => {
               참여자 (우선 Id로 받습니다)
               <input
                 value={participants}
-                onChange={onParticipantsChangeHandler}
+                onChange={() => onParticipantsChangeHandler}
                 placeholder="함께할 친구들을 선택해주세요. (최대 4명)"
                 className="mt-4 shadow 
               hover:bg-sky-100

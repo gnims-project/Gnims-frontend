@@ -20,7 +20,7 @@ const ScheduleDetail = () => {
   const [schedule, setSchedule] = useState([]);
   const fetchTodos = async () => {
     await axios
-      .get(`https://eb.jxxhxxx.shop/v2/events/10`, {
+      .get(`https://eb.jxxhxxx.shop/v2/events/5`, {
         // .get(`https://eb.jxxhxxx.shop/events/${id}`, {
         // .get("http://localhost:3001/todos", {
         headers: {
@@ -28,7 +28,6 @@ const ScheduleDetail = () => {
         },
       })
       .then((appData) => {
-        //useparam으로 id찾는게 가능해지면 data[index]로 처리.
         setSchedule(appData.data.data);
       }, []);
   };

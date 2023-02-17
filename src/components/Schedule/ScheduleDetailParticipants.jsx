@@ -6,7 +6,7 @@ const ScheduleDetailParticipants = () => {
 
   const fetchTodos = async () => {
     await axios
-      .get(`https://eb.jxxhxxx.shop/events/10`, {
+      .get(`https://eb.jxxhxxx.shop/v2/events/5`, {
         // .get(`https://eb.jxxhxxx.shop/events/${id}`, {
         // .get("http://localhost:3001/todos", {
         headers: {
@@ -15,7 +15,7 @@ const ScheduleDetailParticipants = () => {
       })
       .then((appData) => {
         //useparam으로 id찾는게 가능해지면 data[index]로 처리.
-        setSchedule(appData.data);
+        setSchedule(appData.data.data);
       }, []);
   };
 
@@ -30,7 +30,7 @@ const ScheduleDetailParticipants = () => {
   // console.log(joiners);
   return (
     <div>
-      {schedule.data.invitees?.length !== 1 ? (
+      {[schedule.invitees].length !== 1 ? (
         <div className="mt-[30px] h-[98px] ml-[20px]">
           참여자{" "}
           <div className="bg-[#CEE4F8] h-[50px] w-[335px] mt-[20px] p-[15px] shadow flex rounded-lg">
