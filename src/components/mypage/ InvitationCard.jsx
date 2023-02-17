@@ -30,19 +30,20 @@ const InvitationCard = ({ invit }) => {
   return (
     <div>
       <div className="rounded-[10px] my-[10px] mx-[20px] w-[335px] h-[184px] bg-gray-500">
-        <div className="flex gap-[50px] relative top-[16px] ">
-          <div className="flex ml-[23px]  gap-[20px]">
+        <div className="flex gap-[50px] relative top-[16px]">
+          <div className="flex ml-[23px] gap-[20px]">
             <span className="text-sm">{invit.date}</span>
             <span className="text-sm">{invit.time}</span>
           </div>
           {invit.invitees.map((invitees) => {
-            <span className="text-sm">{invitees.username}</span>;
+            console.log("이름 맵", invitees);
+            return <span className="text-sm">from.{invitees.username}</span>;
           })}
         </div>
-        <div className="ml-[23px] relative top-[20px]">
-          <div className="p-2 text-md">{invit.subject}</div>
+        <div className="mx-[23px] relative top-[20px]">
+          <div className="h-[58px] truncate text-md">{invit.subject}</div>
         </div>
-        <div className="flex relative top-[44px] h-[57px] text-center items-center border-t-[1px] border-[#BBD7FF] border-solid">
+        <div className="flex relative top-[50px] h-[57px] text-center items-center border-t-[1px] border-[#BBD7FF] border-solid">
           <div
             onClick={onRefuseHanddler}
             className="flex items-center justify-center flex-1 h-full text-center text-md"
