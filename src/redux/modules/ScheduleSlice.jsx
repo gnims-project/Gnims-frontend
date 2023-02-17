@@ -1,16 +1,17 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { ScheduleAPI } from "../../api/Schedule";
-const initialState = {
-  id: 0,
-  cardColor: "",
-  date: null,
-  time: null,
-  subject: "",
-  content: "",
-  participantsId: null,
-  isLoading: false,
-};
-
+const initialState = [
+  {
+    id: 0,
+    cardColor: "",
+    date: null,
+    time: null,
+    subject: "",
+    content: "",
+    participantsId: null,
+    isLoading: false,
+  },
+];
 export const __AddSchedule = createAsyncThunk(
   "schedule/postSchedules",
   async (payload, thunkAPI) => {
@@ -32,6 +33,7 @@ export const ScheduleSlice = createSlice({
       state.isLoading = true;
     },
     [__AddSchedule.fulfilled]: (state, action) => {
+      state.isLoading = false;
       state.schedules = [...state.schedules, action.payload];
     },
     [__AddSchedule.rejected]: (state, action) => {

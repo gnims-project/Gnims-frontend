@@ -6,7 +6,7 @@ const ScheduleDetailParticipants = () => {
 
   const fetchTodos = async () => {
     await axios
-      // .get(`https://eb.jxxhxxx.shop/events-${id}`, {
+      // .get(`https://eb.jxxhxxx.shop/events/${id}`, {
       .get("http://localhost:3001/todos", {
         headers: {
           Authorization: localStorage.getItem("Authorization"),
@@ -27,7 +27,7 @@ const ScheduleDetailParticipants = () => {
   }, []);
   return (
     <div>
-      {schedule.joiner !== "" ? (
+      {schedule.joiner !== [] ? (
         <div className="mt-[30px] h-[98px] ml-[20px]">
           참여자{" "}
           <div className="bg-[#CEE4F8] h-[50px] w-[335px] mt-[20px] p-[15px] shadow flex rounded-lg">

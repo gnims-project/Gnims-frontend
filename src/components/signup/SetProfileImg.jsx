@@ -44,7 +44,7 @@ const SetProfileImg = () => {
     }
 
     if (singup === "emailLogin") {
-      const url = "http://hayangaeul.shop/auth/signup";
+      const url = "https://eb.jxxhxxx.shop/auth/signup";
       const data = {
         username: userInfo.username,
         nickname: userInfo.nickname,
@@ -53,7 +53,7 @@ const SetProfileImg = () => {
       };
       sginupAxios({ data, formData, url });
     } else {
-      const url = "http://hayangaeul.shop/social/signup";
+      const url = "https://eb.jxxhxxx.shop/social/signup";
       const data = {
         username: NameNickName.nickname,
         nickname: NameNickName.username,

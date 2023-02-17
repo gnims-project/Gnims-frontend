@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { memo, useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import kebab from "../../img/kebab.png";
 import BottomNavi from "../layout/BottomNavi";
@@ -20,6 +20,7 @@ const ScheduleDetail = () => {
   const [schedule, setSchedule] = useState([]);
   const fetchTodos = async () => {
     await axios
+      // .get(`https://eb.jxxhxxx.shop/events/11`, {
       // .get(`https://eb.jxxhxxx.shop/events-${id}`, {
       .get("http://localhost:3001/todos", {
         headers: {
@@ -31,14 +32,15 @@ const ScheduleDetail = () => {
         setSchedule(appData.data[1]);
       }, []);
   };
-
+  // const subject = schedule.data.subject;
   // const [index, setIndex] = useState("0");
   // setIndex(id);
   useEffect(() => {
     fetchTodos();
   }, [id]);
   console.log(schedule);
-
+  // console.log(schedule.data.cardColor);
+  // console.log(subject);
   return (
     <div className="bg-[#EDF7FF] h-[734px] width-[375px]">
       <TopNavBar />
@@ -46,7 +48,7 @@ const ScheduleDetail = () => {
         {modalOpen && <KebabModal setModalOpen={setModalOpen} />}
         {/* bg는 유저가 등록시에 선택한 cardColor로   */}
         <div
-          // ${schedule[0].cardColor}
+          // bg-${schedule.data.cardColor}
           className={`h-[250px] bg-${schedule.cardColor} pl-[18px] pt-[71px] pr-[21px] text-white`}
         >
           <div className="flex flex-row-reverse">
