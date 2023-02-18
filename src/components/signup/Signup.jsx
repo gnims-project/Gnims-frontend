@@ -90,13 +90,9 @@ const Signup = () => {
       }
     } else if (id === "userEmail") {
       if (emailRegulationExp.test(value)) {
-        SetRegulation(() => ({
-          ...regulation,
-          regulationEmail: "올바른 이메일 형식입니다.",
-        }));
         Sethidden(() => ({
           ...hidden,
-          hiddenErrorMeassaEmail: false,
+          hiddenErrorMeassaEmail: true,
         }));
       } else {
         SetRegulation(() => ({

@@ -17,10 +17,9 @@ export const __emailLogin = ({
       .then((response) => {
         const accessToken = response.headers.get("Authorization");
         console.log(response);
-        const { email, nickname, profileImage } = response.data.data;
-
-        
+        const { email, nickname, profileImage, userId } = response.data.data;
         localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("userId", userId);
         localStorage.setItem("email", email);
         localStorage.setItem("nickname", nickname);
         localStorage.setItem("profileImage", profileImage);

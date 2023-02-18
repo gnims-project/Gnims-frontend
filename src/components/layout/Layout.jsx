@@ -18,8 +18,8 @@ const Container = styled.div`
   top: "calc(50% - 167px/2)";
   -ms-overflow-style: none;
   background-color: #edf7ff;
-
   font-family: Pretendard-Regular;
+ 
   //스크롤창 숨기기
   overflow-y: scroll;
   /* IE and Edge */
@@ -28,6 +28,7 @@ const Container = styled.div`
   scrollbar-width: none;
   &::-webkit-scrollbar {
     display: none;
+
   }
   @media screen and (max-width: 768px) {
     width: 375px;

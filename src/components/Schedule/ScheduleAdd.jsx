@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { __postSchedule } from "../../redux/modules/ScheduleSlice";
 import TopNavBar from "../layout/TopNavBar";
 import ScheduleModal from "../modal/ScheduleModal";
@@ -12,7 +13,7 @@ import ScheduleModal from "../modal/ScheduleModal";
 const ScheduleAdd = () => {
   //필요한 변수들
   const [selectedDate, setSelectedDate] = useState();
-  const [selectedColor, setColorSelected] = useState("");
+  const [selectedColor, setColorSelected] = useState("sora");
   const [bgColor, setBgColor] = useState("bg-sora");
   const [subject, setSubject] = useState("");
   const [content, setContent] = useState("");
@@ -21,36 +22,27 @@ const ScheduleAdd = () => {
   const [borderNam, setBorderNam] = useState("border-none");
   const [borderParang, setBorderParang] = useState("border-none");
   const [modalOpen, setModalOpen] = useState(false);
-
-  // const [schedules, setSchedules] = useState({
-  //   id: 0,
-  //   cardColor: "",
-  //   date: "",
-  //   time: "",
-  //   subject: "",
-  //   content: "",
-  //   participantsId: "",
-  // });
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const today = new Date().toISOString().slice(0, 10);
 
   //색상지정시 카드의 백그라운드컬러가 바뀌면서 selectedColor에 값이 입혀진다.
   const eventHandlerSora = () => {
-    setColorSelected("SORA");
+    setColorSelected("sora");
     setBgColor("bg-sora");
     setBorderSora("border-white");
     setBorderNam("border-none");
     setBorderParang("border-none");
   };
   const eventHandlerNam = () => {
-    setColorSelected("NAM");
+    setColorSelected("nam");
     setBgColor("bg-nam");
     setBorderSora("border-none");
     setBorderNam("border-white");
     setBorderParang("border-none");
   };
   const eventHandlerParang = () => {
-    setColorSelected("PARNG");
+    setColorSelected("parang");
     setBgColor("bg-parang");
     setBorderSora("border-none");
     setBorderNam("border-none");
@@ -87,7 +79,7 @@ const ScheduleAdd = () => {
         time: time,
         subject: subject,
         content: content,
-        participantsId: participantss,
+        participantsId: [3],
       };
       await dispatch(__postSchedule(newSchedule));
       setSubject("");
@@ -97,6 +89,7 @@ const ScheduleAdd = () => {
       setBgColor("bg-sora");
       alert("등록이 완료되었습니다!");
       console.log(newSchedule);
+      navigate("/main");
     } else {
       setModalOpen(true);
     }
@@ -158,7 +151,7 @@ const ScheduleAdd = () => {
               참여자 (우선 Id로 받습니다)
               <input
                 value={participants}
-                onChange={onParticipantsChangeHandler}
+                onChange={() => onParticipantsChangeHandler}
                 placeholder="함께할 친구들을 선택해주세요. (최대 4명)"
                 className="mt-4 shadow 
               hover:bg-sky-100
