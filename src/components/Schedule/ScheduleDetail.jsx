@@ -24,15 +24,18 @@ const ScheduleDetail = () => {
       //.get`https://eb.jxxhxxx.shop/v2/events/5`, {
       .get(`https://eb.jxxhxxx.shop/v2/events/${id}`, {
         // .get("http://localhost:3001/todos", {
+
         headers: {
           Authorization: localStorage.getItem("Authorization"),
         },
       })
       .then((appData) => {
+
         setSchedule(appData.data.data);
       }, []);
   };
   // const subject = schedule.data.subject;
+
   // const [index, setIndex] = useState("0");
   // setIndex(id);
   useEffect(() => {
@@ -40,6 +43,7 @@ const ScheduleDetail = () => {
   }, [id]);
   console.log(schedule);
   const time = schedule.time?.split(":", 2).join(":");
+
 
   return (
     <div className="bg-[#EDF7FF] h-[734px] width-[375px]">
@@ -61,6 +65,7 @@ const ScheduleDetail = () => {
           </div>
           <div className="flex space-x-3 text-[18px] mt-[-18px] font-light ">
             <div>{schedule.date}</div> <div> {time}</div>{" "}
+
           </div>
           <div className="mt-[28px] font-semibold text-[24px]">
             {schedule.subject}

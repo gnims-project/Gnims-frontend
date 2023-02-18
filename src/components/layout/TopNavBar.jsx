@@ -3,6 +3,7 @@ import searchIcon from "../../img/searchIcon.png";
 import plusIcon from "../../img/plusIcon.png";
 import notifyIcon from "../../img/notifyIcon.png";
 import { useNavigate } from "react-router-dom";
+
 const TopNavBar = () => {
   const navigate = useNavigate();
   return (

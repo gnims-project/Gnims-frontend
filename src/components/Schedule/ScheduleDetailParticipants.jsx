@@ -6,19 +6,23 @@ const ScheduleDetailParticipants = () => {
 
   const fetchTodos = async () => {
     await axios
+
       .get(`https://eb.jxxhxxx.shop/v2/events/5`, {
         // .get(`https://eb.jxxhxxx.shop/events/${id}`, {
         // .get("http://localhost:3001/todos", {
+
         headers: {
           Authorization: localStorage.getItem("Authorization"),
         },
       })
       .then((appData) => {
+
         setSchedule(appData.data.data);
         console.log(schedule);
       }, []);
   };
   // const a = schedule.invitees.length;
+
   // const [index, setIndex] = useState("0");
   // setIndex(id);
   useEffect(() => {
@@ -42,8 +46,11 @@ const ScheduleDetailParticipants = () => {
         </div>
       ) : (
         <div />
+
       )}
     </div>
   );
 };
+
 export default ScheduleDetailParticipants;
+
