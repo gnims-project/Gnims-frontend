@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import defaultprofileImg from "../../img/User-86.png";
-import frends from "../../img/Friends.png";
-import Vector from "../../img/Vector.png";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -34,7 +32,7 @@ const Main = () => {
   }, [dispatch, navigate, email]);
 
   console.log(schedules);
- 
+
   return (
     <div className="container md">
       <div className="grid grid-flow-row ml-[20px] mr-[20px]">
@@ -57,12 +55,7 @@ const Main = () => {
         <div>
           <div className="flex flex-col gap-[30px] mt-[28px] rounded-[10px]">
             {schedules.map((list) => {
-              return (
-                <MainScheduleCards
-                  key={list.eventId}
-                  schedules={list}
-                />
-              );
+              return <MainScheduleCards key={list.eventId} schedules={list} />;
             })}
           </div>
         </div>
