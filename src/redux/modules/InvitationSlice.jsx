@@ -22,7 +22,7 @@ const initialState = {
   isLoading: false,
   error: null,
 };
-
+//초대 스케줄 가져오기
 export const __getInvitation = createAsyncThunk(
   "getInvitation",
   async (payload, thunkAPI) => {
@@ -37,18 +37,58 @@ export const __getInvitation = createAsyncThunk(
     }
   }
 );
+//초대 스케줄 거절
+export const refuseInvitation = (payload) => {
+  return async function (dispatch) {
+    await instance
+      .post(`/events/${payload}/rejection`)
+      .then((res) => {
+        console.log("거절후", res);
+        dispatch(__getInvitation());
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};
+//초대 스케줄 수락
+export const acceptInvitation = (payload) => {
+  return async function (dispatch) {
+    await instance
+      .post(`/events/${payload}/acceptance`)
+      .then((res) => {
+        console.log("수락후", res);
+        dispatch(__getInvitation());
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};
 
 export const invitationSlice = createSlice({
   name: "invitation",
   initialState,
-  reducers: {},
+  reducers: {
+    // isLogin: (state, action) => {
+    //   console.log(action.payload);
+    //   state.isLogin = action.payload;
+    // },
+    // infoList: (state, action) => {
+    //   state.infoList = action.payload;
+    // },
+    // gethistorys: (state, action) => {
+    //   state.historyList = action.payload;
+    // },
+  },
   extraReducers: {
     [__getInvitation.pending]: (state) => {
       state.isLoading = true;
     },
     [__getInvitation.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.todos = action.payload;
+      state.data = action.payload.data;
+      console.log(state.datas);
     },
     [__getInvitation.rejected]: (state, action) => {
       state.isLoading = false;
