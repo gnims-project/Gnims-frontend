@@ -22,7 +22,6 @@ const ScheduleDetail = () => {
     await axios
       // .get(`https://eb.jxxhxxx.shop/v2/events/5`, {
       .get(`https://eb.jxxhxxx.shop/events/${id}`, {
-        // .get("http://localhost:3001/todos", {
         headers: {
           Authorization: localStorage.getItem("Authorization"),
         },
@@ -31,6 +30,8 @@ const ScheduleDetail = () => {
         setSchedule(appData.data.data);
       }, []);
   };
+  const time = schedule.time?.split(":", 2).join(":");
+
   // const subject = schedule.data.subject;
   // const [index, setIndex] = useState("0");
   // setIndex(id);
@@ -38,7 +39,16 @@ const ScheduleDetail = () => {
     fetchTodos();
   }, [id]);
   console.log(schedule);
-  const time = schedule.time?.split(":", 2).join(":");
+
+  const numberOfJoiner = schedule.invitees.length;
+  console.log(numberOfJoiner);
+
+  const joinerList = [];
+  for (let i = 0; i < numberOfJoiner; i++) {
+    joinerList.push(
+      <div className="ml-[5px]">{schedule.invitees[i].username}</div>
+    );
+  }
 
   return (
     <div className="bg-[#EDF7FF] h-[734px] width-[375px]">
@@ -59,7 +69,7 @@ const ScheduleDetail = () => {
             />
           </div>
           <div className="flex space-x-3 text-[18px] mt-[-18px] font-light ">
-            <div>{schedule.date}</div> <div> {time}</div>{" "}
+            <div>{schedule.date}</div> <div> {time}</div>
           </div>
           <div className="mt-[28px] font-semibold text-[24px]">
             {schedule.subject}
@@ -70,7 +80,18 @@ const ScheduleDetail = () => {
           </div>
         </div>
         <div className="text-[#12396F]">
-          <ScheduleDetailParticipants />
+          <div>
+            {numberOfJoiner !== 1 ? (
+              <div className="mt-[30px] h-[98px] ml-[20px]">
+                참여자{" "}
+                <div className="bg-[#CEE4F8] h-[50px] w-[335px] mt-[20px] p-[15px] shadow flex rounded-lg">
+                  {joinerList}
+                </div>
+              </div>
+            ) : (
+              <div />
+            )}
+          </div>
           <div className="h-[234px] mt-[30px] mb-[8px] ml-[20px]">
             일정내용{" "}
             <div className="bg-[#CEE4F8] shadow h-[186px] w-[335px] mt-[20px] p-[15px] flex rounded-lg">
