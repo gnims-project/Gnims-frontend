@@ -39,7 +39,7 @@ const Router = () => {
             <Route path="/schedule" element={<ScheduleRegisterPage />} />
             <Route path="/naver/login" element={<NaverLoginPage />} />
             <Route path="/callback" element={<Callback />} />
-            <Route path="/detail" element={<ScheduleDetailPage />} />
+            <Route path="/detail/:id" element={<ScheduleDetailPage />} />
             <Route
               path="/signup/setProfileName"
               element={<SetProfileNamePage />}

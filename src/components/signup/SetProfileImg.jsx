@@ -37,6 +37,7 @@ const SetProfileImg = () => {
     //폼데이터 변환
     setImageFile(imgRef.current.files[0]);
     const imgFile = imgRef.current.files[0];
+    console.log(imgFile);
     const formData = new FormData();
     if (imgFile !== undefined) {
       formData.append("image", imgFile);
@@ -45,6 +46,7 @@ const SetProfileImg = () => {
     }
 
     if (singup === "emailLogin") {
+      //const url = "http://hayangaeul.shop/auth/signup";
       const url = "https://eb.jxxhxxx.shop/auth/signup";
       const data = {
         username: userInfo.username,
@@ -54,14 +56,14 @@ const SetProfileImg = () => {
       };
       sginupAxios({ data, formData, url });
     } else {
+      //const url = "http://hayangaeul.shop/social/signup";
       const url = "https://eb.jxxhxxx.shop/social/signup";
       const data = {
-        username: NameNickName.nickname,
-        nickname: NameNickName.username,
+        username: NameNickName.username,
+        nickname: NameNickName.nickname,
         email: window.localStorage.getItem("email"),
         socialCode: window.localStorage.getItem("socialCode"),
       };
-
       //소셜 회원가입 API가 나왔을때
       sginupAxios({ data, formData, url });
     }
