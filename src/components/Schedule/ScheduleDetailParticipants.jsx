@@ -33,7 +33,7 @@ const ScheduleDetailParticipants = () => {
   console.log(invitees);
   return (
     <div>
-      {schedule.invitees.length !== 1 ? (
+      {[schedule.invitees].length !== 1 ? (
         <div className="mt-[30px] h-[98px] ml-[20px]">
           참여자{" "}
           <div className="bg-[#CEE4F8] h-[50px] w-[335px] mt-[20px] p-[15px] shadow flex rounded-lg">

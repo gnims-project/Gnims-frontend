@@ -20,7 +20,7 @@ const BottomNavi = () => {
           </div>
           <div
             onClick={() => {
-              navigate("/");
+              navigate("/main");
             }}
             className="w-[24px] h-[24px]"
           >
@@ -28,7 +28,7 @@ const BottomNavi = () => {
           </div>
           <div
             onClick={() => {
-              navigate();
+              navigate("/profile");
             }}
             className="px-[3.5px] py-[5.5px] w-[24px] h-[24px]"
           >

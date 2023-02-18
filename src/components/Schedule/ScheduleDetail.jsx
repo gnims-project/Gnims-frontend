@@ -65,7 +65,7 @@ const ScheduleDetail = () => {
             {schedule.subject}
           </div>{" "}
           <div className="place-content-end font-light flex text-[18px] mt-[70px]">
-            d-
+            D-
             {schedule.dday === 0 ? <div>day</div> : <div>{schedule.dday}</div>}
           </div>
         </div>
