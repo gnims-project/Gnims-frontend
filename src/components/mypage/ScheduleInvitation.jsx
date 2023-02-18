@@ -5,13 +5,13 @@ import { __getInvitation } from "../../redux/modules/InvitationSlice";
 import InvitationCard from "./ InvitationCard";
 
 const ScheduleInvitation = () => {
-  localStorage.setItem("nickname", "동퐈");
   const nickname = localStorage.getItem("nickname");
 
   const dispatch = useDispatch();
   const { isLoading, error, data } = useSelector(
     (state) => state.InvitationSlice
   );
+  console.log("무슨 스테이트?", data);
 
   useEffect(() => {
     dispatch(__getInvitation());
