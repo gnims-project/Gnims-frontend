@@ -20,8 +20,8 @@ const ScheduleDetail = () => {
   const [schedule, setSchedule] = useState([]);
   const fetchTodos = async () => {
     await axios
-      .get(`https://eb.jxxhxxx.shop/v2/events/5`, {
-        // .get(`https://eb.jxxhxxx.shop/events/${id}`, {
+      // .get(`https://eb.jxxhxxx.shop/v2/events/5`, {
+      .get(`https://eb.jxxhxxx.shop/events/${id}`, {
         // .get("http://localhost:3001/todos", {
         headers: {
           Authorization: localStorage.getItem("Authorization"),

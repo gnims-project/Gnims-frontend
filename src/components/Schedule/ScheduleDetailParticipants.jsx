@@ -14,33 +14,36 @@ const ScheduleDetailParticipants = () => {
         },
       })
       .then((appData) => {
-        //useparam으로 id찾는게 가능해지면 data[index]로 처리.
         setSchedule(appData.data.data);
+        console.log(schedule);
       }, []);
   };
-
+  // const a = schedule.invitees.length;
   // const [index, setIndex] = useState("0");
   // setIndex(id);
   useEffect(() => {
     fetchTodos();
   }, []);
+  // console.log(schedule);
+  // console.log(schedule.invitees.length);
+  // console.log(schedule.invitees);
+  // console.log(a.length);
+  const invitees = schedule.invitees;
   console.log(schedule);
-  // const joiners = schedule.data.invitees;
-  //joiners는 나를 포함한 참여자 배열
-  // console.log(joiners);
+  console.log(invitees);
   return (
     <div>
-      {[schedule.invitees].length !== 1 ? (
+      {schedule.invitees.length !== 1 ? (
         <div className="mt-[30px] h-[98px] ml-[20px]">
           참여자{" "}
           <div className="bg-[#CEE4F8] h-[50px] w-[335px] mt-[20px] p-[15px] shadow flex rounded-lg">
-            {schedule.data.invitees}
+            {/* {schedule.invitees} */}
           </div>
         </div>
       ) : (
-        false
+        <div />
       )}
     </div>
   );
 };
-export default memo(ScheduleDetailParticipants);
+export default ScheduleDetailParticipants;

@@ -3,6 +3,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import BottomNavi from "../../../../채정작업용Gnims/src/components/layout/BottomNavi";
 import { __postSchedule } from "../../redux/modules/ScheduleSlice";
 import TopNavBar from "../layout/TopNavBar";
 import ScheduleModal from "../modal/ScheduleModal";
@@ -217,6 +218,7 @@ const ScheduleAdd = () => {
             </button>
           </form>
         </div>
+        <BottomNavi />
       </div>
     </>
   );
