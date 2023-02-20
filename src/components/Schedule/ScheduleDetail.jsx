@@ -32,23 +32,16 @@ const ScheduleDetail = () => {
   };
   const time = schedule.time?.split(":", 2).join(":");
 
-  // const subject = schedule.data.subject;
-  // const [index, setIndex] = useState("0");
-  // setIndex(id);
   useEffect(() => {
     fetchTodos();
   }, [id]);
   console.log(schedule);
 
-  const numberOfJoiner = schedule.invitees.length;
-  console.log(numberOfJoiner);
+  const joiner = schedule.invitees;
+  console.log(joiner);
 
-  const joinerList = [];
-  for (let i = 0; i < numberOfJoiner; i++) {
-    joinerList.push(
-      <div className="ml-[5px]">{schedule.invitees[i].username}</div>
-    );
-  }
+  console.log(schedule.invitees);
+  const numberOfJoiner = joiner && joiner.length;
 
   return (
     <div className="bg-[#EDF7FF] h-[734px] width-[375px]">
@@ -83,13 +76,18 @@ const ScheduleDetail = () => {
           <div>
             {numberOfJoiner !== 1 ? (
               <div className="mt-[30px] h-[98px] ml-[20px]">
-                참여자{" "}
+                참여자
                 <div className="bg-[#CEE4F8] h-[50px] w-[335px] mt-[20px] p-[15px] shadow flex rounded-lg">
-                  {joinerList}
+                  {joiner &&
+                    joiner.map((a) => {
+                      return (
+                        <span className="text-sm ml-[5px]">{a.username}</span>
+                      );
+                    })}
                 </div>
               </div>
             ) : (
-              <div />
+              false
             )}
           </div>
           <div className="h-[234px] mt-[30px] mb-[8px] ml-[20px]">
