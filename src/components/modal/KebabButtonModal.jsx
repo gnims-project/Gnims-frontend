@@ -7,10 +7,10 @@ const KebabModal = ({ setModalOpen, modalOpen }) => {
     setModalOpen(false);
   };
   return (
-    <div className="h-[686px] w-[375px] mt-[48px] bg-black bg-opacity-50 flex justify-center fixed ">
-      <div className="inset-x-0 bottom-[50px] w-[375px] h-[160px] absolute rounded-t-lg bg-white">
+    <div className="h-screen w-[375px] mt-[48px] bg-black bg-opacity-50 flex justify-center fixed ">
+      <div className="inset-x-0 bottom-0 w-[375px] h-[160px] mb-6 absolute rounded-t-lg bg-white">
         {" "}
-        <button className="fixed right-3" onClick={closeModal}>
+        <button className="" onClick={closeModal}>
           x
         </button>
         <div
