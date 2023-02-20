@@ -1,56 +1,51 @@
-import axios from "axios";
-import React, { memo, useCallback, useEffect, useState } from "react";
+// import axios from "axios";
+// import React, { memo, useCallback, useEffect, useState } from "react";
 
-const ScheduleDetailParticipants = () => {
-  const [schedule, setSchedule] = useState([]);
+// const ScheduleDetailParticipants = (schedules) => {
+//   const invitees = schedules.invitees;
+//   const [inviteesList, setInviteesList] = useState({
+//     hidden: true,
+//     inviteesList: "",
+//   });
 
-  const fetchTodos = async () => {
-    await axios
+//   useEffect(() => {
+//     if (invitees.length > 1) {
+//       setInviteesList(() => ({
+//         hidden: false,
+//         inviteesList: `${schedules.invitees[0].username} 외 ${
+//           invitees.length - 1
+//         } 명`,
+//       }));
+//     }
+//     // fetchTodos();
+//   }, []);
 
-      .get(`https://eb.jxxhxxx.shop/v2/events/5`, {
-        // .get(`https://eb.jxxhxxx.shop/events/${id}`, {
-        // .get("http://localhost:3001/todos", {
-
-        headers: {
-          Authorization: localStorage.getItem("Authorization"),
-        },
-      })
-      .then((appData) => {
-
-        setSchedule(appData.data.data);
-        console.log(schedule);
-      }, []);
-  };
-  // const a = schedule.invitees.length;
-
-  // const [index, setIndex] = useState("0");
-  // setIndex(id);
-  useEffect(() => {
-    fetchTodos();
-  }, []);
-  // console.log(schedule);
-  // console.log(schedule.invitees.length);
-  // console.log(schedule.invitees);
-  // console.log(a.length);
-  const invitees = schedule.invitees;
-  console.log(schedule);
-  console.log(invitees);
-  return (
-    <div>
-      {schedule.invitees.length !== 1 ? (
-        <div className="mt-[30px] h-[98px] ml-[20px]">
-          참여자{" "}
-          <div className="bg-[#CEE4F8] h-[50px] w-[335px] mt-[20px] p-[15px] shadow flex rounded-lg">
-            {/* {schedule.invitees} */}
-          </div>
-        </div>
-      ) : (
-        <div />
-
-      )}
-    </div>
-  );
-};
-
-export default ScheduleDetailParticipants;
-
+//   return (
+//     <div>
+//       {/* {numberOfJoiner !== 1 ? ( */}
+//       <div className="mt-[30px] h-[98px] ml-[20px]">
+//         참여자{" "}
+//         <div className="bg-[#CEE4F8] h-[50px] w-[335px] mt-[20px] p-[15px] shadow flex rounded-lg">
+//           {invitees.map((list) => {
+//             return (
+//               <div
+//                 key={list.username}
+//                 className="flex  rounded-full border-white border-2"
+//               >
+//                 <img
+//                   className="inline-block h-[40px] w-[40px] rounded-full ring-2 "
+//                   src={list.profile}
+//                   alt="프로필이미지"
+//                 ></img>
+//               </div>
+//             );
+//           })}
+//         </div>
+//         {/* ) : (
+//         <div />
+//       )} */}
+//       </div>
+//     </div>
+//   );
+// };
+// export default ScheduleDetailParticipants;

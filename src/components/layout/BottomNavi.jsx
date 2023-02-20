@@ -8,7 +8,7 @@ const BottomNavi = () => {
   const navigate = useNavigate();
   return (
     <div className="relative">
-      <div className="fixed top-[617px] w-[375px] h-[50px] bg-white opacity-80">
+      <div className="fixed bottom-0 min-w-[375px] h-[50px] bg-white opacity-80">
         <div className="flex gap-[77px] pt-[13px] justify-center">
           <div
             onClick={() => {
@@ -20,7 +20,7 @@ const BottomNavi = () => {
           </div>
           <div
             onClick={() => {
-              navigate("/");
+              navigate("/main");
             }}
             className="w-[24px] h-[24px]"
           >
@@ -28,7 +28,7 @@ const BottomNavi = () => {
           </div>
           <div
             onClick={() => {
-              navigate();
+              navigate("/profile");
             }}
             className="px-[3.5px] py-[5.5px] w-[24px] h-[24px]"
           >
