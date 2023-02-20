@@ -29,8 +29,8 @@ export const __postSchedule = createAsyncThunk(
   "schedule/postSchedules",
   async (payload, thunkAPI) => {
     try {
-      const data = ScheduleApi.postScheduleApi(payload);
-
+      const data = await ScheduleApi.postScheduleApi(payload.Schedule);
+      payload.dispatch(__getSchedule(payload.userId));
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -77,7 +77,7 @@ export const ScheduleSlice = createSlice({
       state.isLoading = true;
     },
     [__postSchedule.fulfilled]: (state, action) => {
-      state.schedules = [...state.schedules, action.payload];
+      state.isLoading = false;
     },
     [__postSchedule.rejected]: (state, action) => {
       state.isLoading = false;

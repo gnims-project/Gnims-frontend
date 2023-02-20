@@ -17,8 +17,9 @@ const NotificationsTest = () => {
     const accessToken = localStorage.getItem("accessToken");
     // SSE 연결을 위해 EventSource 객체를 생성
     const eventSource = new EventSourcePolyfill(
-      `http://shinjeong.shop/pushs?token=${accessToken}`
+      `https://eb.jxxhxxx.shop/connect`
     );
+    // ?token=${accessToken}
     // const eventSource = new EventSourcePolyfill(`/pushs`);
 
     // SSE 연결 성공 시 호출되는 이벤트 핸들러
