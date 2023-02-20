@@ -3,7 +3,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import BottomNavi from "../../../../채정작업용Gnims/src/components/layout/BottomNavi";
+import BottomNavi from "../../components/layout/BottomNavi";
 import { __postSchedule } from "../../redux/modules/ScheduleSlice";
 import TopNavBar from "../layout/TopNavBar";
 import ScheduleModal from "../modal/ScheduleModal";
@@ -114,7 +114,7 @@ const ScheduleAdd = () => {
           <form>
             <div className={"font-medium  mt-[20px]"}>
               카드 테마 색상
-              <div className="mt-4 flex-row flex  ">
+              <div className="flex flex-row mt-4 ">
                 <div
                   className={`${borderSora} border-solid border-[4px] rounded-[4px] w-[42px] h-[42px] bg-sora`}
                   onClick={eventHandlerSora}
@@ -135,7 +135,7 @@ const ScheduleAdd = () => {
                 </div>
               </div>
             </div>
-            <div className="mt-6 justify-center font-medium ">
+            <div className="justify-center mt-6 font-medium ">
               날짜와 시간
               <DatePicker
                 className="static placeholder-textNavy shadow w-[335px] h-12 mt-4 bg-white justify-center text-l hover:bg-sky-100 rounded-md text-black font-light  text-center"
@@ -148,7 +148,7 @@ const ScheduleAdd = () => {
               />
             </div>
             {/* 참여자 input을 클릭시 친구 리스트가 */}
-            <div className="mt-6 flex-col flex font-semibold ">
+            <div className="flex flex-col mt-6 font-semibold ">
               참여자 (우선 Id로 받습니다)
               <input
                 value={participants}
@@ -169,7 +169,7 @@ const ScheduleAdd = () => {
              "
               />
             </div>
-            <div className="mt-6 flex-col flex font-medium ">
+            <div className="flex flex-col mt-6 font-medium ">
               일정 제목{" "}
               <input
                 value={subject}
@@ -189,7 +189,7 @@ const ScheduleAdd = () => {
               p-4"
               />
             </div>
-            <div className="mt-6 flex-col flex font-medium ">
+            <div className="flex flex-col mt-6 font-medium ">
               일정 내용
               <input
                 value={content}
