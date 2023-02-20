@@ -1,5 +1,5 @@
 import React from "react";
-import ScheduleDetail from "../components/Schedule/ScheduleDetail";
+import ScheduleDetail from "../components/schedule/ScheduleDetail";
 
 const ScheduleDetailPage = () => {
   return (

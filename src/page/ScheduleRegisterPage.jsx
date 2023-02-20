@@ -1,5 +1,5 @@
 import React from "react";
-import ScheduleAdd from "../components/Schedule/ScheduleAdd";
+import ScheduleAdd from "../components/schedule/ScheduleAdd";
 
 const ScheduleRegisterPage = () => {
   return (

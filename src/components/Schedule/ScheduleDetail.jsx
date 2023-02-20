@@ -8,7 +8,6 @@ import KebabModal from "../modal/KebabButtonModal";
 import ScheduleDetailParticipants from "./ScheduleDetailParticipants";
 
 const ScheduleDetail = () => {
-  const pram = useParams();
   //  모달 노출시키는 여부
   const [modalOpen, setModalOpen] = useState(false);
   const showModalHandler = () => {
@@ -21,29 +20,28 @@ const ScheduleDetail = () => {
   const [schedule, setSchedule] = useState([]);
   const fetchTodos = async () => {
     await axios
-      //.get`https://eb.jxxhxxx.shop/v2/events/5`, {
-      .get(`https://eb.jxxhxxx.shop/v2/events/${id}`, {
-        // .get("http://localhost:3001/todos", {
-
+      // .get(`https://eb.jxxhxxx.shop/v2/events/5`, {
+      .get(`https://eb.jxxhxxx.shop/events/${id}`, {
         headers: {
           Authorization: localStorage.getItem("Authorization"),
         },
       })
       .then((appData) => {
-
         setSchedule(appData.data.data);
       }, []);
   };
-  // const subject = schedule.data.subject;
+  const time = schedule.time?.split(":", 2).join(":");
 
-  // const [index, setIndex] = useState("0");
-  // setIndex(id);
   useEffect(() => {
     fetchTodos();
   }, [id]);
   console.log(schedule);
-  const time = schedule.time?.split(":", 2).join(":");
 
+  const joiner = schedule.invitees;
+  console.log(joiner);
+
+  console.log(schedule.invitees);
+  const numberOfJoiner = joiner && joiner.length;
 
   return (
     <div className="bg-[#EDF7FF] h-[734px] width-[375px]">
@@ -64,19 +62,34 @@ const ScheduleDetail = () => {
             />
           </div>
           <div className="flex space-x-3 text-[18px] mt-[-18px] font-light ">
-            <div>{schedule.date}</div> <div> {time}</div>{" "}
-
+            <div>{schedule.date}</div> <div> {time}</div>
           </div>
           <div className="mt-[28px] font-semibold text-[24px]">
             {schedule.subject}
           </div>{" "}
           <div className="place-content-end font-light flex text-[18px] mt-[70px]">
-            d-
+            D-
             {schedule.dday === 0 ? <div>day</div> : <div>{schedule.dday}</div>}
           </div>
         </div>
         <div className="text-[#12396F]">
-          <ScheduleDetailParticipants />
+          <div>
+            {numberOfJoiner !== 1 ? (
+              <div className="mt-[30px] h-[98px] ml-[20px]">
+                참여자
+                <div className="bg-[#CEE4F8] h-[50px] w-[335px] mt-[20px] p-[15px] shadow flex rounded-lg">
+                  {joiner &&
+                    joiner.map((a) => {
+                      return (
+                        <span className="text-sm ml-[5px]">{a.username}</span>
+                      );
+                    })}
+                </div>
+              </div>
+            ) : (
+              false
+            )}
+          </div>
           <div className="h-[234px] mt-[30px] mb-[8px] ml-[20px]">
             일정내용{" "}
             <div className="bg-[#CEE4F8] shadow h-[186px] w-[335px] mt-[20px] p-[15px] flex rounded-lg">
