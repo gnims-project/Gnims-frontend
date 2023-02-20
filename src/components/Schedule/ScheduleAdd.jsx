@@ -80,7 +80,7 @@ const ScheduleAdd = () => {
         time: time,
         subject: subject,
         content: content,
-        participantsId: [3],
+        participantsId: participantss,
       };
       await dispatch(__postSchedule(newSchedule));
       setSubject("");
@@ -153,7 +153,7 @@ const ScheduleAdd = () => {
               <input
                 value={participants}
                 onChange={() => onParticipantsChangeHandler}
-                placeholder="함께할 친구들을 선택해주세요. (최대 4명)"
+                placeholder="함께할 친구들을 선택해주세요.(최대 4명)"
                 className="mt-4 shadow 
               hover:bg-sky-100
               text-center placeholder-textNavy
@@ -194,7 +194,7 @@ const ScheduleAdd = () => {
               <input
                 value={content}
                 onChange={onContentChangeHandler}
-                placeholder="일정 내용을 입력해주세요. 필수로 입력하지 않아도 일정이 생성돼요."
+                placeholder="일정 내용을 입력해주세요."
                 className="mt-4
               shadow
               hover:bg-sky-100 placeholder-textNavy
