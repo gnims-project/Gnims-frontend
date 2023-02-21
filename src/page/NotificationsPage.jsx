@@ -1,13 +1,15 @@
 import React from "react";
-import TopNavBar from "../components/layout/TopNavBar";
-import NotificationList from "../components/notification/NotificationList";
+import BottomNavi from "../components/layout/BottomNavi";
+import TopNavTitleBar from "../components/layout/TopNavTitleBar";
+import NotificationsList from "../components/notification/NotificationsList";
 
 const NotificationsPage = () => {
   return (
     <>
-      <div className="h-[734px] width-[375px]">
-        <TopNavBar />
-        <NotificationList />
+      <div className="h-screen width-[375px]">
+        <TopNavTitleBar />
+        <NotificationsList />
+        <BottomNavi />
       </div>
     </>
   );
