@@ -8,7 +8,7 @@ const TopNavBar = () => {
   const navigate = useNavigate();
   return (
     <div className="fixed">
-      <div className="h-[48px] w-screen absolute bg-white opacity-80 flex  ">
+      <div className="h-[48px] w-screen absolute bg-white opacity-80 flex z-0">
         <div className="h-[48px] w-[217px] bg-slate-600">
           GNIMS로고들어갈자리
         </div>
