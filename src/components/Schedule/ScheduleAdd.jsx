@@ -3,7 +3,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import BottomNavi from "../../components/layout/BottomNavi";
+import BottomNavi from "../layout/BottomNavi";
 import { __postSchedule } from "../../redux/modules/ScheduleSlice";
 import TopNavBar from "../layout/TopNavBar";
 import ScheduleModal from "../modal/ScheduleModal";
@@ -82,7 +82,6 @@ const ScheduleAdd = () => {
         content: content,
         participantsId: [3],
       };
-
       await dispatch(
         __postSchedule({
           Schedule: newSchedule,
