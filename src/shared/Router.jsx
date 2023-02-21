@@ -18,13 +18,16 @@ import SetProfileImgPage from "../page/SetProfileImgPage";
 import NotificationsPage from "../page/NotificationsPage";
 import ScheduleInvitation from "../components/mypage/ScheduleInvitation";
 
+import InfiniteScroll from "../components/main/InfiniteScroll";
+
 const Router = () => {
   return (
     <BrowserRouter>
       <Container>
         <Layout>
           <Routes>
-            <Route path="/main" element={<MainPage />} />
+            {/* <Route path="/main" element={<MainPage />} /> */}
+            <Route path="/main" element={<InfiniteScroll />} />
             {localStorage.getItem("nickname") ? (
               <Route path="/" element={<MainPage />} />
             ) : (

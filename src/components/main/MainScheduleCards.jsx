@@ -3,10 +3,12 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const MainScheduleCards = ({ schedules }) => {
+  console.log(schedules);
   const navigate = useNavigate();
   const invitees = schedules.invitees;
   const time = schedules.time.split(":", 2).join(":");
-
+  // const bgColor = `bg-${schedules.cardColor}`;
+  const bgColor = `bg-sora`;
   const [dDay, setDday] = useState({
     hidden: false,
     dDay: schedules.dday,
@@ -47,7 +49,7 @@ const MainScheduleCards = ({ schedules }) => {
   return (
     <div
       onClick={onDetail}
-      className=" w-[335px] h-[180px] bg-[#538EDF] rounded-[10px] pt-[20px] pl-[22px] "
+      className={`w-[335px] h-[180px] ${bgColor} rounded-[10px] pt-[20px] pl-[22px]`}
     >
       <div className=" text-[#ffff]">
         <div className="grid grid-flow-row gap-[19px]">
