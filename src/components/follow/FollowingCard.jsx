@@ -1,21 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { __postFollowState } from "../../redux/modules/FollowSlice";
 
 const FollowingCard = ({ following }) => {
   const dispatch = useDispatch();
   const [isFollowed, setIsFollowed] = useState(
-    following.followStatus === "ACTIVE" && "INIt"
+    following.followStatus === "ACTIVE"
+  );
+
+  const [btnColor, setBtnColor] = useState(
+    following.followStatus === "ACTIVE" ? "#A31414" : "#002C51"
   );
 
   const handleClick = (e) => {
     dispatch(__postFollowState(following.followId));
     setIsFollowed(!isFollowed);
+    if (isFollowed) setBtnColor("#002C51");
+    else setBtnColor("#A31414");
   };
-
-  useEffect(() => {
-    setIsFollowed(following.followStatus === "ACTIVE");
-  }, [following]);
 
   return (
     <div className="flex gap-[90px] w-full mt-[16px]">
@@ -30,12 +32,12 @@ const FollowingCard = ({ following }) => {
         <div className="flex w-[124px] items-center">{following.username}</div>
       </div>
       <div
-        className="flex items-center w-[62px] h-[39px] text-sm rounded-[4px] p-[10px] text-white bg-[#A31414]
-"
+        className={`flex items-center w-[62px] h-[39px] justify-center text-sm rounded-[4px] text-white bg-[${btnColor}]
+  `}
       >
-        <button className="text-center" onClick={handleClick}>
+        <span className="text-center" onClick={handleClick}>
           {isFollowed ? "취소" : "팔로우"}
-        </button>
+        </span>
       </div>
     </div>
   );
