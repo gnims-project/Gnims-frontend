@@ -6,8 +6,8 @@ import InvitationCard from "./ InvitationCard";
 
 const ScheduleInvitation = () => {
   const nickname = localStorage.getItem("nickname");
-
   const dispatch = useDispatch();
+
   const { isLoading, error, data } = useSelector(
     (state) => state.InvitationSlice
   );
@@ -15,7 +15,7 @@ const ScheduleInvitation = () => {
 
   useEffect(() => {
     dispatch(__getInvitation());
-  }, []);
+  }, [dispatch]);
 
   if (isLoading) {
     return <div>로딩 중....</div>;

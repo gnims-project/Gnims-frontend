@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { ScheduleApi } from "../../api/ScheduleApi";
