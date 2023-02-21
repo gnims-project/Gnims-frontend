@@ -7,8 +7,8 @@ import { useNavigate } from "react-router-dom";
 const BottomNavi = () => {
   const navigate = useNavigate();
   return (
-    <div className="relative">
-      <div className="fixed top-[617px] w-[375px] h-[50px] bg-white opacity-80">
+    <div className="relative  ">
+      <div className="fixed bottom-0  min-w-[375px] h-[50px]  bg-white">
         <div className="flex gap-[77px] pt-[13px] justify-center">
           <div
             onClick={() => {

@@ -85,7 +85,13 @@ const ScheduleAdd = () => {
         content: content,
         participantsId: [3],
       };
-      await dispatch(__postSchedule(newSchedule));
+      await dispatch(
+        __postSchedule({
+          Schedule: newSchedule,
+          userId: window.localStorage.getItem("userId"),
+          dispatch,
+        })
+      );
       setSubject("");
       setContent("");
       setParticipants("");
