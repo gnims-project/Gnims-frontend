@@ -95,7 +95,7 @@ const ScheduleAdd = () => {
       setSelectedDate("");
       setBgColor("bg-sora");
       alert("등록이 완료되었습니다!");
-      console.log(newSchedule);
+      console.log("생성된 스케쥴:", newSchedule);
       navigate("/main");
     } else {
       setModalOpen(true);
@@ -103,10 +103,10 @@ const ScheduleAdd = () => {
   };
 
   useEffect(() => {
-    console.log(today);
+    console.log("오늘의 날짜는", today);
     // console.log(border);
     // fetchSchedules();
-  }, [selectedDate, selectedColor]);
+  }, []);
 
   return (
     <>
