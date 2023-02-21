@@ -9,9 +9,7 @@ const TopNavBar = () => {
   return (
     <div className="fixed">
       <div className="h-[48px] w-screen absolute bg-white opacity-80 flex z-0">
-        <div className="h-[48px] w-[217px] bg-slate-600">
-          GNIMS로고들어갈자리
-        </div>
+        <div className="h-[48px] text-[40px] w-[217px] black">GNIMS</div>
         <img
           className="h-[24px] w-[24px] flex absolute left-[255px] mt-[13px]"
           src={searchIcon}
