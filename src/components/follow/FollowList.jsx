@@ -6,6 +6,7 @@ import FollowingCard from "./FollowingCard";
 
 const FollowList = () => {
   const dispatch = useDispatch();
+  //탭 상태 변화
   const [activeTab, setActiveTab] = useState("follower");
 
   //조건부 렌더링 설정하기 위한 스테이트
