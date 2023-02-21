@@ -12,7 +12,7 @@ const BottomNavi = () => {
         <div className="flex gap-[77px] pt-[13px] justify-center">
           <div
             onClick={() => {
-              navigate();
+              navigate("/follow");
             }}
             className="w-[24px] h-[24px]"
           >
