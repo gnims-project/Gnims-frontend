@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 
-function Callback() {
+function NaverLoginLoding() {
   const userAccessToken = () => {
     window.location.href.includes("access_token") && getToken();
   };
@@ -61,4 +61,4 @@ function Callback() {
   );
 }
 
-export default Callback;
+export default NaverLoginLoding;

@@ -6,11 +6,11 @@ import LoginPage from "../page/LoginPage";
 import SignupPage from "../page/SingupPage";
 import KakaoLogin from "../components/login/KakaoLogin";
 import KakaoLoginLoding from "../components/login/KakaoLoginLoding";
+import NaverLoginPage from "../page/NaverLoginPage";
+import NaverLoginLoding from "../components/login/NaverLoginLoding";
 import FollowList from "../components/follow/FollowList";
 import Profile from "../components/mypage/Profile";
 import ScheduleRegisterPage from "../page/ScheduleRegisterPage";
-import NaverLoginPage from "../page/NaverLoginPage";
-import Callback from "../page/callback";
 import ScheduleDetailPage from "../page/ScheduleDetailPage";
 import MainPage from "../page/MainPage";
 import SetProfileNamePage from "../page/SetProfileNamePage";
@@ -26,6 +26,7 @@ const Router = () => {
       <Container>
         <Layout>
           <Routes>
+            {/* 메인과 디테일 페이지 */}
             {/* <Route path="/main" element={<MainPage />} /> */}
             <Route path="/main" element={<InfiniteScroll />} />
             {localStorage.getItem("nickname") ? (
@@ -33,16 +34,11 @@ const Router = () => {
             ) : (
               <Route path="/" element={<LoginPage />} />
             )}
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/signup" element={<SignupPage />} />
-            <Route path="/kakaoLogin" element={<KakaoLogin />} />
-            <Route path="auth/kakao/callback" element={<KakaoLoginLoding />} />
-            <Route path="/follow" element={<FollowList />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/schedule" element={<ScheduleRegisterPage />} />
-            <Route path="/naver/login" element={<NaverLoginPage />} />
-            <Route path="/callback" element={<Callback />} />
             <Route path="/detail/:id" element={<ScheduleDetailPage />} />
+            <Route path="/schedule" element={<ScheduleRegisterPage />} />
+
+            {/* 회원가입 */}
+            <Route path="/signup" element={<SignupPage />} />
             <Route
               path="/signup/setProfileName"
               element={<SetProfileNamePage />}
@@ -51,11 +47,24 @@ const Router = () => {
               path="/signup/setProfileImg"
               element={<SetProfileImgPage />}
             />
-            <Route path="/notification" element={<NotificationsPage />} />
+
+            {/* 로그인 */}
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/kakaoLogin" element={<KakaoLogin />} />
+            <Route path="auth/kakao/callback" element={<KakaoLoginLoding />} />
+            <Route path="/naver/login" element={<NaverLoginPage />} />
+            <Route path="/auth/naver/callback" element={<NaverLoginLoding />} />
+
+            {/* 마이페이지 */}
+            <Route path="/profile" element={<Profile />} />
             <Route
               path="/scheduleinvitation"
               element={<ScheduleInvitation />}
             />
+            <Route path="/follow" element={<FollowList />} />
+
+            {/* 알람 */}
+            <Route path="/notification" element={<NotificationsPage />} />
           </Routes>
         </Layout>
       </Container>
