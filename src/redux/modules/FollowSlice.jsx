@@ -31,6 +31,7 @@ export const __getFollowing = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await instance.get(`/friendship/followings`);
+      console.log("팔로잉", data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       console.log(error.response.data.errorMessage);
@@ -42,6 +43,7 @@ export const __getFollowing = createAsyncThunk(
 export const __postFollowState = createAsyncThunk(
   "getFollowState",
   async (payload, thunkAPI) => {
+    console.log("팔로하기", payload);
     try {
       const data = await instance.post(`/friendship/followings/${payload}`);
       return thunkAPI.fulfillWithValue(data.data);
@@ -116,6 +118,7 @@ export const followSlice = createSlice({
     [__postFollowState.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.followState = action.payload;
+      console.log(action.payload);
     },
     [__postFollowState.rejected]: (state, action) => {
       state.isLoading = false;
