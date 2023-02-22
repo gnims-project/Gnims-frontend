@@ -111,14 +111,11 @@ const ScheduleAdd = () => {
   return (
     <>
       {/* //네비바테스트 후 TopNavBar지워야합니다  */}
-      <TopNavBar />
       {modalOpen && <ScheduleModal setModalOpen={setModalOpen} />}
       <div className="text-white">
-        <div
-          className={`${bgColor} flex w-screen pt-[50px] p-[20px] text-base`}
-        >
+        <div className={`${bgColor} flex p-[20px] text-base`}>
           <form>
-            <div className={"font-medium  mt-[20px]"}>
+            <div className={"font-medium mt-[20px]"}>
               카드 테마 색상
               <div className="flex flex-row mt-4 ">
                 <div
@@ -144,7 +141,7 @@ const ScheduleAdd = () => {
             <div className="justify-center mt-6 font-medium ">
               날짜와 시간
               <DatePicker
-                className="static placeholder-textNavy shadow w-[335px] h-12 mt-4 bg-white justify-center text-l hover:bg-sky-100 rounded-md text-black font-light  text-center"
+                className="static justify-center w-full h-12 mt-4 font-light text-center text-black bg-white rounded-md shadow placeholder-textNavy text-l hover:bg-sky-100"
                 dateFormat="yyyy년 MM월 dd일 h:mm aa"
                 selected={selectedDate}
                 minDate={new Date()}
@@ -224,7 +221,6 @@ const ScheduleAdd = () => {
             </button>
           </form>
         </div>
-        <BottomNavi />
       </div>
     </>
   );
