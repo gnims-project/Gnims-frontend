@@ -19,6 +19,12 @@ const EmailLogin = () => {
     modalTitle: "",
     modalMessage: "",
   });
+  const [style, setStyle] = useState({
+    bgColorEmail: "bg-inputBox",
+    bgColorPassword: "bg-inputBox",
+    shadowEmail: "",
+    shadowPassword: "",
+  });
   const { isLoading } = useSelector((state) => state.LoginSlice);
 
   console.log(isLoading);
@@ -40,12 +46,37 @@ const EmailLogin = () => {
   //유효성검사
   const onValidity = (event) => {
     const { id, value } = event.target;
-
     if (id === "userEmail") {
+      setStyle(() => ({
+        ...style,
+        bgColorEmail: "bg-inputBoxFocus",
+        shadowEmail: "drop-shadow-inputBoxShadow",
+      }));
+      if (value.trim() === "") {
+        setStyle(() => ({
+          ...style,
+          bgColorEmail: "bg-inputBox",
+          shadowEmail: "",
+        }));
+      }
       if (!emailRegulationExp.test(value)) {
         SetRegulation(() => ({ ...regulation, regulationEmail: false }));
-      } else SetRegulation(() => ({ ...regulation, regulationEmail: true }));
+      } else {
+        SetRegulation(() => ({ ...regulation, regulationEmail: true }));
+      }
     } else {
+      setStyle(() => ({
+        ...style,
+        bgColorPassword: "bg-inputBoxFocus",
+        shadowPassword: "drop-shadow-inputBoxShadow",
+      }));
+      if (value.trim() === "") {
+        setStyle(() => ({
+          ...style,
+          bgColorPassword: "bg-inputBox",
+          shadowPassword: "",
+        }));
+      }
       if (!passwordRegulationExp.test(value)) {
         SetRegulation(() => ({ ...regulation, regulationPassword: false }));
       } else SetRegulation(() => ({ ...regulation, regulationPassword: true }));
@@ -106,6 +137,7 @@ const EmailLogin = () => {
     window.location.href = KAKAO_AUTH_URL;
   };
 
+  console.log({ style });
   return (
     <div className="container md">
       <div className="ml-[20px] mr-[20px]">
@@ -125,10 +157,13 @@ const EmailLogin = () => {
                 <div className=" grid grid-row-2">
                   <Label htmlFor="userEmail">이메일</Label>
                   <LoginSignupInputBox
+                    type="text"
                     id="userEmail"
                     ref={userEmailRef}
                     onChange={onValidity}
                     placeholder="아이디(이메일) 입력"
+                    shadow={style.shadowEmail}
+                    bgColor={style.bgColorEmail}
                   />
                 </div>
                 <div className="flex items-center ">
@@ -144,10 +179,13 @@ const EmailLogin = () => {
                 <div className="grid grid-row-2">
                   <Label htmlFor="userPassword">비밀번호</Label>
                   <LoginSignupInputBox
+                    type="password"
                     ref={userPasswordRef}
                     onChange={onValidity}
                     id="userPassword"
                     placeholder="비밀번호 입력"
+                    shadow={style.shadowPassword}
+                    bgColor={style.bgColorPassword}
                   />
                 </div>
                 <div className="flex items-center ">
@@ -159,6 +197,7 @@ const EmailLogin = () => {
                   </p>
                 </div>
               </div>
+
               <button
                 onClick={onSubmit}
                 className="h-[50px] rounded w-full bg-[#002C51] font-[700] text-[#ffff] mt-[24px]"
@@ -168,14 +207,14 @@ const EmailLogin = () => {
             </div>
           </form>
           <div className="mt-[26px] grid grid-cols-2 text-center">
-            <div>
-              <button className="text-[#12396F] text-[16px] font-[400] px-[30px] py-[10px]">
+            <div className="border-4 border-indigo-600">
+              <button className="text-textBlack text-[16px] font-[400] px-[30px] py-[10px]">
                 비밀번호 재설정
               </button>
             </div>
             <div>
               <button
-                className="text-[#12396F] text-[16px] font-[400] px-[30px] py-[10px] "
+                className="text-textBlack text-[16px] font-[400] px-[30px] py-[10px] "
                 onClick={() => navigate(`/signup`)}
               >
                 회원가입

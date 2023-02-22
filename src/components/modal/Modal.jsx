@@ -47,12 +47,12 @@ const IsModal = ({ isModalOpen, onMoalClose, message }) => {
           <h1 className="px-[10px]  text-[#12396F] text-[18px] font-[700] whitespace-pre-line">
             {modalStr.modalTitle}
           </h1>
-          <p className="font-[400] text-[14px] text-[#12396F]">
+          <p className="font-[400] text-[14px] text-[#12396F] whitespace-pre">
             {modalStr.modalMessage}
           </p>
         </div>
         <button
-          className="w-full bg-[#002C51] h-[40px] rounded-[4px] font-[600] text-[#fff]"
+          className=" w-full bg-[#002C51] h-[40px] rounded-[4px] font-[600] text-[#fff]"
           onClick={onMoalClose}
         >
           확인

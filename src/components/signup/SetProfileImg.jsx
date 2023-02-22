@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import profilImg from "../../img/ProfilImg.png";
+import inputImgIcon from "../../img/Component01.png";
 import { SignupApi } from "../../api/Signup";
 import IsModal from "../modal/Modal";
 import axios from "axios";
@@ -115,35 +116,50 @@ const SetProfileImg = () => {
   return (
     <div className="App container md mt-[110px] ">
       <div className="grid grid-flow-row ml-[20px] mr-[20px]">
-        <div>
-          <label
-            htmlFor="userName"
-            className="cursor-pointer text-[#12396F] font-[500] text-[16px]"
-          >
-            프로필 사진을 설정해주세요.
-          </label>
+        <div className="grid grid-flow-row gap-[9px]">
+          <div className="font-[700] text-[32px] text-textBlack">
+            <h1>이제 마지막 단계예요.</h1>
+          </div>
+          <div className="text-textBlack font-[400] text-[24px]">
+            <label htmlFor="userName" className="cursor-pointer ">
+              <p> 그님스 이용을 위해 </p>
+              <p>프로필 사진을 설정해주세요.</p>
+            </label>
+          </div>
         </div>
         <div>
           <div className="mt-[53px]">
-            <label htmlFor="profileImg">
-              <div className=" h-[86px] w-[86px] justify-center mx-auto">
+            <div className="mt-[75px] mb-[125px] relative">
+              <div className="h-[100px] w-[100px] justify-center mx-auto">
                 <img
-                  className="w-full h-full rounded-full"
+                  className="w-full h-full rounded-full drop-shadow-lg"
                   src={image}
                   alt="프로필이미지"
                 />
               </div>
-            </label>
-            <input
-              //모든타입의 이미지허용
-              accept="image/*"
-              id="profileImg"
-              type="file"
-              ref={imgRef}
-              style={{ display: "none" }}
-              multiple
-              onChange={imagePreview}
-            />
+              <div className="h-[40px] w-[40px] justify-center mx-auto absolute right-0 left-14 bottom-0 ">
+                <label htmlFor="profileImg">
+                  <img
+                    className="w-full h-full rounded-full drop-shadow-lg"
+                    src={inputImgIcon}
+                    alt="프로필이미지"
+                  />
+                </label>
+              </div>
+            </div>
+
+            <div>
+              <input
+                //모든타입의 이미지허용
+                accept="image/*"
+                id="profileImg"
+                type="file"
+                ref={imgRef}
+                style={{ display: "none" }}
+                multiple
+                onChange={imagePreview}
+              />
+            </div>
           </div>
           <button
             onClick={onSingup}

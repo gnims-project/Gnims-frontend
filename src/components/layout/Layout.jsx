@@ -17,7 +17,7 @@ const Container = styled.div`
   box-sizing: border-box;
   top: "calc(50% - 167px/2)";
   -ms-overflow-style: none;
-  background-color: #edf7ff;
+  background-color: #f8fcff;
   font-family: Pretendard-Regular;
 
   //스크롤창 숨기기
@@ -31,7 +31,7 @@ const Container = styled.div`
   }
   @media screen and (max-width: 768px) {
     width: 375px;
-    background-color: #edf7ff;
+    background-color: #f8fcff;
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;

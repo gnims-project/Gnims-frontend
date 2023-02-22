@@ -19,6 +19,7 @@ import NotificationsPage from "../page/NotificationsPage";
 import ScheduleInvitation from "../components/mypage/ScheduleInvitation";
 
 import InfiniteScroll from "../components/main/InfiniteScroll";
+import PastEventsPage from "../page/PastEventsPage";
 
 const Router = () => {
   return (
@@ -62,6 +63,7 @@ const Router = () => {
               element={<ScheduleInvitation />}
             />
             <Route path="/follow" element={<FollowPage />} />
+            <Route path="/pastEvents" element={<PastEventsPage />} />
 
             {/* 알람 */}
             <Route path="/notification" element={<NotificationsPage />} />

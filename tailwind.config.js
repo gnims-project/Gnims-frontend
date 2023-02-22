@@ -12,6 +12,13 @@ module.exports = {
         nam: "#015397",
         parang: "#1098ED",
         textNavy: "#12396F",
+        textBlack: "#121213",
+        inputBox: "#E8E8E8",
+        inputBoxFocus: "#FFFFFF",
+        inputPlaceHoldText: "#6F6F6F",
+      },
+      dropShadow: {
+        inputBoxShadow: "0px 4px 4px rgba(68, 111, 163, 0.1)",
       },
     },
   },

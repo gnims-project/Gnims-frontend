@@ -33,8 +33,7 @@ export const __emailLogin = ({
         if (data.status === 401) {
           setModalStr({
             modalTitle: "ID를 찾을 수 없어요.",
-            modalMessage:
-              "아이디(이메일)과 비밀번호를    다시 한 번 확인해주세요.",
+            modalMessage: "이메일와 비밀번호를  \n  다시 한 번 확인해주세요.",
           });
           onModalOpen();
         }

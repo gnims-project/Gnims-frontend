@@ -6,6 +6,7 @@ import { ScheduleApi } from "../../api/ScheduleApi";
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 const initialState = {
   schedules: [],
+  pastSchedules: [],
   scrollPage: 1,
   id: 0,
   cardColor: "",
@@ -48,13 +49,23 @@ export const __postSchedule = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await ScheduleApi.postScheduleApi(payload.Schedule);
-      payload.dispatch(__getSchedule(payload.userId));
-      return thunkAPI.fulfillWithValue({
-        data: data.data,
-        userId: payload.userId,
-      });
+      thunkAPI.dispatch(__getSchedule(payload.userId));
+      return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const __getPastSchedlue = createAsyncThunk(
+  "schedule/getSchedules",
+  async (payload, thunkAPI) => {
+    try {
+      console.log("연결");
+      const { data } = await ScheduleApi.getPastScheduleApi();
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      console.log(error);
     }
   }
 );
@@ -119,9 +130,21 @@ export const ScheduleSlice = createSlice({
     },
     [__postSchedule.fulfilled]: (state, action) => {
       state.isLoading = false;
-      action.payload.dispatch();
+      state.schedules = action.payload;
     },
     [__postSchedule.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+
+    [__getPastSchedlue.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__getPastSchedlue.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.pastSchedules = action.payload;
+    },
+    [__getPastSchedlue.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },
