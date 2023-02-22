@@ -6,6 +6,7 @@ import FollowingCard from "./FollowingCard";
 
 const FollowList = () => {
   const dispatch = useDispatch();
+  //탭 상태 변화
   const [activeTab, setActiveTab] = useState("follower");
 
   //조건부 렌더링 설정하기 위한 스테이트
@@ -39,7 +40,7 @@ const FollowList = () => {
   };
 
   return (
-    <div className="grid gap-[10px] p-[20px]">
+    <div className="relative grid top-[79px] gap-[10px] px-[20px]">
       <div className="flex">
         <button
           className={`${bdColor.followerBD} w-1/2 h-[40px] p-[10px] text-[18px]`}
