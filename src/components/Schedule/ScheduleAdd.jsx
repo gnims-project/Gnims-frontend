@@ -113,7 +113,7 @@ const ScheduleAdd = () => {
       {/* //네비바테스트 후 TopNavBar지워야합니다  */}
       <TopNavBar />
       {modalOpen && <ScheduleModal setModalOpen={setModalOpen} />}
-      <div className="text-white">
+      <div className="text-white mb-[50px]">
         <div
           className={`${bgColor} flex w-screen pt-[50px] p-[20px] text-base`}
         >
