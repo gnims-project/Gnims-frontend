@@ -9,6 +9,7 @@ const NotificationsList = () => {
 
   useEffect(() => {
     let eventSource;
+
     const fetchSse = async () => {
       try {
         //EventSource생성.
@@ -29,12 +30,16 @@ const NotificationsList = () => {
         //알림이 왔을 때 취할 액션은 이 아래에.
         eventSource.onmessage = async (event) => {
           const data = await JSON.parse(event.data);
-          const datata = await event.data;
           console.log("알림이 도착했습니다", data);
           console.log("data.content만 출력하면 이렇게", data.content);
-          console.log("JSON.parse없으면이렇게", datata);
-          //   alert("알림이 도착했습니다", data.content);
+
+          const newNotification = {
+            id: Date.now(),
+            message: event.data,
+          };
+          setNotifications([newNotification, ...notifications.slice(0, 19)]);
         };
+        // eventSource.addEventListener("connect")이벤트핸들러는 새로운 알림을 notifications배열에 추가한다.
         eventSource.addEventListener("connect", (event) => {
           const newNotification = {
             id: Date.now(),
