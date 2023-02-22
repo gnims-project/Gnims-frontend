@@ -37,7 +37,10 @@ const NotificationsList = () => {
             id: Date.now(),
             message: event.data,
           };
-          setNotifications([newNotification, ...notifications]);
+          setNotifications((prevNotifications) => [
+            newNotification,
+            ...prevNotifications,
+          ]);
         };
         // eventSource.addEventListener("connect")이벤트핸들러는 새로운 알림을 notifications배열에 추가한다.
         eventSource.addEventListener("connect", (event) => {
@@ -53,7 +56,10 @@ const NotificationsList = () => {
           console.log("connect 데이터의 전체구조는:", event);
 
           //20개까지만 notifications배열에 저장해서 리턴문에 보여주기위한 코드
-          setNotifications([newNotification, ...notifications]);
+          setNotifications((prevNotifications) => [
+            newNotification,
+            ...prevNotifications,
+          ]);
           console.log("notifications 배열은 이렇게 생겼어요", notifications);
         });
         eventSource.addEventListener("invite", (event) => {
@@ -74,7 +80,10 @@ const NotificationsList = () => {
           console.log("파싱한 data", data);
           console.log("data메세지만", data.message);
 
-          setNotifications([newNotification, ...notifications]);
+          setNotifications((prevNotifications) => [
+            newNotification,
+            ...prevNotifications,
+          ]);
           console.log(
             "notifications 전체 배열은 이렇게 생겼어요",
             notifications
