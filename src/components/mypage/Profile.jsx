@@ -1,25 +1,36 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Vector from "../../img/Vector.png";
-import basicImg from "../../img/User-86.png";
+import {
+  __getFollowerCount,
+  __getFollowingCount,
+} from "../../redux/modules/FollowSlice";
 
 const Profile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // 임시로 사용하는 데이터
-  // localStorage.setItem("nickname", "동퐈");
-  // localStorage.setItem("email", "cdh0283@gmail.com");
-  // localStorage.setItem("profileImage", "");
-
+  //팔로잉과 팔로워 수를 가져오는 스테이트
+  const followerCounter = useSelector(
+    (state) => state.FollowSlice.followerCount
+  );
+  const followingCounter = useSelector(
+    (state) => state.FollowSlice.followingCount
+  );
   //로컬 스토리지에 있는 데이터를 가져오는 코드
   const nickname = localStorage.getItem("nickname");
   const email = localStorage.getItem("email");
   const profileImage = localStorage.getItem("profileImage");
 
   //페이지 렌더링시 팔로우 정보를 가져와야함
-  useEffect(() => {}, []);
+  useEffect(() => {
+    dispatch(__getFollowerCount());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(__getFollowingCount());
+  }, [dispatch]);
 
   return (
     <div>
@@ -36,10 +47,10 @@ const Profile = () => {
           </div>
           <div className="flex gap-10 pt-2">
             <div className="text-[16px] font-normal leading-[17px]">
-              팔로잉 1
+              팔로잉 {followingCounter}
             </div>
             <div className="text-[16px]  font-normal leading-[17px]">
-              팔로워 22
+              팔로워 {followerCounter}
             </div>
           </div>
         </div>

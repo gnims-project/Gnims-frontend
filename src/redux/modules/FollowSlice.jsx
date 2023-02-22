@@ -5,6 +5,8 @@ const initialState = {
   followingList: [],
   followerList: [],
   followState: [],
+  followingCount: [],
+  followerCount: [],
   isLoading: false,
   error: null,
 };
@@ -15,10 +17,8 @@ export const __getFollower = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await instance.get(`/friendship/followers`);
-      console.log("무슨데이터?", data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      console.log("무슨에러?", error);
       console.log(error.response.data.errorMessage);
       return thunkAPI.rejectWithValue(error.response.data.errorMessage);
     }
@@ -31,10 +31,9 @@ export const __getFollowing = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await instance.get(`/friendship/followings`);
-      console.log("무슨데이터?", data);
+      console.log("팔로잉", data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      console.log("무슨에러?", error);
       console.log(error.response.data.errorMessage);
       return thunkAPI.rejectWithValue(error.response.data.errorMessage);
     }
@@ -44,13 +43,39 @@ export const __getFollowing = createAsyncThunk(
 export const __postFollowState = createAsyncThunk(
   "getFollowState",
   async (payload, thunkAPI) => {
-    console.log("팔로우 상태", payload);
+    console.log("팔로하기", payload);
     try {
       const data = await instance.post(`/friendship/followings/${payload}`);
-      console.log("무슨데이터?", data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      console.log("무슨에러?", error);
+      console.log(error.response.data.errorMessage);
+      return thunkAPI.rejectWithValue(error.response.data.errorMessage);
+    }
+  }
+);
+//팔로잉 카운트 가져오기
+export const __getFollowingCount = createAsyncThunk(
+  "getFollowingCount",
+  async (payload, thunkAPI) => {
+    try {
+      const { data } = await instance.get(`/friendship/followings/counting`);
+      console.log("팔로잉 카운트", data.data);
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      console.log(error.response.data.errorMessage);
+      return thunkAPI.rejectWithValue(error.response.data.errorMessage);
+    }
+  }
+);
+//팔로워 카운트 가져오기
+export const __getFollowerCount = createAsyncThunk(
+  "getFollowerCount",
+  async (payload, thunkAPI) => {
+    try {
+      const { data } = await instance.get(`/friendship/followers/counting`);
+      console.log("팔로워 카운트", data.data);
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
       console.log(error.response.data.errorMessage);
       return thunkAPI.rejectWithValue(error.response.data.errorMessage);
     }
@@ -69,7 +94,6 @@ export const followSlice = createSlice({
     [__getFollower.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.followerList = action.payload.data;
-      console.log("팔로워 잘 오냐", state.followerList);
     },
     [__getFollower.rejected]: (state, action) => {
       state.isLoading = false;
@@ -82,7 +106,6 @@ export const followSlice = createSlice({
     [__getFollowing.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.followingList = action.payload.data;
-      console.log("팔로잉 잘 오냐", state.followingList);
     },
     [__getFollowing.rejected]: (state, action) => {
       state.isLoading = false;
@@ -95,9 +118,33 @@ export const followSlice = createSlice({
     [__postFollowState.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.followState = action.payload;
-      console.log("팔로우 상태가?", state.followState);
+      console.log(action.payload);
     },
     [__postFollowState.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+    //팔로잉 카운터 가져오기
+    [__getFollowingCount.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__getFollowingCount.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.followingCount = action.payload;
+    },
+    [__getFollowingCount.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+    //팔로워 카운터 가져오기
+    [__getFollowerCount.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__getFollowerCount.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.followerCount = action.payload;
+    },
+    [__getFollowerCount.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },
