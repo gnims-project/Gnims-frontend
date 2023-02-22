@@ -46,7 +46,7 @@ const KebabModal = ({ setModalOpen, modalOpen }) => {
           </div>
         ) : (
           //이하는 모두 케밥버튼눌렀을 때 수정&삭제 모달
-          <div className="inset-x-0 bottom-0 w-[375px] h-[177px] absolute rounded-t-lg bg-white z-2">
+          <div className="inset-x-0 bottom-0 w-[375px] h-[160px] absolute rounded-t-lg bg-white z-2">
             <button className="" onClick={closeModal}>
               x
             </button>

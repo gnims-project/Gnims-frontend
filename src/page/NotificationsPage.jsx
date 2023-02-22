@@ -7,7 +7,7 @@ const NotificationsPage = () => {
   return (
     <>
       <div className="h-screen width-[375px]">
-        <TopNavTitleBar />
+        <TopNavTitleBar>알림</TopNavTitleBar>
         <NotificationsList />
         <BottomNavi />
       </div>
