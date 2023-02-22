@@ -15,6 +15,18 @@ import LoginSignupInputBox from "../layout/LoginSignupInputBox";
 const Signup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [style, setStyle] = useState({
+    bgColorName: "bg-inputBox",
+    bgColorEmail: "bg-inputBox",
+    bgColorNickname: "bg-inputBox",
+    bgColorPassword: "bg-inputBox",
+    bgColorPasswordCheck: "bg-inputBox",
+    shadowName: "",
+    shadowEmail: "",
+    shadowNickname: "",
+    shadowPassword: "",
+    shadowPasswordCheck: "",
+  });
   const [isOpen, setOpen] = useState(false);
   const [ModalStr, setModalStr] = useState({
     modalTitle: "",
@@ -73,6 +85,17 @@ const Signup = () => {
     const { id, value } = event.target;
     const password = userPasswordRef.current.value;
     if (id === "userName") {
+      setStyle(() => ({
+        ...style,
+        bgColorName: "bg-inputBoxFocus",
+        shadowName: "drop-shadow-inputBoxShadow",
+      }));
+      if (value.trim() === "") {
+        setStyle(() => ({
+          bgColorName: "bg-inputBox",
+          shadowName: "",
+        }));
+      }
       if (!nameRegulationExp.test(value)) {
         SetRegulation(() => ({
           ...regulation,
@@ -89,6 +112,18 @@ const Signup = () => {
         }));
       }
     } else if (id === "userEmail") {
+      setStyle(() => ({
+        ...style,
+        bgColorEmail: "bg-inputBoxFocus",
+        shadowEmail: "drop-shadow-inputBoxShadow",
+      }));
+      if (value.trim() === "") {
+        setStyle(() => ({
+          ...style,
+          bgColorEmail: "bg-inputBox",
+          shadowEmail: "",
+        }));
+      }
       if (emailRegulationExp.test(value)) {
         Sethidden(() => ({
           ...hidden,
@@ -105,6 +140,18 @@ const Signup = () => {
         }));
       }
     } else if (id === "userNickName") {
+      setStyle(() => ({
+        ...style,
+        bgColorNickname: "bg-inputBoxFocus",
+        shadowNickname: "drop-shadow-inputBoxShadow",
+      }));
+      if (value.trim() === "") {
+        setStyle(() => ({
+          ...style,
+          bgColorNickname: "bg-inputBox",
+          shadowNickname: "",
+        }));
+      }
       if (nickNameReglationExp.test(value)) {
         //SetRegulation(() => ({ ...regulation, regulationNickName: "" }));
         Sethidden(() => ({
@@ -122,6 +169,18 @@ const Signup = () => {
         }));
       }
     } else if (id === "userPassword") {
+      setStyle(() => ({
+        ...style,
+        bgColorPassword: "bg-inputBoxFocus",
+        shadowPassword: "drop-shadow-inputBoxShadow",
+      }));
+      if (value.trim() === "") {
+        setStyle(() => ({
+          ...style,
+          bgColorPassword: "bg-inputBox",
+          shadoshadowPasswordEmail: "",
+        }));
+      }
       if (passwordRegulationExp.test(value)) {
         //SetRegulation(() => ({ ...regulation, regulationPassword: "" }));
         Sethidden(() => ({
@@ -129,6 +188,18 @@ const Signup = () => {
           hiddenErrorMeassaPassword: true,
         }));
       } else {
+        setStyle(() => ({
+          ...style,
+          bgColorPasswordCheck: "bg-inputBoxFocus",
+          shadowPasswordCheck: "drop-shadow-inputBoxShadow",
+        }));
+        if (value.trim() === "") {
+          setStyle(() => ({
+            ...style,
+            bgColorPasswordCheck: "bg-inputBox",
+            shadowPasswordCheck: "",
+          }));
+        }
         SetRegulation(() => ({
           ...regulation,
           regulationPassword:
@@ -343,13 +414,13 @@ const Signup = () => {
     <>
       <div className="container md">
         <div className=" grid grid-flow-row ml-[20px] mr-[20px] gap-[32px]">
-          <div className=" grid grid-flow-row gap-[10px] mt-[105px]">
+          <div className=" grid grid-flow-row gap-[10px] mt-[106px]">
             <div>
-              <h1 className="font-[700] text-[#12396F] text-[32px] mb-[10px]">
+              <h1 className="font-[700] text-textBlack text-[32px] mb-[10px]">
                 Welcome Gnims!
               </h1>
             </div>
-            <div className="font-[500] text-[#12396F] text-[24px] ">
+            <div className="font-[500] text-textBlack text-[24px] ">
               <p className="mb-[15px]">일정관리, 공유의 샛별</p>
               <p>그님스는 여러분을 환영해요!</p>
             </div>
@@ -359,10 +430,13 @@ const Signup = () => {
               <div>
                 <Label htmlFor="userName">이름</Label>
                 <LoginSignupInputBox
+                  type="text"
                   id="userName"
                   ref={userNameRef}
                   onChange={onValidity}
                   placeholder="사용자의 이름을 입력해주세요."
+                  bgColor={style.bgColorName}
+                  shadow={style.shadowName}
                 />
                 <div
                   className="flex items-center"
@@ -377,14 +451,18 @@ const Signup = () => {
                 <Label htmlFor="userEmail">이메일</Label>
                 <div>
                   <input
+                    type="email"
                     id="userEmail"
                     ref={userEmailRef}
                     placeholder="아이디로 사용할 이메일을 입력해주세요."
                     onChange={onValidity}
-                    className="w-full px-1 h-[50px] text-[16px] focus:placeholder-[#12396f] placeholder-[#12396fa1]"
+                    className={`${style.bgColorEmail} ${style.shadowEmail} w-full px-1 h-[50px] text-[16px]  placeholder-inputPlaceHoldText`}
+                    bgColor={style.bgColorEmail}
+                    shadow={style.shadowEmail}
+                    autoComplete="off"
                   ></input>
                   <button
-                    className="absolute right-[5px]  mt-[18px] font-[600] text-textNavy text-[16px]"
+                    className="absolute right-[5px]  mt-[18px] font-[600] text-textBlack text-[16px]"
                     onClick={onEmailDoubleCheck}
                   >
                     중복 확인
@@ -403,10 +481,11 @@ const Signup = () => {
                   ref={userNickNameRef}
                   placeholder="2~8자리 숫자,한글,영문을 입력해주세요."
                   onChange={onValidity}
-                  className="w-full px-1 h-[50px] text-[16px] focus:placeholder-[#12396f] placeholder-[#12396fa1]"
+                  className={`${style.bgColorNickname} ${style.shadowNickname} w-full px-1 h-[50px] text-[16px]  placeholder-inputPlaceHoldText`}
+                  autoComplete="off"
                 ></input>
                 <button
-                  className="absolute right-[24px]  mt-[18px] font-[600] text-textNavy text-[16px]"
+                  className="absolute right-[24px]  mt-[18px] font-[600] text-textBlack text-[16px]"
                   onClick={onNickNameCheck}
                 >
                   중복 확인
@@ -422,10 +501,13 @@ const Signup = () => {
                 <Label htmlFor="userPassword">비밀번호</Label>
                 <div>
                   <LoginSignupInputBox
+                    type="password"
                     id="userPassword"
                     ref={userPasswordRef}
                     placeholder="8~16자리 영문 대소문자, 숫자 조합"
                     onChange={onValidity}
+                    bgColor={style.bgColorPassword}
+                    shadow={style.shadowPassword}
                   />
                 </div>
                 <div
@@ -441,9 +523,12 @@ const Signup = () => {
                 <Label htmlFor="passwordCheck">비밀번호 확인</Label>
                 <div>
                   <LoginSignupInputBox
+                    type="password"
                     id="passwordCheck"
                     placeholder="8~16자리 영문 대소문자, 숫자 조합"
                     onChange={onValidity}
+                    bgColor={style.bgColorPasswordCheck}
+                    shadow={style.shadowPasswordCheck}
                   />
                 </div>
                 <div

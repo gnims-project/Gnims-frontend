@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import basicImg from "../../img/User-86.png";
 import { __getInvitation } from "../../redux/modules/InvitationSlice";
 import InvitationCard from "./ InvitationCard";
+import PageInfoCard from "./PageInfoCard";
 
 const ScheduleInvitation = () => {
   const nickname = localStorage.getItem("nickname");
@@ -29,7 +30,11 @@ const ScheduleInvitation = () => {
     <div>
       <div className="flex p-5 gap-[30px] justify-items-center">
         <div className="flex-none p-2 w-[86px] h-[86px] border-2 border-solid border-red-500">
-          <img className="rounded-full" src={basicImg} />
+          <img
+            className="rounded-full"
+            src={basicImg}
+            alt="사용자 프로필 사진"
+          />
         </div>
         <div className="pt-2 border-2 border-red-500 border-solid">
           <div className="text-[18px] pt-[12px] leading-[21px]">

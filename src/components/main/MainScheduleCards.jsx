@@ -49,7 +49,7 @@ const MainScheduleCards = ({ schedules }) => {
   return (
     <div
       onClick={onDetail}
-      className={`w-[335px] h-[180px] ${bgColor} rounded-[10px] pt-[20px] pl-[22px]`}
+      className={`w-[335px] h-[180px] ${bgColor} rounded-[10px] pt-[20px] pl-[22px] pr-[22px]`}
     >
       <div className=" text-[#ffff]">
         <div className="grid grid-flow-row gap-[19px]">
@@ -91,9 +91,12 @@ const MainScheduleCards = ({ schedules }) => {
           </div>
         </div>
       </div>
-      <div className=" h-[40px] ">
-        <div hidden={dDay.hidden} className="flex items-center w-full rigth-0 ">
-          <div className="text-[#FFFFFF] font-[400] text-[18px]">
+      <div className="flex h-[40px] text-rigth">
+        <div
+          hidden={dDay.hidden}
+          className="items-center text-right w-full rigth-0 "
+        >
+          <div className=" text-[#FFFFFF] font-[400] text-[18px]  ">
             {dDay.dDay}-DAY
           </div>
         </div>

@@ -5,6 +5,7 @@ import {
   __nickNameCheck,
   setNameNickName,
 } from "../../redux/modules/SingupSlice";
+import Label from "../layout/Label";
 import LoginSignupInputBox from "../layout/LoginSignupInputBox";
 import IsModal from "../modal/Modal";
 
@@ -23,6 +24,13 @@ const SetProfileName = () => {
   const { NameNickName, nickNameDoubleCheck } = useSelector(
     (state) => state.SingupSlice
   );
+
+  const [style, setStyle] = useState({
+    bgColorName: "bg-inputBox",
+    bgColorNickname: "bg-inputBox",
+    shadowName: "",
+    shadowNickname: "",
+  });
 
   useEffect(() => {
     //로컬스토리지
@@ -46,6 +54,17 @@ const SetProfileName = () => {
   const onValidity = (event) => {
     const { id, value } = event.target;
     if (id === "userName") {
+      setStyle(() => ({
+        ...style,
+        bgColorName: "bg-inputBoxFocus",
+        shadowName: "drop-shadow-inputBoxShadow",
+      }));
+      if (value.trim() === "") {
+        setStyle(() => ({
+          bgColorName: "bg-inputBox",
+          shadowName: "",
+        }));
+      }
       if (!nameRegulationExp.test(value)) {
         SetRegulation(() => ({
           ...regulation,
@@ -58,13 +77,23 @@ const SetProfileName = () => {
         }));
       }
     } else {
+      setStyle(() => ({
+        ...style,
+        bgColorNickname: "bg-inputBoxFocus",
+        shadowNickname: "drop-shadow-inputBoxShadow",
+      }));
+      if (value.trim() === "") {
+        setStyle(() => ({
+          bgColorNickname: "bg-inputBox",
+          shadowNickname: "",
+        }));
+      }
       if (nickNameReglationExp.test(value)) {
         SetRegulation(() => ({ ...regulation, regulationNickName: "" }));
       } else {
         SetRegulation(() => ({
           ...regulation,
-          regulationNickName:
-            "최소 2자리에서 8자리까지 한글,영문,숫자만 포함해주세요.",
+          regulationNickName: "2자리에서 8자리 한글,영문,숫자만 포함해주세요.",
         }));
       }
     }
@@ -148,52 +177,59 @@ const SetProfileName = () => {
   return (
     <>
       <div className="container md ">
-        <form className="grid grid-flow-row ml-[20px] mr-[20px] mt-[101px]">
-          <div className="grid grid-rows-2 gap-[10px]">
+        <div className="grid grid-flow-row gap-[9px]  ml-[20px] mr-[20px] mt-[101px]">
+          <div className="font-[700] text-[32px] text-textBlack">
+            <h1>그남스 여정 준비 시작!</h1>
+          </div>
+          <div className="text-textBlack font-[400] text-[24px]">
+            <label htmlFor="userName" className="cursor-pointer ">
+              <p> 그님스 이용을 위해 </p>
+              <p>프로필 정보를 설정해주세요.</p>
+            </label>
+          </div>
+        </div>
+        <form className="grid grid-flow-row ml-[20px] mr-[20px] mt-[36px]">
+          <div className="grid grid-rows-2 ">
             <div>
               <div className="h-[40px] flex items-center">
                 <div>
-                  <label
-                    htmlFor="userName"
-                    className="text-[16px] cursor-pointer text-[#12396F] font-[500]"
-                  >
-                    이름을 입력해주세요.
-                  </label>
+                  <Label>이름</Label>
                 </div>
               </div>
               <div>
                 <LoginSignupInputBox
+                  type="text"
                   id="userName"
                   ref={userNameRef}
                   placeholder="사용자의 이름을 입력해주세요."
                   onChange={onValidity}
+                  bgColor={style.bgColorName}
                 />
               </div>
-              <p className="h-[40px] w-full font-[500] text-[16px] text-[#DE0D0D] flex items-center">
-                {regulation.regulationName}
-              </p>
+              <div>
+                <p className="h-[40px] w-full font-[500] text-[16px] text-[#DE0D0D] flex items-center">
+                  {regulation.regulationNick}
+                </p>
+              </div>
             </div>
             <div>
               <div className="h-[40px] flex items-center">
                 <div>
-                  <label
-                    htmlFor="userNickName"
-                    className="cursor-pointer text-[#12396F] font-[500]"
-                  >
-                    사용하실 닉네임을 입력해주세요.
-                  </label>
+                  <Label>닉네임</Label>
                 </div>
               </div>
               <div>
                 <input
+                  type="text"
                   id="userNickName"
                   ref={userNickNameRef}
                   placeholder="2~8자리 숫자,한글,영문을 입력해주세요."
                   onChange={onValidity}
-                  className="w-full px-1 h-[50px] text-[16px] focus:placeholder-[#12396f] placeholder-[#12396fa1]"
+                  className="w-full px-1 h-[50px] text-[16px] focus:placeholder-placeholderText placeholder-inputPlaceHoldText"
+                  bgColor={style.bgColorNickname}
                 ></input>
                 <button
-                  className="absolute right-[24px]  mt-[18px] font-[600] text-textNavy text-[16px]"
+                  className="absolute right-[24px]  mt-[18px] font-[600] text-textBlack text-[16px]"
                   onClick={onNickNameCheck}
                 >
                   중복 확인

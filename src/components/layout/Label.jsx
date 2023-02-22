@@ -7,7 +7,7 @@ const Label = ({ htmlFor, children }) => {
         <div>
           <label
             htmlFor={htmlFor}
-            className="cursor-pointer text-[#12396F] font-[600]"
+            className="cursor-pointer text-textBlack font-[600]"
           >
             {children}
           </label>
