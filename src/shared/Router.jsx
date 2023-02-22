@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Layout from "../components/layout/Layout";
 import styled from "styled-components";
 import LoginPage from "../page/LoginPage";
@@ -20,57 +20,53 @@ import ScheduleInvitation from "../components/mypage/ScheduleInvitation";
 
 import InfiniteScroll from "../components/main/InfiniteScroll";
 import PastEventsPage from "../page/PastEventsPage";
+import UserSearchPage from "../page/UserSearchPage";
 
 const Router = () => {
   return (
-    <BrowserRouter>
-      <Container>
-        <Layout>
-          <Routes>
-            {/* 메인과 디테일 페이지 */}
-            {/* <Route path="/main" element={<MainPage />} /> */}
-            <Route path="/main" element={<InfiniteScroll />} />
-            {localStorage.getItem("nickname") ? (
-              <Route path="/" element={<MainPage />} />
-            ) : (
-              <Route path="/" element={<LoginPage />} />
-            )}
-            <Route path="/detail/:id" element={<ScheduleDetailPage />} />
-            <Route path="/schedule" element={<ScheduleRegisterPage />} />
+    <Container>
+      <Layout>
+        <Routes>
+          {/* 메인과 디테일 페이지 */}
+          {/* <Route path="/main" element={<MainPage />} /> */}
+          <Route path="/main" element={<InfiniteScroll />} />
+          {localStorage.getItem("nickname") ? (
+            <Route path="/" element={<MainPage />} />
+          ) : (
+            <Route path="/" element={<LoginPage />} />
+          )}
+          <Route path="/detail/:id" element={<ScheduleDetailPage />} />
+          <Route path="/schedule" element={<ScheduleRegisterPage />} />
 
-            {/* 회원가입 */}
-            <Route path="/signup" element={<SignupPage />} />
-            <Route
-              path="/signup/setProfileName"
-              element={<SetProfileNamePage />}
-            />
-            <Route
-              path="/signup/setProfileImg"
-              element={<SetProfileImgPage />}
-            />
+          {/* 회원가입 */}
+          <Route path="/signup" element={<SignupPage />} />
+          <Route
+            path="/signup/setProfileName"
+            element={<SetProfileNamePage />}
+          />
+          <Route path="/signup/setProfileImg" element={<SetProfileImgPage />} />
 
-            {/* 로그인 */}
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/kakaoLogin" element={<KakaoLogin />} />
-            <Route path="auth/kakao/callback" element={<KakaoLoginLoding />} />
-            <Route path="/naver/login" element={<NaverLoginPage />} />
-            <Route path="/auth/naver/callback" element={<NaverLoginLoding />} />
+          {/* 로그인 */}
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/kakaoLogin" element={<KakaoLogin />} />
+          <Route path="auth/kakao/callback" element={<KakaoLoginLoding />} />
+          <Route path="/naver/login" element={<NaverLoginPage />} />
+          <Route path="/auth/naver/callback" element={<NaverLoginLoding />} />
 
-            {/* 마이페이지 */}
-            <Route path="/profile" element={<Profile />} />
-            <Route
-              path="/scheduleinvitation"
-              element={<ScheduleInvitation />}
-            />
-            <Route path="/follow" element={<FollowPage />} />
-            <Route path="/pastEvents" element={<PastEventsPage />} />
+          {/* 마이페이지 */}
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/scheduleinvitation" element={<ScheduleInvitation />} />
+          <Route path="/follow" element={<FollowPage />} />
+          <Route path="/pastEvents" element={<PastEventsPage />} />
 
-            {/* 알람 */}
-            <Route path="/notification" element={<NotificationsPage />} />
-          </Routes>
-        </Layout>
-      </Container>
-    </BrowserRouter>
+          {/* 알람 */}
+          <Route path="/notification" element={<NotificationsPage />} />
+
+          {/* 찾기 */}
+          <Route path="/userSearch" element={<UserSearchPage />}></Route>
+        </Routes>
+      </Layout>
+    </Container>
   );
 };
 

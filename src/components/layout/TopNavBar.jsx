@@ -16,7 +16,7 @@ const TopNavBar = () => {
           alt="검색버튼"
           //navigate 경로는 검색페이지루트가 정해지면 변경하면됩니다
           onClick={() => {
-            navigate("/login");
+            navigate("/userSearch");
             console.log("검색페이지로이동");
           }}
         />

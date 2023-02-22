@@ -18,7 +18,7 @@ const TopNavTitleBar = ({ children }) => {
             }}
           />
         </div>
-        <div className="absolute left-[145px] text-textNavy font-lg text-[20px]">
+        <div className="absolute left-[145px] text-textBlack font-lg text-[20px]">
           {children}
         </div>
       </div>
