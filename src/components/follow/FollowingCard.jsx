@@ -5,11 +5,11 @@ import { __postFollowState } from "../../redux/modules/FollowSlice";
 const FollowingCard = ({ following }) => {
   const dispatch = useDispatch();
   const [isFollowed, setIsFollowed] = useState(
-    following.followStatus === "ACTIVE"
+    following.followStatus === "ACTIVE" || "INIT"
   );
 
   const [btnColor, setBtnColor] = useState(
-    following.followStatus === "ACTIVE" ? "#A31414" : "#002C51"
+    following.followStatus === "ACTIVE" || "INIT" ? "#A31414" : "#002C51"
   );
 
   const handleClick = (e) => {
@@ -31,14 +31,15 @@ const FollowingCard = ({ following }) => {
         </div>
         <div className="flex w-[124px] items-center">{following.username}</div>
       </div>
-      <div
-        className={`flex items-center w-[62px] h-[39px] justify-center text-sm rounded-[4px] text-white bg-[${btnColor}]
-  `}
-      >
-        <span className="text-center" onClick={handleClick}>
-          {isFollowed ? "취소" : "팔로우"}
-        </span>
-      </div>
+      {isFollowed ? (
+        <div className="flex items-center w-[62px] h-[39px] justify-center text-sm rounded-[4px] text-white bg-[#A31414]">
+          <span onClick={handleClick}>{isFollowed ? "취소" : "팔로우"}</span>
+        </div>
+      ) : (
+        <div className="flex items-center w-[62px] h-[39px] justify-center text-sm rounded-[4px] text-white bg-[#002C51]">
+          <span onClick={handleClick}>{isFollowed ? "취소" : "팔로우"}</span>
+        </div>
+      )}
     </div>
   );
 };
