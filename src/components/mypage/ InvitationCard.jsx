@@ -7,7 +7,6 @@ import {
 
 const InvitationCard = ({ invit }) => {
   console.log("뭘까요?", invit);
-  console.log("뭘까요?2", invit.invitees[0].username);
 
   const dispatch = useDispatch();
 

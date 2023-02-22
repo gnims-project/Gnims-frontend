@@ -8,7 +8,7 @@ import KakaoLogin from "../components/login/KakaoLogin";
 import KakaoLoginLoding from "../components/login/KakaoLoginLoding";
 import NaverLoginPage from "../page/NaverLoginPage";
 import NaverLoginLoding from "../components/login/NaverLoginLoding";
-import FollowList from "../components/follow/FollowList";
+import FollowPage from "../page/FollowPage";
 import Profile from "../components/mypage/Profile";
 import ScheduleRegisterPage from "../page/ScheduleRegisterPage";
 import ScheduleDetailPage from "../page/ScheduleDetailPage";
@@ -61,7 +61,7 @@ const Router = () => {
               path="/scheduleinvitation"
               element={<ScheduleInvitation />}
             />
-            <Route path="/follow" element={<FollowList />} />
+            <Route path="/follow" element={<FollowPage />} />
 
             {/* 알람 */}
             <Route path="/notification" element={<NotificationsPage />} />
