@@ -80,7 +80,7 @@ const ScheduleAdd = () => {
         time: time,
         subject: subject,
         content: content,
-        participantsId: [3],
+        participantsId: participantss,
       };
       await dispatch(
         __postSchedule({

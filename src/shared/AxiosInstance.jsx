@@ -7,7 +7,7 @@ export const instance = axios.create({
   baseURL: "https://eb.jxxhxxx.shop",
   //민우님 개인서버
   //baseURL: "http://hayangaeul.shop/auth/login",
-  //baseURL: "http://hayangaeul.shop",
+  // baseURL: "http://hayangaeul.shop",
 });
 
 //서버에 요청을 보내기 전

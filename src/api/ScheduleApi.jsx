@@ -19,4 +19,8 @@ export const ScheduleApi = {
     const data = instance.post("/events", payload);
     return data;
   },
+  deleteScheduleApi: (payload) => {
+    const data = instance.delete("/events", payload);
+    return data;
+  },
 };

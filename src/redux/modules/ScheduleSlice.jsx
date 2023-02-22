@@ -16,6 +16,13 @@ const initialState = {
   participantsId: null,
   isLoading: false,
 };
+export const __deleteSchedule = createAsyncThunk(
+  "schedule/delete",
+  async (id) => {
+    const response = await ScheduleApi.deleteScheduleApi(id);
+    return response.data;
+  }
+);
 
 export const __getSchedule = createAsyncThunk(
   "schedule/getSchedules",
@@ -121,6 +128,19 @@ export const ScheduleSlice = createSlice({
     [__postSchedule.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
+    },
+    [__deleteSchedule.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__deleteSchedule.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.data = state.data.filter(
+        (schedule) => schedule.id !== action.payload.id
+      );
+    },
+    [__deleteSchedule.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message;
     },
   },
 });

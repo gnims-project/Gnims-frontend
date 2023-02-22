@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import deleteIcon from "../../img/deleteIcon.png";
 import editIcon from "../../img/editIcon.png";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { __deleteSchedule } from "../../redux/modules/ScheduleSlice";
 
 const KebabModal = ({ setModalOpen, modalOpen }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const scheduleEditHandler = () => {};
   const scheduleDeleteHandler = () => {
     setDeleteModalOpen(true);
@@ -12,8 +15,9 @@ const KebabModal = ({ setModalOpen, modalOpen }) => {
   const closeModal = () => {
     setModalOpen(false);
   };
-  const confirmDeleteHandler = () => {
+  const confirmDeleteHandler = (id) => {
     //DELETE 기능넣으면 됨
+    dispatch(__deleteSchedule(id));
     alert("삭제완료");
     navigate("/");
   };
