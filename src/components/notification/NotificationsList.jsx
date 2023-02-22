@@ -6,7 +6,7 @@ import followIcon from "../../img/follow.png";
 const NotificationsList = () => {
   //notifications는 최대 20개까지 알림을 담는 배열이다. [{id:34523452345, message:'안녕하세요'},{...},...]이런구조
   const [notifications, setNotifications] = useState([]);
-
+  const [recieveAt, setRecieveAt] = useState("");
   useEffect(() => {
     let eventSource;
 
@@ -32,12 +32,12 @@ const NotificationsList = () => {
           const data = await JSON.parse(event.data);
           console.log("알림이 도착했습니다", data);
           console.log("data.content만 출력하면 이렇게", data.content);
-
+          console.log(data);
           const newNotification = {
             id: Date.now(),
             message: event.data,
           };
-          setNotifications([newNotification, ...notifications.slice(0, 19)]);
+          setNotifications([newNotification, ...notifications]);
         };
         // eventSource.addEventListener("connect")이벤트핸들러는 새로운 알림을 notifications배열에 추가한다.
         eventSource.addEventListener("connect", (event) => {
@@ -50,10 +50,35 @@ const NotificationsList = () => {
             "newNotification의 메세지만출력:",
             newNotification.message
           );
-          console.log("데이터의 전체구조는:", event);
+          console.log("connect 데이터의 전체구조는:", event);
+
           //20개까지만 notifications배열에 저장해서 리턴문에 보여주기위한 코드
-          setNotifications([newNotification, ...notifications.slice(0, 19)]);
+          setNotifications([newNotification, ...notifications]);
           console.log("notifications 배열은 이렇게 생겼어요", notifications);
+        });
+        eventSource.addEventListener("invite", (event) => {
+          const data = JSON.parse(event.data);
+          console.log("parsing한거", data);
+          const newNotification = {
+            id: Date.now(),
+            message: data.message,
+          };
+          const time = data.createAt;
+          setRecieveAt(time);
+          console.log(time);
+          console.log("newNotification 구조???????", newNotification);
+          console.log(
+            "invite newNotification message?????",
+            newNotification.message
+          );
+          console.log("파싱한 data", data);
+          console.log("data메세지만", data.message);
+
+          setNotifications([newNotification, ...notifications]);
+          console.log(
+            "notifications 전체 배열은 이렇게 생겼어요",
+            notifications
+          );
         });
       } catch (error) {
         console.log("에러발생:", error);
@@ -62,6 +87,7 @@ const NotificationsList = () => {
     fetchSse();
     return () => {
       eventSource.close();
+      console.log("notifications 배열은 이렇게 생겼어요", notifications);
     };
   }, []);
 
@@ -73,7 +99,7 @@ const NotificationsList = () => {
             className="pl-[20px] pr-[20px] pt-[20px]  h-[86px] bg-[#F4F4F4] text-right text-[#121213] border-solid border-[rgb(219,219,219)] border-b-[1px]"
             key={notification.id}
           >
-            {notification.message.includes("팔로우") ? (
+            {notification.message.includes("안녕하세요") ? (
               <img
                 src={followIcon}
                 alt="followIcon"
@@ -88,7 +114,7 @@ const NotificationsList = () => {
             )}
             <div className="mt-[-20px]">{notification.message}</div>
             <br />
-            <span className="text-[#6F6F6F] text-[14px]">날짜</span>
+            <span className="text-[#6F6F6F] text-[14px]">날짜{recieveAt}</span>
           </div>
         ))}
       </div>
