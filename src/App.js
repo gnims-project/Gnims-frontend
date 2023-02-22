@@ -5,10 +5,8 @@ import GlobalStyles from "./styles/GlobalStyle";
 function App() {
   return (
     <>
-      <div className="overflow-hidden">
-        <GlobalStyles />
-        <Router />
-      </div>
+      <GlobalStyles />
+      <Router />
     </>
   );
 }

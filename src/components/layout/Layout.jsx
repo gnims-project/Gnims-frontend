@@ -25,6 +25,7 @@ const OutWrap = styled.div`
   display: flex;
   flex: 1;
   justify-content: center;
+
   /* box-sizing: border-box; */
 `;
 
@@ -36,4 +37,12 @@ const Container = styled.div`
   min-width: 375px;
   background-color: #edf7ff;
   font-family: Pretendard-Regular;
+  overflow: scroll;
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
