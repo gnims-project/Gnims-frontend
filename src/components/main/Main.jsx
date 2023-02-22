@@ -34,13 +34,13 @@ const Main = () => {
 
   return (
     <>
-      <div className="container md mb-[70px] ">
+      <div className="container mb-[70px]">
         <div className="grid grid-flow-row ml-[20px] mr-[20px]">
           <div className="mt-[78px] w-full h-[80px] bg-[#FFFFFF] rounded-[10px] drop-shadow-lg">
-            <div className="flex flex-row gap-[10px] ">
+            <div className="flex flex-row gap-[10px]">
               <div className="p-[10px]">
                 <img
-                  className="h-[60px] w-[60px]  rounded-full"
+                  className="h-[60px] w-[60px] rounded-full"
                   src={profileImg}
                   alt="프로필이미지"
                 />
@@ -54,7 +54,7 @@ const Main = () => {
           </div>
           <div>
             {/* <InfiniteScroll /> */}
-            <div className="flex flex-col gap-[30px] mt-[28px] rounded-[10px] ">
+            <div className="flex flex-col gap-[30px] mt-[28px] rounded-[10px]">
               {schedules.map((list) => {
                 return (
                   <MainScheduleCards key={list.eventId} schedules={list} />
