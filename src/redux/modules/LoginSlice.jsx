@@ -24,7 +24,7 @@ export const __emailLogin = ({
         localStorage.setItem("nickname", nickname);
         localStorage.setItem("profileImage", profileImage);
         alert(`${nickname}님 어서오세요.`);
-        navigate("/main");
+        navigate("/");
       })
       .catch((error) => {
         console.log(error);
