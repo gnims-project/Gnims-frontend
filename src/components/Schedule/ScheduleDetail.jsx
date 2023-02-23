@@ -29,36 +29,43 @@ const ScheduleDetail = () => {
       }, []);
   };
   const time = schedule.time?.split(":", 2).join(":");
-
+  console.log(schedule);
   useEffect(() => {
     fetchTodos();
   }, []);
 
   const joiner = schedule.invitees;
   console.log(joiner);
-
-  console.log(schedule.invitees);
   const numberOfJoiner = joiner && joiner.length;
-
+  const hostId = schedule.hostId;
+  //isHidden은 해당 스케쥴이 본인의 스케쥴이 아닐 땐 케밥버튼이 보이지 않게하기 위해 쓰인다. 기본값은 flex이고,
+  let isHidden = "";
+  //스케쥴의 참여자에 로그인한 본인의 닉네임이 포함되지 않으면 hidden값이 입혀진다.
+  if (hostId !== localStorage.getItem("usdeId")) {
+    isHidden = "hidden";
+  }
+  console.log(hostId !== localStorage.getItem("usdeId"));
+  console.log(hostId);
   return (
     <div className="bg-[#EDF7FF] h-full width-[375px]">
       <div>
         <div className="fixed bottom-0">
+          {/* 케밥모달이 열리면 bottomNavi는 사라집니다 */}
           {modalOpen ? false : <BottomNavi />}
         </div>
         {modalOpen && <KebabModal setModalOpen={setModalOpen} id={id} />}
         <div
-          className={`h-[202px] bg-${schedule.cardColor} pl-[18px] pt-[23px] pr-[21px] text-white`}
+          className={`h-[212px] bg-${schedule.cardColor} pl-[18px] pt-[23px] pr-[21px] text-white`}
         >
-          <div className="flex flex-row-reverse">
+          <div className="flex flex-row-reverse ">
             <img
-              className="h-[20px] flex "
+              className={`h-[20px] ${isHidden} row`}
               src={kebab}
               alt="케밥메뉴"
               onClick={showModalHandler}
             />
           </div>
-          <div className="flex space-x-3 text-[18px] mt-[-18px] font-light ">
+          <div className="flex space-x-3 text-[18px]  font-light ">
             <div>{schedule.date}</div> <div> {time}</div>
           </div>
           <div className="mt-[28px] font-semibold text-[24px]">
