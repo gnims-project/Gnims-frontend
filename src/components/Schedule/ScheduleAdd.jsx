@@ -82,7 +82,6 @@ const ScheduleAdd = () => {
         __postSchedule({
           Schedule: newSchedule,
           userId: window.localStorage.getItem("userId"),
-          dispatch,
         })
       );
       setSubject("");

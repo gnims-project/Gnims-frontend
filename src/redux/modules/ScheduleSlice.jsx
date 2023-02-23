@@ -33,6 +33,7 @@ export const __getSchedule = createAsyncThunk(
     try {
       console.log("연결");
       const { data } = await ScheduleApi.getSccheduleApi(payload);
+      console.log(data.data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       console.log(error);
@@ -46,6 +47,7 @@ export const __getScrollPage = createAsyncThunk(
     try {
       console.log("연결");
       const { data } = await ScheduleApi.getInfiniteScrollPage(payload);
+      console.log(data.data);
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       console.log(error);
@@ -58,8 +60,9 @@ export const __postSchedule = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await ScheduleApi.postScheduleApi(payload.Schedule);
-      thunkAPI.dispatch(__getSchedule(payload.userId));
-      return thunkAPI.fulfillWithValue(data.data);
+      console.log(payload.userId);
+      payload.dispatch(__getSchedule(payload.userId));
+      // return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -67,14 +70,20 @@ export const __postSchedule = createAsyncThunk(
 );
 
 export const __getPastSchedlue = createAsyncThunk(
-  "schedule/getSchedules",
+  "schedule/getPastSchedlue",
   async (payload, thunkAPI) => {
     try {
       console.log("연결");
       const { data } = await ScheduleApi.getPastScheduleApi();
+      console.log(data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      console.log(error);
+      console.log(error.response.status);
+      const errorStatus = error.response.status;
+
+      if (errorStatus === 500) {
+        window.alert("서버에 문제가 생겼습니다.");
+      }
     }
   }
 );
@@ -92,6 +101,7 @@ export const ScheduleSlice = createSlice({
       state.isLoading = true;
     },
     [__getSchedule.fulfilled]: (state, action) => {
+      state.isLoading = false;
       console.log(action.payload);
       let schedules = action.payload;
       let tmp = 0;
@@ -101,13 +111,6 @@ export const ScheduleSlice = createSlice({
             tmp = schedules[i];
             schedules[i] = schedules[j];
             schedules[j] = tmp;
-            // if (schedules[i].dday === 0) {
-            //   if (schedules[i].dday > schedules[j].dday) {
-            //     tmp = schedules[i];
-            //     schedules[i] = schedules[j];
-            //     schedules[j] = tmp;
-            //   }
-            // }
           }
         }
       }
@@ -145,27 +148,31 @@ export const ScheduleSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
+
     [__getPastSchedlue.pending]: (state) => {
       state.isLoading = true;
     },
     [__getPastSchedlue.fulfilled]: (state, action) => {
+      console.log(action.payload);
       state.isLoading = false;
       state.pastSchedules = action.payload;
     },
+
     [__getPastSchedlue.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },
-    [__deleteSchedule.pending]: (state) => {
-      state.isLoading = true;
-    },
-    [__deleteSchedule.fulfilled]: (state, action) => {
-      state.isLoading = false;
-    },
-    [__deleteSchedule.rejected]: (state, action) => {
-      state.isLoading = false;
-      state.error = action.error.message;
-    },
+
+    // [__deleteSchedule.pending]: (state) => {
+    //   state.isLoading = true;
+    // },
+    // [__deleteSchedule.fulfilled]: (state, action) => {
+    //   state.isLoading = false;
+    // },
+    // [__deleteSchedule.rejected]: (state, action) => {
+    //   state.isLoading = false;
+    //   state.error = action.error.message;
+    // },
   },
 });
 
