@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import NaverLogin from "../../page/NaverLoginPage";
 import Label from "../layout/Label";
 import LoginSignupInputBox from "../layout/LoginSignupInputBox";
+import gnimsLogo from "../../img/gnimslogo1.png";
 
 const EmailLogin = () => {
   const dispatch = useDispatch();
@@ -139,13 +140,13 @@ const EmailLogin = () => {
 
   console.log({ style });
   return (
-    <div className="container h-full md mt-[60px]">
-      <div className="ml-[20px] mr-[20px]">
-        <div className="grid grid-rows ">
+    <div className="container h-full md ">
+      <div className="ml-[20px] mr-[20px] ">
+        <div className="grid grid-rows mt-[100px]">
           <div className="h-[150px]">
-            <div className="mx-auto w-[87px] h-[64px] overflow-hidden gap-[10px] ">
+            <div className="mx-auto  w-[150px] h-[64px] overflow-hidden gap-[10px] ">
               <img
-                src="https://pbs.twimg.com/media/FACQ9-hUcAcA_11.jpg "
+                src={gnimsLogo}
                 alt="곰캐릭터가 우쭐거리며 왠지 잘될 것 같은 기분포즈 중"
                 className="h-full w-full "
               />

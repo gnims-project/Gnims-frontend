@@ -7,9 +7,12 @@ import { __getScrollPage } from "../../redux/modules/ScheduleSlice";
 import { pagePlus } from "../../redux/modules/ScheduleSlice";
 import axios from "axios";
 
-const InfiniteScroll = () => {
+const InfiniteScroll = ({ schedules }) => {
+  const dispatch = useDispatch();
+  console.log(schedules);
   //리스트 생성
-  const [scheduleList, setScheduleList] = useState();
+  const [scheduleList, setScheduleList] = useState(() => schedules);
+  console.log(scheduleList);
   //페이징 생성
   const [page, setPage] = useState(0);
   //로딩여부
@@ -38,8 +41,14 @@ const InfiniteScroll = () => {
     try {
       const { data } = await ScheduleApi.getInfiniteScrollPage(payload);
       const dataList = data.data;
-      console.log(dataList);
-      setScheduleList(() => ({ dataList }));
+      console.log(data);
+      if (page === data.totalPage) {
+        //마지막 페이지일 경우
+        endRef.current = true;
+        //noPostShow();
+        setScheduleList((prev) => [...prev, ...dataList]); //리스트 추가
+        //prevent_duple.current = true;
+      }
       console.log(scheduleList);
     } catch {
     } finally {
@@ -49,6 +58,10 @@ const InfiniteScroll = () => {
   useEffect(() => {
     if (page !== 0) getSchedule({ userId: userId, page: page });
   }, [page, userId, getSchedule]);
+
+  useEffect(() => {
+    dispatch(__getScrollPage({ userId: userId, page: 0 }));
+  }, [dispatch, userId]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(observerHandler, {

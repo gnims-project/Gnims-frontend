@@ -79,7 +79,8 @@ const ScheduleAdd = () => {
         time: time,
         subject: subject,
         content: content,
-        participantsId: joinerWithoutDuplicate,
+        participantsId: [],
+        //participantsId: joinerWithoutDuplicate,
       };
       await dispatch(
         __postSchedule({

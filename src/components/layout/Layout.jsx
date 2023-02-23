@@ -33,31 +33,31 @@ const Layout = ({ children }) => {
         setHeader(() => <TopNavTitleBar>일정 추가</TopNavTitleBar>);
         break;
       case "/signup":
-        setHeader(() => <TopNavTitleBar></TopNavTitleBar>);
+        setHeader(() => <TopNavTitleBar> 회원가입 </TopNavTitleBar>);
         break;
       case "/signup/setProfileName":
-        setHeader(() => <TopNavTitleBar></TopNavTitleBar>);
+        setHeader(() => <TopNavTitleBar>프로필 설정</TopNavTitleBar>);
         break;
       case "/signup/setProfileImg":
-        setHeader(() => <TopNavTitleBar></TopNavTitleBar>);
+        setHeader(() => <TopNavTitleBar>프로필 설정</TopNavTitleBar>);
         break;
       case "/profile":
-        setHeader(() => <TopNavTitleBar></TopNavTitleBar>);
+        setHeader(() => <TopNavTitleBar>마이페이지</TopNavTitleBar>);
         break;
       case "/scheduleinvitation":
-        setHeader(() => <TopNavTitleBar></TopNavTitleBar>);
+        setHeader(() => <TopNavTitleBar>내게 온 초대목록</TopNavTitleBar>);
         break;
       case "/follow":
-        setHeader(() => <TopNavTitleBar></TopNavTitleBar>);
+        setHeader(() => <TopNavTitleBar>팔로우 목록</TopNavTitleBar>);
         break;
       case "/pastEvents":
-        setHeader(() => <TopNavTitleBar></TopNavTitleBar>);
+        setHeader(() => <TopNavTitleBar>나의 지난 일정</TopNavTitleBar>);
         break;
       case "/notification":
         setHeader(() => <TopNavTitleBar>알림</TopNavTitleBar>);
         break;
       case "/userSearch":
-        setHeader(() => <TopNavTitleBar></TopNavTitleBar>);
+        setHeader(() => <TopNavTitleBar>유저 검색</TopNavTitleBar>);
         break;
       default:
         setHeader(null);
