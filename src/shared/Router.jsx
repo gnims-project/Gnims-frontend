@@ -38,6 +38,9 @@ const Router = () => {
           <Route path="/detail/:id" element={<ScheduleDetailPage />} />
           <Route path="/schedule" element={<ScheduleRegisterPage />} />
 
+          {/* 무한스크롤 */}
+          <Route path="/mainInfinite" element={<InfiniteScroll />} />
+
           {/* 회원가입 */}
           <Route path="/signup" element={<SignupPage />} />
           <Route
