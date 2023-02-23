@@ -36,7 +36,7 @@ const Main = () => {
   return (
     <>
       <div className="container">
-        <div className="grid grid-flow-row ml-[20px] mr-[20px]">
+        <div className="grid grid-flow-row mt-[] ml-[20px] mr-[20px]">
           <div className="mt-[30px] w-full h-[80px] bg-[#FFFFFF] rounded-[10px] drop-shadow-lg">
             <div className="flex flex-row gap-[10px]">
               <div className="p-[10px]">

@@ -416,7 +416,7 @@ const Signup = () => {
 
   return (
     <>
-      <div className="container md">
+      <div className="container">
         <div className=" grid grid-flow-row ml-[20px] mr-[20px] gap-[32px]">
           <div className=" grid grid-flow-row gap-[10px] mt-[106px]">
             <div>

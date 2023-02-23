@@ -3,17 +3,71 @@ import React from "react";
 import TopNavBar from "./TopNavBar";
 import BottomNavi from "./BottomNavi";
 import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { useState } from "react";
+import TopNavTitleBar from "./TopNavTitleBar";
 
 const Layout = ({ children }) => {
   const pagePathName = useLocation();
+  const [header, setHeader] = useState(null);
+
+  useEffect(() => {
+    const pageName = pagePathName.pathname;
+    switch (pageName) {
+      case "/main":
+        setHeader(() => <TopNavBar />);
+        break;
+      case "/detail/:id":
+        setHeader(() => <TopNavBar />);
+        break;
+      case "/schedule":
+        setHeader(() => <TopNavTitleBar></TopNavTitleBar>);
+        break;
+      case "/signup":
+        setHeader(() => <TopNavTitleBar></TopNavTitleBar>);
+        break;
+      case "/signup/setProfileName":
+        setHeader(() => <TopNavTitleBar></TopNavTitleBar>);
+        break;
+      case "/signup/setProfileImg":
+        setHeader(() => <TopNavTitleBar></TopNavTitleBar>);
+        break;
+      case "/profile":
+        setHeader(() => <TopNavTitleBar></TopNavTitleBar>);
+        break;
+      case "/scheduleinvitation":
+        setHeader(() => <TopNavTitleBar></TopNavTitleBar>);
+        break;
+      case "/follow":
+        setHeader(() => <TopNavTitleBar></TopNavTitleBar>);
+        break;
+      case "/pastEvents":
+        setHeader(() => <TopNavTitleBar></TopNavTitleBar>);
+        break;
+      case "/notification":
+        setHeader(() => <TopNavTitleBar></TopNavTitleBar>);
+        break;
+      case "/userSearch":
+        setHeader(() => <TopNavTitleBar></TopNavTitleBar>);
+        break;
+      default:
+        setHeader(null);
+        break;
+    }
+    console.log(header);
+  }, []);
+
   return (
     <OutWrap>
       <Container>
-        <div>
-          {pagePathName !== "/login" && <TopNavBar />}
-          <Slider>{children}</Slider>
-        </div>
-        {pagePathName !== "/login" && <BottomNavi />}
+        {header}
+        <Slider>{children}</Slider>
+        {pagePathName.pathname === "/Login" ||
+        "/signup" ||
+        "/signup/setProfileName" ||
+        "/signup/setProfileImg" ? null : (
+          <BottomNavi />
+        )}
       </Container>
     </OutWrap>
   );
@@ -37,17 +91,10 @@ const Container = styled.div`
   min-width: 375px;
   background-color: #edf7ff;
   font-family: Pretendard-Regular;
-  overflow: scroll;
-
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-
-  ::-webkit-scrollbar {
-    display: none;
-  }
 `;
 
 const Slider = styled.div`
+  flex: 1;
   overflow: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
