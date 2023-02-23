@@ -12,8 +12,16 @@ const Layout = ({ children }) => {
   const [header, setHeader] = useState(null);
 
   useEffect(() => {
+    const userId = window.localStorage.getItem("userId");
     const pageName = pagePathName.pathname;
     switch (pageName) {
+      case "/":
+        if (userId !== null) {
+          setHeader(() => <TopNavBar />);
+        } else {
+          setHeader(() => <TopNavTitleBar></TopNavTitleBar>);
+        }
+        break;
       case "/main":
         setHeader(() => <TopNavBar />);
         break;
@@ -55,17 +63,18 @@ const Layout = ({ children }) => {
         break;
     }
     console.log(header);
-  }, []);
+  }, [pagePathName.pathname, header]);
 
   return (
     <OutWrap>
       <Container>
         {header}
         <Slider>{children}</Slider>
-        {pagePathName.pathname === "/Login" ||
-        "/signup" ||
-        "/signup/setProfileName" ||
-        "/signup/setProfileImg" ? null : (
+        {pagePathName.pathname ===
+        ("/Login" ||
+          "/signup" ||
+          "/signup/setProfileName" ||
+          "/signup/setProfileImg") ? null : (
           <BottomNavi />
         )}
       </Container>
