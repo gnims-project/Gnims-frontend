@@ -1,20 +1,21 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { __getFollowing } from "../../redux/modules/FollowSlice";
 import JoinerList from "./JoinerList";
 
-const FollowingModal = ({ setFollowingListOpen, selectedId }) => {
+const FollowingModal = ({ setFollowingListOpen }) => {
   const dispatch = useDispatch();
+  //   const [selectedUserIds, setSelectedUserIds] = useState([]);
   const submitHandler = () => {
-    const filteredSelectedId = [...new Set(selectedId)];
-    localStorage.setItem("selectJoiner", filteredSelectedId);
+    const filteredSelectedId = [...new Set(selectedUserIds)];
+    localStorage.setItem("selectedJoiner", filteredSelectedId);
     setFollowingListOpen(false);
   };
   const followingList = useSelector((state) => state.FollowSlice.followingList);
   useEffect(() => {
     dispatch(__getFollowing());
   }, [dispatch]);
-  console.log(selectedId);
+  const [selectedUserIds, setSelectedUserIds] = useState([]);
   const closeFollowModal = () => {
     setFollowingListOpen(false);
   };
@@ -29,7 +30,8 @@ const FollowingModal = ({ setFollowingListOpen, selectedId }) => {
                 <JoinerList
                   key={following.followId}
                   following={following}
-                  selectedId={selectedId}
+                  setSelectedUserIds={setSelectedUserIds}
+                  selectedUserIds={selectedUserIds}
                 />
               );
             })}
