@@ -84,7 +84,7 @@ const ScheduleDetail = () => {
             {numberOfJoiner !== 1 ? (
               <div className="mt-[30px] h-[98px] ml-[20px]">
                 참여자
-                <div className="bg-[#CEE4F8] h-[50px] w-[335px] mt-[20px] p-[15px] shadow flex rounded-lg">
+                <div className="bg-[#CEE4F8] h-[50px] w-[335px] mt-[20px] p-[15px] drop-shadow-lg flex rounded-lg">
                   {joiner &&
                     joiner.map((a) => {
                       return (
@@ -101,7 +101,7 @@ const ScheduleDetail = () => {
           {schedule.content ? (
             <div className="h-[234px] mt-[30px] mb-[8px] ml-[20px]">
               일정내용{" "}
-              <div className="bg-[#CEE4F8] shadow h-[186px] w-[335px] mt-[20px] p-[15px] flex rounded-lg">
+              <div className="bg-[#CEE4F8] shadow-lg h-[186px] w-[335px] mt-[20px] p-[15px] flex rounded-lg">
                 {schedule.content}
               </div>
             </div>
