@@ -3,13 +3,9 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import BottomNavi from "../layout/BottomNavi";
 import { __postSchedule } from "../../redux/modules/ScheduleSlice";
-import TopNavBar from "../layout/TopNavBar";
+import FollowingModal from "../modal/FollowingModal";
 import ScheduleModal from "../modal/ScheduleModal";
-//네비바테스트 후 TopNavBar지워야합니다
-// CSS Modules, react-datepicker-cssmodules.css
-// import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 
 const ScheduleAdd = () => {
   //필요한 변수들
@@ -101,6 +97,7 @@ const ScheduleAdd = () => {
       setModalOpen(true);
     }
   };
+  const [followingListOpen, setFollowingListOpen] = useState(false);
 
   useEffect(() => {
     console.log("오늘의 날짜는", today);
@@ -111,6 +108,9 @@ const ScheduleAdd = () => {
   return (
     <>
       {/* //네비바테스트 후 TopNavBar지워야합니다  */}
+      {followingListOpen && (
+        <FollowingModal setFollowingListOpen={setFollowingListOpen} />
+      )}
       {modalOpen && <ScheduleModal setModalOpen={setModalOpen} />}
       <div className="text-white">
         <div className={`${bgColor} flex p-[20px] text-base`}>
@@ -152,9 +152,12 @@ const ScheduleAdd = () => {
             </div>
             {/* 참여자 input을 클릭시 친구 리스트가 */}
             <div className="flex flex-col mt-6 font-semibold ">
-              참여자 (우선 Id로 받습니다)
+              참여자
               <input
                 value={participants}
+                onClick={() => {
+                  setFollowingListOpen(true);
+                }}
                 onChange={() => onParticipantsChangeHandler}
                 placeholder="함께할 친구들을 선택해주세요.(최대 4명)"
                 className="mt-4 shadow 
