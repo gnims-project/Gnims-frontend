@@ -57,7 +57,7 @@ const Main = () => {
           <div>
             {/* <InfiniteScroll /> */}
             <div className="flex flex-col gap-[30px] mt-[28px] rounded-[10px]">
-              {schedules.map((list) => {
+              {schedules?.map((list) => {
                 return (
                   <MainScheduleCards key={list.eventId} schedules={list} />
                 );
