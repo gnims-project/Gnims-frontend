@@ -64,7 +64,7 @@ const Layout = ({ children }) => {
         break;
     }
     console.log(header);
-  }, [pagePathName.pathname]);
+  }, [pagePathName.pathname, id]);
 
   return (
     <OutWrap>
@@ -72,10 +72,10 @@ const Layout = ({ children }) => {
         {header}
         <Slider>{children}</Slider>
         {pagePathName.pathname === "/Login" ||
-        "/signup" ||
-        "/signup/setProfileName" ||
-        "/signup/setProfileImg" ||
-        `/detail/${id}` ? null : (
+        pagePathName.pathname === "/signup" ||
+        pagePathName.pathname === "/signup/setProfileName" ||
+        pagePathName.pathname === "/signup/setProfileImg" ||
+        pagePathName.pathname === `/detail/${id}` ? null : (
           <BottomNavi />
         )}
       </Container>
