@@ -9,6 +9,7 @@ import ScheduleModal from "../modal/ScheduleModal";
 
 const ScheduleAdd = () => {
   //필요한 변수들
+  let selectedId = [];
   const [selectedDate, setSelectedDate] = useState();
   const [selectedColor, setColorSelected] = useState("sora");
   const [bgColor, setBgColor] = useState("bg-sora");
@@ -60,6 +61,9 @@ const ScheduleAdd = () => {
   if (participants.length > 0) {
     setParticipantss(participants);
   }
+  // else {
+  //   setParticipantss(localStorage.getItem("selectJoiner"));
+  // }
 
   //time값 구하는 작업
   const splicedDate = [selectedDate].toString().split(" ");
@@ -76,7 +80,7 @@ const ScheduleAdd = () => {
         time: time,
         subject: subject,
         content: content,
-        participantsId: participantss,
+        participantsId: localStorage.getItem("selectJoiner"),
       };
       await dispatch(
         __postSchedule({
@@ -108,7 +112,10 @@ const ScheduleAdd = () => {
     <>
       {/* //네비바테스트 후 TopNavBar지워야합니다  */}
       {followingListOpen && (
-        <FollowingModal setFollowingListOpen={setFollowingListOpen} />
+        <FollowingModal
+          setFollowingListOpen={setFollowingListOpen}
+          selectedId={selectedId}
+        />
       )}
       {modalOpen && <ScheduleModal setModalOpen={setModalOpen} />}
       <div className="text-white">
