@@ -9,10 +9,10 @@ const ScheduleInvitation = () => {
   const profileImage = localStorage.getItem("profileImage");
   const dispatch = useDispatch();
 
-  const { isLoading, error, data } = useSelector(
+  const { isLoading, error, invitation } = useSelector(
     (state) => state.InvitationSlice
   );
-  console.log("무슨 스테이트?", data);
+  console.log("무슨 스테이트?", invitation);
 
   useEffect(() => {
     dispatch(__getInvitation());
@@ -43,7 +43,7 @@ const ScheduleInvitation = () => {
         </div>
       </div>
       <div>
-        {data.map((invit) => (
+        {invitation.map((invit) => (
           <InvitationCard key={invit.eventId} invit={invit} />
         ))}
       </div>
