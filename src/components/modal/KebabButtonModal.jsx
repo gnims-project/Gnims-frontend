@@ -4,8 +4,9 @@ import editIcon from "../../img/editIcon.png";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { __deleteSchedule } from "../../redux/modules/ScheduleSlice";
+import DeleteScheduleModal from "./DeleteScheduleModal";
 
-const KebabModal = ({ setModalOpen, modalOpen, id }) => {
+const KebabModal = ({ setModalOpen, id }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const scheduleEditHandler = () => {};
@@ -29,7 +30,7 @@ const KebabModal = ({ setModalOpen, modalOpen, id }) => {
     <>
       <div className="h-screen w-[375px]  bg-black bg-opacity-50 flex justify-center fixed z-1 ">
         {deleteModalOpen ? (
-          //여기에 삭제컨펌모달그리기
+          // <DeleteScheduleModal/>
           <div className="text-black pt-8 items-center w-[300px] h-[167px]  text-center rounded-[16px] fixed top-[250px] bg-white">
             <div className="text-[18px] font-bold flex flex-col ">
               해당 일정을 삭제하시겠습니까?{" "}
