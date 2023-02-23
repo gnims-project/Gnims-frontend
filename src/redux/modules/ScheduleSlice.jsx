@@ -63,7 +63,7 @@ export const __postSchedule = createAsyncThunk(
       console.log(payload.userId);
       payload.dispatch(__getSchedule(payload.userId));
       // return thunkAPI.fulfillWithValue(data.data);
-      if (data.status === 200) {
+      if (data.status === 201) {
         alert("성공!");
       }
     } catch (error) {

@@ -60,8 +60,8 @@ const ScheduleAdd = () => {
   const [participantss, setParticipantss] = useState([]);
   if (participants.length > 0) {
     setParticipantss(participants);
-  } else {
-    setParticipantss(localStorage.getItem("selectJoiner"));
+    // } else {
+    //   setParticipantss(localStorage.getItem("selectJoiner"));
   }
 
   //time값 구하는 작업
@@ -69,6 +69,7 @@ const ScheduleAdd = () => {
   const time = splicedDate[4];
   let arr = [];
   const participantsIdArray = arr.push(localStorage.getItem("selectJoiner"));
+  console.log(participantsIdArray);
   //전체내용을 서버로 보내는 부분.
   const scheduleAddHandler = async (e) => {
     e.preventDefault();
@@ -80,7 +81,7 @@ const ScheduleAdd = () => {
         time: time,
         subject: subject,
         content: content,
-        participantsId: participantsIdArray,
+        participantsId: [],
       };
       await dispatch(
         __postSchedule({
@@ -94,7 +95,7 @@ const ScheduleAdd = () => {
       setParticipants("");
       setSelectedDate("");
       setBgColor("bg-sora");
-      alert("등록이 완료되었습니다!");
+      localStorage.removeItem("selectJoiner");
       console.log("생성된 스케쥴:", newSchedule);
       navigate("/main");
     } else {
@@ -105,7 +106,6 @@ const ScheduleAdd = () => {
 
   useEffect(() => {
     console.log("오늘의 날짜는", today);
-    // console.log(border);
     // fetchSchedules();
   }, []);
 

@@ -34,18 +34,20 @@ const FollowingModal = ({ setFollowingListOpen, selectedId }) => {
               );
             })}
           </div>
-          <button
-            className="bg-sora h-[25px] w-[50px] rounded text-white"
-            onClick={closeFollowModal}
-          >
-            닫기
-          </button>
-          <button
-            className="bg-sora h-[25px] w-[50px] rounded text-white"
-            onClick={submitHandler}
-          >
-            확인
-          </button>
+          <div className="mt-[20px]">
+            <button
+              className="bg-sora h-[25px] w-[50px] rounded text-white"
+              onClick={closeFollowModal}
+            >
+              닫기
+            </button>
+            <button
+              className="bg-sora h-[25px] w-[50px] rounded ml-[10px] text-white"
+              onClick={submitHandler}
+            >
+              확인
+            </button>
+          </div>
         </div>
       </div>
     </>
