@@ -60,10 +60,8 @@ export const __postSchedule = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await ScheduleApi.postScheduleApi(payload.Schedule);
-      console.log(payload.userId);
-      payload.dispatch(__getSchedule(payload.userId));
-      // return thunkAPI.fulfillWithValue(data.data);
-      if (data.status === 200) {
+      if (data.status === 201) {
+        payload.dispatch(__getSchedule(payload.userId));
         alert("성공!");
       }
     } catch (error) {
@@ -136,18 +134,6 @@ export const ScheduleSlice = createSlice({
       }
     },
     [__getScrollPage.rejected]: (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
-
-    [__postSchedule.pending]: (state) => {
-      state.isLoading = true;
-    },
-    [__postSchedule.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      state.schedules = action.payload;
-    },
-    [__postSchedule.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },
