@@ -3,8 +3,8 @@ import React, { memo, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import kebab from "../../img/kebab.png";
 import BottomNavi from "../layout/BottomNavi";
-import TopNavBar from "../layout/TopNavBar";
 import KebabModal from "../modal/KebabButtonModal";
+import gnimsIcon from "../../img/gnimslogo1.png";
 
 const ScheduleDetail = () => {
   //  모달 노출시키는 여부
@@ -41,11 +41,14 @@ const ScheduleDetail = () => {
   const numberOfJoiner = joiner && joiner.length;
 
   return (
-    <div className="bg-[#EDF7FF] h-[734px] width-[375px]">
+    <div className="bg-[#EDF7FF] h-full width-[375px]">
       <div>
+        <div className="fixed bottom-0">
+          {modalOpen ? false : <BottomNavi />}
+        </div>
         {modalOpen && <KebabModal setModalOpen={setModalOpen} id={id} />}
         <div
-          className={`h-[250px] bg-${schedule.cardColor} pl-[18px] pt-[71px] pr-[21px] text-white`}
+          className={`h-[202px] bg-${schedule.cardColor} pl-[18px] pt-[23px] pr-[21px] text-white`}
         >
           <div className="flex flex-row-reverse">
             <img
@@ -96,15 +99,20 @@ const ScheduleDetail = () => {
           ) : (
             false
           )}
-        </div>{" "}
-      </div>
-      {modalOpen ? (
-        false
-      ) : (
-        <div className="">
-          <BottomNavi />
+          {!schedule.content && numberOfJoiner === 1 ? (
+            <div>
+              <img
+                src={gnimsIcon}
+                alt="gnimslogo"
+                className="ml-[50px] opacity-[60%] h-[100px] flex justify-center mt-[80px]"
+              />
+              <div className="font-bold mt-[30px] text-center">
+                혼자만의 일정이군요! 좋은 하루 되세요!
+              </div>
+            </div>
+          ) : null}
         </div>
-      )}
+      </div>
     </div>
   );
 };

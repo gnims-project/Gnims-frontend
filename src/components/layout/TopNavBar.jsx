@@ -3,13 +3,23 @@ import searchIcon from "../../img/searchIcon.png";
 import plusIcon from "../../img/plusIcon.png";
 import notifyIcon from "../../img/notifyIcon.png";
 import { useNavigate } from "react-router-dom";
+import gnimsLogo1 from "../../img/gnimslogo1.png";
 
 const TopNavBar = () => {
   const navigate = useNavigate();
   return (
-    <div className="h-[48px] bg-white opacity-80 flex justify-between">
-      <div className="h-[48px] w-[217px] bg-slate-600">GNIMS로고들어갈자리</div>
-      <div className="flex flex-row gap-[10px]">
+    <div className="h-[48px] bg-white opacity-80 flex justify-between pr-[13px] pl-[13px]">
+      <div className="h-[48px] w-[217px]">
+        <img
+          src={gnimsLogo1}
+          alt="gnimsLogo"
+          className="mt-[4px] h-[40px]"
+          onClick={() => {
+            navigate("/main");
+          }}
+        />
+      </div>
+      <div className="flex flex-row gap-[19px]">
         <img
           className="h-[24px] w-[24px] flex left-[255px] mt-[13px]"
           src={searchIcon}

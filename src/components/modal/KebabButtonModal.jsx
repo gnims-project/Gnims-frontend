@@ -28,10 +28,10 @@ const KebabModal = ({ setModalOpen, id }) => {
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   return (
     <>
-      <div className="h-screen w-[375px]  bg-black bg-opacity-50 flex justify-center fixed z-1 ">
+      <div className="h-full w-[375px]  bg-black bg-opacity-50 flex justify-center fixed bottom-0 z-1 ">
         {deleteModalOpen ? (
           // <DeleteScheduleModal/>
-          <div className="text-black pt-8 items-center w-[300px] h-[167px]  text-center rounded-[16px] fixed top-[250px] bg-white">
+          <div className="text-black pt-8 items-center w-[375px] h-[160px] text-center rounded-[16px] bg-white">
             <div className="text-[18px] font-bold flex flex-col ">
               해당 일정을 삭제하시겠습니까?{" "}
             </div>
@@ -39,7 +39,7 @@ const KebabModal = ({ setModalOpen, id }) => {
               삭제된 일정은 복구가 불가능합니다.
             </div>
             <button
-              className="bg-[#A31414] rounded-[4px] h-[40px] w-[127px] text-white mt-[18px]"
+              className="bg-[#A31414] rounded-[4px]  h-[40px] w-[127px] text-white mt-[18px]"
               onClick={confirmDeleteHandler}
             >
               삭제
@@ -59,7 +59,7 @@ const KebabModal = ({ setModalOpen, id }) => {
             </button>
             <div
               onClick={scheduleEditHandler}
-              className="text-[#12396F] pt-[23px] h-[57px] flex row border-solid border-[#BBD7FF] border-b-[1px]"
+              className="text-[#12396F] font-bold pt-[23px] h-[57px] flex row border-solid border-[#BBD7FF] border-b-[1px]"
             >
               <img
                 src={editIcon}
@@ -70,7 +70,7 @@ const KebabModal = ({ setModalOpen, id }) => {
             </div>
             <div
               onClick={scheduleDeleteHandler}
-              className="text-[#A31414] flex row  h-[60px] pt-[23px] ml-[30px] mb-[17px] "
+              className="text-[#A31414]  font-bold flex row  h-[60px] pt-[23px] ml-[30px] mb-[17px] "
             >
               <img
                 src={deleteIcon}
