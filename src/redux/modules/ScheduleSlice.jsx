@@ -48,7 +48,7 @@ export const __getScrollPage = createAsyncThunk(
       console.log("연결");
       const { data } = await ScheduleApi.getInfiniteScrollPage(payload);
       console.log(data.data);
-      return thunkAPI.fulfillWithValue(data);
+      return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       console.log(error);
     }
@@ -127,11 +127,8 @@ export const ScheduleSlice = createSlice({
     },
     [__getScrollPage.fulfilled]: (state, action) => {
       state.isLoading = false;
-      if (action.data) {
-        state.schedules.push(...action.payload);
-      } else {
-        state.isLoading = false;
-      }
+      console.log(action.payload);
+      state.schedules = action.payload;
     },
     [__getScrollPage.rejected]: (state, action) => {
       state.isLoading = false;

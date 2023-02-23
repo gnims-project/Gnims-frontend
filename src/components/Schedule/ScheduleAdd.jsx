@@ -60,9 +60,9 @@ const ScheduleAdd = () => {
   const [participantss, setParticipantss] = useState([]);
   if (participants.length > 0) {
     setParticipantss(participants);
-  } else {
-    setParticipantss(localStorage.getItem("selectJoiner"));
-  }
+  } // else {
+  //   setParticipantss(localStorage.getItem("selectJoiner"));
+  // }
 
   //time값 구하는 작업
   const splicedDate = [selectedDate].toString().split(" ");
@@ -80,7 +80,7 @@ const ScheduleAdd = () => {
         time: time,
         subject: subject,
         content: content,
-        participantsId: participantsIdArray,
+        participantsId: [],
       };
       await dispatch(
         __postSchedule({
@@ -94,7 +94,6 @@ const ScheduleAdd = () => {
       setParticipants("");
       setSelectedDate("");
       setBgColor("bg-sora");
-      alert("등록이 완료되었습니다!");
       console.log("생성된 스케쥴:", newSchedule);
       navigate("/main");
     } else {
