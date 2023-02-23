@@ -15,6 +15,7 @@ const Main = () => {
   const dispatch = useDispatch();
   const { schedules } = useSelector((state) => state.ScheduleSlice);
   console.log(schedules);
+
   useEffect(() => {
     const userId = window.localStorage.getItem("userId");
     const getnickName = window.localStorage.getItem("nickname");

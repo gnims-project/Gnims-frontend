@@ -462,7 +462,7 @@ const Signup = () => {
                     autoComplete="off"
                   ></input>
                   <button
-                    className="absolute right-[5px]  mt-[18px] font-[600] text-textBlack text-[16px]"
+                    className="absolute right-[5px] mt-[18px] font-[600] text-textBlack text-[16px]"
                     onClick={onEmailDoubleCheck}
                   >
                     중복 확인
@@ -474,22 +474,24 @@ const Signup = () => {
                   </p>
                 </div>
               </div>
-              <div>
+              <div className="relative">
                 <Label htmlFor="userNickName">닉네임</Label>
-                <input
-                  id="userNickName"
-                  ref={userNickNameRef}
-                  placeholder="2~8자리 숫자,한글,영문을 입력해주세요."
-                  onChange={onValidity}
-                  className={`${style.bgColorNickname} ${style.shadowNickname} w-full px-1 h-[50px] text-[16px]  placeholder-inputPlaceHoldText`}
-                  autoComplete="off"
-                ></input>
-                <button
-                  className="absolute right-[24px]  mt-[18px] font-[600] text-textBlack text-[16px]"
-                  onClick={onNickNameCheck}
-                >
-                  중복 확인
-                </button>
+                <div>
+                  <input
+                    id="userNickName"
+                    ref={userNickNameRef}
+                    placeholder="2~8자리 숫자,한글,영문을 입력해주세요."
+                    onChange={onValidity}
+                    className={`${style.bgColorNickname} ${style.shadowNickname} w-full px-1 h-[50px] text-[16px]  placeholder-inputPlaceHoldText`}
+                    autoComplete="off"
+                  ></input>
+                  <button
+                    className="absolute right-[5px] mt-[18px] font-[600] text-textBlack text-[16px]"
+                    onClick={onNickNameCheck}
+                  >
+                    중복 확인
+                  </button>
+                </div>
                 <div hidden={hidden.hiddenErrorMeassaNickName}>
                   <p className=" w-full font-[500] mt-[20px] text-[16px] text-[#DE0D0D] flex items-center">
                     {regulation.regulationNickName}
