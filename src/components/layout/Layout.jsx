@@ -11,7 +11,7 @@ const Layout = ({ children }) => {
       <Container>
         <div>
           {pagePathName !== "/login" && <TopNavBar />}
-          {children}
+          <Slider>{children}</Slider>
         </div>
         {pagePathName !== "/login" && <BottomNavi />}
       </Container>
@@ -42,6 +42,15 @@ const Container = styled.div`
   -ms-overflow-style: none;
   scrollbar-width: none;
 
+  ::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+const Slider = styled.div`
+  overflow: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
   ::-webkit-scrollbar {
     display: none;
   }

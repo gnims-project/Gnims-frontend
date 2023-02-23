@@ -35,8 +35,12 @@ const Profile = () => {
   return (
     <div>
       <div className="flex p-5 gap-[30px] justify-items-center">
-        <div className="p-2 w-[86px] h-[86px]">
-          <img className="rounded-full" src={profileImage} alt="이미지" />
+        <div className="w-[86px] h-[86px]">
+          <img
+            className="rounded-full object-fill w-[86px] h-[86px]"
+            src={profileImage}
+            alt="이미지"
+          />
         </div>
         <div className="inline-block pt-2">
           <div className="text-lg font-semibold leading-[21px]">

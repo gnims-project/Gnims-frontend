@@ -466,7 +466,7 @@ const Signup = () => {
                     autoComplete="off"
                   ></input>
                   <button
-                    className="absolute right-[5px]  mt-[18px] font-[600] text-textBlack text-[16px]"
+                    className="absolute right-[5px] mt-[18px] font-[600] text-textBlack text-[16px]"
                     onClick={onEmailDoubleCheck}
                   >
                     중복 확인
@@ -478,9 +478,9 @@ const Signup = () => {
                   </p>
                 </div>
               </div>
-              <div>
+              <div className="relative">
                 <Label htmlFor="userNickName">닉네임</Label>
-                <div className="relative">
+                <div>
                   <input
                     id="userNickName"
                     ref={userNickNameRef}
@@ -490,7 +490,7 @@ const Signup = () => {
                     autoComplete="off"
                   ></input>
                   <button
-                    className="absolute right-[5px]  mt-[18px] font-[600] text-textBlack text-[16px]"
+                    className="absolute right-[5px] mt-[18px] font-[600] text-textBlack text-[16px]"
                     onClick={onNickNameCheck}
                   >
                     중복 확인
