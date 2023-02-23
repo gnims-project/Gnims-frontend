@@ -5,7 +5,7 @@ const TopNavTitleBar = ({ children }) => {
   const navigate = useNavigate();
   return (
     <div className="relative">
-      <div className="h-[48px] w-[375px] bg-white flex items-center">
+      <div className="h-[48px] w-full bg-white flex items-center">
         <div className="h-[48px]">
           <img
             className="h-[24px] w-[24px] absolute left-[21px] mt-[13px]"

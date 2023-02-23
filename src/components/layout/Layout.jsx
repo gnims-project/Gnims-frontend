@@ -13,10 +13,15 @@ const Layout = ({ children }) => {
   const id = pagePathName.pathname.split("/")[2];
   console.log(id);
   useEffect(() => {
+    const userId = window.localStorage.getItem("userId");
     const pageName = pagePathName.pathname;
     switch (pageName) {
       case "/":
-        setHeader(() => <TopNavBar />);
+        if (userId !== null) {
+          setHeader(() => <TopNavBar />);
+        } else {
+          setHeader(() => <TopNavTitleBar></TopNavTitleBar>);
+        }
         break;
       case "/main":
         setHeader(() => <TopNavBar />);
@@ -59,7 +64,7 @@ const Layout = ({ children }) => {
         break;
     }
     console.log(header);
-  }, []);
+  }, [pagePathName.pathname]);
 
   return (
     <OutWrap>
