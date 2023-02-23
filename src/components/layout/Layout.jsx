@@ -10,18 +10,22 @@ import TopNavTitleBar from "./TopNavTitleBar";
 const Layout = ({ children }) => {
   const pagePathName = useLocation();
   const [header, setHeader] = useState(null);
-
+  const id = pagePathName.pathname.split("/")[2];
+  console.log(id);
   useEffect(() => {
     const pageName = pagePathName.pathname;
     switch (pageName) {
+      case "/":
+        setHeader(() => <TopNavBar />);
+        break;
       case "/main":
         setHeader(() => <TopNavBar />);
         break;
-      case "/detail/:id":
+      case `/detail/${id}`:
         setHeader(() => <TopNavBar />);
         break;
       case "/schedule":
-        setHeader(() => <TopNavTitleBar></TopNavTitleBar>);
+        setHeader(() => <TopNavTitleBar>일정 추가</TopNavTitleBar>);
         break;
       case "/signup":
         setHeader(() => <TopNavTitleBar></TopNavTitleBar>);
@@ -45,7 +49,7 @@ const Layout = ({ children }) => {
         setHeader(() => <TopNavTitleBar></TopNavTitleBar>);
         break;
       case "/notification":
-        setHeader(() => <TopNavTitleBar></TopNavTitleBar>);
+        setHeader(() => <TopNavTitleBar>알림</TopNavTitleBar>);
         break;
       case "/userSearch":
         setHeader(() => <TopNavTitleBar></TopNavTitleBar>);
@@ -65,7 +69,8 @@ const Layout = ({ children }) => {
         {pagePathName.pathname === "/Login" ||
         "/signup" ||
         "/signup/setProfileName" ||
-        "/signup/setProfileImg" ? null : (
+        "/signup/setProfileImg" ||
+        `/detail/${id}` ? null : (
           <BottomNavi />
         )}
       </Container>

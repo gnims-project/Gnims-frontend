@@ -101,7 +101,7 @@ const NotificationsList = () => {
   }, []);
 
   return (
-    <div className="bg-[#FFFFFF] h-screen pt-[50px]">
+    <div className="bg-[#FFFFFF] h-full">
       <div>
         {notifications.map((notification) => (
           <div

@@ -42,7 +42,6 @@ const ScheduleDetail = () => {
 
   return (
     <div className="bg-[#EDF7FF] h-[734px] width-[375px]">
-      <TopNavBar />
       <div>
         {modalOpen && <KebabModal setModalOpen={setModalOpen} id={id} />}
         <div
@@ -99,7 +98,13 @@ const ScheduleDetail = () => {
           )}
         </div>{" "}
       </div>
-      {modalOpen ? false : <BottomNavi />}
+      {modalOpen ? (
+        false
+      ) : (
+        <div className="">
+          <BottomNavi />
+        </div>
+      )}
     </div>
   );
 };
