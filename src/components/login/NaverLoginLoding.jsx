@@ -16,12 +16,11 @@ function NaverLoginLoding() {
 
   const sendTokenAndGetAuthorization = async () => {
     await axios
-      .get("https://eb.jxxhxxx.shop/naver/login", {
-        //   .get("http://hayangaeul.shop/naver/login", {
-        headers: {
-          token: window.location.href.split("=")[1].split("&")[0],
-        },
+      .post("https://eb.jxxhxxx.shop/naver/login", {
+        // .post("http://hayangaeul.shop/naver/login", {
+        token: window.location.href.split("=")[1].split("&")[0],
       })
+
       .then((res) => {
         //이미 멤버라면 Authorization이 담겨 올 것이고, member라고
         console.log("res", res);
@@ -31,9 +30,13 @@ function NaverLoginLoding() {
         if (res.data.message !== "non-member") {
           const accessToken = res.headers.get("Authorization");
           const nickname = res.data.data.nickname;
+          const userId = res.data.data.userId;
+          const profileImage = res.data.data.profileImage;
           console.log(nickname);
           localStorage.setItem("token", accessToken);
           localStorage.setItem("nickname", nickname);
+          localStorage.setItem("profileImage", profileImage);
+          localStorage.setItem("userId", userId);
           alert("그님스에 오신걸 환영합니다");
           return window.location.assign("/main");
 
