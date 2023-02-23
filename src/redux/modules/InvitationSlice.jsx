@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 import { instance } from "../../shared/AxiosInstance";
 
 const initialState = {
@@ -28,7 +27,7 @@ export const __getInvitation = createAsyncThunk(
   "getInvitation",
   async (payload, thunkAPI) => {
     try {
-      const data = await instance.get(`/events/pending`);
+      const data = await instance.get(`v2/events/pending`);
       console.log("무슨데이터?", data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
