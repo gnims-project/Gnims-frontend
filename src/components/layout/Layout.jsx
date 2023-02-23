@@ -63,7 +63,6 @@ const Layout = ({ children }) => {
         setHeader(null);
         break;
     }
-    console.log(header);
   }, [pagePathName.pathname, id]);
 
   return (

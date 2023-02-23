@@ -2,11 +2,11 @@ import { instance } from "../shared/AxiosInstance";
 
 export const ScheduleApi = {
   getSccheduleApi: (payload) => {
-    console.log(payload);
     //const data = instance.get(`/v2-dto/users/${payload}/events`);
     const data = instance.get(`/users/${payload}/events`);
     return data;
   },
+
   getInfiniteScrollPage: (payload) => {
     console.log(payload.userId);
     const data = instance.get(
@@ -14,8 +14,14 @@ export const ScheduleApi = {
     );
     return data;
   },
+
   postScheduleApi: (payload) => {
     const data = instance.post("/events", payload);
+    return data;
+  },
+
+  getPastScheduleApi: () => {
+    const data = instance.get("/events/past");
     return data;
   },
   deleteScheduleApi: (payload) => {

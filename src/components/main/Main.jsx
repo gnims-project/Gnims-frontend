@@ -14,6 +14,7 @@ const Main = () => {
   const [email, setEmail] = useState("");
   const dispatch = useDispatch();
   const { schedules } = useSelector((state) => state.ScheduleSlice);
+  const { isLoding } = useSelector((state) => state.ScheduleSlice);
   console.log(schedules);
 
   useEffect(() => {
@@ -31,7 +32,7 @@ const Main = () => {
     } else {
       navigate(`/login`);
     }
-  }, [navigate, email, dispatch]);
+  }, [navigate, dispatch]);
 
   return (
     <>
