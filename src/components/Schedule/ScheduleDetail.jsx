@@ -3,8 +3,8 @@ import React, { memo, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import kebab from "../../img/kebab.png";
 import BottomNavi from "../layout/BottomNavi";
-import TopNavBar from "../layout/TopNavBar";
 import KebabModal from "../modal/KebabButtonModal";
+import gnimsIcon from "../../img/gnimslogo1.png";
 
 const ScheduleDetail = () => {
   //  모달 노출시키는 여부
@@ -29,33 +29,45 @@ const ScheduleDetail = () => {
       }, []);
   };
   const time = schedule.time?.split(":", 2).join(":");
-
+  console.log(schedule);
   useEffect(() => {
     fetchTodos();
   }, []);
 
   const joiner = schedule.invitees;
   console.log(joiner);
-
-  console.log(schedule.invitees);
   const numberOfJoiner = joiner && joiner.length;
+  const hostId = schedule.hostId;
+  //isHidden은 해당 스케쥴이 본인의 스케쥴이 아닐 땐 케밥버튼이 보이지 않게하기 위해 쓰인다. 기본값은 flex이고,
+  let isHidden = "";
+  //스케쥴의 참여자에 로그인한 본인의 닉네임이 포함되지 않으면 hidden값이 입혀진다.
+  if (hostId !== Number(localStorage.getItem("userId"))) {
+    isHidden = "hidden";
+  }
+  console.log(hostId === Number(localStorage.getItem("userId")));
+  console.log(hostId);
+  console.log(Number(localStorage.getItem("userId")));
 
   return (
-    <div className="bg-[#EDF7FF] h-[734px] width-[375px]">
+    <div className="bg-[#EDF7FF] h-full width-[375px]">
       <div>
+        <div className="fixed bottom-0">
+          {/* 케밥모달이 열리면 bottomNavi는 사라집니다 */}
+          {modalOpen ? false : <BottomNavi />}
+        </div>
         {modalOpen && <KebabModal setModalOpen={setModalOpen} id={id} />}
         <div
-          className={`h-[250px] bg-${schedule.cardColor} pl-[18px] pt-[71px] pr-[21px] text-white`}
+          className={`h-[212px] bg-${schedule.cardColor} pl-[18px] pt-[23px] pr-[21px] text-white`}
         >
-          <div className="flex flex-row-reverse">
+          <div className="flex flex-row-reverse ">
             <img
-              className="h-[20px] flex "
+              className={`h-[20px] ${isHidden} row`}
               src={kebab}
               alt="케밥메뉴"
               onClick={showModalHandler}
             />
           </div>
-          <div className="flex space-x-3 text-[18px] mt-[-18px] font-light ">
+          <div className="flex space-x-3 text-[18px]  font-light ">
             <div>{schedule.date}</div> <div> {time}</div>
           </div>
           <div className="mt-[28px] font-semibold text-[24px]">
@@ -72,7 +84,7 @@ const ScheduleDetail = () => {
             {numberOfJoiner !== 1 ? (
               <div className="mt-[30px] h-[98px] ml-[20px]">
                 참여자
-                <div className="bg-[#CEE4F8] h-[50px] w-[335px] mt-[20px] p-[15px] shadow flex rounded-lg">
+                <div className="bg-[#CEE4F8] h-[50px] w-[335px] mt-[20px] p-[15px] drop-shadow-lg flex rounded-lg">
                   {joiner &&
                     joiner.map((a) => {
                       return (
@@ -89,22 +101,27 @@ const ScheduleDetail = () => {
           {schedule.content ? (
             <div className="h-[234px] mt-[30px] mb-[8px] ml-[20px]">
               일정내용{" "}
-              <div className="bg-[#CEE4F8] shadow h-[186px] w-[335px] mt-[20px] p-[15px] flex rounded-lg">
+              <div className="bg-[#CEE4F8] shadow-lg h-[186px] w-[335px] mt-[20px] p-[15px] flex rounded-lg">
                 {schedule.content}
               </div>
             </div>
           ) : (
             false
           )}
-        </div>{" "}
-      </div>
-      {modalOpen ? (
-        false
-      ) : (
-        <div className="">
-          <BottomNavi />
+          {!schedule.content && numberOfJoiner === 1 ? (
+            <div>
+              <img
+                src={gnimsIcon}
+                alt="gnimslogo"
+                className="ml-[50px] opacity-[60%] h-[100px] flex justify-center mt-[80px]"
+              />
+              <div className="font-bold mt-[30px] text-center">
+                혼자만의 일정이군요! 좋은 하루 되세요!
+              </div>
+            </div>
+          ) : null}
         </div>
-      )}
+      </div>
     </div>
   );
 };
