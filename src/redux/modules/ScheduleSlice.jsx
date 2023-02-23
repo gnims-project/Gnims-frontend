@@ -140,18 +140,6 @@ export const ScheduleSlice = createSlice({
       state.error = action.payload;
     },
 
-    [__postSchedule.pending]: (state) => {
-      state.isLoading = true;
-    },
-    [__postSchedule.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      state.schedules = action.payload;
-    },
-    [__postSchedule.rejected]: (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
-
     [__getPastSchedlue.pending]: (state) => {
       state.isLoading = true;
     },
