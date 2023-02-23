@@ -19,7 +19,9 @@ const initialState = {
 export const __deleteSchedule = createAsyncThunk(
   "schedule/delete",
   async (id) => {
-    const response = await ScheduleApi.deleteScheduleApi(id);
+    console.log(id[0]);
+    const response = await ScheduleApi.deleteScheduleApi(id[0]);
+    id[2](__getSchedule(id[1]));
     return response.data;
   }
 );
@@ -134,9 +136,6 @@ export const ScheduleSlice = createSlice({
     },
     [__deleteSchedule.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.data = state.data.filter(
-        (schedule) => schedule.id !== action.payload.id
-      );
     },
     [__deleteSchedule.rejected]: (state, action) => {
       state.isLoading = false;

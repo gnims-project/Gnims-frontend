@@ -44,7 +44,7 @@ const ScheduleDetail = () => {
     <div className="bg-[#EDF7FF] h-[734px] width-[375px]">
       <TopNavBar />
       <div>
-        {modalOpen && <KebabModal setModalOpen={setModalOpen} />}
+        {modalOpen && <KebabModal setModalOpen={setModalOpen} id={id} />}
         <div
           className={`h-[250px] bg-${schedule.cardColor} pl-[18px] pt-[71px] pr-[21px] text-white`}
         >

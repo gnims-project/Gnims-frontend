@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { __deleteSchedule } from "../../redux/modules/ScheduleSlice";
 
-const KebabModal = ({ setModalOpen, modalOpen }) => {
+const KebabModal = ({ setModalOpen, modalOpen, id }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const scheduleEditHandler = () => {};
@@ -15,10 +15,12 @@ const KebabModal = ({ setModalOpen, modalOpen }) => {
   const closeModal = () => {
     setModalOpen(false);
   };
-  const confirmDeleteHandler = (id) => {
+  const userId = localStorage.getItem("userId");
+
+  const confirmDeleteHandler = () => {
     //DELETE 기능넣으면 됨
-    dispatch(__deleteSchedule(id));
-    alert("삭제완료");
+    dispatch(__deleteSchedule([id, userId, dispatch]));
+    console.log(id);
     navigate("/");
   };
 

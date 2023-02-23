@@ -1,5 +1,4 @@
 import { instance } from "../shared/AxiosInstance";
-import qs from "qs";
 
 export const ScheduleApi = {
   getSccheduleApi: (payload) => {
@@ -20,7 +19,10 @@ export const ScheduleApi = {
     return data;
   },
   deleteScheduleApi: (payload) => {
-    const data = instance.delete("/events", payload);
+    console.log(payload);
+
+    const data = instance.delete(`/events/${payload}`);
     return data;
   },
 };
+// ${/id}
