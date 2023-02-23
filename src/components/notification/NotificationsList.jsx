@@ -89,6 +89,34 @@ const NotificationsList = () => {
             notifications
           );
         });
+
+        eventSource.addEventListener("follow", (event) => {
+          const data = JSON.parse(event.data);
+          console.log("parsing한거", data);
+          const newNotification = {
+            id: Date.now(),
+            message: data.message,
+          };
+          const time = data.createAt;
+          setRecieveAt(time);
+          console.log(time);
+          console.log("newNotification follow 구조???????", newNotification);
+          console.log(
+            "follow newNotification message?????",
+            newNotification.message
+          );
+          console.log("파싱한 data", data);
+          console.log("data메세지만", data.message);
+
+          setNotifications((prevNotifications) => [
+            newNotification,
+            ...prevNotifications,
+          ]);
+          console.log(
+            "notifications 전체 배열은 이렇게 생겼어요",
+            notifications
+          );
+        });
       } catch (error) {
         console.log("에러발생:", error);
       }
@@ -104,26 +132,33 @@ const NotificationsList = () => {
     <div className="bg-[#FFFFFF] h-full">
       <div>
         {notifications.map((notification) => (
-          <div
-            className="pl-[20px] pr-[20px] pt-[20px]  h-[86px] bg-[#F4F4F4] text-right text-[#121213] border-solid border-[rgb(219,219,219)] border-b-[1px]"
-            key={notification.id}
-          >
-            {notification.message.includes("안녕하세요") ? (
-              <img
-                src={followIcon}
-                alt="followIcon"
-                className="h-[26px] w-[26px] flex "
-              />
-            ) : (
-              <img
-                src={mentionIcon}
-                alt="mentionIcon"
-                className="h-[26px] w-[26px] "
-              />
-            )}
-            <div className="mt-[-20px]">{notification.message}</div>
-            <br />
-            <span className="text-[#6F6F6F] text-[14px]">날짜{recieveAt}</span>
+          <div key={notification.id}>
+            <div>
+              {notification.message.includes("안녕하세요") ? null : (
+                <div className="pl-[20px] pr-[20px] pt-[20px]  h-[86px] bg-[#F4F4F4] text-right text-[#121213] border-solid border-[rgb(219,219,219)] border-b-[1px]">
+                  <div>
+                    {notification.message.includes("팔로우") ? (
+                      <img
+                        src={followIcon}
+                        alt="followIcon"
+                        className="h-[26px] w-[26px] flex "
+                      />
+                    ) : (
+                      <img
+                        src={mentionIcon}
+                        alt="mentionIcon"
+                        className="h-[26px] w-[26px] "
+                      />
+                    )}
+                    <div className="mt-[-20px]">{notification.message}</div>
+                    <br />
+                    <span className="text-[#6F6F6F] text-[14px]">
+                      {recieveAt}
+                    </span>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         ))}
       </div>

@@ -60,15 +60,15 @@ const ScheduleAdd = () => {
   const [participantss, setParticipantss] = useState([]);
   if (participants.length > 0) {
     setParticipantss(participants);
+  } else {
+    setParticipantss(localStorage.getItem("selectJoiner"));
   }
-  // else {
-  //   setParticipantss(localStorage.getItem("selectJoiner"));
-  // }
 
   //time값 구하는 작업
   const splicedDate = [selectedDate].toString().split(" ");
   const time = splicedDate[4];
-
+  let arr = [];
+  const participantsIdArray = arr.push(localStorage.getItem("selectJoiner"));
   //전체내용을 서버로 보내는 부분.
   const scheduleAddHandler = async (e) => {
     e.preventDefault();
@@ -80,12 +80,13 @@ const ScheduleAdd = () => {
         time: time,
         subject: subject,
         content: content,
-        participantsId: localStorage.getItem("selectJoiner"),
+        participantsId: participantsIdArray,
       };
       await dispatch(
         __postSchedule({
           Schedule: newSchedule,
           userId: window.localStorage.getItem("userId"),
+          dispatch: dispatch,
         })
       );
       setSubject("");
