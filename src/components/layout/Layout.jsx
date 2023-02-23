@@ -63,7 +63,7 @@ const Layout = ({ children }) => {
         break;
     }
     console.log(header);
-  }, []);
+  }, [pagePathName.pathname, header]);
 
   return (
     <OutWrap>
