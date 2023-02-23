@@ -35,8 +35,8 @@ const Profile = () => {
   return (
     <div>
       <div className="flex p-5 gap-[30px] justify-items-center">
-        <div className="p-2  w-[86px] h-[86px]">
-          <img className="rounded-full" src={profileImage} alr="이미지" />
+        <div className="p-2 w-[86px] h-[86px]">
+          <img className="rounded-full" src={profileImage} alt="이미지" />
         </div>
         <div className="inline-block pt-2">
           <div className="text-lg font-semibold leading-[21px]">
@@ -60,48 +60,49 @@ const Profile = () => {
           onClick={() => {
             navigate();
           }}
-          className="flex gap-[130px] p-[15px] border-b-[1px] border-[#BBD7FF] border-solid bg-white w-[375px] h-[50px]"
+          className="flex gap-[130px] p-[15px] border-b-[1px] border-[#BBD7FF] border-solid bg-white w-[375px] h-[50px] cursor-pointer"
         >
           <span className="text-sm w-[175px] h-[20px]">비밀번호 재설정</span>
-          <img src={Vector} alr="화살표" />
+          <img src={Vector} alt="화살표" />
         </div>
         <div
           onClick={() => {
-            navigate();
+            navigate("/pastEvents");
           }}
-          className="flex gap-[130px] p-[15px] border-b-[1px] border-[#BBD7FF] border-solid bg-white w-[375px] h-[50px]"
+          className="flex gap-[130px] p-[15px] border-b-[1px] border-[#BBD7FF] border-solid bg-white w-[375px] h-[50px] cursor-pointer"
         >
           <span className="text-sm w-[175px] h-[20px]">나의 지난 일정</span>
-          <img src={Vector} alr="화살표" />
+
+          <img src={Vector} alt="화살표" />
         </div>
         <div
           onClick={() => {
             navigate("/scheduleinvitation");
           }}
-          className="flex gap-[130px] p-[15px] border-b-[1px] border-[#BBD7FF] border-solid bg-white w-[375px] h-[50px]"
+          className="flex gap-[130px] p-[15px] border-b-[1px] border-[#BBD7FF] border-solid bg-white w-[375px] h-[50px] cursor-pointer"
         >
           <span className="text-sm w-[175px] h-[20px]">내게 온 초대 목록</span>
-          <img src={Vector} alr="화살표" />
+          <img src={Vector} alt="화살표" />
         </div>
         <div
           onClick={() => {
             navigate();
           }}
-          className="flex gap-[130px] p-[15px] border-b-[1px] border-[#BBD7FF] border-solid bg-white w-[375px] h-[50px]"
+          className="flex gap-[130px] p-[15px] border-b-[1px] border-[#BBD7FF] border-solid bg-white w-[375px] h-[50px] cursor-pointer"
         >
           <span className="text-sm w-[175px] h-[20px]">알림 설정</span>
-          <img src={Vector} alr="화살표" />
+          <img src={Vector} alt="화살표" />
         </div>
         <div
           onClick={() => {
             navigate();
           }}
-          className="flex gap-[130px] p-[15px] border-b-[1px] border-[#BBD7FF] border-solid bg-white w-[375px] h-[50px]"
+          className="flex gap-[130px] p-[15px] border-b-[1px] border-[#BBD7FF] border-solid bg-white w-[375px] h-[50px] cursor-pointer"
         >
           <span className="text-sm w-[175px] h-[20px]">
             그님스 피드백 보내기
           </span>
-          <img src={Vector} alr="화살표" />
+          <img src={Vector} alt="화살표" />
         </div>
       </div>
     </div>

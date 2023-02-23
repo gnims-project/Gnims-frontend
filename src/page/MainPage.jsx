@@ -5,9 +5,7 @@ import BottomNavi from "../components/layout/BottomNavi";
 const MainPage = () => {
   return (
     <div className="">
-      <TopNavBar />
       <Main />
-      <BottomNavi />
     </div>
   );
 };

@@ -1,39 +1,39 @@
 import styled from "styled-components";
 import React from "react";
+import TopNavBar from "./TopNavBar";
+import BottomNavi from "./BottomNavi";
+import { useLocation } from "react-router-dom";
 
 const Layout = ({ children }) => {
-  return <Container>{children}</Container>;
+  const pagePathName = useLocation();
+  return (
+    <OutWrap>
+      <Container>
+        <div>
+          {pagePathName !== "/login" && <TopNavBar />}
+          {children}
+        </div>
+        {pagePathName !== "/login" && <BottomNavi />}
+      </Container>
+    </OutWrap>
+  );
 };
 
 export default Layout;
 
+const OutWrap = styled.div`
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  /* box-sizing: border-box; */
+`;
+
 const Container = styled.div`
-  /* 모바일 크기 고정 */
-  width: 100%;
-  max-width: 375px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   height: 100vh;
-  position: relative;
-  opacity: 1;
-  box-sizing: border-box;
-  top: "calc(50% - 167px/2)";
-  -ms-overflow-style: none;
+  min-width: 375px;
   background-color: #edf7ff;
   font-family: Pretendard-Regular;
-
-  //스크롤창 숨기기
-  overflow-y: scroll;
-  /* IE and Edge */
-  -ms-overflow-style: none;
-  /* Firefox */
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  @media screen and (max-width: 768px) {
-    width: 375px;
-    background-color: #edf7ff;
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
 `;

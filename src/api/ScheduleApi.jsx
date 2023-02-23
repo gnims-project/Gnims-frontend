@@ -20,9 +20,11 @@ export const ScheduleApi = {
   },
   deleteScheduleApi: (payload) => {
     console.log(payload);
-
     const data = instance.delete(`/events/${payload}`);
     return data;
   },
+  getPastScheduleApi: (payload) => {
+    const data = instance.get("/events/past");
+    return data;
+  },
 };
-// ${/id}
