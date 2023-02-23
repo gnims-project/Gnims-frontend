@@ -59,6 +59,9 @@ const Layout = ({ children }) => {
       case "/userSearch":
         setHeader(() => <TopNavTitleBar></TopNavTitleBar>);
         break;
+      case "/editProfile":
+        setHeader(() => <TopNavTitleBar>프로필 변경</TopNavTitleBar>);
+        break;
       default:
         setHeader(null);
         break;

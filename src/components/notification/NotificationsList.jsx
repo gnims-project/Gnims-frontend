@@ -15,6 +15,7 @@ const NotificationsList = () => {
         //EventSource생성.
         eventSource = new EventSourcePolyfill(
           `https://eb.jxxhxxx.shop/connect`,
+          // "http://shinjeong.shop:8080/friendship/followings/1",
           {
             //headers에 토큰을 꼭 담아줘야 500이 안뜬다.
             headers: {
