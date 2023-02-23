@@ -9,13 +9,12 @@ import ScheduleModal from "../modal/ScheduleModal";
 
 const ScheduleAdd = () => {
   //필요한 변수들
-  let selectedId = [];
   const [selectedDate, setSelectedDate] = useState();
   const [selectedColor, setColorSelected] = useState("sora");
   const [bgColor, setBgColor] = useState("bg-sora");
   const [subject, setSubject] = useState("");
   const [content, setContent] = useState("");
-  const [participants, setParticipants] = useState("");
+
   const [borderSora, setBorderSora] = useState("border-white");
   const [borderNam, setBorderNam] = useState("border-none");
   const [borderParang, setBorderParang] = useState("border-none");
@@ -46,7 +45,6 @@ const ScheduleAdd = () => {
     setBorderNam("border-none");
     setBorderParang("border-white");
   };
-
   //일정의 제목과 내용, 참여자 onChangeHandler
   const onSubjectChangeHandler = (e) => {
     setSubject(e.target.value);
@@ -54,21 +52,22 @@ const ScheduleAdd = () => {
   const onContentChangeHandler = (e) => {
     setContent(e.target.value);
   };
+  const [participants, setParticipants] = useState([]);
   const onParticipantsChangeHandler = (e) => {
-    setParticipants(e.target.value);
+    // setParticipants(e.target.value);
   };
-  const [participantss, setParticipantss] = useState([]);
-  if (participants.length > 0) {
-    setParticipantss(participants);
-  } else {
-    setParticipantss(localStorage.getItem("selectJoiner"));
-  }
+
+  const joinerArray =
+    localStorage.getItem("selectedJoiner") &&
+    localStorage.getItem("selectedJoiner").split(",");
+
+  participants.push(joinerArray);
+  let joinerWithoutDuplicate = [...new Set(joinerArray)];
 
   //time값 구하는 작업
   const splicedDate = [selectedDate].toString().split(" ");
   const time = splicedDate[4];
-  let arr = [];
-  const participantsIdArray = arr.push(localStorage.getItem("selectJoiner"));
+
   //전체내용을 서버로 보내는 부분.
   const scheduleAddHandler = async (e) => {
     e.preventDefault();
@@ -80,7 +79,7 @@ const ScheduleAdd = () => {
         time: time,
         subject: subject,
         content: content,
-        participantsId: participantsIdArray,
+        participantsId: joinerWithoutDuplicate,
       };
       await dispatch(
         __postSchedule({
@@ -94,7 +93,7 @@ const ScheduleAdd = () => {
       setParticipants("");
       setSelectedDate("");
       setBgColor("bg-sora");
-      alert("등록이 완료되었습니다!");
+      localStorage.removeItem("selectedJoiner");
       console.log("생성된 스케쥴:", newSchedule);
       navigate("/main");
     } else {
@@ -105,7 +104,7 @@ const ScheduleAdd = () => {
 
   useEffect(() => {
     console.log("오늘의 날짜는", today);
-    // console.log(border);
+
     // fetchSchedules();
   }, []);
 
@@ -113,10 +112,7 @@ const ScheduleAdd = () => {
     <>
       {/* //네비바테스트 후 TopNavBar지워야합니다  */}
       {followingListOpen && (
-        <FollowingModal
-          setFollowingListOpen={setFollowingListOpen}
-          selectedId={selectedId}
-        />
+        <FollowingModal setFollowingListOpen={setFollowingListOpen} />
       )}
       {modalOpen && <ScheduleModal setModalOpen={setModalOpen} />}
       <div className="text-white">
@@ -161,7 +157,7 @@ const ScheduleAdd = () => {
             <div className="flex flex-col mt-6 font-semibold ">
               참여자
               <input
-                value={participants}
+                // value={}
                 onClick={() => {
                   setFollowingListOpen(true);
                 }}
