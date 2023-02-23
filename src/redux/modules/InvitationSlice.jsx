@@ -1,24 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 import { instance } from "../../shared/AxiosInstance";
 
 const initialState = {
-  data: [
-    {
-      eventId: null,
-      date: "",
-      time: "",
-      cardColor: "",
-      subject: "",
-      invitees: [
-        {
-          username: "",
-          profile: "",
-        },
-      ],
-      dday: null,
-    },
-  ],
+  invitation: [],
   isLoading: false,
   error: null,
 };
@@ -28,8 +12,8 @@ export const __getInvitation = createAsyncThunk(
   "getInvitation",
   async (payload, thunkAPI) => {
     try {
-      const data = await instance.get(`/events/pending`);
-      console.log("무슨데이터?", data);
+      const { data } = await instance.get(`v2/events/pending`);
+      console.log("초대 스케줄", data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       console.log("무슨에러?", error);
@@ -79,8 +63,7 @@ export const invitationSlice = createSlice({
     },
     [__getInvitation.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.data = action.payload.data;
-      console.log(state.datas);
+      state.invitation = action.payload;
     },
     [__getInvitation.rejected]: (state, action) => {
       state.isLoading = false;

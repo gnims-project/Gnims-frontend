@@ -29,15 +29,12 @@ const InvitationCard = ({ invit }) => {
   return (
     <div>
       <div className="rounded-[10px] my-[10px] mx-[20px] w-[335px] h-[184px] bg-gray-500">
-        <div className="flex gap-[50px] relative top-[16px]">
-          <div className="flex ml-[23px] gap-[20px]">
+        <div className="flex relative top-[16px]">
+          <div className="flex ml-[23px]">
             <span className="text-sm">{invit.date}</span>
             <span className="text-sm">{invit.time}</span>
           </div>
-          {invit.invitees.map((invitees) => {
-            console.log("이름 맵", invitees);
-            return <span className="text-sm">from.{invitees.username}</span>;
-          })}
+          <span className="text-sm">from.{invit.hostname}</span>
         </div>
         <div className="mx-[23px] relative top-[20px]">
           <div className="h-[58px] truncate text-md">{invit.subject}</div>
