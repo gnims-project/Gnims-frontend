@@ -7,13 +7,16 @@ import reportWebVitals from "./reportWebVitals";
 import ReactModal from "react-modal";
 import store from "./redux/config/ConfigStore";
 import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
 
 ReactModal.setAppElement("#root");
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <Provider store={store}>
-    <App />
-  </Provider>
+  <BrowserRouter>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </BrowserRouter>
 );
 
 // If you want your app to work offline and load faster, you can change

@@ -84,6 +84,7 @@ const SetProfileName = () => {
       }));
       if (value.trim() === "") {
         setStyle(() => ({
+          ...style,
           bgColorNickname: "bg-inputBox",
           shadowNickname: "",
         }));
@@ -177,7 +178,7 @@ const SetProfileName = () => {
   return (
     <>
       <div className="container md ">
-        <div className="grid grid-flow-row gap-[9px]  ml-[20px] mr-[20px] mt-[101px]">
+        <div className="grid grid-flow-row gap-[9px]  ml-[20px] mr-[20px] mt-[36px]">
           <div className="font-[700] text-[32px] text-textBlack">
             <h1>그남스 여정 준비 시작!</h1>
           </div>
@@ -218,18 +219,18 @@ const SetProfileName = () => {
                   <Label>닉네임</Label>
                 </div>
               </div>
-              <div>
+              <div className=" relative">
                 <input
                   type="text"
                   id="userNickName"
                   ref={userNickNameRef}
                   placeholder="2~8자리 숫자,한글,영문을 입력해주세요."
                   onChange={onValidity}
-                  className="w-full px-1 h-[50px] text-[16px] focus:placeholder-placeholderText placeholder-inputPlaceHoldText"
+                  className={`${style.bgColorNickname} ${style.shadowNickname} w-full px-1 h-[50px] text-[16px]  placeholder-inputPlaceHoldText`}
                   bgColor={style.bgColorNickname}
                 ></input>
                 <button
-                  className="absolute right-[24px]  mt-[18px] font-[600] text-textBlack text-[16px]"
+                  className="absolute right-[8px]  mt-[18px] font-[600] text-textBlack text-[16px]"
                   onClick={onNickNameCheck}
                 >
                   중복 확인

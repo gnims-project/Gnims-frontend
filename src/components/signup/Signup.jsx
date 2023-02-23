@@ -84,14 +84,17 @@ const Signup = () => {
   const onValidity = (event) => {
     const { id, value } = event.target;
     const password = userPasswordRef.current.value;
+
     if (id === "userName") {
       setStyle(() => ({
         ...style,
         bgColorName: "bg-inputBoxFocus",
         shadowName: "drop-shadow-inputBoxShadow",
       }));
+
       if (value.trim() === "") {
         setStyle(() => ({
+          ...style,
           bgColorName: "bg-inputBox",
           shadowName: "",
         }));
@@ -117,6 +120,7 @@ const Signup = () => {
         bgColorEmail: "bg-inputBoxFocus",
         shadowEmail: "drop-shadow-inputBoxShadow",
       }));
+
       if (value.trim() === "") {
         setStyle(() => ({
           ...style,
@@ -178,7 +182,7 @@ const Signup = () => {
         setStyle(() => ({
           ...style,
           bgColorPassword: "bg-inputBox",
-          shadoshadowPasswordEmail: "",
+          shadowPassword: "",
         }));
       }
       if (passwordRegulationExp.test(value)) {
@@ -188,18 +192,6 @@ const Signup = () => {
           hiddenErrorMeassaPassword: true,
         }));
       } else {
-        setStyle(() => ({
-          ...style,
-          bgColorPasswordCheck: "bg-inputBoxFocus",
-          shadowPasswordCheck: "drop-shadow-inputBoxShadow",
-        }));
-        if (value.trim() === "") {
-          setStyle(() => ({
-            ...style,
-            bgColorPasswordCheck: "bg-inputBox",
-            shadowPasswordCheck: "",
-          }));
-        }
         SetRegulation(() => ({
           ...regulation,
           regulationPassword:
@@ -211,6 +203,18 @@ const Signup = () => {
         }));
       }
     } else if (id === "passwordCheck") {
+      setStyle(() => ({
+        ...style,
+        bgColorPasswordCheck: "bg-inputBoxFocus",
+        shadowPasswordCheck: "drop-shadow-inputBoxShadow",
+      }));
+      if (value.trim() === "") {
+        setStyle(() => ({
+          ...style,
+          bgColorPasswordCheck: "bg-inputBox",
+          shadowPasswordCheck: "",
+        }));
+      }
       if (password === value) {
         setDoubleCheck(() => ({ ...doubleCheck, passwordDoubleCheck: true }));
         // SetRegulation(() => ({
@@ -412,7 +416,7 @@ const Signup = () => {
 
   return (
     <>
-      <div className="container md">
+      <div className="container">
         <div className=" grid grid-flow-row ml-[20px] mr-[20px] gap-[32px]">
           <div className=" grid grid-flow-row gap-[10px] mt-[106px]">
             <div>

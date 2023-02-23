@@ -139,10 +139,10 @@ const EmailLogin = () => {
 
   console.log({ style });
   return (
-    <div className="container md">
+    <div className="container h-full md mt-[60px]">
       <div className="ml-[20px] mr-[20px]">
         <div className="grid grid-rows ">
-          <div className=" h-[150px] mt-[94px]">
+          <div className="h-[150px]">
             <div className="mx-auto w-[87px] h-[64px] overflow-hidden gap-[10px] ">
               <img
                 src="https://pbs.twimg.com/media/FACQ9-hUcAcA_11.jpg "
