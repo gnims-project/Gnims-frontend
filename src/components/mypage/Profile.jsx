@@ -62,6 +62,15 @@ const Profile = () => {
       <div className="flex flex-col items-baseline pt-10">
         <div
           onClick={() => {
+            navigate("/editProfile");
+          }}
+          className="flex gap-[130px] p-[15px] border-b-[1px] border-[#BBD7FF] border-solid bg-white w-[375px] h-[50px] cursor-pointer"
+        >
+          <span className="text-sm w-[175px] h-[20px]">프로필 변경</span>
+          <img src={Vector} alt="화살표" />
+        </div>
+        <div
+          onClick={() => {
             navigate();
           }}
           className="flex gap-[130px] p-[15px] border-b-[1px] border-[#BBD7FF] border-solid bg-white w-[375px] h-[50px] cursor-pointer"
