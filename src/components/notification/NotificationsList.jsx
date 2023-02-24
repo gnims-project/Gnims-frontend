@@ -15,7 +15,7 @@ const NotificationsList = () => {
         //EventSource생성.
         eventSource = new EventSourcePolyfill(
           `https://eb.jxxhxxx.shop/connect`,
-          // "http://shinjeong.shop:8080/friendship/followings/1",
+          // "http://shinjeong.shop:8080/subscribe",
           {
             //headers에 토큰을 꼭 담아줘야 500이 안뜬다.
             headers: {
@@ -49,7 +49,7 @@ const NotificationsList = () => {
             id: Date.now(),
             message: event.data,
           };
-          console.log("connect라는 타입으로 연결.");
+          console.log("connect 타입으로 연결.");
           console.log(
             "newNotification의 메세지만출력:",
             newNotification.message
@@ -151,9 +151,11 @@ const NotificationsList = () => {
                         className="h-[26px] w-[26px] "
                       />
                     )}
-                    <div className="mt-[-20px]">{notification.message}</div>
+                    <div className="mt-[-20px] text-[14px] mr-[-5px]">
+                      {notification.message}
+                    </div>
                     <br />
-                    <span className="text-[#6F6F6F] text-[14px]">
+                    <span className="text-[#6F6F6F] text-[13px]">
                       {recieveAt}
                     </span>
                   </div>

@@ -40,7 +40,7 @@ const FollowList = () => {
   };
 
   return (
-    <div className="relative grid top-[79px] gap-[10px] px-[20px]">
+    <div className="relative grid top-[30px] gap-[10px] px-[20px]">
       <div className="flex">
         <button
           className={`${bdColor.followerBD} w-1/2 h-[40px] p-[10px] text-[18px]`}
