@@ -1,10 +1,15 @@
+import axios from "axios";
 import React, { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import inputImgIcon from "../../img/Component01.png";
 
 const ProfileEdit = () => {
+  const navigate = useNavigate();
   const imgRef = useRef();
   const profileImage = localStorage.getItem("profileImage");
   const [image, setImage] = useState(profileImage);
+  const [imageFile, setImageFile] = useState("");
+
   const imagePreview = () => {
     const reader = new FileReader();
     reader.readAsDataURL(imgRef.current.files[0]);
@@ -15,8 +20,60 @@ const ProfileEdit = () => {
       };
     });
   };
+  const editProfileAxios = async ({ formData, data, url }) => {
+    console.log(data);
+    const json = JSON.stringify(data);
+    const blob = new Blob([json], { type: "application/json" });
+    console.log(blob);
+    formData.append("data", blob);
+    await axios
+      .patch(url, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        navigate("/main");
+      })
+      .catch((error) => {
+        console.log(error.response);
+        if (data.status === 400) {
+          console.log(data.message);
+        }
+      });
+  };
+  const editHandler = async () => {
+    try {
+      // 이미지 파일 업로드
+      const formData = new FormData();
+      //선택한 파일들 중 첫번째파일 선택
+      formData.append("profileImage", imgRef.current.files[0]);
+      //fetch를 이용해 서버로 PATCH요청보냄
+      const response = await fetch("https://eb.jxxhxxx.shop/users/profile", {
+        method: "PATCH",
+        body: formData,
+      });
+      const { imageUrl } = await response.json();
+      // 프로필 이미지 업데이트
+      localStorage.setItem("profileImage", imageUrl);
+      setImage(imageUrl);
+    } catch (error) {
+      console.error(error);
+    }
 
-  const editHandler = () => {};
+    // setImageFile(imgRef.current.files[0]);
+    // const imgFile = imgRef.current.files[0];
+    // const formData = new FormData();
+    // //formData객체에 image라는 키에 imgFile변수 추가
+    // if (imgFile !== undefined) {
+    //   formData.append("image", imgFile);
+    // } else {
+    //   formData.append("image", null);
+    // }
+    // const url = "https://eb.jxxhxxx.shop/users/profile";
+    // editProfileAxios({ formData, url });
+  };
   return (
     <div>
       <div className="text-left text-[25px] font-thin mt-[30px] ml-[15px]">
