@@ -1,13 +1,13 @@
 import React from "react";
 
-const Label = ({ children }) => {
+const Label = ({ htmlFor, children }) => {
   return (
     <>
       <div className="h-[40px] flex items-center">
-        <div className>
+        <div>
           <label
-            htmlFor="userEmail"
-            className="cursor-pointer  text-[#12396F] font-[600]"
+            htmlFor={htmlFor}
+            className="cursor-pointer text-textBlack font-[600]"
           >
             {children}
           </label>

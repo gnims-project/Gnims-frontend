@@ -2,26 +2,42 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { SignupApi } from "../../api/Signup";
+import TopNavTitleBar from "../layout/TopNavTitleBar";
 import IsModal from "../modal/Modal";
 import {
-  __emailDoubleCheck,
+  __nickNameCheck,
   userInfoState,
   setSingup,
 } from "../../redux/modules/SingupSlice";
+import Label from "../layout/Label";
+import LoginSignupInputBox from "../layout/LoginSignupInputBox";
 
 const Signup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [style, setStyle] = useState({
+    bgColorName: "bg-inputBox",
+    bgColorEmail: "bg-inputBox",
+    bgColorNickname: "bg-inputBox",
+    bgColorPassword: "bg-inputBox",
+    bgColorPasswordCheck: "bg-inputBox",
+    shadowName: "",
+    shadowEmail: "",
+    shadowNickname: "",
+    shadowPassword: "",
+    shadowPasswordCheck: "",
+  });
   const [isOpen, setOpen] = useState(false);
-  const [ModalStr, setModalStr] = useState("");
+  const [ModalStr, setModalStr] = useState({
+    modalTitle: "",
+    modalMessage: "",
+  });
 
   const { singup } = useSelector((state) => state.SingupSlice);
   const { nickNameDoubleCheck } = useSelector((state) => state.SingupSlice);
-  console.log(nickNameDoubleCheck);
 
   //회원가입 전에 user정보가 redux에 있는지 확인 후 실행
   useEffect(() => {
-    console.log(singup);
     if (singup === "emailLogin") {
       console.log(singup);
       navigate("/signup/setProfileImg");
@@ -49,6 +65,15 @@ const Signup = () => {
     regulationNickName: "",
   });
 
+  const [hidden, Sethidden] = useState({
+    hiddenErrorMeassageName: true,
+    hiddenErrorMeassaEmail: true,
+    hiddenErrorMeassaNickName: true,
+    hiddenErrorMeassaName: true,
+    hiddenErrorMeassaPassword: true,
+    hiddenErrorMeassaPasswordCheck: true,
+  });
+
   //중복확인여부
   const [doubleCheck, setDoubleCheck] = useState({
     emailDoubleCheck: false,
@@ -59,61 +84,155 @@ const Signup = () => {
   const onValidity = (event) => {
     const { id, value } = event.target;
     const password = userPasswordRef.current.value;
+
     if (id === "userName") {
+      setStyle(() => ({
+        ...style,
+        bgColorName: "bg-inputBoxFocus",
+        shadowName: "drop-shadow-inputBoxShadow",
+      }));
+
+      if (value.trim() === "") {
+        setStyle(() => ({
+          ...style,
+          bgColorName: "bg-inputBox",
+          shadowName: "",
+        }));
+      }
       if (!nameRegulationExp.test(value)) {
         SetRegulation(() => ({
           ...regulation,
           regulationName: "한글 또는 영어로 작성해주세요.",
         }));
+        Sethidden(() => ({
+          ...hidden,
+          hiddenErrorMeassaName: false,
+        }));
       } else {
-        SetRegulation(() => ({
-          ...regulation,
-          regulationName: "",
+        Sethidden(() => ({
+          ...hidden,
+          hiddenErrorMeassaName: true,
         }));
       }
     } else if (id === "userEmail") {
+      setStyle(() => ({
+        ...style,
+        bgColorEmail: "bg-inputBoxFocus",
+        shadowEmail: "drop-shadow-inputBoxShadow",
+      }));
+
+      if (value.trim() === "") {
+        setStyle(() => ({
+          ...style,
+          bgColorEmail: "bg-inputBox",
+          shadowEmail: "",
+        }));
+      }
       if (emailRegulationExp.test(value)) {
-        SetRegulation(() => ({
-          ...regulation,
-          regulationEmail: "올바른 이메일 형식입니다.",
+        Sethidden(() => ({
+          ...hidden,
+          hiddenErrorMeassaEmail: true,
         }));
       } else {
         SetRegulation(() => ({
           ...regulation,
           regulationEmail: "올바른 이메일 형식이 아닙니다.",
         }));
+        Sethidden(() => ({
+          ...hidden,
+          hiddenErrorMeassaEmail: false,
+        }));
       }
     } else if (id === "userNickName") {
+      setStyle(() => ({
+        ...style,
+        bgColorNickname: "bg-inputBoxFocus",
+        shadowNickname: "drop-shadow-inputBoxShadow",
+      }));
+      if (value.trim() === "") {
+        setStyle(() => ({
+          ...style,
+          bgColorNickname: "bg-inputBox",
+          shadowNickname: "",
+        }));
+      }
       if (nickNameReglationExp.test(value)) {
-        SetRegulation(() => ({ ...regulation, regulationNickName: "" }));
+        //SetRegulation(() => ({ ...regulation, regulationNickName: "" }));
+        Sethidden(() => ({
+          ...hidden,
+          hiddenErrorMeassaNickName: true,
+        }));
       } else {
         SetRegulation(() => ({
           ...regulation,
-          regulationNickName:
-            "최소 2자리에서 8자리까지 한글,영문,숫자만 포함해주세요.",
+          regulationNickName: "글자수 2~8자와 한글,영문,숫자만 포함해주세요.",
+        }));
+        Sethidden(() => ({
+          ...hidden,
+          hiddenErrorMeassaNickName: false,
         }));
       }
     } else if (id === "userPassword") {
+      setStyle(() => ({
+        ...style,
+        bgColorPassword: "bg-inputBoxFocus",
+        shadowPassword: "drop-shadow-inputBoxShadow",
+      }));
+      if (value.trim() === "") {
+        setStyle(() => ({
+          ...style,
+          bgColorPassword: "bg-inputBox",
+          shadowPassword: "",
+        }));
+      }
       if (passwordRegulationExp.test(value)) {
-        SetRegulation(() => ({ ...regulation, regulationPassword: "" }));
+        //SetRegulation(() => ({ ...regulation, regulationPassword: "" }));
+        Sethidden(() => ({
+          ...hidden,
+          hiddenErrorMeassaPassword: true,
+        }));
       } else {
         SetRegulation(() => ({
           ...regulation,
           regulationPassword:
             "최소 8 자리에서 영대소문자와 숫자를 포함시켜주세요.",
         }));
+        Sethidden(() => ({
+          ...hidden,
+          hiddenErrorMeassaPassword: false,
+        }));
       }
     } else if (id === "passwordCheck") {
+      setStyle(() => ({
+        ...style,
+        bgColorPasswordCheck: "bg-inputBoxFocus",
+        shadowPasswordCheck: "drop-shadow-inputBoxShadow",
+      }));
+      if (value.trim() === "") {
+        setStyle(() => ({
+          ...style,
+          bgColorPasswordCheck: "bg-inputBox",
+          shadowPasswordCheck: "",
+        }));
+      }
       if (password === value) {
         setDoubleCheck(() => ({ ...doubleCheck, passwordDoubleCheck: true }));
-        SetRegulation(() => ({
-          ...regulation,
-          regulationPasswordCheck: "",
+        // SetRegulation(() => ({
+        //   ...regulation,
+        //   regulationPasswordCheck: "",
+        // }));
+        Sethidden(() => ({
+          ...hidden,
+          hiddenErrorMeassaPasswordCheck: true,
         }));
       } else {
         SetRegulation(() => ({
           ...regulation,
           regulationPasswordCheck: "비밀번호와 일치하는지 확인해주세요.",
+        }));
+        Sethidden(() => ({
+          ...hidden,
+          hiddenErrorMeassaPasswordCheck: true,
         }));
       }
     }
@@ -143,7 +262,10 @@ const Signup = () => {
     await SignupApi.emailDoubleCheck(payload)
       .then((response) => {
         console.log(response);
-        setModalStr(() => response.message);
+        setModalStr({
+          modalTitle: response.message,
+          modalMessage: "",
+        });
         onModalOpen();
         setDoubleCheck(() => ({
           ...doubleCheck,
@@ -153,10 +275,11 @@ const Signup = () => {
       .catch((error) => {
         const { data } = error.response;
         if (data.status === 400) {
-          console.log(data.message);
-          setModalStr(data.message);
+          setModalStr({
+            modalTitle: data.message,
+            modalMessage: "이메일을 확인해주세요.",
+          });
           onModalOpen();
-          userEmailRef.current.focus();
         } else {
           console.log(error);
         }
@@ -175,11 +298,20 @@ const Signup = () => {
         ...regulation,
         regulationNickName: "닉네임을 입력해주세요.",
       }));
+      Sethidden(() => ({
+        ...hidden,
+        hiddenErrorMeassaNickName: false,
+      }));
       nickNameCurrent.focus();
       return;
+    } else {
+      Sethidden(() => ({
+        ...hidden,
+        hiddenErrorMeassaNickName: true,
+      }));
     }
     dispatch(
-      __emailDoubleCheck({
+      __nickNameCheck({
         nickname: nickNameCurrent.value,
         onModalOpen,
         setModalStr,
@@ -282,97 +414,155 @@ const Signup = () => {
     setOpen({ isOpen: false });
   };
 
-  // const sginupAxios = async ({ username, nickname, email, password }) => {
-  //   await SignupApi.Signup({ username, nickname, email, password })
-  //     .then((response) => {
-  //       console.log(response);
-  //       setModalStr(() => response.message);
-  //       onModalOpen();
-  //       window.history.back();
-  //     })
-  //     .catch((error) => {
-  //       const { data } = error.response;
-  //       if (data.status === 401) {
-  //         console.log(data.message);
-  //         setModalStr(data.message);
-  //         onModalOpen();
-  //       }
-  //     });
-  // };
-
   return (
     <>
-      <form>
-        <div>
-          <div>
-            <label htmlFor="userName">이름 </label>
+      <div className="container">
+        <div className=" grid grid-flow-row ml-[20px] mr-[20px] gap-[32px]">
+          <div className=" grid grid-flow-row gap-[10px] mt-[106px]">
             <div>
-              <input
-                id="userName"
-                ref={userNameRef}
-                placeholder="사용자의 이름을 입력해주세요."
-                onChange={onValidity}
-              ></input>
+              <h1 className="font-[700] text-textBlack text-[32px] mb-[10px]">
+                Welcome Gnims!
+              </h1>
             </div>
-            <p>{regulation.regulationName}</p>
-          </div>
-          <div>
-            <label htmlFor="userEmail">이메일 </label>
-            <div>
-              <input
-                id="userEmail"
-                ref={userEmailRef}
-                placeholder="아이디로 사용할 이메일을 입력해주세요."
-                onChange={onValidity}
-              ></input>
-              <button onClick={onEmailDoubleCheck}>중복 확인</button>
-            </div>
-            <p>{regulation.regulationEmail}</p>
-          </div>
-          <div>
-            <label htmlFor="userNickName">닉네임 </label>
-            <div>
-              <input
-                id="userNickName"
-                ref={userNickNameRef}
-                placeholder="2~8자리 숫자, 한글, 영문을 입력해주세요"
-                onChange={onValidity}
-              ></input>
-              <button onClick={onNickNameCheck}>중복 확인</button>
+            <div className="font-[500] text-textBlack text-[24px] ">
+              <p className="mb-[15px]">일정관리, 공유의 샛별</p>
+              <p>그님스는 여러분을 환영해요!</p>
             </div>
           </div>
-          <p>{regulation.regulationNickName}</p>
-          <div>
-            <label htmlFor="userPassword">비밀번호 </label>
-            <div>
-              <input
-                id="userPassword"
-                ref={userPasswordRef}
-                placeholder="8~16자리 영문 대소문자, 숫자 조합"
-                onChange={onValidity}
-              ></input>
+          <form className="">
+            <div className="grid gird-rows-5 gap-[20px]">
+              <div>
+                <Label htmlFor="userName">이름</Label>
+                <LoginSignupInputBox
+                  type="text"
+                  id="userName"
+                  ref={userNameRef}
+                  onChange={onValidity}
+                  placeholder="사용자의 이름을 입력해주세요."
+                  bgColor={style.bgColorName}
+                  shadow={style.shadowName}
+                />
+                <div
+                  className="flex items-center"
+                  hidden={hidden.hiddenErrorMeassaName}
+                >
+                  <p className="h-[40px] w-full font-[500] text-[16px]  text-[#DE0D0D] flex items-center">
+                    {regulation.regulationName}
+                  </p>
+                </div>
+              </div>
+              <div className="relative">
+                <Label htmlFor="userEmail">이메일</Label>
+                <div>
+                  <input
+                    type="email"
+                    id="userEmail"
+                    ref={userEmailRef}
+                    placeholder="아이디로 사용할 이메일을 입력해주세요."
+                    onChange={onValidity}
+                    className={`${style.bgColorEmail} ${style.shadowEmail} w-full px-1 h-[50px] text-[16px]  placeholder-inputPlaceHoldText`}
+                    bgColor={style.bgColorEmail}
+                    shadow={style.shadowEmail}
+                    autoComplete="off"
+                  ></input>
+                  <button
+                    className="absolute right-[5px] mt-[18px] font-[600] text-textBlack text-[16px]"
+                    onClick={onEmailDoubleCheck}
+                  >
+                    중복 확인
+                  </button>
+                </div>
+                <div hidden={hidden.hiddenErrorMeassaEmail}>
+                  <p className=" w-full font-[500] mt-[20px] text-[16px] text-[#DE0D0D] flex items-center">
+                    {regulation.regulationEmail}
+                  </p>
+                </div>
+              </div>
+              <div className="relative">
+                <Label htmlFor="userNickName">닉네임</Label>
+                <div>
+                  <input
+                    id="userNickName"
+                    ref={userNickNameRef}
+                    placeholder="2~8자리 숫자,한글,영문을 입력해주세요."
+                    onChange={onValidity}
+                    className={`${style.bgColorNickname} ${style.shadowNickname} w-full px-1 h-[50px] text-[16px]  placeholder-inputPlaceHoldText`}
+                    autoComplete="off"
+                  ></input>
+                  <button
+                    className="absolute right-[5px] mt-[18px] font-[600] text-textBlack text-[16px]"
+                    onClick={onNickNameCheck}
+                  >
+                    중복 확인
+                  </button>
+                </div>
+                <div hidden={hidden.hiddenErrorMeassaNickName}>
+                  <p className=" w-full font-[500] mt-[20px] text-[16px] text-[#DE0D0D] flex items-center">
+                    {regulation.regulationNickName}
+                  </p>
+                </div>
+              </div>
+
+              <div>
+                <Label htmlFor="userPassword">비밀번호</Label>
+                <div>
+                  <LoginSignupInputBox
+                    type="password"
+                    id="userPassword"
+                    ref={userPasswordRef}
+                    placeholder="8~16자리 영문 대소문자, 숫자 조합"
+                    onChange={onValidity}
+                    bgColor={style.bgColorPassword}
+                    shadow={style.shadowPassword}
+                  />
+                </div>
+                <div
+                  hidden={hidden.hiddenErrorMeassaPassword}
+                  className="mt-[10px]"
+                >
+                  <p className="w-full font-[500] text-[16px] text-[#DE0D0D] flex items-center">
+                    {regulation.regulationPassword}
+                  </p>
+                </div>
+              </div>
+              <div>
+                <Label htmlFor="passwordCheck">비밀번호 확인</Label>
+                <div>
+                  <LoginSignupInputBox
+                    type="password"
+                    id="passwordCheck"
+                    placeholder="8~16자리 영문 대소문자, 숫자 조합"
+                    onChange={onValidity}
+                    bgColor={style.bgColorPasswordCheck}
+                    shadow={style.shadowPasswordCheck}
+                  />
+                </div>
+                <div
+                  hidden={hidden.hiddenErrorMeassaPasswordCheck}
+                  className="mt-[10px]"
+                >
+                  <p className="w-full font-[500] text-[16px] text-[#DE0D0D] flex items-center">
+                    {regulation.regulationPasswordCheck}
+                  </p>
+                </div>
+              </div>
             </div>
-            <p>{regulation.regulationPassword}</p>
-          </div>
-          <div>
-            <label htmlFor="passwordCheck">비밀번호 확인 </label>
             <div>
-              <input
-                id="passwordCheck"
-                placeholder="8~16자리 영문 대소문자, 숫자 조합"
-                onChange={onValidity}
-              ></input>
+              <button
+                onClick={onSubmit}
+                className="h-[50px] rounded w-full bg-[#002C51] font-[700] text-[#ffff] mt-[24px] mb-[69px]"
+              >
+                회원가입 완료
+              </button>
             </div>
-            <p>{regulation.regulationPasswordCheck}</p>
-          </div>
+          </form>
+          <IsModal
+            isModalOpen={isOpen.isOpen}
+            onMoalClose={onMoalClose}
+            message={{ ModalStr }}
+          />
         </div>
-        <div>
-          <button onClick={onSubmit}>그님스 시작하기</button>
-        </div>
-      </form>
-      <IsModal isModalOpen={isOpen.isOpen} onMoalClose={onMoalClose}>
-        {ModalStr}
-      </IsModal>
+      </div>
     </>
   );
 };

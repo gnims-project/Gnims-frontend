@@ -16,8 +16,10 @@ export const __emailLogin = ({
     await LoginApi.EmailLogin({ email: email, password: password })
       .then((response) => {
         const accessToken = response.headers.get("Authorization");
-        const { email, nickname, profileImage } = response.data;
+        console.log(response);
+        const { email, nickname, profileImage, userId } = response.data.data;
         localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("userId", userId);
         localStorage.setItem("email", email);
         localStorage.setItem("nickname", nickname);
         localStorage.setItem("profileImage", profileImage);
@@ -31,8 +33,7 @@ export const __emailLogin = ({
         if (data.status === 401) {
           setModalStr({
             modalTitle: "ID를 찾을 수 없어요.",
-            modalMessage:
-              "아이디(이메일)과 비밀번호를    다시 한 번 확인해주세요.",
+            modalMessage: "이메일와 비밀번호를  \n  다시 한 번 확인해주세요.",
           });
           onModalOpen();
         }
@@ -47,45 +48,43 @@ export const __kakaologin = createAsyncThunk(
   async (code, thunkAPI) => {
     try {
       console.log("페이로드?", code);
-      const data = await axios
-        .post("http://hayangaeul.shop/kakao/login", { code })
-        .then((res) => {
-          console.log("서버에서 보내는값?", res.data.data);
-          const email = res.data.data.email;
-          localStorage.setItem("email", email);
-          localStorage.setItem("socialCode", "KAKAO");
+      const data = await instance.post("/kakao/login", { code }).then((res) => {
+        console.log("서버에서 보내는값?", res.data.data);
+        const email = res.data.data.email;
+        localStorage.setItem("email", email);
+        localStorage.setItem("socialCode", "KAKAO");
 
-          if (res.data.message !== "non-member") {
-            const accessToken = res.headers.get("Authorization");
-            const nickname = res.data.data.nickname;
-            console.log(nickname);
-            localStorage.setItem("token", accessToken);
-            localStorage.setItem("nickname", nickname);
-            alert("그님스에 오신걸 환영합니다");
-            return window.location.assign("/main");
+        if (res.data.message !== "non-member") {
+          const accessToken = res.headers.get("Authorization");
+          const nickname = res.data.data.nickname;
+          console.log(nickname);
+          localStorage.setItem("token", accessToken);
+          localStorage.setItem("nickname", nickname);
+          alert("그님스에 오신걸 환영합니다");
+          return window.location.assign("/main");
 
-            //멤버가 아닐시 프로필 정보를 받는 페이지로 돌려야함
-          } else if (res.data.message === "non-member") {
-            alert("그님스를 이용하려면 프로필 정보를 입력해줘야합니다.");
-            return window.location.assign("/signup/setProfileName");
-          }
-          // const accessToken = res.headers.get("Authorization");
-          // const nickname = res.data.nickname;
-          // const email = res.data.email;
+          //멤버가 아닐시 프로필 정보를 받는 페이지로 돌려야함
+        } else if (res.data.message === "non-member") {
+          alert("그님스를 이용하려면 프로필 정보를 입력해줘야합니다.");
+          return window.location.assign("/signup/setProfileName");
+        }
+        // const accessToken = res.headers.get("Authorization");
+        // const nickname = res.data.nickname;
+        // const email = res.data.email;
 
-          // // 유저 토큰,닉네임,이메일이 있다면 가져온 후 세팅
-          // if (accessToken && nickname && email) {
-          //   localStorage.setItem("token", accessToken);
-          //   localStorage.setItem("nickname", nickname);
-          //   localStorage.setItem("email", email);
-          //   alert(`소셜로그인 인증 완료! ${nickname}님 환영합니다!`);
-          //   return window.location.assign("/");
-          // }
-          // else {
-          //   alert("인증 오류! 다시 시도해주세요!");
-          //   return window.location.assign("/");
-          // }
-        });
+        // // 유저 토큰,닉네임,이메일이 있다면 가져온 후 세팅
+        // if (accessToken && nickname && email) {
+        //   localStorage.setItem("token", accessToken);
+        //   localStorage.setItem("nickname", nickname);
+        //   localStorage.setItem("email", email);
+        //   alert(`소셜로그인 인증 완료! ${nickname}님 환영합니다!`);
+        //   return window.location.assign("/");
+        // }
+        // else {
+        //   alert("인증 오류! 다시 시도해주세요!");
+        //   return window.location.assign("/");
+        // }
+      });
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       window.location.assign("/");

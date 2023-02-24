@@ -1,37 +1,78 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { __getFollower, __getFollowing } from "../../redux/modules/FollowSlice";
+import FollowerCard from "./FollowerCard";
+import FollowingCard from "./FollowingCard";
 
 const FollowList = () => {
-  const tapmenu = ["팔로우", "팔로워"];
-  const [editmode, setEditMode] = useState(false);
+  const dispatch = useDispatch();
+  //탭 상태 변화
+  const [activeTab, setActiveTab] = useState("follower");
+
+  //조건부 렌더링 설정하기 위한 스테이트
+  const [bdColor, setBdColor] = useState({
+    followerBD: "border-b-[1px] border-black",
+    followingBD: "",
+  });
+  const followerList = useSelector((state) => state.FollowSlice.followerList);
+  const followingList = useSelector((state) => state.FollowSlice.followingList);
+
+  useEffect(() => {
+    dispatch(__getFollower());
+  }, [dispatch]);
+
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+    if (tab === "follower") {
+      //
+      setBdColor({
+        followerBD: "border-b-[1px] border-black",
+        followingBD: "",
+      });
+      dispatch(__getFollower());
+    } else {
+      setBdColor({
+        followerBD: "",
+        followingBD: "border-b-[1px] border-black",
+      });
+      dispatch(__getFollowing());
+    }
+  };
 
   return (
-    <div className="mt-6">
-      <div className="flex flex-wrap gap-5">
-        <div>
-          <button className="bg-blue-500 h-5"> 뒤로 </button>
-        </div>
-        <div>
-          <div className="text-center">팔로우 목록</div>
-        </div>
+    <div className="relative grid top-[79px] gap-[10px] px-[20px]">
+      <div className="flex">
+        <button
+          className={`${bdColor.followerBD} w-1/2 h-[40px] p-[10px] text-[18px]`}
+          onClick={() => handleTabChange("follower")}
+        >
+          팔로워
+        </button>
+        <button
+          className={`${bdColor.followingBD} w-1/2 h-[40px] p-[10px] text-[18px]`}
+          onClick={() => handleTabChange("following")}
+        >
+          팔로잉
+        </button>
       </div>
-      <div className="flex text-center">
-        {tapmenu.map((index) => {
-          return (
-            <div
-              key={index}
-              className="pt-3 border-solid border-2 border-black w-1/2 h-10"
-            >
-              {index}
-            </div>
-          );
-        })}
-      </div>
-      <div className="flex space-x-50">
-        <div className="flex">
-          <div>프로필사진</div>
-          <div>유저이름</div>
-        </div>
-        <button>팔로우</button>
+      <div>
+        {activeTab === "follower" ? (
+          <div>
+            {followerList.map((follower) => {
+              return (
+                <FollowerCard key={follower.followId} follower={follower} />
+              );
+            })}
+          </div>
+        ) : (
+          <div>
+            {followingList.map((following) => {
+              return (
+                <FollowingCard key={following.followId} following={following} />
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );

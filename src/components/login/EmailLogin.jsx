@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import NaverLogin from "../../page/NaverLoginPage";
 import Label from "../layout/Label";
 import LoginSignupInputBox from "../layout/LoginSignupInputBox";
+import gnimsLogo from "../../img/gnimslogo1.png";
 
 const EmailLogin = () => {
   const dispatch = useDispatch();
@@ -18,6 +19,12 @@ const EmailLogin = () => {
   const [ModalStr, setModalStr] = useState({
     modalTitle: "",
     modalMessage: "",
+  });
+  const [style, setStyle] = useState({
+    bgColorEmail: "bg-inputBox",
+    bgColorPassword: "bg-inputBox",
+    shadowEmail: "",
+    shadowPassword: "",
   });
   const { isLoading } = useSelector((state) => state.LoginSlice);
 
@@ -40,12 +47,37 @@ const EmailLogin = () => {
   //유효성검사
   const onValidity = (event) => {
     const { id, value } = event.target;
-
     if (id === "userEmail") {
+      setStyle(() => ({
+        ...style,
+        bgColorEmail: "bg-inputBoxFocus",
+        shadowEmail: "drop-shadow-inputBoxShadow",
+      }));
+      if (value.trim() === "") {
+        setStyle(() => ({
+          ...style,
+          bgColorEmail: "bg-inputBox",
+          shadowEmail: "",
+        }));
+      }
       if (!emailRegulationExp.test(value)) {
         SetRegulation(() => ({ ...regulation, regulationEmail: false }));
-      } else SetRegulation(() => ({ ...regulation, regulationEmail: true }));
+      } else {
+        SetRegulation(() => ({ ...regulation, regulationEmail: true }));
+      }
     } else {
+      setStyle(() => ({
+        ...style,
+        bgColorPassword: "bg-inputBoxFocus",
+        shadowPassword: "drop-shadow-inputBoxShadow",
+      }));
+      if (value.trim() === "") {
+        setStyle(() => ({
+          ...style,
+          bgColorPassword: "bg-inputBox",
+          shadowPassword: "",
+        }));
+      }
       if (!passwordRegulationExp.test(value)) {
         SetRegulation(() => ({ ...regulation, regulationPassword: false }));
       } else SetRegulation(() => ({ ...regulation, regulationPassword: true }));
@@ -106,14 +138,15 @@ const EmailLogin = () => {
     window.location.href = KAKAO_AUTH_URL;
   };
 
+  console.log({ style });
   return (
-    <div className="container md">
-      <div className="ml-[20px] mr-[20px]">
-        <div className="grid grid-rows place-content-center">
-          <div className=" h-[150px] mt-[94px]">
-            <div className="mx-auto w-[87px] h-[64px] overflow-hidden gap-[10px] ">
+    <div className="container h-full md ">
+      <div className="ml-[20px] mr-[20px] ">
+        <div className="grid grid-rows mt-[100px]">
+          <div className="h-[150px]">
+            <div className="mx-auto  w-[150px] h-[64px] overflow-hidden gap-[10px] ">
               <img
-                src="https://pbs.twimg.com/media/FACQ9-hUcAcA_11.jpg "
+                src={gnimsLogo}
                 alt="곰캐릭터가 우쭐거리며 왠지 잘될 것 같은 기분포즈 중"
                 className="h-full w-full "
               />
@@ -123,17 +156,20 @@ const EmailLogin = () => {
             <div className=" grid grid-row-3 gap-[10px]">
               <div className="">
                 <div className=" grid grid-row-2">
-                  <Label>이메일</Label>
+                  <Label htmlFor="userEmail">이메일</Label>
                   <LoginSignupInputBox
+                    type="text"
                     id="userEmail"
                     ref={userEmailRef}
                     onChange={onValidity}
                     placeholder="아이디(이메일) 입력"
+                    shadow={style.shadowEmail}
+                    bgColor={style.bgColorEmail}
                   />
                 </div>
                 <div className="flex items-center ">
                   <p
-                    className="h-[40px] w-full font-[500] text-[16px] text-[#DE0D0D] flex items-center"
+                    className="h-[40px]  w-full font-[500] text-[16px] text-[#DE0D0D] flex items-center"
                     hidden={regulation.regulationEmail}
                   >
                     아이디(이메일)을 입력해주세요.
@@ -142,12 +178,15 @@ const EmailLogin = () => {
               </div>
               <div className="">
                 <div className="grid grid-row-2">
-                  <Label>비밀번호</Label>
+                  <Label htmlFor="userPassword">비밀번호</Label>
                   <LoginSignupInputBox
+                    type="password"
                     ref={userPasswordRef}
                     onChange={onValidity}
                     id="userPassword"
                     placeholder="비밀번호 입력"
+                    shadow={style.shadowPassword}
+                    bgColor={style.bgColorPassword}
                   />
                 </div>
                 <div className="flex items-center ">
@@ -159,6 +198,7 @@ const EmailLogin = () => {
                   </p>
                 </div>
               </div>
+
               <button
                 onClick={onSubmit}
                 className="h-[50px] rounded w-full bg-[#002C51] font-[700] text-[#ffff] mt-[24px]"
@@ -168,14 +208,14 @@ const EmailLogin = () => {
             </div>
           </form>
           <div className="mt-[26px] grid grid-cols-2 text-center">
-            <div>
-              <button className="text-[#12396F] text-[16px] font-[400] px-[30px] py-[10px]">
+            <div className="border-4 border-indigo-600">
+              <button className="text-textBlack text-[16px] font-[400] px-[30px] py-[10px]">
                 비밀번호 재설정
               </button>
             </div>
             <div>
               <button
-                className="text-[#12396F] text-[16px] font-[400] px-[30px] py-[10px] "
+                className="text-textBlack text-[16px] font-[400] px-[30px] py-[10px] "
                 onClick={() => navigate(`/signup`)}
               >
                 회원가입
