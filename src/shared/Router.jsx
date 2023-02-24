@@ -17,6 +17,7 @@ import SetProfileNamePage from "../page/SetProfileNamePage";
 import SetProfileImgPage from "../page/SetProfileImgPage";
 import NotificationsPage from "../page/NotificationsPage";
 import ScheduleInvitation from "../components/mypage/ScheduleInvitation";
+import ProfileEditPage from "../page/ProfileEditPage";
 
 import InfiniteScroll from "../components/main/InfiniteScroll";
 import PastEventsPage from "../page/PastEventsPage";
@@ -61,7 +62,7 @@ const Router = () => {
           <Route path="/scheduleinvitation" element={<ScheduleInvitation />} />
           <Route path="/follow" element={<FollowPage />} />
           <Route path="/pastEvents" element={<PastEventsPage />} />
-
+          <Route path="/editProfile" element={<ProfileEditPage />} />
           {/* 알람 */}
           <Route path="/notification" element={<NotificationsPage />} />
 
