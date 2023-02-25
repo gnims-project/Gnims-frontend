@@ -5,8 +5,14 @@ import kebab from "../../img/kebab.png";
 import BottomNavi from "../layout/BottomNavi";
 import KebabModal from "../modal/KebabButtonModal";
 import gnimsIcon from "../../img/gnimslogo1.png";
+import { instance } from "../../shared/AxiosInstance";
+import { useDispatch, useSelector } from "react-redux";
+import { __getScheduleDetail } from "../../redux/modules/ScheduleSlice";
 
 const ScheduleDetail = () => {
+  const dispatch = useDispatch();
+  const schedule = useSelector((state) => state.ScheduleSlice.oldschedules);
+  console.log("올드?", schedule);
   //  모달 노출시키는 여부
   const [modalOpen, setModalOpen] = useState(false);
   const showModalHandler = () => {
@@ -14,25 +20,24 @@ const ScheduleDetail = () => {
   };
   //id구하기
   const { id } = useParams();
+  console.log("이벤트아이디?", id);
 
   //데이터베이스를 담을 schedule
-  const [schedule, setSchedule] = useState([]);
-  const fetchTodos = async () => {
-    await axios
-      .get(`https://eb.jxxhxxx.shop/events/${id}`, {
-        headers: {
-          Authorization: localStorage.getItem("Authorization"),
-        },
-      })
-      .then((appData) => {
-        setSchedule(appData.data.data);
-      }, []);
-  };
+  // const [schedule, setSchedule] = useState([]);
+
+  // const fetchTodos = async () => {
+  //   await instance.get(`/events/${id}`).then((appData) => {
+  //     setSchedule(appData.data.data);
+  //   }, []);
+  // };
   const time = schedule.time?.split(":", 2).join(":");
-  console.log(schedule);
   useEffect(() => {
-    fetchTodos();
-  }, []);
+    dispatch(__getScheduleDetail(id));
+  }, [dispatch]);
+  console.log("디테일스케줄?", schedule);
+  // useEffect(() => {
+  //   fetchTodos();
+  // }, []);
 
   const joiner = schedule.invitees;
   console.log(joiner);
