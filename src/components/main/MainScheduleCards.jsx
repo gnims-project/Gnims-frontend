@@ -7,8 +7,8 @@ const MainScheduleCards = ({ schedules }) => {
   const navigate = useNavigate();
   const invitees = schedules.invitees;
   const time = schedules.time.split(":", 2).join(":");
-  // const bgColor = `bg-${schedules.cardColor}`;
-  const bgColor = `bg-sora`;
+  const bgColor = `bg-${schedules.cardColor}`;
+  //const bgColor = `bg-sora`;
   const [dDay, setDday] = useState({
     hidden: false,
     dDay: schedules.dday,

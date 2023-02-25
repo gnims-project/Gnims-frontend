@@ -6,7 +6,7 @@ import {
   setNameNickName,
 } from "../../redux/modules/SingupSlice";
 import Label from "../layout/Label";
-import LoginSignupInputBox from "../layout/LoginSignupInputBox";
+import LoginSignupInputBox from "../layout/input/LoginSignupInputBox";
 import IsModal from "../modal/Modal";
 
 const SetProfileName = () => {
