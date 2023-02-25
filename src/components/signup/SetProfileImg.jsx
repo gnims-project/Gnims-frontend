@@ -45,7 +45,7 @@ const SetProfileImg = () => {
     } else {
       formData.append("image", null);
     }
-
+    console.log("잘찍혀?", formData);
     if (singup === "emailLogin") {
       //const url = "http://hayangaeul.shop/auth/signup";
       const url = "https://eb.jxxhxxx.shop/auth/signup";
