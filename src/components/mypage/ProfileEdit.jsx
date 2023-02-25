@@ -1,10 +1,14 @@
+import axios from "axios";
 import React, { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import inputImgIcon from "../../img/Component01.png";
 
 const ProfileEdit = () => {
+  const navigate = useNavigate();
   const imgRef = useRef();
   const profileImage = localStorage.getItem("profileImage");
   const [image, setImage] = useState(profileImage);
+
   const imagePreview = () => {
     const reader = new FileReader();
     reader.readAsDataURL(imgRef.current.files[0]);
@@ -16,7 +20,42 @@ const ProfileEdit = () => {
     });
   };
 
-  const editHandler = () => {};
+  const editHandler = async () => {
+    try {
+      const imgFile = imgRef.current.files[0];
+      console.log(imgFile);
+      const formData = new FormData();
+      // if (imgFile !== undefined) {
+      formData.append("image", imgFile);
+      // } else {
+      //   formData.append("image", null);
+      // }
+      console.log(formData);
+      for (const [key, value] of formData.entries()) {
+        console.log(key, value);
+      }
+      const response = await axios.patch(
+        "https://eb.jxxhxxx.shop/users/profile",
+        formData,
+        {
+          headers: {
+            Authorization: localStorage.getItem("accessToken"),
+          },
+        }
+      );
+      console.log(response);
+      if (response.status === 200) {
+        alert("프로필이미지가 변경되었습니다!");
+        navigate("/main");
+        localStorage.setItem("profileImage", response.data.data.profileImage);
+      }
+      const { imageUrl } = response.data.data.profileImage;
+      setImage(imageUrl);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div>
       <div className="text-left text-[25px] font-thin mt-[30px] ml-[15px]">
