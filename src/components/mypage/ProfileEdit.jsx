@@ -8,7 +8,6 @@ const ProfileEdit = () => {
   const imgRef = useRef();
   const profileImage = localStorage.getItem("profileImage");
   const [image, setImage] = useState(profileImage);
-  const [imageFile, setImageFile] = useState("");
 
   const imagePreview = () => {
     const reader = new FileReader();
@@ -48,10 +47,9 @@ const ProfileEdit = () => {
       if (response.status === 200) {
         alert("프로필이미지가 변경되었습니다!");
         navigate("/main");
+        localStorage.setItem("profileImage", response.data.data.profileImage);
       }
-      const { imageUrl } = response.data;
-      console.log(imageUrl);
-      localStorage.setItem("profileImage", imageUrl);
+      const { imageUrl } = response.data.data.profileImage;
       setImage(imageUrl);
     } catch (error) {
       console.error(error);
