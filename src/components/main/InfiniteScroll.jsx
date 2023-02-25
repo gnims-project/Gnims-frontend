@@ -2,19 +2,18 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import { ScheduleApi } from "../../api/ScheduleApi";
 import MainScheduleCards from "./MainScheduleCards";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { __getScrollPage } from "../../redux/modules/ScheduleSlice";
-import { pagePlus } from "../../redux/modules/ScheduleSlice";
-import axios from "axios";
 
 const InfiniteScroll = ({ schedules }) => {
   const dispatch = useDispatch();
   console.log(schedules);
+
   //리스트 생성
-  const [scheduleList, setScheduleList] = useState(() => schedules);
+  const [scheduleList, setScheduleList] = useState(schedules);
   console.log(scheduleList);
   //페이징 생성
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
+  console.log(page);
   //로딩여부
   const [load, setLoad] = useState(true);
   //중복 실행 방저
@@ -23,14 +22,16 @@ const InfiniteScroll = ({ schedules }) => {
   const endRef = useRef(false);
   //옵저버 확인
   const observerRef = useRef(null);
+
   const userId = window.localStorage.getItem("userId");
 
   //옵저버 핸들링 함수
-  const observerHandler = ([entries]) => {
+  const observerHandler = ([entries], observer) => {
     console.log(entries);
-    console.log(endRef.current);
-    if (!endRef.current && entries.isIntersecting) {
-      preventRef.current = false;
+    console.log(entries.isIntersecting);
+    if (entries.isIntersecting) {
+      getSchedule({ userId: userId, page: page });
+      observer.unobserve(entries.target);
       setPage((prev) => prev + 1);
     }
   };
@@ -48,31 +49,30 @@ const InfiniteScroll = ({ schedules }) => {
         //noPostShow();
         setScheduleList((prev) => [...prev, ...dataList]); //리스트 추가
         //prevent_duple.current = true;
+      } else {
+        setScheduleList((prev) => [...prev, ...dataList]); //리스트 추가
+        preventRef.current = true;
       }
       console.log(scheduleList);
-    } catch {
+    } catch (error) {
+      console.log(error);
     } finally {
+      setLoad(false);
     }
   }, []);
 
   useEffect(() => {
-    if (page !== 0) getSchedule({ userId: userId, page: page });
-  }, [page, userId, getSchedule]);
-
-  useEffect(() => {
-    dispatch(__getScrollPage({ userId: userId, page: 0 }));
-  }, [dispatch, userId]);
-
-  useEffect(() => {
+    console.log("useEffet실행");
     const observer = new IntersectionObserver(observerHandler, {
       threshold: 0.5,
     });
     //주시대상목록에 추가
     if (observerRef.current) observer.observe(observerRef.current);
     return () => {
-      observer.disconnect();
+      observer && observer.disconnect();
     };
   }, []);
+
   return (
     <>
       <div className="wrap min-h-[100vh]">

@@ -4,8 +4,11 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import MainScheduleCards from "./MainScheduleCards";
 import { useDispatch, useSelector } from "react-redux";
-import { __getSchedule } from "../../redux/modules/ScheduleSlice";
-//import InfiniteScroll from "./InfiniteScroll";
+import {
+  __getSchedule,
+  __getScrollPage,
+} from "../../redux/modules/ScheduleSlice";
+import InfiniteScroll from "./InfiniteScroll";
 
 const Main = () => {
   const navigate = useNavigate();
@@ -28,7 +31,7 @@ const Main = () => {
       if (getprofilImg) {
         setProfileImg(getprofilImg);
       }
-      dispatch(__getSchedule(userId));
+      dispatch(__getScrollPage({ userId: userId, page: 0 }));
     } else {
       navigate(`/login`);
     }
@@ -55,13 +58,13 @@ const Main = () => {
             </div>
           </div>
           <div>
-            {/* <InfiniteScroll /> */}
+            <InfiniteScroll schedules={schedules} />
             <div className="flex flex-col gap-[30px] mt-[28px] rounded-[10px]">
-              {schedules?.map((list) => {
+              {/* {schedules?.map((list) => {
                 return (
                   <MainScheduleCards key={list.eventId} schedules={list} />
                 );
-              })}
+              })} */}
             </div>
           </div>
         </div>

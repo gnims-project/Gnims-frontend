@@ -3,12 +3,18 @@ import { Action } from "@remix-run/router";
 import { SignupApi } from "../../api/Signup";
 
 //닉네임 중복확인
-export const __nickNameCheck = ({ nickname, onModalOpen, setModalStr }) => {
+export const __nickNameCheck = ({
+  nickname,
+  onModalOpen,
+  setModalStr,
+  setCheck,
+}) => {
   return async function (dispatch) {
     console.log(nickname);
     SignupApi.nickNameDoubleCheck({ nickname: nickname })
       .then((response) => {
         console.log(response);
+        setCheck(() => true);
         setModalStr({
           modalTitle: response.message,
           modalMessage: "",

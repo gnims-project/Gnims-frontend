@@ -61,11 +61,11 @@ export const __postSchedule = createAsyncThunk(
     try {
       const data = await ScheduleApi.postScheduleApi(payload.Schedule);
       console.log(payload.userId);
-      payload.dispatch(__getSchedule(payload.userId));
-      // return thunkAPI.fulfillWithValue(data.data);
+      payload.dispatch(__getScrollPage({ userId: payload.userId, page: 0 }));
       if (data.status === 201) {
         alert("성공!");
       }
+      // return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -106,18 +106,18 @@ export const ScheduleSlice = createSlice({
     [__getSchedule.fulfilled]: (state, action) => {
       state.isLoading = false;
       console.log(action.payload);
-      let schedules = action.payload;
-      let tmp = 0;
-      for (let i = 0; i < schedules.length - 1; i++) {
-        for (let j = i + 1; j < schedules.length; j++) {
-          if (schedules[i].dday > schedules[j].dday) {
-            tmp = schedules[i];
-            schedules[i] = schedules[j];
-            schedules[j] = tmp;
-          }
-        }
-      }
-      state.schedules = schedules;
+      // let schedules = action.payload;
+      // let tmp = 0;
+      // for (let i = 0; i < schedules.length - 1; i++) {
+      //   for (let j = i + 1; j < schedules.length; j++) {
+      //     if (schedules[i].dday > schedules[j].dday) {
+      //       tmp = schedules[i];
+      //       schedules[i] = schedules[j];
+      //       schedules[j] = tmp;
+      //     }
+      //   }
+      // }
+      state.schedules = action.payload;
     },
     [__getSchedule.rejected]: (state, action) => {
       state.isLoading = false;
@@ -151,13 +151,14 @@ export const ScheduleSlice = createSlice({
       state.error = action.payload;
     },
 
-    // [__deleteSchedule.pending]: (state) => {
+    // [__postSchedule.pending]: (state) => {
     //   state.isLoading = true;
     // },
-    // [__deleteSchedule.fulfilled]: (state, action) => {
+    // [__postSchedule.fulfilled]: (state, action) => {
     //   state.isLoading = false;
+    //   state.schedules.push(action.payload);
     // },
-    // [__deleteSchedule.rejected]: (state, action) => {
+    // [__postSchedule.rejected]: (state, action) => {
     //   state.isLoading = false;
     //   state.error = action.error.message;
     // },

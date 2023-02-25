@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const MainScheduleCards = ({ schedules }) => {
-  console.log(schedules);
   const navigate = useNavigate();
   const invitees = schedules.invitees;
   const time = schedules.time.split(":", 2).join(":");
