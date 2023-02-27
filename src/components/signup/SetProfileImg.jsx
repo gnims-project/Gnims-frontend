@@ -36,16 +36,13 @@ const SetProfileImg = () => {
     //폼데이터 변환
     setImageFile(imgRef.current.files[0]);
     const imgFile = imgRef.current.files[0];
-    console.log(imgFile);
     const formData = new FormData();
     if (imgFile !== undefined) {
       formData.append("image", imgFile);
     } else {
       formData.append("image", null);
     }
-    console.log("잘찍혀?", formData);
     if (singup === "emailLogin") {
-      console.log("이메일연결 백단");
       //const url = "http://hayangaeul.shop/auth/signup";
       const url = "https://eb.jxxhxxx.shop/auth/signup";
       const data = {

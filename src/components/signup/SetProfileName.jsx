@@ -19,7 +19,7 @@ const SetProfileName = () => {
   const [doubleCheck, setDoubleCheck] = useState({
     nickNameDoubleCheck: false,
   });
-  console.log(doubleCheck);
+
   const [style, setStyle] = useState({
     bgColorName: "bg-inputBox",
     bgColorNickname: "bg-inputBox",
@@ -28,12 +28,12 @@ const SetProfileName = () => {
   });
 
   useEffect(() => {
-    //로컬스토리지
-    console.log("실행");
-    console.log(sessionStorage.getItem("userName"));
-    // if (sessionStorage.getItem("userName")&&sessionStorage.getItem("nickname") !== null) {
-    //   navigate("/signup/setProfileImg");
-    // }
+    if (
+      sessionStorage.getItem("userName") &&
+      sessionStorage.getItem("nickname") !== null
+    ) {
+      navigate("/signup/setProfileImg");
+    }
   }, [dispatch, doubleCheck, navigate]);
 
   const nameRegulationExp = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|]+$/;
@@ -106,7 +106,6 @@ const SetProfileName = () => {
   const onNickNameCheck = (event) => {
     event.preventDefault();
     const nickNameCurrent = userNickNameRef.current;
-    console.log(nickNameCurrent);
     if (nickNameCurrent.value.trim() === "") {
       SetRegulation(() => ({
         ...regulation,

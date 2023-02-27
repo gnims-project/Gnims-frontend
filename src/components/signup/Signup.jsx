@@ -156,7 +156,6 @@ const Signup = () => {
         regulationPasswordCheck: "",
       }));
     } else {
-      console.log("비밀번호 중복확인");
       SetRegulation(() => ({
         ...regulation,
         regulationPasswordCheck: "비밀번호와 일치하는지 확인해주세요.",
@@ -447,14 +446,12 @@ const Signup = () => {
       userPasswordCurrent.focus();
       return;
     } else {
-      console.log("비밀번호");
       passwordValidationTest(userPasswordCurrent);
       if (regulation.regulationPassword !== "") {
-        console.log("비밀번호 유효성문제", regulation.regulationPassword);
         return;
       }
     }
-    console.log("회원가입완료");
+
     if (passwordCheckValue.trim() === "") {
       SetRegulation(() => ({
         ...regulation,
