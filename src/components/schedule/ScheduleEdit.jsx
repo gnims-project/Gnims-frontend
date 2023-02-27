@@ -2,55 +2,30 @@ import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
-import {
-  scheduleReset,
-  __postSchedule,
-  __getSchedule,
-  __getScheduleDetail,
-} from "../../redux/modules/ScheduleSlice";
+import { useNavigate, useParams } from "react-router-dom";
+import { __postSchedule } from "../../redux/modules/ScheduleSlice";
 import FollowingModal from "../modal/FollowingModal";
 import ScheduleModal from "../modal/ScheduleModal";
 
-// state.type:"add" 은 스케줄 추가, state.type:edit은 수정
-const ScheduleAdd = () => {
-  const dispatch = useDispatch();
-  //스케줄 추가, 수정 분기를 결정할 state 값을 받아옴
-  const { state } = useLocation();
-
-  useEffect(() => {
-    if (state.type === "edit") {
-      dispatch(__getScheduleDetail(state.id));
-    } else {
-      dispatch(scheduleReset());
-    }
-  }, []);
-  //전역으로 받아오는 state
-  const oldSchedule = useSelector((state) => state.ScheduleSlice.oldschedules);
-  console.log("수정할 스케줄", oldSchedule);
+const ScheduleEdit = () => {
+  //수정할 스케줄 아이디 가져오기
+  const id = useParams();
+  const oldSchedule = useSelector((state) => state.ScheduleSlice.Schedules);
+  console.log("이거 맞냐?", oldSchedule);
 
   //필요한 변수들
-  //날짜 // 추가 작업 필요
-  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedDate, setSelectedDate] = useState();
   const [selectedColor, setColorSelected] = useState("sora");
   const [bgColor, setBgColor] = useState("bg-sora");
-
-  //제목
-  const [subject, setSubject] = useState(
-    state.type === "edit" ? oldSchedule.subject : ""
-  );
-
-  //내용
-  const [content, setContent] = useState(
-    state.type === "edit" ? oldSchedule.content : ""
-  );
+  const [subject, setSubject] = useState("");
+  const [content, setContent] = useState("");
 
   const [borderSora, setBorderSora] = useState("border-white");
   const [borderNam, setBorderNam] = useState("border-none");
   const [borderParang, setBorderParang] = useState("border-none");
   const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const today = new Date().toISOString().slice(0, 10);
 
   //색상지정시 카드의 백그라운드컬러가 바뀌면서 selectedColor에 값이 입혀진다.
@@ -82,7 +57,6 @@ const ScheduleAdd = () => {
   const onContentChangeHandler = (e) => {
     setContent(e.target.value);
   };
-  //팔로우 선택 // 추가작업 필요
   const [participants, setParticipants] = useState([]);
   const onParticipantsChangeHandler = (e) => {
     // setParticipants(e.target.value);
@@ -100,7 +74,7 @@ const ScheduleAdd = () => {
   const time = splicedDate[4];
 
   //전체내용을 서버로 보내는 부분.
-  const scheduleAddHandler = (e) => {
+  const scheduleAddHandler = async (e) => {
     e.preventDefault();
 
     if (subject.length > 0 && [selectedDate].toString().length > 0) {
@@ -113,7 +87,7 @@ const ScheduleAdd = () => {
         // participantsId: [],
         participantsId: joinerWithoutDuplicate,
       };
-      dispatch(
+      await dispatch(
         __postSchedule({
           Schedule: newSchedule,
           userId: window.localStorage.getItem("userId"),
@@ -134,9 +108,11 @@ const ScheduleAdd = () => {
   };
   const [followingListOpen, setFollowingListOpen] = useState(false);
 
-  // useEffect(() => {
-  //   console.log("오늘의 날짜는", today);
-  // }, []);
+  useEffect(() => {
+    console.log("오늘의 날짜는", today);
+
+    // fetchSchedules();
+  }, []);
 
   return (
     <>
@@ -193,18 +169,18 @@ const ScheduleAdd = () => {
                 onChange={() => onParticipantsChangeHandler}
                 placeholder="함께할 친구들을 선택해주세요.(최대 4명)"
                 className="mt-4 shadow 
-              hover:bg-sky-100
-              text-center placeholder-textNavy
-              w-[335px]
-              h-12
-              bg-white
-              justify-center
-              text-l
-              rounded-md
-              text-black
-              font-light
-              p-4
-             "
+             hover:bg-sky-100
+             text-center placeholder-textNavy
+             w-[335px]
+             h-12
+             bg-white
+             justify-center
+             text-l
+             rounded-md
+             text-black
+             font-light
+             p-4
+            "
               />
             </div>
             <div className="flex flex-col mt-6 font-medium ">
@@ -214,17 +190,17 @@ const ScheduleAdd = () => {
                 onChange={onSubjectChangeHandler}
                 placeholder="일정 제목을 입력해주세요!(필수)"
                 className="mt-4 shadow
-              hover:bg-sky-100 placeholder-textNavy
-              text-center
-              w-[335px]
-              h-12
-              bg-white
-              justify-center
-              text-l
-              rounded-md
-              text-black
-              font-light
-              p-4"
+             hover:bg-sky-100 placeholder-textNavy
+             text-center
+             w-[335px]
+             h-12
+             bg-white
+             justify-center
+             text-l
+             rounded-md
+             text-black
+             font-light
+             p-4"
               />
             </div>
             <div className="flex flex-col mt-6 font-medium ">
@@ -234,18 +210,18 @@ const ScheduleAdd = () => {
                 onChange={onContentChangeHandler}
                 placeholder="일정 내용을 입력해주세요."
                 className="mt-4
-              shadow
-              hover:bg-sky-100 placeholder-textNavy
-              text-center
-              w-[335px]
-              h-56
-              bg-white
-              text-l
-              rounded-md
-              text-black
-              font-light
-             p-4
-             place-itmes-start"
+             shadow
+             hover:bg-sky-100 placeholder-textNavy
+             text-center
+             w-[335px]
+             h-56
+             bg-white
+             text-l
+             rounded-md
+             text-black
+             font-light
+            p-4
+            place-itmes-start"
               />
             </div>
             <button
@@ -261,4 +237,4 @@ const ScheduleAdd = () => {
   );
 };
 
-export default ScheduleAdd;
+export default ScheduleEdit;

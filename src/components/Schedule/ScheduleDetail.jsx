@@ -33,7 +33,7 @@ const ScheduleDetail = () => {
   const time = schedule.time?.split(":", 2).join(":");
   useEffect(() => {
     dispatch(__getScheduleDetail(id));
-  }, [dispatch]);
+  }, []);
   console.log("디테일스케줄?", schedule);
   // useEffect(() => {
   //   fetchTodos();

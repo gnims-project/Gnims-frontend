@@ -36,7 +36,8 @@ const TopNavBar = () => {
           alt="추가버튼"
           onClick={() => {
             console.log("스케쥴추가페이지로이동!");
-            navigate("/schedule");
+            //스케줄 추가를 하기 위한 파라미터 값을 넘긴다.
+            navigate("/schedule", { state: { type: "add", id: "" } });
           }}
         />
         <img
