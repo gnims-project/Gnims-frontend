@@ -9,6 +9,8 @@ export const __nickNameCheck = ({
   setModalStr,
   setDoubleCheck,
   doubleCheck,
+  SetRegulation,
+  regulation,
 }) => {
   return async function (dispatch) {
     console.log(nickname);
@@ -16,6 +18,10 @@ export const __nickNameCheck = ({
       .then((response) => {
         console.log(response.message);
         setDoubleCheck(() => ({ ...doubleCheck, nickNameDoubleCheck: true }));
+        SetRegulation(() => ({
+          ...regulation,
+          regulationNickName: "",
+        }));
         console.log("어디까지 찍힐까?");
         setModalStr({
           modalTitle: response.message,

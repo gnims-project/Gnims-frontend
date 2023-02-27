@@ -57,22 +57,12 @@ const Signup = () => {
     regulationNickName: "",
   });
 
-  const [hidden, Sethidden] = useState({
-    hiddenErrorMeassageName: true,
-    hiddenErrorMeassaEmail: true,
-    hiddenErrorMeassaNickName: true,
-    hiddenErrorMeassaName: true,
-    hiddenErrorMeassaPassword: true,
-    hiddenErrorMeassaPasswordCheck: true,
-  });
-
   //중복확인여부
   const [doubleCheck, setDoubleCheck] = useState({
     emailDoubleCheck: false,
     passwordDoubleCheck: false,
     nickNameDoubleCheck: false,
   });
-  console.log(doubleCheck);
   //모달창
   const onModalOpen = () => {
     setOpen({ isOpen: true });
@@ -90,16 +80,13 @@ const Signup = () => {
         ...regulation,
         regulationName: "한글 또는 영어로 작성해주세요.",
       }));
-      Sethidden(() => ({
-        ...hidden,
-        hiddenErrorMeassaName: false,
-      }));
+
       nameValidation.focus();
       return;
     } else {
-      Sethidden(() => ({
-        ...hidden,
-        hiddenErrorMeassaName: true,
+      SetRegulation(() => ({
+        ...regulation,
+        regulationName: "",
       }));
     }
   };
@@ -107,19 +94,16 @@ const Signup = () => {
   //이메일
   const emailValidationTest = (emailValidation) => {
     if (emailRegulationExp.test(emailValidation.value)) {
-      Sethidden(() => ({
-        ...hidden,
-        hiddenErrorMeassaEmail: true,
+      SetRegulation(() => ({
+        ...regulation,
+        regulationEmail: "",
       }));
     } else {
       SetRegulation(() => ({
         ...regulation,
         regulationEmail: "올바른 이메일 형식이 아닙니다.",
       }));
-      Sethidden(() => ({
-        ...hidden,
-        hiddenErrorMeassaEmail: false,
-      }));
+
       emailValidation.focus();
       return;
     }
@@ -128,19 +112,16 @@ const Signup = () => {
   //닉네임
   const nickNameValidationTest = (nickNameValidation) => {
     if (nickNameReglationExp.test(nickNameValidation.value)) {
-      Sethidden(() => ({
-        ...hidden,
-        hiddenErrorMeassaNickName: true,
+      SetRegulation(() => ({
+        ...regulation,
+        regulationNickName: "",
       }));
     } else {
       SetRegulation(() => ({
         ...regulation,
         regulationNickName: "글자수 2~8자와 한글,영문,숫자만 포함해주세요.",
       }));
-      Sethidden(() => ({
-        ...hidden,
-        hiddenErrorMeassaNickName: false,
-      }));
+
       nickNameValidation.focus();
       return;
     }
@@ -149,9 +130,9 @@ const Signup = () => {
   //비밀번호
   const passwordValidationTest = (passwordValidation) => {
     if (passwordRegulationExp.test(passwordValidation.value)) {
-      Sethidden(() => ({
-        ...hidden,
-        hiddenErrorMeassaPassword: true,
+      SetRegulation(() => ({
+        ...regulation,
+        regulationPassword: "",
       }));
     } else {
       SetRegulation(() => ({
@@ -159,10 +140,7 @@ const Signup = () => {
         regulationPassword:
           "최소 8 자리에서 영대소문자와 숫자를 포함시켜주세요.",
       }));
-      Sethidden(() => ({
-        ...hidden,
-        hiddenErrorMeassaPassword: false,
-      }));
+
       passwordValidation.focus();
       return;
     }
@@ -171,22 +149,19 @@ const Signup = () => {
   //비밀번호 확인
   const passwordCheckValidationTest = (passwordCheckValidation) => {
     const passwordvalue = userPasswordRef.current.value;
-
     if (passwordCheckValidation.value === passwordvalue) {
       setDoubleCheck(() => ({ ...doubleCheck, passwordDoubleCheck: true }));
-      Sethidden(() => ({
-        ...hidden,
-        hiddenErrorMeassaPasswordCheck: true,
+      SetRegulation(() => ({
+        ...regulation,
+        regulationPasswordCheck: "",
       }));
     } else {
+      console.log("비밀번호 중복확인");
       SetRegulation(() => ({
         ...regulation,
         regulationPasswordCheck: "비밀번호와 일치하는지 확인해주세요.",
       }));
-      Sethidden(() => ({
-        ...hidden,
-        hiddenErrorMeassaPasswordCheck: false,
-      }));
+      setDoubleCheck(() => ({ ...doubleCheck, passwordDoubleCheck: false }));
       passwordCheckValidation.focus();
       return;
     }
@@ -199,7 +174,10 @@ const Signup = () => {
     await SignupApi.emailDoubleCheck(payload)
       .then((response) => {
         setDoubleCheck(() => ({ ...doubleCheck, emailDoubleCheck: true }));
-        Sethidden(() => ({ ...hidden, hiddenErrorMeassaEmail: true }));
+        SetRegulation(() => ({
+          ...regulation,
+          regulationEmail: "",
+        }));
         setModalStr({
           modalTitle: response.message,
           modalMessage: "",
@@ -235,21 +213,18 @@ const Signup = () => {
         ...regulation,
         regulationEmail: "이메일을 입력해주세요.",
       }));
-      Sethidden(() => ({
-        ...hidden,
-        hiddenErrorMeassaEmail: false,
-      }));
+
       emailCurrent.focus();
       return;
     } else if (!doubleCheck.emailDoubleCheck) {
-      Sethidden(() => ({
-        ...hidden,
-        hiddenErrorMeassaEmail: true,
+      SetRegulation(() => ({
+        ...regulation,
+        regulationEmail: "",
       }));
     } else {
-      Sethidden(() => ({
-        ...hidden,
-        hiddenErrorMeassaEmail: false,
+      SetRegulation(() => ({
+        ...regulation,
+        regulationEmail: "",
       }));
       emailCurrent.focus();
     }
@@ -270,21 +245,18 @@ const Signup = () => {
         ...regulation,
         regulationNickName: "닉네임을 입력해주세요.",
       }));
-      Sethidden(() => ({
-        ...hidden,
-        hiddenErrorMeassaNickName: false,
-      }));
+
       nickNameCurrent.focus();
       return;
     } else if (!doubleCheck.nickNameDoubleCheck) {
-      Sethidden(() => ({
-        ...hidden,
-        hiddenErrorMeassaNickName: true,
+      SetRegulation(() => ({
+        ...regulation,
+        regulationNickName: "",
       }));
     } else {
-      Sethidden(() => ({
-        ...hidden,
-        hiddenErrorMeassaNickName: true,
+      SetRegulation(() => ({
+        ...regulation,
+        regulationNickName: "",
       }));
     }
     dispatch(
@@ -294,8 +266,8 @@ const Signup = () => {
         setModalStr,
         doubleCheck,
         setDoubleCheck,
-        hidden,
-        Sethidden,
+        regulation,
+        SetRegulation,
       })
     );
   };
@@ -418,18 +390,12 @@ const Signup = () => {
       return;
     } else {
       nameValidationTest(userNameCurrent);
-      if (!hidden.hiddenErrorMeassaName) {
+      if (regulation.regulationName !== "") {
         return;
       }
     }
-    console.log("어디찍혀?0");
 
     if (emailValue.trim() === "") {
-      console.log("어디찍혀?1");
-      Sethidden(() => ({
-        ...hidden,
-        hiddenErrorMeassaEmail: false,
-      }));
       SetRegulation(() => ({
         ...regulation,
         regulationEmail: "이메일을 입력해주세요.",
@@ -439,10 +405,6 @@ const Signup = () => {
     } else {
       emailValidationTest(userEmailCurrent);
       if (!doubleCheck.emailDoubleCheck) {
-        Sethidden(() => ({
-          ...hidden,
-          hiddenErrorMeassaEmail: false,
-        }));
         SetRegulation(() => ({
           ...regulation,
           regulationEmail: "이메일 중복확인 해주세요.",
@@ -450,11 +412,10 @@ const Signup = () => {
         userEmailCurrent.focus();
         return;
       }
-      if (!hidden.hiddenErrorMeassaEmail) {
+      if (regulation.regulationEmail !== "") {
         return;
       }
     }
-    console.log("어디찍혀?2");
 
     if (nickNameValue.trim() === "") {
       SetRegulation(() => ({
@@ -466,10 +427,6 @@ const Signup = () => {
     } else {
       nickNameValidationTest(userNickNameCurrent);
       if (!doubleCheck.nickNameDoubleCheck) {
-        Sethidden(() => ({
-          ...hidden,
-          hiddenErrorMeassaNickName: false,
-        }));
         SetRegulation(() => ({
           ...regulation,
           regulationNickName: "닉네임 중복확인 해주세요.",
@@ -477,7 +434,7 @@ const Signup = () => {
         userNickNameCurrent.focus();
         return;
       }
-      if (!hidden.hiddenErrorMeassaNickName) {
+      if (regulation.regulationNickName !== "") {
         return;
       }
     }
@@ -490,12 +447,14 @@ const Signup = () => {
       userPasswordCurrent.focus();
       return;
     } else {
+      console.log("비밀번호");
       passwordValidationTest(userPasswordCurrent);
-      if (!hidden.hiddenErrorMeassaPassword) {
+      if (regulation.regulationPassword !== "") {
+        console.log("비밀번호 유효성문제", regulation.regulationPassword);
         return;
       }
     }
-
+    console.log("회원가입완료");
     if (passwordCheckValue.trim() === "") {
       SetRegulation(() => ({
         ...regulation,
@@ -512,7 +471,8 @@ const Signup = () => {
         return;
       } else {
         passwordCheckValidationTest(passwordCheckCurrent);
-        if (!hidden.hiddenErrorMeassaPasswordCheck) {
+        if (regulation.regulationPasswordCheck !== "") {
+          passwordCheckCurrent.focus();
           return;
         }
       }
@@ -522,6 +482,8 @@ const Signup = () => {
     sessionStorage.setItem("email", emailValue);
     sessionStorage.setItem("password", passwordValue);
     sessionStorage.setItem("profileImage", null);
+    dispatch(setSingup("emailLogin"));
+    sessionStorage.setItem("singup", "emailLogin");
     navigate("/signup/setProfileImg");
   };
 
@@ -547,7 +509,7 @@ const Signup = () => {
             </div>
           </div>
           <form className="">
-            <div className="grid gird-rows-5 gap-[20px]">
+            <div className="grid gird-rows-5 gap-[14px]">
               <div>
                 <Label htmlFor="userName">이름</Label>
                 <LoginSignupInputBox
@@ -559,11 +521,8 @@ const Signup = () => {
                   bgColor={style.bgColorName}
                   shadow={style.shadowName}
                 />
-                <div
-                  className="flex items-center"
-                  hidden={hidden.hiddenErrorMeassaName}
-                >
-                  <p className="h-[40px] w-full font-[500] text-[16px]  text-[#DE0D0D] flex items-center">
+                <div className="flex items-center h-[40px]">
+                  <p className=" w-full font-[500] text-[16px]  text-[#DE0D0D] flex items-center">
                     {regulation.regulationName}
                   </p>
                 </div>
@@ -588,7 +547,7 @@ const Signup = () => {
                     중복 확인
                   </button>
                 </div>
-                <div hidden={hidden.hiddenErrorMeassaEmail}>
+                <div className="flex items-center h-[40px]">
                   <p className=" w-full font-[500] mt-[20px] text-[16px] text-[#DE0D0D] flex items-center">
                     {regulation.regulationEmail}
                   </p>
@@ -613,13 +572,12 @@ const Signup = () => {
                     중복 확인
                   </button>
                 </div>
-                <div hidden={hidden.hiddenErrorMeassaNickName}>
-                  <p className=" w-full font-[500] mt-[20px] text-[16px] text-[#DE0D0D] flex items-center">
+                <div className="flex items-center h-[40px]">
+                  <p className=" w-full font-[500]  text-[16px] text-[#DE0D0D] flex items-center">
                     {regulation.regulationNickName}
                   </p>
                 </div>
               </div>
-
               <div>
                 <Label htmlFor="userPassword">비밀번호</Label>
                 <div>
@@ -633,10 +591,7 @@ const Signup = () => {
                     shadow={style.shadowPassword}
                   />
                 </div>
-                <div
-                  hidden={hidden.hiddenErrorMeassaPassword}
-                  className="mt-[10px]"
-                >
+                <div className="flex items-center h-[40px]">
                   <p className="w-full font-[500] text-[16px] text-[#DE0D0D] flex items-center">
                     {regulation.regulationPassword}
                   </p>
@@ -655,10 +610,7 @@ const Signup = () => {
                     shadow={style.shadowPasswordCheck}
                   />
                 </div>
-                <div
-                  hidden={hidden.hiddenErrorMeassaPasswordCheck}
-                  className="mt-[10px]"
-                >
+                <div className="flex items-center h-[40px]">
                   <p className="w-full font-[500] text-[16px] text-[#DE0D0D] flex items-center">
                     {regulation.regulationPasswordCheck}
                   </p>

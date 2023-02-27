@@ -16,9 +16,7 @@ const SetProfileImg = () => {
     modalTitle: "",
     modalMessage: "",
   });
-  const { singup, NameNickName, userInfo } = useSelector(
-    (state) => state.SingupSlice
-  );
+  const singup = sessionStorage.getItem("singup");
   const imgRef = useRef();
   const [image, setImage] = useState(profilImg);
   const [imageFile, setImageFile] = useState("");
@@ -47,6 +45,7 @@ const SetProfileImg = () => {
     }
     console.log("잘찍혀?", formData);
     if (singup === "emailLogin") {
+      console.log("이메일연결 백단");
       //const url = "http://hayangaeul.shop/auth/signup";
       const url = "https://eb.jxxhxxx.shop/auth/signup";
       const data = {
