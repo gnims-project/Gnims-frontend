@@ -9,17 +9,17 @@ function NaverLoginLoding() {
   const getToken = async () => {
     const navertoken = window.location.href.split("=")[1].split("&")[0];
     console.log(navertoken);
-    // URL에서 추출한 access token을 로컬 스토리지에 저장
 
     // sessionStorage.setItem("NaverAuthorization", navertoken);
   };
 
   const sendTokenAndGetAuthorization = async () => {
     await axios
-      .post("https://eb.jxxhxxx.shop/naver/login", {
-        // .post("http://hayangaeul.shop/naver/login", {
-        token: window.location.href.split("=")[1].split("&")[0],
-      })
+      .post(
+        "https://eb.jxxhxxx.shop/social/naver-login",
+
+        { token: window.location.href.split("=")[1].split("&")[0] }
+      )
 
       .then((res) => {
         //이미 멤버라면 Authorization이 담겨 올 것이고, member라고
@@ -33,10 +33,11 @@ function NaverLoginLoding() {
           const userId = res.data.data.userId;
           const profileImage = res.data.data.profileImage;
           console.log(nickname);
-          sessionStorage.setItem("token", accessToken);
+          sessionStorage.setItem("accessToken", accessToken);
           sessionStorage.setItem("nickname", nickname);
           sessionStorage.setItem("profileImage", profileImage);
           sessionStorage.setItem("userId", userId);
+          sessionStorage.setItem("email", email);
           alert("그님스에 오신걸 환영합니다");
           return window.location.assign("/main");
 

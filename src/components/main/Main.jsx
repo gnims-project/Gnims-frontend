@@ -10,7 +10,7 @@ import { __getSchedule } from "../../redux/modules/ScheduleSlice";
 const Main = () => {
   const navigate = useNavigate();
   const [profileImg, setProfileImg] = useState(defaultprofileImg);
-  const [nickName, setNickname] = useState("");
+  const [nickName, setNickname] = useState(sessionStorage.getItem("nickname"));
   const [email, setEmail] = useState("");
   const dispatch = useDispatch();
   const { schedules } = useSelector((state) => state.ScheduleSlice);
@@ -18,23 +18,20 @@ const Main = () => {
   console.log(schedules);
 
   useEffect(() => {
-    const userId = window.sessionStorage.getItem("userId");
-    const getnickName = window.sessionStorage.getItem("nickname");
-    const getprofilImg = window.sessionStorage.getItem("profileImage");
-    const getEmail = window.sessionStorage.getItem("email");
-    if (getnickName && getEmail) {
-      setNickname(() => getnickName);
-      setEmail(() => getEmail);
+    const getNickname = sessionStorage.getItem("nickname");
+    const getemail = sessionStorage.getItem("email");
+    const getprofilImg = sessionStorage.getItem("profileImage");
+    const userId = sessionStorage.getItem("userId");
+
+    if (getNickname && getemail) {
       if (getprofilImg) {
         setProfileImg(getprofilImg);
       }
-      dispatch(__getSchedule(userId));
     } else {
       navigate(`/login`);
     }
-  }, [navigate, dispatch]);
-  sessionStorage.removeItem("selectedJoiner");
-  sessionStorage.removeItem("selectedJoinerNames");
+    dispatch(__getSchedule(userId));
+  }, [navigate, nickName, dispatch]);
 
   return (
     <>

@@ -57,7 +57,7 @@ const Router = () => {
           <Route path="/kakaoLogin" element={<KakaoLogin />} />
           <Route path="auth/kakao/callback" element={<KakaoLoginLoding />} />
           <Route path="/naver/login" element={<NaverLoginPage />} />
-          <Route path="/auth/naver/callback" element={<NaverLoginLoding />} />
+          <Route path="/social/naver-login" element={<NaverLoginLoding />} />
 
           {/* 마이페이지 */}
           <Route path="/profile" element={<Profile />} />
