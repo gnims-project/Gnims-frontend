@@ -9,7 +9,10 @@ import DeleteScheduleModal from "./DeleteScheduleModal";
 const KebabModal = ({ setModalOpen, id }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const scheduleEditHandler = () => {};
+  const scheduleEditHandler = () => {
+    //스케줄 변경을 위한 파라미터 값을 넘긴다.
+    navigate(`/schedule`, { state: { type: "edit", id: id } });
+  };
   const scheduleDeleteHandler = () => {
     setDeleteModalOpen(true);
   };
@@ -22,7 +25,7 @@ const KebabModal = ({ setModalOpen, id }) => {
     //DELETE 기능넣으면 됨
     dispatch(__deleteSchedule([id, userId, dispatch]));
     console.log(id);
-    navigate("/");
+    navigate("/main");
   };
 
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
