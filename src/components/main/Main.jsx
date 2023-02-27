@@ -3,20 +3,26 @@ import defaultprofileImg from "../../img/User-86.png";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import InfiniteScroll from "./InfiniteScroll";
+import { useDispatch, useSelector } from "react-redux";
+import MainScheduleCards from "./MainScheduleCards";
+import { __getSchedule } from "../../redux/modules/ScheduleSlice";
 
 const Main = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [profileImg, setProfileImg] = useState(defaultprofileImg);
+  const { schedules } = useSelector((state) => state.ScheduleSlice);
+  console.log(schedules);
   const [nickName, setNickname] = useState(sessionStorage.getItem("nickname"));
   useEffect(() => {
     const getemail = sessionStorage.getItem("email");
     const getprofilImg = sessionStorage.getItem("profileImage");
-    console.log("useEffect실행");
     const userId = sessionStorage.getItem("userId");
 
     if (nickName && getemail) {
       if (getprofilImg) {
         setProfileImg(getprofilImg);
+        dispatch(__getSchedule(userId));
       }
     } else {
       navigate(`/login`);
@@ -44,13 +50,13 @@ const Main = () => {
             </div>
           </div>
           <div>
-            <InfiniteScroll />
+            {/* <InfiniteScroll /> */}
             <div className="flex flex-col gap-[30px] mt-[28px] rounded-[10px]">
-              {/* {schedules?.map((list) => {
+              {schedules?.map((list) => {
                 return (
                   <MainScheduleCards key={list.eventId} schedules={list} />
                 );
-              })} */}
+              })}
             </div>
           </div>
         </div>
