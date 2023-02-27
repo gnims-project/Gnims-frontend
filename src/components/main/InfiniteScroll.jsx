@@ -23,7 +23,7 @@ const InfiniteScroll = ({ schedules }) => {
   const endRef = useRef(false);
   //옵저버 확인
   const observerRef = useRef(null);
-  const userId = window.localStorage.getItem("userId");
+  const userId = window.sessionStorage.getItem("userId");
 
   //옵저버 핸들링 함수
   const observerHandler = ([entries]) => {

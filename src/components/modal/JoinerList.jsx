@@ -16,10 +16,10 @@ const JoinerList = ({ following, selectedUserIds, setSelectedUserIds }) => {
     }
   }
   return (
-    <div className="mt-[20px] text-textNavy">
+    <div className="mt-[20px] text-textNavy ">
       <div className="pl-[10px] pr-[10px]">
         <div
-          className="flex gap-[14px] pl-[15px] bg-[#F4F4F4]"
+          className="flex gap-[40px] p-[10px] bg-[#E3F0F5] rounded"
           onClick={() => selectHandler(following.followId)}
         >
           <div className="w-[50px] h-[50px]">
@@ -32,7 +32,7 @@ const JoinerList = ({ following, selectedUserIds, setSelectedUserIds }) => {
           <div className="flex w-[124px] items-center ">
             {following.username}
             {selectedUserIds.includes(following.followId)
-              ? "  (선택된 자) "
+              ? "  (selected) "
               : ""}
           </div>
         </div>

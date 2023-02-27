@@ -16,7 +16,7 @@ const KebabModal = ({ setModalOpen, id }) => {
   const closeModal = () => {
     setModalOpen(false);
   };
-  const userId = localStorage.getItem("userId");
+  const userId = sessionStorage.getItem("userId");
 
   const confirmDeleteHandler = () => {
     //DELETE 기능넣으면 됨

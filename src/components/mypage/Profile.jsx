@@ -19,9 +19,9 @@ const Profile = () => {
     (state) => state.FollowSlice.followingCount
   );
   //로컬 스토리지에 있는 데이터를 가져오는 코드
-  const nickname = localStorage.getItem("nickname");
-  const email = localStorage.getItem("email");
-  const profileImage = localStorage.getItem("profileImage");
+  const nickname = sessionStorage.getItem("nickname");
+  const email = sessionStorage.getItem("email");
+  const profileImage = sessionStorage.getItem("profileImage");
 
   //페이지 렌더링시 팔로우 정보를 가져와야함
   useEffect(() => {

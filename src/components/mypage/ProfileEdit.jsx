@@ -3,12 +3,11 @@ import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserApi } from "../../api/UserApi";
 import inputImgIcon from "../../img/Component01.png";
-import { instance } from "../../shared/AxiosInstance";
 
 const ProfileEdit = () => {
   const navigate = useNavigate();
   const imgRef = useRef();
-  const profileImage = localStorage.getItem("profileImage");
+  const profileImage = sessionStorage.getItem("profileImage");
   const [image, setImage] = useState(profileImage);
 
   const imagePreview = () => {
@@ -41,7 +40,7 @@ const ProfileEdit = () => {
       if (response.status === 200) {
         alert("프로필이미지가 변경되었습니다!");
         navigate("/main");
-        localStorage.setItem("profileImage", response.data.data.profileImage);
+        sessionStorage.setItem("profileImage", response.data.data.profileImage);
       }
       const { imageUrl } = response.data.data.profileImage;
       setImage(imageUrl);

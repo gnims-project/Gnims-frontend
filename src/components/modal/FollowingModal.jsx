@@ -8,7 +8,7 @@ const FollowingModal = ({ setFollowingListOpen }) => {
   //   const [selectedUserIds, setSelectedUserIds] = useState([]);
   const submitHandler = () => {
     const filteredSelectedId = [...new Set(selectedUserIds)];
-    localStorage.setItem("selectedJoiner", filteredSelectedId);
+    sessionStorage.setItem("selectedJoiner", filteredSelectedId);
     setFollowingListOpen(false);
   };
   const followingList = useSelector((state) => state.FollowSlice.followingList);
@@ -23,7 +23,7 @@ const FollowingModal = ({ setFollowingListOpen }) => {
     <>
       <div className="h-full w-[375px]  bg-black bg-opacity-50  justify-center fixed bottom-0 z-10 flex">
         <div className="text-black pt-8 items-center w-[300px] h-[560px] text-center rounded-[16px] mt-[60px] z-20 bg-white ">
-          함께할 참여자를 선택해주세요!
+          참여자 선택
           <div>
             {followingList.map((following) => {
               return (

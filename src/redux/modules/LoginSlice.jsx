@@ -18,11 +18,11 @@ export const __emailLogin = ({
         const accessToken = response.headers.get("Authorization");
         console.log(response);
         const { email, nickname, profileImage, userId } = response.data.data;
-        localStorage.setItem("accessToken", accessToken);
-        localStorage.setItem("userId", userId);
-        localStorage.setItem("email", email);
-        localStorage.setItem("nickname", nickname);
-        localStorage.setItem("profileImage", profileImage);
+        sessionStorage.setItem("accessToken", accessToken);
+        sessionStorage.setItem("userId", userId);
+        sessionStorage.setItem("email", email);
+        sessionStorage.setItem("nickname", nickname);
+        sessionStorage.setItem("profileImage", profileImage);
         alert(`${nickname}님 어서오세요.`);
         navigate("/main");
       })
@@ -51,15 +51,15 @@ export const __kakaologin = createAsyncThunk(
       const data = await instance.post("/kakao/login", { code }).then((res) => {
         console.log("서버에서 보내는값?", res.data.data);
         const email = res.data.data.email;
-        localStorage.setItem("email", email);
-        localStorage.setItem("socialCode", "KAKAO");
+        sessionStorage.setItem("email", email);
+        sessionStorage.setItem("socialCode", "KAKAO");
 
         if (res.data.message !== "non-member") {
           const accessToken = res.headers.get("Authorization");
           const nickname = res.data.data.nickname;
           console.log(nickname);
-          localStorage.setItem("token", accessToken);
-          localStorage.setItem("nickname", nickname);
+          sessionStorage.setItem("token", accessToken);
+          sessionStorage.setItem("nickname", nickname);
           alert("그님스에 오신걸 환영합니다");
           return window.location.assign("/main");
 

@@ -13,7 +13,7 @@ const Layout = ({ children }) => {
   const id = pagePathName.pathname.split("/")[2];
   console.log(id);
   useEffect(() => {
-    const userId = window.localStorage.getItem("userId");
+    const userId = window.sessionStorage.getItem("userId");
     const pageName = pagePathName.pathname;
     switch (pageName) {
       case "/":

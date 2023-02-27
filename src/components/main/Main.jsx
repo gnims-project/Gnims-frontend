@@ -18,10 +18,10 @@ const Main = () => {
   console.log(schedules);
 
   useEffect(() => {
-    const userId = window.localStorage.getItem("userId");
-    const getnickName = window.localStorage.getItem("nickname");
-    const getprofilImg = window.localStorage.getItem("profileImage");
-    const getEmail = window.localStorage.getItem("email");
+    const userId = window.sessionStorage.getItem("userId");
+    const getnickName = window.sessionStorage.getItem("nickname");
+    const getprofilImg = window.sessionStorage.getItem("profileImage");
+    const getEmail = window.sessionStorage.getItem("email");
     if (getnickName && getEmail) {
       setNickname(() => getnickName);
       setEmail(() => getEmail);

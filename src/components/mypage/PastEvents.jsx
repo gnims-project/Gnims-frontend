@@ -9,8 +9,8 @@ const PastEvents = () => {
   const dispatch = useDispatch();
   const { pastSchedules } = useSelector((state) => state.ScheduleSlice);
   console.log(pastSchedules);
-  const nickname = localStorage.getItem("nickname");
-  const profileImg = localStorage.getItem("profileImage");
+  const nickname = sessionStorage.getItem("nickname");
+  const profileImg = sessionStorage.getItem("profileImage");
 
   useEffect(() => {
     console.log("실행");

@@ -31,7 +31,7 @@ const Router = () => {
           {/* 메인과 디테일 페이지 */}
           <Route path="/main" element={<MainPage />} />
           {/* <Route path="/main" element={<InfiniteScroll />} /> */}
-          {localStorage.getItem("nickname") ? (
+          {sessionStorage.getItem("nickname") ? (
             <Route path="/" element={<MainPage />} />
           ) : (
             <Route path="/" element={<LoginPage />} />

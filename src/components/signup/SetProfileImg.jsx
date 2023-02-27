@@ -62,8 +62,8 @@ const SetProfileImg = () => {
       const data = {
         username: NameNickName.username,
         nickname: NameNickName.nickname,
-        email: window.localStorage.getItem("email"),
-        socialCode: window.localStorage.getItem("socialCode"),
+        email: window.sessionStorage.getItem("email"),
+        socialCode: window.sessionStorage.getItem("socialCode"),
       };
       //소셜 회원가입 API가 나왔을때
       sginupAxios({ data, formData, url });

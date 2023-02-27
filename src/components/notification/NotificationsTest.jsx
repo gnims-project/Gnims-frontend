@@ -20,7 +20,7 @@ const NotificationsListV2 = () => {
           `https://eb.jxxhxxx.shop/connect`,
           {
             headers: {
-              Authorization: localStorage.getItem("accessToken"),
+              Authorization: sessionStorage.getItem("accessToken"),
             },
             withCredentials: true,
           }

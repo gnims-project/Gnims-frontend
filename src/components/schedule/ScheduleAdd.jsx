@@ -58,8 +58,8 @@ const ScheduleAdd = () => {
   };
 
   const joinerArray =
-    localStorage.getItem("selectedJoiner") &&
-    localStorage.getItem("selectedJoiner").split(",");
+    sessionStorage.getItem("selectedJoiner") &&
+    sessionStorage.getItem("selectedJoiner").split(",");
 
   participants.push(joinerArray);
   let joinerWithoutDuplicate = [...new Set(joinerArray)];
@@ -84,11 +84,11 @@ const ScheduleAdd = () => {
       await dispatch(
         __postSchedule({
           Schedule: newSchedule,
-          userId: window.localStorage.getItem("userId"),
+          userId: window.sessionStorage.getItem("userId"),
           dispatch: dispatch,
         })
       );
-      localStorage.removeItem("selectedJoiner");
+      sessionStorage.removeItem("selectedJoiner");
       console.log("생성된 스케쥴:", newSchedule);
       setCompleteModal(true);
       navigate("/main");

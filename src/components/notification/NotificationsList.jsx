@@ -19,7 +19,7 @@ const NotificationsList = () => {
           {
             //headers에 토큰을 꼭 담아줘야 500이 안뜬다.
             headers: {
-              Authorization: localStorage.getItem("accessToken"),
+              Authorization: sessionStorage.getItem("accessToken"),
             },
             withCredentials: true,
           }
