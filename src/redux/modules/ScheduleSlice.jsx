@@ -2,10 +2,12 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { ScheduleApi } from "../../api/ScheduleApi";
+import { instance } from "../../shared/AxiosInstance";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 const initialState = {
   schedules: [],
+  oldschedules: [],
   pastSchedules: [],
   scrollPage: 1,
   id: 0,
@@ -20,7 +22,6 @@ const initialState = {
 export const __deleteSchedule = createAsyncThunk(
   "schedule/delete",
   async (id) => {
-    console.log(id[0]);
     const response = await ScheduleApi.deleteScheduleApi(id[0]);
     id[2](__getSchedule(id[1]));
     return response.data;
@@ -34,6 +35,20 @@ export const __getSchedule = createAsyncThunk(
       console.log("연결");
       const { data } = await ScheduleApi.getSccheduleApi(payload);
       console.log(data.data);
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+export const __getScheduleDetail = createAsyncThunk(
+  "schedule/getScheduleDetail",
+  async (payload, thunkAPI) => {
+    try {
+      console.log("연결");
+      const { data } = await instance.get(`/events/${payload}`);
+      console.log("디테일데이터", data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       console.log(error);
@@ -63,12 +78,21 @@ export const __postSchedule = createAsyncThunk(
       console.log(payload.userId);
       payload.dispatch(__getScrollPage({ userId: payload.userId, page: 0 }));
       if (data.status === 201) {
-        alert("성공!");
       }
       // return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
+  }
+);
+
+export const __editSchedule = createAsyncThunk(
+  "schedule/editSchedule",
+  async (payload) => {
+    console.log("수정넘기기", payload);
+    const data = await ScheduleApi.editScheduleApi(payload);
+    payload.dispatch(__getSchedule(payload.userId));
+    return data.data;
   }
 );
 
@@ -97,6 +121,9 @@ export const ScheduleSlice = createSlice({
   reducers: {
     pagePlus: (state, action) => {
       state.scrollPage = action.payload + 1;
+    },
+    scheduleReset: (state) => {
+      state.oldschedules = [];
     },
   },
   extraReducers: {
@@ -151,7 +178,20 @@ export const ScheduleSlice = createSlice({
       state.error = action.payload;
     },
 
-    // [__postSchedule.pending]: (state) => {
+    [__getScheduleDetail.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__getScheduleDetail.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.oldschedules = action.payload;
+      console.log("올드스케줄", action.payload);
+    },
+    [__getScheduleDetail.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+
+    // [__deleteSchedule.pending]: (state) => {
     //   state.isLoading = true;
     // },
     // [__postSchedule.fulfilled]: (state, action) => {
@@ -165,5 +205,5 @@ export const ScheduleSlice = createSlice({
   },
 });
 
-export const { pagePlus } = ScheduleSlice.actions;
+export const { pagePlus, scheduleReset } = ScheduleSlice.actions;
 export default ScheduleSlice.reducer;

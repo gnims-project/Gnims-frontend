@@ -73,7 +73,7 @@ const Layout = ({ children }) => {
       <Container>
         {header}
         <Slider>{children}</Slider>
-        {pagePathName.pathname === "/Login" ||
+        {pagePathName.pathname === "/login" ||
         pagePathName.pathname === "/signup" ||
         pagePathName.pathname === "/signup/setProfileName" ||
         pagePathName.pathname === "/signup/setProfileImg" ||
