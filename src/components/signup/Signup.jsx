@@ -2,17 +2,17 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { SignupApi } from "../../api/Signup";
-import TopNavTitleBar from "../layout/TopNavTitleBar";
 import IsModal from "../modal/Modal";
+import Label from "../layout/Label";
+import LoginSignupInputBox from "../layout/input/LoginSignupInputBox";
 import {
   __nickNameCheck,
   userInfoState,
   setSingup,
 } from "../../redux/modules/SingupSlice";
-import Label from "../layout/Label";
-import LoginSignupInputBox from "../layout/LoginSignupInputBox";
 
 const Signup = () => {
+  //=============변수정리====================
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [style, setStyle] = useState({
@@ -34,21 +34,13 @@ const Signup = () => {
   });
 
   const { singup } = useSelector((state) => state.SingupSlice);
-  const { nickNameDoubleCheck } = useSelector((state) => state.SingupSlice);
 
-  //회원가입 전에 user정보가 redux에 있는지 확인 후 실행
-  useEffect(() => {
-    if (singup === "emailLogin") {
-      console.log(singup);
-      navigate("/signup/setProfileImg");
-    }
-  }, [dispatch, navigate, singup]);
-
-  //Ref생성
   const userNameRef = useRef();
   const userEmailRef = useRef();
-  const userPasswordRef = useRef();
   const userNickNameRef = useRef();
+  const userPasswordRef = useRef();
+  const PasswordCheckRef = useRef();
+
   //이름, 이메일, 비밀번호, 닉네임 정규 표현식
   const nameRegulationExp = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|]+$/;
   const emailRegulationExp =
@@ -65,177 +57,148 @@ const Signup = () => {
     regulationNickName: "",
   });
 
-  const [hidden, Sethidden] = useState({
-    hiddenErrorMeassageName: true,
-    hiddenErrorMeassaEmail: true,
-    hiddenErrorMeassaNickName: true,
-    hiddenErrorMeassaName: true,
-    hiddenErrorMeassaPassword: true,
-    hiddenErrorMeassaPasswordCheck: true,
-  });
-
   //중복확인여부
   const [doubleCheck, setDoubleCheck] = useState({
     emailDoubleCheck: false,
     passwordDoubleCheck: false,
+    nickNameDoubleCheck: false,
   });
+  //모달창
+  const onModalOpen = () => {
+    setOpen({ isOpen: true });
+  };
+  const onMoalClose = () => {
+    setOpen({ isOpen: false });
+  };
 
-  //유효성검사
-  const onValidity = (event) => {
-    const { id, value } = event.target;
-    const password = userPasswordRef.current.value;
+  //=============== 항목별 유효성검사===================
 
-    if (id === "userName") {
-      setStyle(() => ({
-        ...style,
-        bgColorName: "bg-inputBoxFocus",
-        shadowName: "drop-shadow-inputBoxShadow",
-      }));
-
-      if (value.trim() === "") {
-        setStyle(() => ({
-          ...style,
-          bgColorName: "bg-inputBox",
-          shadowName: "",
-        }));
-      }
-      if (!nameRegulationExp.test(value)) {
-        SetRegulation(() => ({
-          ...regulation,
-          regulationName: "한글 또는 영어로 작성해주세요.",
-        }));
-        Sethidden(() => ({
-          ...hidden,
-          hiddenErrorMeassaName: false,
-        }));
-      } else {
-        Sethidden(() => ({
-          ...hidden,
-          hiddenErrorMeassaName: true,
-        }));
-      }
-    } else if (id === "userEmail") {
-      setStyle(() => ({
-        ...style,
-        bgColorEmail: "bg-inputBoxFocus",
-        shadowEmail: "drop-shadow-inputBoxShadow",
+  //이름
+  const nameValidationTest = (nameValidation) => {
+    if (!nameRegulationExp.test(nameValidation.value)) {
+      SetRegulation(() => ({
+        ...regulation,
+        regulationName: "한글 또는 영어로 작성해주세요.",
       }));
 
-      if (value.trim() === "") {
-        setStyle(() => ({
-          ...style,
-          bgColorEmail: "bg-inputBox",
-          shadowEmail: "",
-        }));
-      }
-      if (emailRegulationExp.test(value)) {
-        Sethidden(() => ({
-          ...hidden,
-          hiddenErrorMeassaEmail: true,
-        }));
-      } else {
-        SetRegulation(() => ({
-          ...regulation,
-          regulationEmail: "올바른 이메일 형식이 아닙니다.",
-        }));
-        Sethidden(() => ({
-          ...hidden,
-          hiddenErrorMeassaEmail: false,
-        }));
-      }
-    } else if (id === "userNickName") {
-      setStyle(() => ({
-        ...style,
-        bgColorNickname: "bg-inputBoxFocus",
-        shadowNickname: "drop-shadow-inputBoxShadow",
+      nameValidation.focus();
+      return;
+    } else {
+      SetRegulation(() => ({
+        ...regulation,
+        regulationName: "",
       }));
-      if (value.trim() === "") {
-        setStyle(() => ({
-          ...style,
-          bgColorNickname: "bg-inputBox",
-          shadowNickname: "",
-        }));
-      }
-      if (nickNameReglationExp.test(value)) {
-        //SetRegulation(() => ({ ...regulation, regulationNickName: "" }));
-        Sethidden(() => ({
-          ...hidden,
-          hiddenErrorMeassaNickName: true,
-        }));
-      } else {
-        SetRegulation(() => ({
-          ...regulation,
-          regulationNickName: "글자수 2~8자와 한글,영문,숫자만 포함해주세요.",
-        }));
-        Sethidden(() => ({
-          ...hidden,
-          hiddenErrorMeassaNickName: false,
-        }));
-      }
-    } else if (id === "userPassword") {
-      setStyle(() => ({
-        ...style,
-        bgColorPassword: "bg-inputBoxFocus",
-        shadowPassword: "drop-shadow-inputBoxShadow",
-      }));
-      if (value.trim() === "") {
-        setStyle(() => ({
-          ...style,
-          bgColorPassword: "bg-inputBox",
-          shadowPassword: "",
-        }));
-      }
-      if (passwordRegulationExp.test(value)) {
-        //SetRegulation(() => ({ ...regulation, regulationPassword: "" }));
-        Sethidden(() => ({
-          ...hidden,
-          hiddenErrorMeassaPassword: true,
-        }));
-      } else {
-        SetRegulation(() => ({
-          ...regulation,
-          regulationPassword:
-            "최소 8 자리에서 영대소문자와 숫자를 포함시켜주세요.",
-        }));
-        Sethidden(() => ({
-          ...hidden,
-          hiddenErrorMeassaPassword: false,
-        }));
-      }
-    } else if (id === "passwordCheck") {
-      setStyle(() => ({
-        ...style,
-        bgColorPasswordCheck: "bg-inputBoxFocus",
-        shadowPasswordCheck: "drop-shadow-inputBoxShadow",
-      }));
-      if (value.trim() === "") {
-        setStyle(() => ({
-          ...style,
-          bgColorPasswordCheck: "bg-inputBox",
-          shadowPasswordCheck: "",
-        }));
-      }
-      if (password === value) {
-        setDoubleCheck(() => ({ ...doubleCheck, passwordDoubleCheck: true }));
-        // SetRegulation(() => ({
-        //   ...regulation,
-        //   regulationPasswordCheck: "",
-        // }));
-        Sethidden(() => ({
-          ...hidden,
-          hiddenErrorMeassaPasswordCheck: true,
-        }));
-      } else {
-        SetRegulation(() => ({
-          ...regulation,
-          regulationPasswordCheck: "비밀번호와 일치하는지 확인해주세요.",
-        }));
-        Sethidden(() => ({
-          ...hidden,
-          hiddenErrorMeassaPasswordCheck: true,
-        }));
-      }
     }
+  };
+
+  //이메일
+  const emailValidationTest = (emailValidation) => {
+    if (emailRegulationExp.test(emailValidation.value)) {
+      SetRegulation(() => ({
+        ...regulation,
+        regulationEmail: "",
+      }));
+    } else {
+      SetRegulation(() => ({
+        ...regulation,
+        regulationEmail: "올바른 이메일 형식이 아닙니다.",
+      }));
+
+      emailValidation.focus();
+      return;
+    }
+  };
+
+  //닉네임
+  const nickNameValidationTest = (nickNameValidation) => {
+    if (nickNameReglationExp.test(nickNameValidation.value)) {
+      SetRegulation(() => ({
+        ...regulation,
+        regulationNickName: "",
+      }));
+    } else {
+      SetRegulation(() => ({
+        ...regulation,
+        regulationNickName: "글자수 2~8자와 한글,영문,숫자만 포함해주세요.",
+      }));
+
+      nickNameValidation.focus();
+      return;
+    }
+  };
+
+  //비밀번호
+  const passwordValidationTest = (passwordValidation) => {
+    if (passwordRegulationExp.test(passwordValidation.value)) {
+      SetRegulation(() => ({
+        ...regulation,
+        regulationPassword: "",
+      }));
+    } else {
+      SetRegulation(() => ({
+        ...regulation,
+        regulationPassword:
+          "최소 8 자리에서 영대소문자와 숫자를 포함시켜주세요.",
+      }));
+
+      passwordValidation.focus();
+      return;
+    }
+  };
+
+  //비밀번호 확인
+  const passwordCheckValidationTest = (passwordCheckValidation) => {
+    const passwordvalue = userPasswordRef.current.value;
+    if (passwordCheckValidation.value === passwordvalue) {
+      setDoubleCheck(() => ({ ...doubleCheck, passwordDoubleCheck: true }));
+      SetRegulation(() => ({
+        ...regulation,
+        regulationPasswordCheck: "",
+      }));
+    } else {
+      SetRegulation(() => ({
+        ...regulation,
+        regulationPasswordCheck: "비밀번호와 일치하는지 확인해주세요.",
+      }));
+      setDoubleCheck(() => ({ ...doubleCheck, passwordDoubleCheck: false }));
+      passwordCheckValidation.focus();
+      return;
+    }
+  };
+
+  //====================중복확인===========================
+
+  //이메일중복체크악시오스
+  const emailDoubleCheckAxios = async (payload) => {
+    await SignupApi.emailDoubleCheck(payload)
+      .then((response) => {
+        setDoubleCheck(() => ({ ...doubleCheck, emailDoubleCheck: true }));
+        SetRegulation(() => ({
+          ...regulation,
+          regulationEmail: "",
+        }));
+        setModalStr({
+          modalTitle: response.message,
+          modalMessage: "",
+        });
+        onModalOpen();
+      })
+      .catch((error) => {
+        const { data } = error.response;
+        if (data.status === 400) {
+          setModalStr({
+            modalTitle: data.message,
+            modalMessage: "이메일을 확인해주세요.",
+          });
+          setDoubleCheck(() => ({
+            ...doubleCheck,
+            emailDoubleCheck: false,
+          }));
+          onModalOpen();
+        } else {
+          console.log(error);
+        }
+      });
   };
 
   //이메일 중복확인
@@ -249,8 +212,20 @@ const Signup = () => {
         ...regulation,
         regulationEmail: "이메일을 입력해주세요.",
       }));
+
       emailCurrent.focus();
       return;
+    } else if (!doubleCheck.emailDoubleCheck) {
+      SetRegulation(() => ({
+        ...regulation,
+        regulationEmail: "",
+      }));
+    } else {
+      SetRegulation(() => ({
+        ...regulation,
+        regulationEmail: "",
+      }));
+      emailCurrent.focus();
     }
 
     emailDoubleCheckAxios({
@@ -258,36 +233,7 @@ const Signup = () => {
     });
   };
 
-  const emailDoubleCheckAxios = async (payload) => {
-    await SignupApi.emailDoubleCheck(payload)
-      .then((response) => {
-        console.log(response);
-        setModalStr({
-          modalTitle: response.message,
-          modalMessage: "",
-        });
-        onModalOpen();
-        setDoubleCheck(() => ({
-          ...doubleCheck,
-          emailDoubleCheck: true,
-        }));
-      })
-      .catch((error) => {
-        const { data } = error.response;
-        if (data.status === 400) {
-          setModalStr({
-            modalTitle: data.message,
-            modalMessage: "이메일을 확인해주세요.",
-          });
-          onModalOpen();
-        } else {
-          console.log(error);
-        }
-      });
-  };
-
-  //id
-  //닉네임 확인하기
+  //닉네임 중복확인
   const onNickNameCheck = (event) => {
     event.preventDefault();
 
@@ -298,16 +244,18 @@ const Signup = () => {
         ...regulation,
         regulationNickName: "닉네임을 입력해주세요.",
       }));
-      Sethidden(() => ({
-        ...hidden,
-        hiddenErrorMeassaNickName: false,
-      }));
+
       nickNameCurrent.focus();
       return;
+    } else if (!doubleCheck.nickNameDoubleCheck) {
+      SetRegulation(() => ({
+        ...regulation,
+        regulationNickName: "",
+      }));
     } else {
-      Sethidden(() => ({
-        ...hidden,
-        hiddenErrorMeassaNickName: true,
+      SetRegulation(() => ({
+        ...regulation,
+        regulationNickName: "",
       }));
     }
     dispatch(
@@ -315,33 +263,135 @@ const Signup = () => {
         nickname: nickNameCurrent.value,
         onModalOpen,
         setModalStr,
+        doubleCheck,
+        setDoubleCheck,
+        regulation,
+        SetRegulation,
       })
     );
   };
 
-  //회원가입
+  //==============유효성 검사==========================
+  const onValidity = (event) => {
+    const { id } = event.target;
+
+    //ref 객체
+    const userNameCurrent = userNameRef.current;
+    const userEmailCurrent = userEmailRef.current;
+    const userNickNameCurrent = userNickNameRef.current;
+    const userPasswordCurrent = userPasswordRef.current;
+    const userPasswordCheckCurrnet = PasswordCheckRef.current;
+
+    //ref 값
+    const nameValue = userNameCurrent.value;
+    const emailValue = userEmailCurrent.value;
+    const nickNameValue = userNickNameCurrent.value;
+    const passwordValue = userPasswordCurrent.value;
+    const passwordCheckValue = userPasswordCheckCurrnet.value;
+
+    if (id === "userName") {
+      setStyle(() => ({
+        ...style,
+        bgColorName: "bg-inputBoxFocus",
+        shadowName: "drop-shadow-inputBoxShadow",
+      }));
+      if (nameValue.trim() === "") {
+        setStyle(() => ({
+          ...style,
+          bgColorName: "bg-inputBox",
+          shadowName: "",
+        }));
+      }
+      nameValidationTest(userNameCurrent);
+    } else if (id === "userEmail") {
+      setStyle(() => ({
+        ...style,
+        bgColorEmail: "bg-inputBoxFocus",
+        shadowEmail: "drop-shadow-inputBoxShadow",
+      }));
+      if (emailValue.trim() === "") {
+        setStyle(() => ({
+          ...style,
+          bgColorEmail: "bg-inputBox",
+          shadowEmail: "",
+        }));
+      }
+      emailValidationTest(userEmailCurrent);
+    } else if (id === "userNickName") {
+      setStyle(() => ({
+        ...style,
+        bgColorNickname: "bg-inputBoxFocus",
+        shadowNickname: "drop-shadow-inputBoxShadow",
+      }));
+      if (nickNameValue.trim() === "") {
+        setStyle(() => ({
+          ...style,
+          bgColorNickname: "bg-inputBox",
+          shadowNickname: "",
+        }));
+      }
+      nickNameValidationTest(userNickNameCurrent);
+    } else if (id === "userPassword") {
+      setStyle(() => ({
+        ...style,
+        bgColorPassword: "bg-inputBoxFocus",
+        shadowPassword: "drop-shadow-inputBoxShadow",
+      }));
+      if (passwordValue.trim() === "") {
+        setStyle(() => ({
+          ...style,
+          bgColorPassword: "bg-inputBox",
+          shadowPassword: "",
+        }));
+      }
+      passwordValidationTest(userPasswordCurrent);
+    } else if (id === "passwordCheck") {
+      setStyle(() => ({
+        ...style,
+        bgColorPasswordCheck: "bg-inputBoxFocus",
+        shadowPasswordCheck: "drop-shadow-inputBoxShadow",
+      }));
+      if (passwordCheckValue.trim() === "") {
+        setStyle(() => ({
+          ...style,
+          bgColorPasswordCheck: "bg-inputBox",
+          shadowPasswordCheck: "",
+        }));
+      }
+      passwordCheckValidationTest(userPasswordCheckCurrnet);
+    }
+  };
+
+  //=======================회원가입=============================
   const onSubmit = (event) => {
     event.preventDefault();
 
     //ref 객체
     const userNameCurrent = userNameRef.current;
     const userEmailCurrent = userEmailRef.current;
-    const userPasswordCurrent = userPasswordRef.current;
     const userNickNameCurrent = userNickNameRef.current;
+    const userPasswordCurrent = userPasswordRef.current;
+    const passwordCheckCurrent = PasswordCheckRef.current;
 
     //ref 값
     const nameValue = userNameCurrent.value;
     const emailValue = userEmailCurrent.value;
-    const passwordValue = userPasswordCurrent.value;
     const nickNameValue = userNickNameCurrent.value;
+    const passwordValue = userPasswordCurrent.value;
+    const passwordCheckValue = passwordCheckCurrent.value;
 
     if (nameValue.trim() === "") {
       SetRegulation(() => ({
         ...regulation,
-        regulationName: "이메일을 입력해주세요.",
+        regulationName: "이름을 입력해주세요.",
       }));
       userNameCurrent.focus();
       return;
+    } else {
+      nameValidationTest(userNameCurrent);
+      if (regulation.regulationName !== "") {
+        return;
+      }
     }
 
     if (emailValue.trim() === "") {
@@ -351,13 +401,19 @@ const Signup = () => {
       }));
       userEmailCurrent.focus();
       return;
-    } else if (!doubleCheck.emailDoubleCheck) {
-      SetRegulation(() => ({
-        ...regulation,
-        regulationEmail: "이메일 중복확인 해주세요.",
-      }));
-      userEmailCurrent.focus();
-      return;
+    } else {
+      emailValidationTest(userEmailCurrent);
+      if (!doubleCheck.emailDoubleCheck) {
+        SetRegulation(() => ({
+          ...regulation,
+          regulationEmail: "이메일 중복확인 해주세요.",
+        }));
+        userEmailCurrent.focus();
+        return;
+      }
+      if (regulation.regulationEmail !== "") {
+        return;
+      }
     }
 
     if (nickNameValue.trim() === "") {
@@ -367,13 +423,19 @@ const Signup = () => {
       }));
       userNickNameCurrent.focus();
       return;
-    } else if (!nickNameDoubleCheck) {
-      SetRegulation(() => ({
-        ...regulation,
-        regulationNickName: "닉네임 중복확인 해주세요.",
-      }));
-      userNickNameCurrent.focus();
-      return;
+    } else {
+      nickNameValidationTest(userNickNameCurrent);
+      if (!doubleCheck.nickNameDoubleCheck) {
+        SetRegulation(() => ({
+          ...regulation,
+          regulationNickName: "닉네임 중복확인 해주세요.",
+        }));
+        userNickNameCurrent.focus();
+        return;
+      }
+      if (regulation.regulationNickName !== "") {
+        return;
+      }
     }
 
     if (passwordValue.trim() === "") {
@@ -383,36 +445,50 @@ const Signup = () => {
       }));
       userPasswordCurrent.focus();
       return;
+    } else {
+      passwordValidationTest(userPasswordCurrent);
+      if (regulation.regulationPassword !== "") {
+        return;
+      }
     }
 
-    if (!doubleCheck.passwordDoubleCheck) {
+    if (passwordCheckValue.trim() === "") {
       SetRegulation(() => ({
         ...regulation,
-        regulationPassword: "비밀번호 중복확인 해주세요.",
+        regulationPasswordCheck: "비밀번호 중복확인을 입력해주세요.",
       }));
-      userPasswordCurrent.focus();
-      return;
+      passwordCheckCurrent.focus();
+    } else {
+      if (!doubleCheck.passwordDoubleCheck) {
+        SetRegulation(() => ({
+          ...regulation,
+          regulationPasswordCheck: "비밀번호를 확인해 주세요",
+        }));
+        passwordCheckCurrent.focus();
+        return;
+      } else {
+        passwordCheckValidationTest(passwordCheckCurrent);
+        if (regulation.regulationPasswordCheck !== "") {
+          passwordCheckCurrent.focus();
+          return;
+        }
+      }
     }
-
-    dispatch(
-      userInfoState({
-        username: nameValue,
-        nickname: nickNameValue,
-        email: emailValue,
-        password: passwordValue,
-        profileImage: null,
-      })
-    );
+    sessionStorage.setItem("userName", nameValue);
+    sessionStorage.setItem("nickname", nickNameValue);
+    sessionStorage.setItem("email", emailValue);
+    sessionStorage.setItem("password", passwordValue);
+    sessionStorage.setItem("profileImage", null);
     dispatch(setSingup("emailLogin"));
+    sessionStorage.setItem("singup", "emailLogin");
+    navigate("/signup/setProfileImg");
   };
 
-  //모달창
-  const onModalOpen = () => {
-    setOpen({ isOpen: true });
-  };
-  const onMoalClose = () => {
-    setOpen({ isOpen: false });
-  };
+  useEffect(() => {
+    if (singup === "emailLogin") {
+      navigate("/signup/setProfileImg");
+    }
+  }, [dispatch, navigate, singup]);
 
   return (
     <>
@@ -430,7 +506,7 @@ const Signup = () => {
             </div>
           </div>
           <form className="">
-            <div className="grid gird-rows-5 gap-[20px]">
+            <div className="grid gird-rows-5 gap-[14px]">
               <div>
                 <Label htmlFor="userName">이름</Label>
                 <LoginSignupInputBox
@@ -442,11 +518,8 @@ const Signup = () => {
                   bgColor={style.bgColorName}
                   shadow={style.shadowName}
                 />
-                <div
-                  className="flex items-center"
-                  hidden={hidden.hiddenErrorMeassaName}
-                >
-                  <p className="h-[40px] w-full font-[500] text-[16px]  text-[#DE0D0D] flex items-center">
+                <div className="flex items-center h-[40px]">
+                  <p className=" w-full font-[500] text-[16px]  text-[#DE0D0D] flex items-center">
                     {regulation.regulationName}
                   </p>
                 </div>
@@ -460,9 +533,8 @@ const Signup = () => {
                     ref={userEmailRef}
                     placeholder="아이디로 사용할 이메일을 입력해주세요."
                     onChange={onValidity}
+                    disabled={doubleCheck.emailDoubleCheck}
                     className={`${style.bgColorEmail} ${style.shadowEmail} w-full px-1 h-[50px] text-[16px]  placeholder-inputPlaceHoldText`}
-                    bgColor={style.bgColorEmail}
-                    shadow={style.shadowEmail}
                     autoComplete="off"
                   ></input>
                   <button
@@ -472,7 +544,7 @@ const Signup = () => {
                     중복 확인
                   </button>
                 </div>
-                <div hidden={hidden.hiddenErrorMeassaEmail}>
+                <div className="flex items-center h-[40px]">
                   <p className=" w-full font-[500] mt-[20px] text-[16px] text-[#DE0D0D] flex items-center">
                     {regulation.regulationEmail}
                   </p>
@@ -487,6 +559,7 @@ const Signup = () => {
                     placeholder="2~8자리 숫자,한글,영문을 입력해주세요."
                     onChange={onValidity}
                     className={`${style.bgColorNickname} ${style.shadowNickname} w-full px-1 h-[50px] text-[16px]  placeholder-inputPlaceHoldText`}
+                    disabled={doubleCheck.nickNameDoubleCheck}
                     autoComplete="off"
                   ></input>
                   <button
@@ -496,13 +569,12 @@ const Signup = () => {
                     중복 확인
                   </button>
                 </div>
-                <div hidden={hidden.hiddenErrorMeassaNickName}>
-                  <p className=" w-full font-[500] mt-[20px] text-[16px] text-[#DE0D0D] flex items-center">
+                <div className="flex items-center h-[40px]">
+                  <p className=" w-full font-[500]  text-[16px] text-[#DE0D0D] flex items-center">
                     {regulation.regulationNickName}
                   </p>
                 </div>
               </div>
-
               <div>
                 <Label htmlFor="userPassword">비밀번호</Label>
                 <div>
@@ -516,10 +588,7 @@ const Signup = () => {
                     shadow={style.shadowPassword}
                   />
                 </div>
-                <div
-                  hidden={hidden.hiddenErrorMeassaPassword}
-                  className="mt-[10px]"
-                >
+                <div className="flex items-center h-[40px]">
                   <p className="w-full font-[500] text-[16px] text-[#DE0D0D] flex items-center">
                     {regulation.regulationPassword}
                   </p>
@@ -533,14 +602,12 @@ const Signup = () => {
                     id="passwordCheck"
                     placeholder="8~16자리 영문 대소문자, 숫자 조합"
                     onChange={onValidity}
+                    ref={PasswordCheckRef}
                     bgColor={style.bgColorPasswordCheck}
                     shadow={style.shadowPasswordCheck}
                   />
                 </div>
-                <div
-                  hidden={hidden.hiddenErrorMeassaPasswordCheck}
-                  className="mt-[10px]"
-                >
+                <div className="flex items-center h-[40px]">
                   <p className="w-full font-[500] text-[16px] text-[#DE0D0D] flex items-center">
                     {regulation.regulationPasswordCheck}
                   </p>

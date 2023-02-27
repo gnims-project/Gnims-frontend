@@ -3,12 +3,26 @@ import { Action } from "@remix-run/router";
 import { SignupApi } from "../../api/Signup";
 
 //닉네임 중복확인
-export const __nickNameCheck = ({ nickname, onModalOpen, setModalStr }) => {
+export const __nickNameCheck = ({
+  nickname,
+  onModalOpen,
+  setModalStr,
+  setDoubleCheck,
+  doubleCheck,
+  SetRegulation,
+  regulation,
+}) => {
   return async function (dispatch) {
     console.log(nickname);
     SignupApi.nickNameDoubleCheck({ nickname: nickname })
       .then((response) => {
-        console.log(response);
+        console.log(response.message);
+        setDoubleCheck(() => ({ ...doubleCheck, nickNameDoubleCheck: true }));
+        SetRegulation(() => ({
+          ...regulation,
+          regulationNickName: "",
+        }));
+        console.log("어디까지 찍힐까?");
         setModalStr({
           modalTitle: response.message,
           modalMessage: "",
@@ -18,6 +32,7 @@ export const __nickNameCheck = ({ nickname, onModalOpen, setModalStr }) => {
       })
       .catch((error) => {
         const { data } = error.response;
+        console.log(data);
         if (data.status === 400) {
           setModalStr({
             modalTitle: "닉네임을 확인해주세요.",

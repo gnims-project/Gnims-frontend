@@ -16,9 +16,7 @@ const SetProfileImg = () => {
     modalTitle: "",
     modalMessage: "",
   });
-  const { singup, NameNickName, userInfo } = useSelector(
-    (state) => state.SingupSlice
-  );
+  const singup = sessionStorage.getItem("singup");
   const imgRef = useRef();
   const [image, setImage] = useState(profilImg);
   const [imageFile, setImageFile] = useState("");
@@ -38,32 +36,30 @@ const SetProfileImg = () => {
     //폼데이터 변환
     setImageFile(imgRef.current.files[0]);
     const imgFile = imgRef.current.files[0];
-    console.log(imgFile);
     const formData = new FormData();
     if (imgFile !== undefined) {
       formData.append("image", imgFile);
     } else {
       formData.append("image", null);
     }
-    console.log("잘찍혀?", formData);
     if (singup === "emailLogin") {
       //const url = "http://hayangaeul.shop/auth/signup";
       const url = "https://eb.jxxhxxx.shop/auth/signup";
       const data = {
-        username: userInfo.username,
-        nickname: userInfo.nickname,
-        email: userInfo.email,
-        password: userInfo.password,
+        username: sessionStorage.getItem("userName"),
+        nickname: sessionStorage.getItem("nickname"),
+        email: sessionStorage.getItem("email"),
+        password: sessionStorage.getItem("password"),
       };
       sginupAxios({ data, formData, url });
     } else {
       //const url = "http://hayangaeul.shop/social/signup";
       const url = "https://eb.jxxhxxx.shop/social/signup";
       const data = {
-        username: NameNickName.username,
-        nickname: NameNickName.nickname,
-        email: window.sessionStorage.getItem("email"),
-        socialCode: window.sessionStorage.getItem("socialCode"),
+        username: sessionStorage.getItem("userName"),
+        nickname: sessionStorage.getItem("nickname"),
+        email: sessionStorage.getItem("email"),
+        socialCode: sessionStorage.getItem("socialCode"),
       };
       //소셜 회원가입 API가 나왔을때
       sginupAxios({ data, formData, url });
