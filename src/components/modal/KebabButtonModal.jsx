@@ -25,7 +25,7 @@ const KebabModal = ({ setModalOpen, id }) => {
     //DELETE 기능넣으면 됨
     dispatch(__deleteSchedule([id, userId, dispatch]));
     console.log(id);
-    navigate("/");
+    navigate("/main");
   };
 
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);

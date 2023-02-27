@@ -22,7 +22,6 @@ const initialState = {
 export const __deleteSchedule = createAsyncThunk(
   "schedule/delete",
   async (id) => {
-    console.log(id[0]);
     const response = await ScheduleApi.deleteScheduleApi(id[0]);
     id[2](__getSchedule(id[1]));
     return response.data;
@@ -85,6 +84,16 @@ export const __postSchedule = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
+  }
+);
+
+export const __editSchedule = createAsyncThunk(
+  "schedule/editSchedule",
+  async (payload) => {
+    console.log("수정넘기기", payload);
+    const data = await ScheduleApi.editScheduleApi(payload);
+    payload.dispatch(__getSchedule(payload.userId));
+    return data.data;
   }
 );
 

@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import {
   scheduleReset,
   __postSchedule,
+  __editSchedule,
   __getSchedule,
   __getScheduleDetail,
 } from "../../redux/modules/ScheduleSlice";
@@ -113,13 +114,22 @@ const ScheduleAdd = () => {
         // participantsId: [],
         participantsId: joinerWithoutDuplicate,
       };
-      dispatch(
-        __postSchedule({
-          Schedule: newSchedule,
-          userId: window.localStorage.getItem("userId"),
-          dispatch: dispatch,
-        })
-      );
+      state.type !== "edit"
+        ? dispatch(
+            __postSchedule({
+              Schedule: newSchedule,
+              userId: localStorage.getItem("userId"),
+              dispatch: dispatch,
+            })
+          )
+        : dispatch(
+            __editSchedule({
+              eventId: oldSchedule.eventId,
+              Schedule: newSchedule,
+              userId: localStorage.getItem("userId"),
+              dispatch: dispatch,
+            })
+          );
       setSubject("");
       setContent("");
       setParticipants("");
