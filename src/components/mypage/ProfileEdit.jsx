@@ -1,7 +1,9 @@
 import axios from "axios";
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserApi } from "../../api/UserApi";
 import inputImgIcon from "../../img/Component01.png";
+import { instance } from "../../shared/AxiosInstance";
 
 const ProfileEdit = () => {
   const navigate = useNavigate();
@@ -34,15 +36,7 @@ const ProfileEdit = () => {
       for (const [key, value] of formData.entries()) {
         console.log(key, value);
       }
-      const response = await axios.patch(
-        "https://eb.jxxhxxx.shop/users/profile",
-        formData,
-        {
-          headers: {
-            Authorization: localStorage.getItem("accessToken"),
-          },
-        }
-      );
+      const response = await UserApi.editProfile(formData);
       console.log(response);
       if (response.status === 200) {
         alert("프로필이미지가 변경되었습니다!");

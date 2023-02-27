@@ -8,4 +8,8 @@ export const UserApi = {
     );
     return data;
   },
+  editProfile: async (payload) => {
+    const data = instance.patch("users/profile", payload);
+    return data;
+  },
 };
