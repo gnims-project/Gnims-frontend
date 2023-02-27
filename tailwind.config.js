@@ -16,6 +16,11 @@ module.exports = {
         inputBox: "#E8E8E8",
         inputBoxFocus: "#FFFFFF",
         inputPlaceHoldText: "#6F6F6F",
+        pink: "#DF538D",
+        green: "#8DDF53",
+        blackBorder: "#002C51",
+        input: "#E8E8E8",
+        placeHolder: "#6F6F6F",
       },
       dropShadow: {
         inputBoxShadow: "0px 4px 4px rgba(68, 111, 163, 0.1)",

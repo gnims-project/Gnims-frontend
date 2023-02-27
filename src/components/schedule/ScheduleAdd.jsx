@@ -11,10 +11,12 @@ import {
   __getScheduleDetail,
 } from "../../redux/modules/ScheduleSlice";
 import FollowingModal from "../modal/FollowingModal";
+import ScheduleAddModal from "../modal/ScheduleAddModal";
 import ScheduleModal from "../modal/ScheduleModal";
 
 // state.type:"add" 은 스케줄 추가, state.type:edit은 수정
 const ScheduleAdd = () => {
+
   const dispatch = useDispatch();
   //스케줄 추가, 수정 분기를 결정할 state 값을 받아옴
   const { state } = useLocation();
@@ -30,10 +32,14 @@ const ScheduleAdd = () => {
   const oldSchedule = useSelector((state) => state.ScheduleSlice.oldschedules);
   console.log("수정할 스케줄", oldSchedule);
 
+
+  const navigate = useNavigate();
+
   //필요한 변수들
   //날짜 // 추가 작업 필요
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedColor, setColorSelected] = useState("sora");
+
   const [bgColor, setBgColor] = useState("bg-sora");
 
   //제목
@@ -46,35 +52,40 @@ const ScheduleAdd = () => {
     state.type === "edit" ? oldSchedule.content : ""
   );
 
-  const [borderSora, setBorderSora] = useState("border-white");
-  const [borderNam, setBorderNam] = useState("border-none");
-  const [borderParang, setBorderParang] = useState("border-none");
+
+  const [subject, setSubject] = useState("");
+  const [content, setContent] = useState("");
+
+
+  const [borderSora, setBorderSora] = useState("border-blackBorder");
+  const [borderPink, setBorderPink] = useState("border-none");
+  const [borderGreen, setBorderGreen] = useState("border-none");
+
+  //완료모달&경고모달
   const [modalOpen, setModalOpen] = useState(false);
-  const navigate = useNavigate();
 
   const today = new Date().toISOString().slice(0, 10);
+  const [completeModal, setCompleteModal] = useState(false);
+
 
   //색상지정시 카드의 백그라운드컬러가 바뀌면서 selectedColor에 값이 입혀진다.
   const eventHandlerSora = () => {
     setColorSelected("sora");
-    setBgColor("bg-sora");
-    setBorderSora("border-white");
-    setBorderNam("border-none");
-    setBorderParang("border-none");
+    setBorderSora("border-blackBorder");
+    setBorderPink("border-none");
+    setBorderGreen("border-none");
   };
-  const eventHandlerNam = () => {
-    setColorSelected("nam");
-    setBgColor("bg-nam");
+  const eventHandlerPink = () => {
+    setColorSelected("pink");
     setBorderSora("border-none");
-    setBorderNam("border-white");
-    setBorderParang("border-none");
+    setBorderPink("border-blackBorder");
+    setBorderGreen("border-none");
   };
-  const eventHandlerParang = () => {
-    setColorSelected("parang");
-    setBgColor("bg-parang");
+  const eventHandlerGreen = () => {
+    setColorSelected("green");
     setBorderSora("border-none");
-    setBorderNam("border-none");
-    setBorderParang("border-white");
+    setBorderPink("border-none");
+    setBorderGreen("border-blackBorder");
   };
   //일정의 제목과 내용, 참여자 onChangeHandler
   const onSubjectChangeHandler = (e) => {
@@ -111,9 +122,9 @@ const ScheduleAdd = () => {
         time: time,
         subject: subject,
         content: content,
-        // participantsId: [],
         participantsId: joinerWithoutDuplicate,
       };
+
       state.type !== "edit"
         ? dispatch(
             __postSchedule({
@@ -135,8 +146,10 @@ const ScheduleAdd = () => {
       setParticipants("");
       setSelectedDate("");
       setBgColor("bg-sora");
+
       localStorage.removeItem("selectedJoiner");
       console.log("생성된 스케쥴:", newSchedule);
+      setCompleteModal(true);
       navigate("/main");
     } else {
       setModalOpen(true);
@@ -154,8 +167,11 @@ const ScheduleAdd = () => {
         <FollowingModal setFollowingListOpen={setFollowingListOpen} />
       )}
       {modalOpen && <ScheduleModal setModalOpen={setModalOpen} />}
-      <div className="text-white">
-        <div className={`${bgColor} flex p-[20px] text-base`}>
+      {completeModal && (
+        <ScheduleAddModal setCompleteModal={setCompleteModal} />
+      )}
+      <div className="text-[#121213]">
+        <div className={"bg-[#F8FCFF] flex p-[20px] text-base"}>
           <form>
             <div className={"font-medium mt-[20px]"}>
               카드 테마 색상
@@ -167,14 +183,14 @@ const ScheduleAdd = () => {
                   {""}
                 </div>
                 <div
-                  className={`${borderNam} border-solid border-[4px] rounded-[4px] ml-[17px] w-[42px] h-[42px] bg-nam`}
-                  onClick={eventHandlerNam}
+                  className={`${borderPink} border-solid border-[4px] rounded-[4px] ml-[17px] w-[42px] h-[42px] bg-pink`}
+                  onClick={eventHandlerPink}
                 >
                   {""}
                 </div>
                 <div
-                  className={`${borderParang} border-solid border-[4px] rounded-[4px] ml-[17px] w-[42px] h-[42px] bg-parang`}
-                  onClick={eventHandlerParang}
+                  className={`${borderGreen} border-solid border-[4px] rounded-[4px] ml-[17px] w-[42px] h-[42px] bg-green`}
+                  onClick={eventHandlerGreen}
                 >
                   {""}
                 </div>
@@ -183,7 +199,7 @@ const ScheduleAdd = () => {
             <div className="justify-center mt-6 font-medium ">
               날짜와 시간
               <DatePicker
-                className="static justify-center w-full h-12 mt-4 font-light text-center text-black bg-white rounded-md shadow placeholder-textNavy text-l hover:bg-sky-100"
+                className="static justify-center w-full h-12 mt-4 font-light text-center text-black bg-input rounded-md shadow placeholder-placeHolder text-l hover:bg-sky-100"
                 dateFormat="yyyy년 MM월 dd일 h:mm aa"
                 selected={selectedDate}
                 minDate={new Date()}
@@ -204,10 +220,10 @@ const ScheduleAdd = () => {
                 placeholder="함께할 친구들을 선택해주세요.(최대 4명)"
                 className="mt-4 shadow 
               hover:bg-sky-100
-              text-center placeholder-textNavy
+              text-center placeholder-placeHolder
               w-[335px]
               h-12
-              bg-white
+              bg-input
               justify-center
               text-l
               rounded-md
@@ -224,11 +240,11 @@ const ScheduleAdd = () => {
                 onChange={onSubjectChangeHandler}
                 placeholder="일정 제목을 입력해주세요!(필수)"
                 className="mt-4 shadow
-              hover:bg-sky-100 placeholder-textNavy
+              hover:bg-sky-100 placeholder-placeHolder
               text-center
               w-[335px]
               h-12
-              bg-white
+              bg-input
               justify-center
               text-l
               rounded-md
@@ -242,14 +258,14 @@ const ScheduleAdd = () => {
               <input
                 value={content}
                 onChange={onContentChangeHandler}
-                placeholder="일정 내용을 입력해주세요."
+                placeholder="일정 내용을 입력해주세요.(선택)"
                 className="mt-4
               shadow
-              hover:bg-sky-100 placeholder-textNavy
+              hover:bg-sky-100 placeholder-placeHolder
               text-center
               w-[335px]
               h-56
-              bg-white
+              bg-input
               text-l
               rounded-md
               text-black
