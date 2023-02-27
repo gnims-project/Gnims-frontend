@@ -9,7 +9,7 @@ import { __emailLogin } from "../../redux/modules/LoginSlice";
 import { useDispatch, useSelector } from "react-redux";
 import NaverLogin from "../../page/NaverLoginPage";
 import Label from "../layout/Label";
-import LoginSignupInputBox from "../layout/LoginSignupInputBox";
+import LoginSignupInputBox from "../layout/input/LoginSignupInputBox";
 import gnimsLogo from "../../img/gnimslogo1.png";
 
 const EmailLogin = () => {
@@ -42,7 +42,7 @@ const EmailLogin = () => {
   //이메일, 비밀번호 정규 표현식
   const emailRegulationExp =
     /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-  const passwordRegulationExp = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{9,20}$/;
+  const passwordRegulationExp = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,16}$/;
 
   //유효성검사
   const onValidity = (event) => {
@@ -158,7 +158,7 @@ const EmailLogin = () => {
                 <div className=" grid grid-row-2">
                   <Label htmlFor="userEmail">이메일</Label>
                   <LoginSignupInputBox
-                    type="text"
+                    type="email"
                     id="userEmail"
                     ref={userEmailRef}
                     onChange={onValidity}

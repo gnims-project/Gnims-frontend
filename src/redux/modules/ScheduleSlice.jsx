@@ -60,9 +60,9 @@ export const __getScrollPage = createAsyncThunk(
   "schedule/getScrollPage",
   async (payload, thunkAPI) => {
     try {
-      console.log("연결");
+      console.log("__getScrollPage실행여부", payload);
       const { data } = await ScheduleApi.getInfiniteScrollPage(payload);
-      console.log(data.data);
+      console.log("슬라이스 데이터 확인여부", data.data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       console.log(error);
@@ -74,12 +74,12 @@ export const __postSchedule = createAsyncThunk(
   "schedule/postSchedules",
   async (payload, thunkAPI) => {
     try {
+      console.log(payload);
       const data = await ScheduleApi.postScheduleApi(payload.Schedule);
-      console.log(payload.userId);
-      payload.dispatch(__getSchedule(payload.userId));
-      // return thunkAPI.fulfillWithValue(data.data);
+      payload.dispatch(__getScrollPage({ userId: payload.userId, page: 0 }));
       if (data.status === 201) {
       }
+      // return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -133,18 +133,18 @@ export const ScheduleSlice = createSlice({
     [__getSchedule.fulfilled]: (state, action) => {
       state.isLoading = false;
       console.log(action.payload);
-      let schedules = action.payload;
-      let tmp = 0;
-      for (let i = 0; i < schedules.length - 1; i++) {
-        for (let j = i + 1; j < schedules.length; j++) {
-          if (schedules[i].dday > schedules[j].dday) {
-            tmp = schedules[i];
-            schedules[i] = schedules[j];
-            schedules[j] = tmp;
-          }
-        }
-      }
-      state.schedules = schedules;
+      // let schedules = action.payload;
+      // let tmp = 0;
+      // for (let i = 0; i < schedules.length - 1; i++) {
+      //   for (let j = i + 1; j < schedules.length; j++) {
+      //     if (schedules[i].dday > schedules[j].dday) {
+      //       tmp = schedules[i];
+      //       schedules[i] = schedules[j];
+      //       schedules[j] = tmp;
+      //     }
+      //   }
+      // }
+      state.schedules = action.payload;
     },
     [__getSchedule.rejected]: (state, action) => {
       state.isLoading = false;
@@ -156,8 +156,8 @@ export const ScheduleSlice = createSlice({
     },
     [__getScrollPage.fulfilled]: (state, action) => {
       state.isLoading = false;
-      console.log(action.payload);
-      state.schedules = action.payload;
+      console.log("slice getScrollpage", action.payload);
+      state.schedules = [...state.schedules, ...action.payload];
     },
     [__getScrollPage.rejected]: (state, action) => {
       state.isLoading = false;
@@ -194,10 +194,11 @@ export const ScheduleSlice = createSlice({
     // [__deleteSchedule.pending]: (state) => {
     //   state.isLoading = true;
     // },
-    // [__deleteSchedule.fulfilled]: (state, action) => {
+    // [__postSchedule.fulfilled]: (state, action) => {
     //   state.isLoading = false;
+    //   state.schedules.push(action.payload);
     // },
-    // [__deleteSchedule.rejected]: (state, action) => {
+    // [__postSchedule.rejected]: (state, action) => {
     //   state.isLoading = false;
     //   state.error = action.error.message;
     // },

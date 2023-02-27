@@ -13,7 +13,7 @@ export const instance = axios.create({
 //서버에 요청을 보내기 전
 instance.interceptors.request.use(
   (config) => {
-    const accessToken = window.localStorage.getItem("accessToken");
+    const accessToken = sessionStorage.getItem("accessToken");
     if (accessToken) {
       config.headers["Authorization"] = accessToken;
     }

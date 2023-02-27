@@ -3,12 +3,11 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const MainScheduleCards = ({ schedules }) => {
-  console.log(schedules);
   const navigate = useNavigate();
   const invitees = schedules.invitees;
   const time = schedules.time.split(":", 2).join(":");
-  // const bgColor = `bg-${schedules.cardColor}`;
-  const bgColor = `bg-sora`;
+  const bgColor = `bg-${schedules.cardColor}`;
+  //const bgColor = `bg-sora`;
   const [dDay, setDday] = useState({
     hidden: false,
     dDay: schedules.dday,

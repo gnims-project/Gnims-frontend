@@ -2,37 +2,32 @@ import React, { useState } from "react";
 import defaultprofileImg from "../../img/User-86.png";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import MainScheduleCards from "./MainScheduleCards";
+import InfiniteScroll from "./InfiniteScroll";
 import { useDispatch, useSelector } from "react-redux";
+import MainScheduleCards from "./MainScheduleCards";
 import { __getSchedule } from "../../redux/modules/ScheduleSlice";
-//import InfiniteScroll from "./InfiniteScroll";
 
 const Main = () => {
   const navigate = useNavigate();
-  const [profileImg, setProfileImg] = useState(defaultprofileImg);
-  const [nickName, setNickname] = useState("");
-  const [email, setEmail] = useState("");
   const dispatch = useDispatch();
+  const [profileImg, setProfileImg] = useState(defaultprofileImg);
   const { schedules } = useSelector((state) => state.ScheduleSlice);
-  const { isLoding } = useSelector((state) => state.ScheduleSlice);
   console.log(schedules);
-
+  const [nickName, setNickname] = useState(sessionStorage.getItem("nickname"));
   useEffect(() => {
-    const userId = window.localStorage.getItem("userId");
-    const getnickName = window.localStorage.getItem("nickname");
-    const getprofilImg = window.localStorage.getItem("profileImage");
-    const getEmail = window.localStorage.getItem("email");
-    if (getnickName && getEmail) {
-      setNickname(() => getnickName);
-      setEmail(() => getEmail);
+    const getemail = sessionStorage.getItem("email");
+    const getprofilImg = sessionStorage.getItem("profileImage");
+    const userId = sessionStorage.getItem("userId");
+
+    if (nickName && getemail) {
       if (getprofilImg) {
         setProfileImg(getprofilImg);
+        dispatch(__getSchedule(userId));
       }
-      dispatch(__getSchedule(userId));
     } else {
       navigate(`/login`);
     }
-  }, [navigate, dispatch]);
+  }, [navigate, nickName]);
 
   return (
     <>

@@ -1,20 +1,18 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { ScheduleApi } from "../../api/ScheduleApi";
 import MainScheduleCards from "./MainScheduleCards";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { __getScrollPage } from "../../redux/modules/ScheduleSlice";
-import { pagePlus } from "../../redux/modules/ScheduleSlice";
-import axios from "axios";
 
-const InfiniteScroll = ({ schedules }) => {
+const InfiniteScroll = () => {
   const dispatch = useDispatch();
-  console.log(schedules);
+  const { schedules } = useSelector((state) => state.ScheduleSlice);
+  console.log("무한스케줄 리스트", schedules);
   //리스트 생성
-  const [scheduleList, setScheduleList] = useState(() => schedules);
-  console.log(scheduleList);
+  const [scheduleList, setScheduleList] = useState(schedules);
+  console.log("무한스크롤에 set스케줄", scheduleList);
   //페이징 생성
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   //로딩여부
   const [load, setLoad] = useState(true);
   //중복 실행 방저
@@ -23,56 +21,57 @@ const InfiniteScroll = ({ schedules }) => {
   const endRef = useRef(false);
   //옵저버 확인
   const observerRef = useRef(null);
-  const userId = window.localStorage.getItem("userId");
+  const userId = sessionStorage.getItem("userId");
 
   //옵저버 핸들링 함수
-  const observerHandler = ([entries]) => {
-    console.log(entries);
+  const observerHandler = ([entries], observer) => {
+    console.log("옵저버 실행여부");
     console.log(endRef.current);
-    if (!endRef.current && entries.isIntersecting) {
-      preventRef.current = false;
+    if (entries.isIntersecting && !endRef) {
+      console.log("데이터를 가져오는지 확인");
+      getSchedule({ userId: userId, page: page });
+      observer.unobserve(entries.target);
       setPage((prev) => prev + 1);
     }
   };
 
-  //데이터가져옴
-  const getSchedule = useCallback(async (payload) => {
-    setLoad(true);
-    try {
-      const { data } = await ScheduleApi.getInfiniteScrollPage(payload);
-      const dataList = data.data;
-      console.log(data);
-      if (page === data.totalPage) {
-        //마지막 페이지일 경우
-        endRef.current = true;
-        //noPostShow();
-        setScheduleList((prev) => [...prev, ...dataList]); //리스트 추가
-        //prevent_duple.current = true;
+  const getSchedule = useCallback(
+    async (payload) => {
+      setLoad(true);
+      try {
+        const data = await ScheduleApi.getInfiniteScrollPage(payload);
+        const dataList = data.data.data;
+        if (page === data.totalPage) {
+          endRef.current = true;
+          setScheduleList((prevList) => [...prevList, ...dataList]);
+        }
+        setScheduleList((prevList) => [...prevList, ...dataList]);
+        preventRef.current = true;
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoad(false);
       }
-      console.log(scheduleList);
-    } catch {
-    } finally {
-    }
-  }, []);
+    },
+    [page]
+  );
 
   useEffect(() => {
-    if (page !== 0) getSchedule({ userId: userId, page: page });
-  }, [page, userId, getSchedule]);
-
-  useEffect(() => {
+    console.log("useEffect실행");
+    const userId = sessionStorage.getItem("userId");
     dispatch(__getScrollPage({ userId: userId, page: 0 }));
-  }, [dispatch, userId]);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(observerHandler, {
       threshold: 0.5,
     });
-    //주시대상목록에 추가
     if (observerRef.current) observer.observe(observerRef.current);
     return () => {
-      observer.disconnect();
+      observer && observer.disconnect();
     };
-  }, []);
+  }, [page]);
+
   return (
     <>
       <div className="wrap min-h-[100vh]">

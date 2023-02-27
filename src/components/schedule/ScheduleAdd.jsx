@@ -16,7 +16,6 @@ import ScheduleModal from "../modal/ScheduleModal";
 
 // state.type:"add" 은 스케줄 추가, state.type:edit은 수정
 const ScheduleAdd = () => {
-
   const dispatch = useDispatch();
   //스케줄 추가, 수정 분기를 결정할 state 값을 받아옴
   const { state } = useLocation();
@@ -31,7 +30,6 @@ const ScheduleAdd = () => {
   //전역으로 받아오는 state
   const oldSchedule = useSelector((state) => state.ScheduleSlice.oldschedules);
   console.log("수정할 스케줄", oldSchedule);
-
 
   const navigate = useNavigate();
 
@@ -52,11 +50,6 @@ const ScheduleAdd = () => {
     state.type === "edit" ? oldSchedule.content : ""
   );
 
-
-  const [subject, setSubject] = useState("");
-  const [content, setContent] = useState("");
-
-
   const [borderSora, setBorderSora] = useState("border-blackBorder");
   const [borderPink, setBorderPink] = useState("border-none");
   const [borderGreen, setBorderGreen] = useState("border-none");
@@ -66,7 +59,6 @@ const ScheduleAdd = () => {
 
   const today = new Date().toISOString().slice(0, 10);
   const [completeModal, setCompleteModal] = useState(false);
-
 
   //색상지정시 카드의 백그라운드컬러가 바뀌면서 selectedColor에 값이 입혀진다.
   const eventHandlerSora = () => {
