@@ -3,7 +3,7 @@ import searchIcon from "../../img/searchIcon.png";
 import plusIcon from "../../img/plusIcon.png";
 import notifyIcon from "../../img/notifyIcon.png";
 import { useNavigate } from "react-router-dom";
-import gnimsLogo1 from "../../img/gnimslogo1.png";
+import gnimsLogo from "../../img/gnimsLogo.png";
 
 const TopNavBar = () => {
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ const TopNavBar = () => {
     <div className="h-[48px] bg-white opacity-80 flex justify-between pr-[13px] pl-[13px]">
       <div className="h-[48px] w-[217px]">
         <img
-          src={gnimsLogo1}
+          src={gnimsLogo}
           alt="gnimsLogo"
           className="mt-[4px] h-[40px]"
           onClick={() => {
@@ -36,7 +36,8 @@ const TopNavBar = () => {
           alt="추가버튼"
           onClick={() => {
             console.log("스케쥴추가페이지로이동!");
-            navigate("/schedule");
+            //스케줄 추가를 하기 위한 파라미터 값을 넘긴다.
+            navigate("/schedule", { state: { type: "add", id: "" } });
           }}
         />
         <img

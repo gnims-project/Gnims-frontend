@@ -1,13 +1,6 @@
 import React, { useState } from "react";
-import offHome from "../../img/offHome.png";
-import offMy from "../../img/offMy.png";
-import offFollow from "../../img/offFollow.png";
-import onHome from "../../img/onHome.png";
-import onMy from "../../img/onMy.png";
-import onFollow from "../../img/onFollow.png";
 import { useNavigate } from "react-router-dom";
-
-// import { offFollow, onFollow, offMy, onMy, offHome, onHome } from "../../img";
+import { offFollow, onFollow, offMy, onMy, offHome, onHome } from "../../img";
 
 const BottomNavi = () => {
   //클릭했을때 아이콘이 바뀌게 하기 위한 스테이트
@@ -41,7 +34,7 @@ const BottomNavi = () => {
           <div
             onClick={() => {
               // setOnicon([false,ture,false])
-              handleIconClick("Home");
+              handleIconClick("home");
               navigate("/main");
             }}
             className="w-[24px] h-[24px]"
