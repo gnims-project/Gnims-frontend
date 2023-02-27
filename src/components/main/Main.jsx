@@ -33,6 +33,8 @@ const Main = () => {
       navigate(`/login`);
     }
   }, [navigate, dispatch]);
+  sessionStorage.removeItem("selectedJoiner");
+  sessionStorage.removeItem("selectedJoinerNames");
 
   return (
     <>
