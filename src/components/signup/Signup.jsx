@@ -66,17 +66,13 @@ const Signup = () => {
     hiddenErrorMeassaPasswordCheck: true,
   });
 
-  const [check, setCheck] = useState({
-    emailCheck: false,
-    nickNameCheck: false,
-  });
-
   //중복확인여부
   const [doubleCheck, setDoubleCheck] = useState({
     emailDoubleCheck: false,
     passwordDoubleCheck: false,
+    nickNameDoubleCheck: false,
   });
-
+  console.log(doubleCheck);
   //모달창
   const onModalOpen = () => {
     setOpen({ isOpen: true });
@@ -115,7 +111,6 @@ const Signup = () => {
         ...hidden,
         hiddenErrorMeassaEmail: true,
       }));
-      setCheck(() => ({ ...check, emailCheck: true }));
     } else {
       SetRegulation(() => ({
         ...regulation,
@@ -137,7 +132,6 @@ const Signup = () => {
         ...hidden,
         hiddenErrorMeassaNickName: true,
       }));
-      setCheck(() => ({ ...check, nickNameCheck: true }));
     } else {
       SetRegulation(() => ({
         ...regulation,
@@ -204,15 +198,13 @@ const Signup = () => {
   const emailDoubleCheckAxios = async (payload) => {
     await SignupApi.emailDoubleCheck(payload)
       .then((response) => {
+        setDoubleCheck(() => ({ ...doubleCheck, emailDoubleCheck: true }));
+        Sethidden(() => ({ ...hidden, hiddenErrorMeassaEmail: true }));
         setModalStr({
           modalTitle: response.message,
           modalMessage: "",
         });
         onModalOpen();
-        setDoubleCheck(() => ({
-          ...doubleCheck,
-          emailDoubleCheck: true,
-        }));
       })
       .catch((error) => {
         const { data } = error.response;
@@ -221,6 +213,10 @@ const Signup = () => {
             modalTitle: data.message,
             modalMessage: "이메일을 확인해주세요.",
           });
+          setDoubleCheck(() => ({
+            ...doubleCheck,
+            emailDoubleCheck: false,
+          }));
           onModalOpen();
         } else {
           console.log(error);
@@ -239,13 +235,23 @@ const Signup = () => {
         ...regulation,
         regulationEmail: "이메일을 입력해주세요.",
       }));
+      Sethidden(() => ({
+        ...hidden,
+        hiddenErrorMeassaEmail: false,
+      }));
       emailCurrent.focus();
       return;
-    } else {
+    } else if (!doubleCheck.emailDoubleCheck) {
       Sethidden(() => ({
         ...hidden,
         hiddenErrorMeassaEmail: true,
       }));
+    } else {
+      Sethidden(() => ({
+        ...hidden,
+        hiddenErrorMeassaEmail: false,
+      }));
+      emailCurrent.focus();
     }
 
     emailDoubleCheckAxios({
@@ -270,6 +276,11 @@ const Signup = () => {
       }));
       nickNameCurrent.focus();
       return;
+    } else if (!doubleCheck.nickNameDoubleCheck) {
+      Sethidden(() => ({
+        ...hidden,
+        hiddenErrorMeassaNickName: true,
+      }));
     } else {
       Sethidden(() => ({
         ...hidden,
@@ -281,7 +292,10 @@ const Signup = () => {
         nickname: nickNameCurrent.value,
         onModalOpen,
         setModalStr,
-        setCheck,
+        doubleCheck,
+        setDoubleCheck,
+        hidden,
+        Sethidden,
       })
     );
   };
@@ -395,7 +409,7 @@ const Signup = () => {
     const passwordValue = userPasswordCurrent.value;
     const passwordCheckValue = passwordCheckCurrent.value;
 
-    if (!nameValue) {
+    if (nameValue.trim() === "") {
       SetRegulation(() => ({
         ...regulation,
         regulationName: "이름을 입력해주세요.",
@@ -404,9 +418,14 @@ const Signup = () => {
       return;
     } else {
       nameValidationTest(userNameCurrent);
+      if (!hidden.hiddenErrorMeassaName) {
+        return;
+      }
     }
+    console.log("어디찍혀?0");
 
-    if (!emailValue) {
+    if (emailValue.trim() === "") {
+      console.log("어디찍혀?1");
       Sethidden(() => ({
         ...hidden,
         hiddenErrorMeassaEmail: false,
@@ -419,8 +438,7 @@ const Signup = () => {
       return;
     } else {
       emailValidationTest(userEmailCurrent);
-
-      if (!doubleCheck.emailDoubleCheck && check.emailCheck) {
+      if (!doubleCheck.emailDoubleCheck) {
         Sethidden(() => ({
           ...hidden,
           hiddenErrorMeassaEmail: false,
@@ -429,12 +447,14 @@ const Signup = () => {
           ...regulation,
           regulationEmail: "이메일 중복확인 해주세요.",
         }));
-        setCheck(() => ({ ...check, emailCheck: false }));
         userEmailCurrent.focus();
         return;
       }
-      setCheck(() => ({ ...check, emailCheck: false }));
+      if (!hidden.hiddenErrorMeassaEmail) {
+        return;
+      }
     }
+    console.log("어디찍혀?2");
 
     if (nickNameValue.trim() === "") {
       SetRegulation(() => ({
@@ -443,9 +463,9 @@ const Signup = () => {
       }));
       userNickNameCurrent.focus();
       return;
-    } else if (nickNameValue) {
+    } else {
       nickNameValidationTest(userNickNameCurrent);
-      if (!doubleCheck.nickNameDoubleCheck && check.nickNameCheck) {
+      if (!doubleCheck.nickNameDoubleCheck) {
         Sethidden(() => ({
           ...hidden,
           hiddenErrorMeassaNickName: false,
@@ -455,10 +475,11 @@ const Signup = () => {
           regulationNickName: "닉네임 중복확인 해주세요.",
         }));
         userNickNameCurrent.focus();
-        setCheck(() => ({ ...setCheck, nickNameCheck: false }));
         return;
       }
-      setCheck(() => ({ ...setCheck, nickNameCheck: false }));
+      if (!hidden.hiddenErrorMeassaNickName) {
+        return;
+      }
     }
 
     if (passwordValue.trim() === "") {
@@ -470,6 +491,9 @@ const Signup = () => {
       return;
     } else {
       passwordValidationTest(userPasswordCurrent);
+      if (!hidden.hiddenErrorMeassaPassword) {
+        return;
+      }
     }
 
     if (passwordCheckValue.trim() === "") {
@@ -477,29 +501,28 @@ const Signup = () => {
         ...regulation,
         regulationPasswordCheck: "비밀번호 중복확인을 입력해주세요.",
       }));
+      passwordCheckCurrent.focus();
     } else {
       if (!doubleCheck.passwordDoubleCheck) {
         SetRegulation(() => ({
           ...regulation,
-          regulationPasswordCheck: "비밀번호 중복확인 해주세요.",
+          regulationPasswordCheck: "비밀번호를 확인해 주세요",
         }));
-        userPasswordCurrent.focus();
+        passwordCheckCurrent.focus();
         return;
       } else {
         passwordCheckValidationTest(passwordCheckCurrent);
+        if (!hidden.hiddenErrorMeassaPasswordCheck) {
+          return;
+        }
       }
     }
-
-    dispatch(
-      userInfoState({
-        username: nameValue,
-        nickname: nickNameValue,
-        email: emailValue,
-        password: passwordValue,
-        profileImage: null,
-      })
-    );
-    dispatch(setSingup("emailLogin"));
+    sessionStorage.setItem("userName", nameValue);
+    sessionStorage.setItem("nickname", nickNameValue);
+    sessionStorage.setItem("email", emailValue);
+    sessionStorage.setItem("password", passwordValue);
+    sessionStorage.setItem("profileImage", null);
+    navigate("/signup/setProfileImg");
   };
 
   useEffect(() => {
@@ -554,6 +577,7 @@ const Signup = () => {
                     ref={userEmailRef}
                     placeholder="아이디로 사용할 이메일을 입력해주세요."
                     onChange={onValidity}
+                    disabled={doubleCheck.emailDoubleCheck}
                     className={`${style.bgColorEmail} ${style.shadowEmail} w-full px-1 h-[50px] text-[16px]  placeholder-inputPlaceHoldText`}
                     autoComplete="off"
                   ></input>
@@ -579,6 +603,7 @@ const Signup = () => {
                     placeholder="2~8자리 숫자,한글,영문을 입력해주세요."
                     onChange={onValidity}
                     className={`${style.bgColorNickname} ${style.shadowNickname} w-full px-1 h-[50px] text-[16px]  placeholder-inputPlaceHoldText`}
+                    disabled={doubleCheck.nickNameDoubleCheck}
                     autoComplete="off"
                   ></input>
                   <button

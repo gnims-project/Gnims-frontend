@@ -50,20 +50,20 @@ const SetProfileImg = () => {
       //const url = "http://hayangaeul.shop/auth/signup";
       const url = "https://eb.jxxhxxx.shop/auth/signup";
       const data = {
-        username: userInfo.username,
-        nickname: userInfo.nickname,
-        email: userInfo.email,
-        password: userInfo.password,
+        username: sessionStorage.getItem("userName"),
+        nickname: sessionStorage.getItem("nickname"),
+        email: sessionStorage.getItem("email"),
+        password: sessionStorage.getItem("password"),
       };
       sginupAxios({ data, formData, url });
     } else {
       //const url = "http://hayangaeul.shop/social/signup";
       const url = "https://eb.jxxhxxx.shop/social/signup";
       const data = {
-        username: NameNickName.username,
-        nickname: NameNickName.nickname,
-        email: window.localStorage.getItem("email"),
-        socialCode: window.localStorage.getItem("socialCode"),
+        username: sessionStorage.getItem("userName"),
+        nickname: sessionStorage.getItem("nickname"),
+        email: sessionStorage.getItem("email"),
+        socialCode: sessionStorage.getItem("socialCode"),
       };
       //소셜 회원가입 API가 나왔을때
       sginupAxios({ data, formData, url });

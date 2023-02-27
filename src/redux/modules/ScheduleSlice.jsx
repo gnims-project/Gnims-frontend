@@ -45,9 +45,9 @@ export const __getScrollPage = createAsyncThunk(
   "schedule/getScrollPage",
   async (payload, thunkAPI) => {
     try {
-      console.log("연결");
+      console.log("__getScrollPage실행여부", payload);
       const { data } = await ScheduleApi.getInfiniteScrollPage(payload);
-      console.log(data.data);
+      console.log("슬라이스 데이터 확인여부", data.data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       console.log(error);
@@ -59,8 +59,8 @@ export const __postSchedule = createAsyncThunk(
   "schedule/postSchedules",
   async (payload, thunkAPI) => {
     try {
+      console.log(payload);
       const data = await ScheduleApi.postScheduleApi(payload.Schedule);
-      console.log(payload.userId);
       payload.dispatch(__getScrollPage({ userId: payload.userId, page: 0 }));
       if (data.status === 201) {
         alert("성공!");
@@ -129,8 +129,8 @@ export const ScheduleSlice = createSlice({
     },
     [__getScrollPage.fulfilled]: (state, action) => {
       state.isLoading = false;
-      console.log(action.payload);
-      state.schedules = action.payload;
+      console.log("slice getScrollpage", action.payload);
+      state.schedules = [...state.schedules, ...action.payload];
     },
     [__getScrollPage.rejected]: (state, action) => {
       state.isLoading = false;

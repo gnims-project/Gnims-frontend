@@ -1,10 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-  __nickNameCheck,
-  setNameNickName,
-} from "../../redux/modules/SingupSlice";
+import { __nickNameCheck } from "../../redux/modules/SingupSlice";
 import Label from "../layout/Label";
 import LoginSignupInputBox from "../layout/input/LoginSignupInputBox";
 import IsModal from "../modal/Modal";
@@ -17,14 +14,12 @@ const SetProfileName = () => {
     modalTitle: "",
     modalMessage: "",
   });
-
   const userNameRef = useRef();
   const userNickNameRef = useRef();
-
-  const { NameNickName, nickNameDoubleCheck } = useSelector(
-    (state) => state.SingupSlice
-  );
-
+  const [doubleCheck, setDoubleCheck] = useState({
+    nickNameDoubleCheck: false,
+  });
+  console.log(doubleCheck);
   const [style, setStyle] = useState({
     bgColorName: "bg-inputBox",
     bgColorNickname: "bg-inputBox",
@@ -35,11 +30,11 @@ const SetProfileName = () => {
   useEffect(() => {
     //로컬스토리지
     console.log("실행");
-    console.log(NameNickName);
-    if (NameNickName !== null) {
-      navigate("/signup/setProfileImg");
-    }
-  }, [dispatch, NameNickName, navigate]);
+    console.log(sessionStorage.getItem("userName"));
+    // if (sessionStorage.getItem("userName")&&sessionStorage.getItem("nickname") !== null) {
+    //   navigate("/signup/setProfileImg");
+    // }
+  }, [dispatch, doubleCheck, navigate]);
 
   const nameRegulationExp = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|]+$/;
   const nickNameReglationExp = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,8}$/;
@@ -125,6 +120,8 @@ const SetProfileName = () => {
         nickname: nickNameCurrent.value,
         onModalOpen,
         setModalStr,
+        doubleCheck: doubleCheck,
+        setDoubleCheck: setDoubleCheck,
       })
     );
   };
@@ -164,7 +161,7 @@ const SetProfileName = () => {
       }));
       userNickNameCurrent.focus();
       return;
-    } else if (!nickNameDoubleCheck) {
+    } else if (!doubleCheck) {
       SetRegulation(() => ({
         ...regulation,
         regulationNickName: "닉네임 중복확인 해주세요.",
@@ -173,7 +170,9 @@ const SetProfileName = () => {
       return;
     }
 
-    dispatch(setNameNickName({ nickname: nickNameValue, username: nameValue }));
+    sessionStorage.setItem("nickname", nickNameValue);
+    sessionStorage.setItem("userName", nameValue);
+    navigate("/signup/setProfileImg");
   };
   return (
     <>
@@ -209,7 +208,7 @@ const SetProfileName = () => {
               </div>
               <div>
                 <p className="h-[40px] w-full font-[500] text-[16px] text-[#DE0D0D] flex items-center">
-                  {regulation.regulationNick}
+                  {regulation.regulationName}
                 </p>
               </div>
             </div>
@@ -227,7 +226,7 @@ const SetProfileName = () => {
                   placeholder="2~8자리 숫자,한글,영문을 입력해주세요."
                   onChange={onValidity}
                   className={`${style.bgColorNickname} ${style.shadowNickname} w-full px-1 h-[50px] text-[16px]  placeholder-inputPlaceHoldText`}
-                  bgColor={style.bgColorNickname}
+                  disabled={doubleCheck.nickNameDoubleCheck}
                 ></input>
                 <button
                   className="absolute right-[8px]  mt-[18px] font-[600] text-textBlack text-[16px]"

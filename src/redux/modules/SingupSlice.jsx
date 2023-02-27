@@ -7,14 +7,16 @@ export const __nickNameCheck = ({
   nickname,
   onModalOpen,
   setModalStr,
-  setCheck,
+  setDoubleCheck,
+  doubleCheck,
 }) => {
   return async function (dispatch) {
     console.log(nickname);
     SignupApi.nickNameDoubleCheck({ nickname: nickname })
       .then((response) => {
-        console.log(response);
-        setCheck(() => true);
+        console.log(response.message);
+        setDoubleCheck(() => ({ ...doubleCheck, nickNameDoubleCheck: true }));
+        console.log("어디까지 찍힐까?");
         setModalStr({
           modalTitle: response.message,
           modalMessage: "",
@@ -24,6 +26,7 @@ export const __nickNameCheck = ({
       })
       .catch((error) => {
         const { data } = error.response;
+        console.log(data);
         if (data.status === 400) {
           setModalStr({
             modalTitle: "닉네임을 확인해주세요.",

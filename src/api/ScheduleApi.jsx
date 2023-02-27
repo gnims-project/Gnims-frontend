@@ -8,9 +8,8 @@ export const ScheduleApi = {
   },
 
   getInfiniteScrollPage: (payload) => {
-    console.log(payload.userId);
     const data = instance.get(
-      `/v2-page/users/${payload.userId}/events?page=${payload.page}&size=${3}`
+      `/v2-page/users/${payload.userId}/events?page=${payload.page}&size=${10}`
     );
     return data;
   },

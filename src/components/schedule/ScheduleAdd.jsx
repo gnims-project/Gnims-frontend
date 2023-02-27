@@ -85,7 +85,7 @@ const ScheduleAdd = () => {
       await dispatch(
         __postSchedule({
           Schedule: newSchedule,
-          userId: window.localStorage.getItem("userId"),
+          userId: sessionStorage.getItem("userId"),
           dispatch: dispatch,
         })
       );
