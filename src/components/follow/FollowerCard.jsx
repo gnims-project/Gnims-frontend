@@ -5,11 +5,11 @@ import { __postFollowState } from "../../redux/modules/FollowSlice";
 const FollowerCard = ({ follower }) => {
   const dispatch = useDispatch();
   const [isFollowed, setIsFollowed] = useState(
-    follower.followStatus === "ACTIVE"
+    follower.followStatus === "ACTIVE" && "INIT"
   );
 
   const [btnColor, setBtnColor] = useState(
-    follower.followStatus === "ACTIVE" ? "#A31414" : "#002C51"
+    follower.followStatus === "ACTIVE" && "INIT" ? "#A31414" : "#002C51"
   );
 
   const handleClick = (e) => {
@@ -29,7 +29,7 @@ const FollowerCard = ({ follower }) => {
             alt="프로필"
           />
         </div>
-        <div className="flex w-[124px] items-center">{follower.username}</div>
+        <div className="flex w-[119px] items-center">{follower.username}</div>
       </div>
       {isFollowed ? (
         <div className="flex items-center w-[62px] h-[39px] justify-center text-sm rounded-[4px] text-white bg-[#A31414]">

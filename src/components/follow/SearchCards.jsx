@@ -5,6 +5,7 @@ import { __postFollowState } from "../../redux/modules/FollowSlice";
 const SearchCards = ({ userInfo }) => {
   const dispatch = useDispatch();
   const [isFollowed, setIsFollowed] = useState(userInfo.isFollowed === true);
+  console.log(isFollowed);
 
   const [btnColor, setBtnColor] = useState(
     userInfo.isFollowed === true ? null : "#002C51"
@@ -27,11 +28,11 @@ const SearchCards = ({ userInfo }) => {
             alt="프로필"
           />
         </div>
-        <div className="flex w-[124px] items-center">{userInfo.username}</div>
+        <div className="flex w-[119px] items-center">{userInfo.username}</div>
       </div>
-      {isFollowed && (
+      {isFollowed || (
         <div className="flex items-center w-[62px] h-[39px] justify-center text-sm rounded-[4px] text-white bg-[#002C51]">
-          <span onClick={handleClick}>{isFollowed && "팔로우"}</span>
+          <span onClick={handleClick}>{isFollowed || "팔로우"}</span>
         </div>
       )}
     </div>

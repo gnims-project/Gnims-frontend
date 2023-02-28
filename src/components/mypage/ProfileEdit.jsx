@@ -6,7 +6,7 @@ import inputImgIcon from "../../img/Component01.png";
 const ProfileEdit = () => {
   const navigate = useNavigate();
   const imgRef = useRef();
-  const profileImage = localStorage.getItem("profileImage");
+  const profileImage = sessionStorage.getItem("profileImage");
   const [image, setImage] = useState(profileImage);
 
   const imagePreview = () => {
