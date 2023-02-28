@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import profilImg from "../../img/ProfilImg.png";
 import inputImgIcon from "../../img/Component01.png";
@@ -7,10 +7,11 @@ import IsModal from "../modal/Modal";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import { instance } from "../../shared/AxiosInstance";
+import LoadingPage from "../../page/LoadingPage";
 
 const SetProfileImg = () => {
   const navigate = useNavigate();
-
+  const [loading, setLoading] = useState(null);
   const [isOpen, setOpen] = useState(false);
   const [ModalStr, setModalStr] = useState({
     modalTitle: "",
@@ -92,6 +93,7 @@ const SetProfileImg = () => {
         console.log(response);
         alert(`${response.data.message}`);
         navigate("/login");
+        setLoading(false);
       })
       .catch((error) => {
         console.log(error.response);
@@ -106,11 +108,16 @@ const SetProfileImg = () => {
         }
       });
   };
+  useEffect(() => {
+    setLoading(true);
+    sginupAxios();
+  }, []);
 
   //소셜회원가입시 백단 연결
 
   return (
     <div className="App container md mt-[110px] ">
+      {loading && <LoadingPage />}
       <div className="grid grid-flow-row ml-[20px] mr-[20px]">
         <div className="grid grid-flow-row gap-[9px]">
           <div className="font-[700] text-[32px] text-textBlack">
