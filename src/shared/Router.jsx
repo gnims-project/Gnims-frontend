@@ -23,6 +23,7 @@ import InfiniteScroll from "../components/main/InfiniteScroll";
 import PastEventsPage from "../page/PastEventsPage";
 import UserSearchPage from "../page/UserSearchPage";
 import ScheduleEditPage from "../page/ScheduleEditPage";
+import InputEmailPage from "../page/InputEmailPage";
 
 const Router = () => {
   return (
@@ -32,7 +33,7 @@ const Router = () => {
           {/* 메인과 디테일 페이지 */}
           {/* <Route path="/main" element={<MainPage />} /> */}
           <Route path="/main" element={<MainPage />} />
-          {localStorage.getItem("nickname") ? (
+          {sessionStorage.getItem("userId") ? (
             <Route path="/" element={<MainPage />} />
           ) : (
             <Route path="/" element={<LoginPage />} />
@@ -58,6 +59,7 @@ const Router = () => {
           <Route path="auth/kakao/callback" element={<KakaoLoginLoding />} />
           <Route path="/naver/login" element={<NaverLoginPage />} />
           <Route path="/auth/naver/callback" element={<NaverLoginLoding />} />
+          <Route path="/login/auth/InputEmail" element={<InputEmailPage />} />
 
           {/* 마이페이지 */}
           <Route path="/profile" element={<Profile />} />
@@ -69,7 +71,7 @@ const Router = () => {
           <Route path="/notification" element={<NotificationsPage />} />
 
           {/* 찾기 */}
-          <Route path="/userSearch" element={<UserSearchPage />}></Route>
+          <Route path="/userSearch" element={<UserSearchPage />} />
         </Routes>
       </Layout>
     </Container>

@@ -5,8 +5,8 @@ import InvitationCard from "./ InvitationCard";
 import PageInfoCard from "./PageInfoCard";
 
 const ScheduleInvitation = () => {
-  const nickname = localStorage.getItem("nickname");
-  const profileImage = localStorage.getItem("profileImage");
+  const nickname = sessionStorage.getItem("nickname");
+  const profileImage = sessionStorage.getItem("profileImage");
   const dispatch = useDispatch();
 
   const { isLoading, error, invitation } = useSelector(
