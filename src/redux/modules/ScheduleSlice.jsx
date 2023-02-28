@@ -74,7 +74,7 @@ export const __postSchedule = createAsyncThunk(
   "schedule/postSchedules",
   async (payload, thunkAPI) => {
     try {
-      console.log(payload);
+      console.log("보내는 스케줄", payload);
       const data = await ScheduleApi.postScheduleApi(payload.Schedule);
       payload.dispatch(__getScrollPage({ userId: payload.userId, page: 0 }));
       if (data.status === 201) {

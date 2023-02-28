@@ -1,11 +1,9 @@
-import axios from "axios";
 import React, { memo, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import kebab from "../../img/kebab.png";
 import BottomNavi from "../layout/BottomNavi";
 import KebabModal from "../modal/KebabButtonModal";
 import gnimsIcon from "../../img/gnimslogo1.png";
-import { instance } from "../../shared/AxiosInstance";
 import { useDispatch, useSelector } from "react-redux";
 import { __getScheduleDetail } from "../../redux/modules/ScheduleSlice";
 
