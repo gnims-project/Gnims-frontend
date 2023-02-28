@@ -42,7 +42,6 @@ const ScheduleAdd = () => {
   );
 
   const [selectedColor, setColorSelected] = useState("sora");
-  const [bgColor, setBgColor] = useState("bg-sora");
 
   //제목
   const [subject, setSubject] = useState(
@@ -166,19 +165,19 @@ const ScheduleAdd = () => {
               카드 테마 색상
               <div className="flex flex-row mt-4 ">
                 <div
-                  className={`${borderSora} border-solid border-[4px] rounded-[4px] w-[42px] h-[42px] bg-sora`}
+                  className={`${borderSora} border-solid border-[4px] cursor-pointer rounded-[4px] w-[42px] h-[42px] bg-sora`}
                   onClick={eventHandlerSora}
                 >
                   {""}
                 </div>
                 <div
-                  className={`${borderPink} border-solid border-[4px] rounded-[4px] ml-[17px] w-[42px] h-[42px] bg-pink`}
+                  className={`${borderPink} border-solid border-[4px] cursor-pointer rounded-[4px] ml-[17px] w-[42px] h-[42px] bg-pink`}
                   onClick={eventHandlerPink}
                 >
                   {""}
                 </div>
                 <div
-                  className={`${borderGreen} border-solid border-[4px] rounded-[4px] ml-[17px] w-[42px] h-[42px] bg-green`}
+                  className={`${borderGreen} border-solid border-[4px] cursor-pointer rounded-[4px] ml-[17px] w-[42px] h-[42px] bg-green`}
                   onClick={eventHandlerGreen}
                 >
                   {""}
@@ -188,7 +187,7 @@ const ScheduleAdd = () => {
             <div className="justify-center mt-6 font-medium ">
               날짜와 시간
               <DatePicker
-                className="static justify-center w-full h-12 mt-4 font-light text-center text-black rounded-md shadow bg-input placeholder-placeHolder text-l hover:bg-sky-100"
+                className="static justify-center cursor-pointer w-full h-12 mt-4 font-light text-center text-black rounded-md shadow bg-input placeholder-placeHolder text-l hover:bg-sky-100"
                 dateFormat="yyyy년 MM월 dd일 h:mm aa"
                 selected={selectedDate}
                 minDate={new Date()}
@@ -198,7 +197,7 @@ const ScheduleAdd = () => {
               />
             </div>
             {/* 참여자 input을 클릭시 친구 리스트가 */}
-            <div className="flex flex-col mt-6 font-semibold">
+            <div className="flex cursor-pointer flex-col mt-6 font-semibold">
               참여자
               <div
                 // value={}
@@ -236,7 +235,8 @@ const ScheduleAdd = () => {
               <input
                 value={subject}
                 onChange={onSubjectChangeHandler}
-                placeholder="일정 제목을 입력해주세요!(필수)"
+                placeholder="일정 제목을 입력해주세요!(필수, 최대 20자)"
+                maxlength="20"
                 className="mt-4 shadow
               hover:bg-sky-100 placeholder-placeHolder
               text-center
