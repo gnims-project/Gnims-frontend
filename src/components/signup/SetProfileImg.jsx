@@ -35,6 +35,7 @@ const SetProfileImg = () => {
 
   const onSingup = async () => {
     //폼데이터 변환
+    setLoading(true);
     setImageFile(imgRef.current.files[0]);
     const imgFile = imgRef.current.files[0];
     const formData = new FormData();
@@ -110,7 +111,6 @@ const SetProfileImg = () => {
   };
   useEffect(() => {
     setLoading(false);
-    sginupAxios();
   }, []);
 
   //소셜회원가입시 백단 연결
