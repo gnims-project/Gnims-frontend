@@ -11,7 +11,7 @@ import LoadingPage from "../../page/LoadingPage";
 
 const SetProfileImg = () => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [isOpen, setOpen] = useState(false);
   const [ModalStr, setModalStr] = useState({
     modalTitle: "",
@@ -109,7 +109,7 @@ const SetProfileImg = () => {
       });
   };
   useEffect(() => {
-    setLoading(true);
+    setLoading(false);
     sginupAxios();
   }, []);
 

@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect } from "react";
+import DotLoader from "react-spinners/DotLoader";
 
 function NaverLoginLoding() {
   const userAccessToken = () => {
@@ -60,7 +61,22 @@ function NaverLoginLoding() {
 
   return (
     <div>
-      <div>loding...</div>
+      <div
+        style={{
+          position: "fixed",
+          top: "30%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+        }}
+      >
+        <DotLoader
+          color="#36abd6"
+          height={15}
+          width={5}
+          radius={2}
+          margin={2}
+        />
+      </div>
     </div>
   );
 }
