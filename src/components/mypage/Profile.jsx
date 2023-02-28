@@ -117,6 +117,17 @@ const Profile = () => {
           </span>
           <img src={Vector} alt="화살표" />
         </div>
+        <div
+          onClick={() => {
+            sessionStorage.clear();
+            navigate("/main");
+          }}
+          className="flex gap-[130px] mt-[22px] p-[15px] border-b-[1px] border-[#BBD7FF] border-solid bg-white w-[375px] h-[50px] cursor-pointer"
+        >
+          <span className="text-sm text-[#911A33] w-[175px] h-[20px]">
+            로그아웃
+          </span>
+        </div>
       </div>
     </div>
   );
