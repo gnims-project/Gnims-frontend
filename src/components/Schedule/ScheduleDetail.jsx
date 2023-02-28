@@ -46,12 +46,12 @@ const ScheduleDetail = () => {
   //isHidden은 해당 스케쥴이 본인의 스케쥴이 아닐 땐 케밥버튼이 보이지 않게하기 위해 쓰인다. 기본값은 flex이고,
   let isHidden = "";
   //스케쥴의 참여자에 로그인한 본인의 닉네임이 포함되지 않으면 hidden값이 입혀진다.
-  if (hostId !== Number(localStorage.getItem("userId"))) {
+  if (hostId !== Number(sessionStorage.getItem("userId"))) {
     isHidden = "hidden";
   }
-  console.log(hostId === Number(localStorage.getItem("userId")));
+  console.log(hostId === Number(sessionStorage.getItem("userId")));
   console.log(hostId);
-  console.log(Number(localStorage.getItem("userId")));
+  console.log(Number(sessionStorage.getItem("userId")));
 
   return (
     <div className="bg-[#EDF7FF] h-full width-[375px]">

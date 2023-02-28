@@ -4,10 +4,10 @@ import NaverUnion from "../../img/NaverUnion.png";
 const NaverLogin = () => {
   const naverRef = useRef();
   const { naver } = window;
-  //    깃헙에 올릴 땐 아래의 env활용
+
   const NAVER_CLIENT_ID = "T9R5hFNUTuTa1UqoVBcO";
   // process.env.REACT_APP_NAVER_CLIENT_ID;
-  const NAVER_CALLBACK_URL = "http://localhost:3000/callback";
+  const NAVER_CALLBACK_URL = "http://localhost:3000/social/naver-login";
   // process.env.REACT_APP_NAVER_CALLBACK_URL;
   const initializeNaverLogin = () => {
     const naverLogin = new naver.LoginWithNaverId({

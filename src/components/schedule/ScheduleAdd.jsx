@@ -56,8 +56,6 @@ const ScheduleAdd = () => {
 
   //완료모달&경고모달
   const [modalOpen, setModalOpen] = useState(false);
-
-  const today = new Date().toISOString().slice(0, 10);
   const [completeModal, setCompleteModal] = useState(false);
 
   //색상지정시 카드의 백그라운드컬러가 바뀌면서 selectedColor에 값이 입혀진다.
@@ -93,8 +91,8 @@ const ScheduleAdd = () => {
   };
 
   const joinerArray =
-    localStorage.getItem("selectedJoiner") &&
-    localStorage.getItem("selectedJoiner").split(",");
+    sessionStorage.getItem("selectedJoiner") &&
+    sessionStorage.getItem("selectedJoiner").split(",");
 
   participants.push(joinerArray);
   let joinerWithoutDuplicate = [...new Set(joinerArray)];
@@ -102,7 +100,7 @@ const ScheduleAdd = () => {
   //time값 구하는 작업
   const splicedDate = [selectedDate].toString().split(" ");
   const time = splicedDate[4];
-
+  const selectedJoinersName = sessionStorage.getItem("selectedJoinerNames");
   //전체내용을 서버로 보내는 부분.
   const scheduleAddHandler = (e) => {
     e.preventDefault();
@@ -121,7 +119,7 @@ const ScheduleAdd = () => {
         ? dispatch(
             __postSchedule({
               Schedule: newSchedule,
-              userId: localStorage.getItem("userId"),
+              userId: sessionStorage.getItem("userId"),
               dispatch: dispatch,
             })
           )
@@ -129,20 +127,15 @@ const ScheduleAdd = () => {
             __editSchedule({
               eventId: oldSchedule.eventId,
               Schedule: newSchedule,
-              userId: localStorage.getItem("userId"),
+              userId: sessionStorage.getItem("userId"),
               dispatch: dispatch,
             })
           );
-      setSubject("");
-      setContent("");
-      setParticipants("");
-      setSelectedDate("");
-      setBgColor("bg-sora");
-
-      localStorage.removeItem("selectedJoiner");
-      console.log("생성된 스케쥴:", newSchedule);
       setCompleteModal(true);
-      navigate("/main");
+      sessionStorage.removeItem("selectedJoiner");
+      sessionStorage.removeItem("selectedJoinerNames");
+      console.log("생성된 스케쥴:", newSchedule);
+      setTimeout(() => navigate("/main"), 2000);
     } else {
       setModalOpen(true);
     }
@@ -162,7 +155,7 @@ const ScheduleAdd = () => {
       {completeModal && (
         <ScheduleAddModal setCompleteModal={setCompleteModal} />
       )}
-      <div className="text-[#121213]">
+      <div className="text-[#121213] ">
         <div className={"bg-[#F8FCFF] flex p-[20px] text-base"}>
           <form>
             <div className={"font-medium mt-[20px]"}>
@@ -201,15 +194,15 @@ const ScheduleAdd = () => {
               />
             </div>
             {/* 참여자 input을 클릭시 친구 리스트가 */}
-            <div className="flex flex-col mt-6 font-semibold ">
+            <div className="flex flex-col mt-6 font-semibold">
               참여자
-              <input
+              <div
                 // value={}
                 onClick={() => {
                   setFollowingListOpen(true);
                 }}
                 onChange={() => onParticipantsChangeHandler}
-                placeholder="함께할 친구들을 선택해주세요.(최대 4명)"
+                placeholder="함께할 친구들을 선택해주세요.(최대 5명)"
                 className="mt-4 shadow 
               hover:bg-sky-100
               text-center placeholder-placeHolder
@@ -222,8 +215,17 @@ const ScheduleAdd = () => {
               text-black
               font-light
               p-4
+              disabled
              "
-              />
+              >
+                {joinerWithoutDuplicate.length > 0 ? (
+                  <div className=" text-placeHolder">{selectedJoinersName}</div>
+                ) : (
+                  <div className=" text-placeHolder">
+                    함께할 친구들을 선택해주세요.(최대 5명)
+                  </div>
+                )}
+              </div>
             </div>
             <div className="flex flex-col mt-6 font-medium ">
               일정 제목{" "}

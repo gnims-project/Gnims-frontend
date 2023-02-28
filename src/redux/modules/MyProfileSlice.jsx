@@ -18,7 +18,7 @@ export const __getMyProfile = createAsyncThunk(
   "getMyProfile",
   async (payload, thunkAPI) => {
     try {
-      let accessToken = localStorage.getItem("accessToken");
+      let accessToken = sessionStorage.getItem("accessToken");
 
       const data = await axios.get(config);
       return thunkAPI.fulfillWithValue(data.data);

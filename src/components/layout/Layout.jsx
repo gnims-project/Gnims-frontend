@@ -101,7 +101,7 @@ const Container = styled.div`
   justify-content: space-between;
   height: 100vh;
   min-width: 375px;
-  background-color: #edf7ff;
+  background-color: #f8fcff;
   font-family: Pretendard-Regular;
 `;
 
