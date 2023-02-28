@@ -34,10 +34,14 @@ const ScheduleAdd = () => {
   const navigate = useNavigate();
 
   //필요한 변수들
-  //날짜 // 추가 작업 필요
-  const [selectedDate, setSelectedDate] = useState("");
-  const [selectedColor, setColorSelected] = useState("sora");
+  //날짜
+  const [selectedDate, setSelectedDate] = useState(
+    state.type === "edit"
+      ? new Date(oldSchedule.date + "T" + oldSchedule.time)
+      : ""
+  );
 
+  const [selectedColor, setColorSelected] = useState("sora");
   const [bgColor, setBgColor] = useState("bg-sora");
 
   //제목
@@ -93,8 +97,8 @@ const ScheduleAdd = () => {
   };
 
   const joinerArray =
-    localStorage.getItem("selectedJoiner") &&
-    localStorage.getItem("selectedJoiner").split(",");
+    sessionStorage.getItem("selectedJoiner") &&
+    sessionStorage.getItem("selectedJoiner").split(",");
 
   participants.push(joinerArray);
   let joinerWithoutDuplicate = [...new Set(joinerArray)];
@@ -121,7 +125,7 @@ const ScheduleAdd = () => {
         ? dispatch(
             __postSchedule({
               Schedule: newSchedule,
-              userId: localStorage.getItem("userId"),
+              userId: sessionStorage.getItem("userId"),
               dispatch: dispatch,
             })
           )
@@ -129,7 +133,7 @@ const ScheduleAdd = () => {
             __editSchedule({
               eventId: oldSchedule.eventId,
               Schedule: newSchedule,
-              userId: localStorage.getItem("userId"),
+              userId: sessionStorage.getItem("userId"),
               dispatch: dispatch,
             })
           );
@@ -191,7 +195,7 @@ const ScheduleAdd = () => {
             <div className="justify-center mt-6 font-medium ">
               날짜와 시간
               <DatePicker
-                className="static justify-center w-full h-12 mt-4 font-light text-center text-black bg-input rounded-md shadow placeholder-placeHolder text-l hover:bg-sky-100"
+                className="static justify-center w-full h-12 mt-4 font-light text-center text-black rounded-md shadow bg-input placeholder-placeHolder text-l hover:bg-sky-100"
                 dateFormat="yyyy년 MM월 dd일 h:mm aa"
                 selected={selectedDate}
                 minDate={new Date()}
