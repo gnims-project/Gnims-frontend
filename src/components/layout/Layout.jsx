@@ -11,7 +11,6 @@ const Layout = ({ children }) => {
   const pagePathName = useLocation();
   const [header, setHeader] = useState(null);
   const id = pagePathName.pathname.split("/")[2];
-  console.log(id);
   useEffect(() => {
     const userId = sessionStorage.getItem("userId");
     const pageName = pagePathName.pathname;
@@ -28,6 +27,9 @@ const Layout = ({ children }) => {
         break;
       case `/detail/${id}`:
         setHeader(() => <TopNavBar />);
+        break;
+      case `/friends/${id}`:
+        setHeader(() => <TopNavTitleBar>내 친구의 일정</TopNavTitleBar>);
         break;
       case "/schedule":
         setHeader(() => <TopNavTitleBar>일정 추가</TopNavTitleBar>);

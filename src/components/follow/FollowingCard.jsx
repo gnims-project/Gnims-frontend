@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { __postFollowState } from "../../redux/modules/FollowSlice";
 
 const FollowingCard = ({ following }) => {
@@ -7,7 +8,7 @@ const FollowingCard = ({ following }) => {
   const [isFollowed, setIsFollowed] = useState(
     following.followStatus === "ACTIVE" || "INIT"
   );
-
+  const navigate = useNavigate();
   const [btnColor, setBtnColor] = useState(
     following.followStatus === "ACTIVE" || "INIT" ? "#A31414" : "#002C51"
   );
@@ -21,7 +22,14 @@ const FollowingCard = ({ following }) => {
 
   return (
     <div className="flex gap-[90px] w-full mt-[16px]">
-      <div className="flex gap-[14px]">
+      <div
+        className="flex gap-[14px]"
+        onClick={() => {
+          navigate(`/friends/${following.followId}`);
+          sessionStorage.setItem("clickedUserName", following.username);
+          sessionStorage.setItem("clickedUserImg", following.profile);
+        }}
+      >
         <div className="w-[50px] h-[50px]">
           <img
             className="w-full h-full rounded-full"

@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { memo, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import kebab from "../../img/kebab.png";
@@ -6,6 +7,7 @@ import KebabModal from "../modal/KebabButtonModal";
 import gnimsIcon from "../../img/gnimslogo1.png";
 import { useDispatch, useSelector } from "react-redux";
 import { __getScheduleDetail } from "../../redux/modules/ScheduleSlice";
+import schedulealoneIcon from "../../img/schedulealone.png";
 
 const ScheduleDetail = () => {
   const dispatch = useDispatch();
@@ -28,6 +30,7 @@ const ScheduleDetail = () => {
   //     setSchedule(appData.data.data);
   //   }, []);
   // };
+
   const time = schedule.time?.split(":", 2).join(":");
   useEffect(() => {
     dispatch(__getScheduleDetail(id));
@@ -52,7 +55,7 @@ const ScheduleDetail = () => {
   console.log(Number(sessionStorage.getItem("userId")));
 
   return (
-    <div className="bg-[#EDF7FF] h-full width-[375px]">
+    <div className="bg-[#F8FCFF] h-full width-[375px]">
       <div>
         <div className="fixed bottom-0">
           {/* 케밥모달이 열리면 bottomNavi는 사라집니다 */}
@@ -81,13 +84,13 @@ const ScheduleDetail = () => {
             {schedule.dday === 0 ? <div>DAY</div> : <div>{schedule.dday}</div>}
           </div>
         </div>
-        <div className="text-[#12396F]">
+        <div className="">
           <div>
             {/* 참여자는 2명이상일 때부터 화면에 보입니다. */}
             {numberOfJoiner !== 1 ? (
               <div className="mt-[30px] h-[98px] ml-[20px]">
                 참여자
-                <div className="bg-[#CEE4F8] h-[50px] w-[335px] mt-[20px] p-[15px] drop-shadow-lg flex rounded-lg">
+                <div className="bg-white h-[50px] w-[335px] mt-[20px] p-[15px] drop-shadow-lg flex rounded-lg">
                   {joiner &&
                     joiner.map((a) => {
                       return (
@@ -104,7 +107,7 @@ const ScheduleDetail = () => {
           {schedule.content ? (
             <div className="h-[234px] mt-[30px] mb-[8px] ml-[20px]">
               일정내용{" "}
-              <div className="bg-[#CEE4F8] shadow-lg h-[186px] w-[335px] mt-[20px] p-[15px] flex rounded-lg">
+              <div className="bg-white shadow-lg h-[186px] w-[335px] mt-[20px] p-[15px] flex rounded-lg">
                 {schedule.content}
               </div>
             </div>
@@ -112,14 +115,15 @@ const ScheduleDetail = () => {
             false
           )}
           {!schedule.content && numberOfJoiner === 1 ? (
-            <div>
+            <div className="m-auto justify-center items-center mt-[80px]">
               <img
-                src={gnimsIcon}
+                src={schedulealoneIcon}
                 alt="gnimslogo"
-                className="ml-[50px] opacity-[60%] h-[100px] flex justify-center mt-[80px]"
+                className="m-auto w-[167px] h-[153px] flex justify-center items-center"
               />
-              <div className="font-bold mt-[30px] text-center">
-                혼자만의 일정이군요! 좋은 하루 되세요!
+              <div className="font-medium mt-[30px] text-[20px] text-center text-black">
+                혼자만의 일정이군요! <br />
+                때로는 개인시간도 중요한 법이죠.
               </div>
             </div>
           ) : null}
