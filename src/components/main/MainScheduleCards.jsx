@@ -48,7 +48,7 @@ const MainScheduleCards = ({ schedules }) => {
   return (
     <div
       onClick={onDetail}
-      className={`w-[335px] h-[180px] ${bgColor} rounded-[10px] pt-[20px] pl-[22px] pr-[22px]`}
+      className={`w-[335px] cursor-pointer h-[180px] ${bgColor} rounded-[10px] pt-[20px] pl-[22px] pr-[22px]`}
     >
       <div className=" text-[#ffff]">
         <div className="grid grid-flow-row gap-[19px]">
