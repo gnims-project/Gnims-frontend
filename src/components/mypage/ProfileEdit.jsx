@@ -26,11 +26,7 @@ const ProfileEdit = () => {
       const imgFile = imgRef.current.files[0];
       console.log(imgFile);
       const formData = new FormData();
-      // if (imgFile !== undefined) {
       formData.append("image", imgFile);
-      // } else {
-      //   formData.append("image", null);
-      // }
       console.log(formData);
       for (const [key, value] of formData.entries()) {
         console.log(key, value);
@@ -75,9 +71,9 @@ const ProfileEdit = () => {
               <div className="h-[40px] w-[40px] justify-center mx-auto absolute right-0 left-14 bottom-0 ">
                 <label htmlFor="profileImg">
                   <img
-                    className="w-full h-full rounded-full drop-shadow-lg"
+                    className="w-full cursor-pointer h-full rounded-full drop-shadow-lg"
                     src={inputImgIcon}
-                    alt="프로필이미지"
+                    alt="프로필이미지수정아이콘"
                   />
                 </label>
               </div>
