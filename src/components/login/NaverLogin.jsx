@@ -7,7 +7,8 @@ const NaverLogin = () => {
 
   const NAVER_CLIENT_ID = "T9R5hFNUTuTa1UqoVBcO";
   // process.env.REACT_APP_NAVER_CLIENT_ID;
-  const NAVER_CALLBACK_URL = "http://localhost:3000/social/naver-login";
+  const NAVER_CALLBACK_URL =
+    "https://gnims-third-glf1egm85-angelachaejung.vercel.app/social/naver-login";
   // process.env.REACT_APP_NAVER_CALLBACK_URL;
   const initializeNaverLogin = () => {
     const naverLogin = new naver.LoginWithNaverId({
