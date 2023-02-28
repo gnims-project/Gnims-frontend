@@ -37,9 +37,12 @@ const Profile = () => {
       <div className="flex p-5 gap-[30px] justify-items-center">
         <div className="w-[86px] h-[86px]">
           <img
-            className="rounded-full object-fill w-[86px] h-[86px]"
+            className="rounded-full cursor-pointer object-fill w-[86px] h-[86px]"
             src={profileImage}
             alt="이미지"
+            onClick={() => {
+              navigate("/editProfile");
+            }}
           />
         </div>
         <div className="inline-block pt-2">
@@ -49,7 +52,10 @@ const Profile = () => {
           <div className="text-[14px] leading-[17px] font-light align-top">
             {email}
           </div>
-          <div className="flex gap-10 pt-2">
+          <div
+            className="flex cursor-pointer gap-10 pt-2"
+            onClick={() => navigate("/follow")}
+          >
             <div className="text-[16px] font-normal leading-[17px]">
               팔로잉 {followingCounter}
             </div>

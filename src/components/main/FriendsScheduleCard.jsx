@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const MainScheduleCards = ({ schedules }) => {
+const FriendsScheduleCard = ({ schedules }) => {
   const navigate = useNavigate();
   const invitees = schedules.invitees;
   const time = schedules.time.split(":", 2).join(":");
@@ -95,8 +95,8 @@ const MainScheduleCards = ({ schedules }) => {
           hidden={dDay.hidden}
           className="items-center text-right w-full rigth-0 "
         >
-          <div className=" text-[#FFFFFF] font-[400] text-[18px]  ">
-            {dDay.dDay}-DAY
+          <div className="flex row flex-row-reverse text-[#FFFFFF] font-[400] text-[18px]  ">
+            {dDay.dDay === 0 ? <div>DAY</div> : <div>{dDay.dDay}</div>}D-
           </div>
         </div>
       </div>
@@ -104,4 +104,4 @@ const MainScheduleCards = ({ schedules }) => {
   );
 };
 
-export default MainScheduleCards;
+export default FriendsScheduleCard;

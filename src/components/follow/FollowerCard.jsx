@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { __postFollowState } from "../../redux/modules/FollowSlice";
 
 const FollowerCard = ({ follower }) => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isFollowed, setIsFollowed] = useState(
     follower.followStatus === "ACTIVE" && "INIT"
@@ -21,7 +23,14 @@ const FollowerCard = ({ follower }) => {
 
   return (
     <div className="flex gap-[90px] w-full mt-[16px]">
-      <div className="flex gap-[14px]">
+      <div
+        className="flex gap-[14px] "
+        onClick={() => {
+          navigate(`/friends/${follower.followId}`);
+          sessionStorage.setItem("clickedUserName", follower.username);
+          sessionStorage.setItem("clickedUserImg", follower.profile);
+        }}
+      >
         <div className="w-[50px] h-[50px]">
           <img
             className="w-full h-full rounded-full"
