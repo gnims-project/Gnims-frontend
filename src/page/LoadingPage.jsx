@@ -7,7 +7,7 @@ const LoadingPage = () => {
       <div
         style={{
           position: "fixed",
-          top: "30%",
+          top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
         }}
