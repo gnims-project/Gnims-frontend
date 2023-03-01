@@ -52,8 +52,8 @@ const Main = () => {
       <div className="container">
         <div className="grid grid-flow-row gap-[26px] ml-[20px] mr-[20px] mb-[75px]">
           <div className="mt-[30px] h-[56px] bg-[#FFFFFF] rounded-[10px] drop-shadow-lg">
-            <div className="">
-              <div className="">
+            <div className>
+              <div className>
                 <p className="leading-[36px] p-[10px] font-[700] text-[20px] text-textNavy">
                   {nickName}님 {welcomText[getRandom]}
                 </p>

@@ -27,6 +27,8 @@ import FriendsMain from "../components/main/FriendsMain";
 import ChangePasswordPage from "../page/ChangePasswordPage";
 
 const Router = () => {
+  const nickname = sessionStorage.getItem("nickname");
+
   return (
     <Container>
       <Layout>
@@ -36,7 +38,7 @@ const Router = () => {
           <Route path="/main" element={<MainPage />} />
           <Route path="/friends/:id" element={<FriendsMain />} />
           {/* <Route path="/main" element={<InfiniteScroll />} /> */}
-          {sessionStorage.getItem("nickname") ? (
+          {nickname ? (
             <Route path="/" element={<MainPage />} />
           ) : (
             <Route path="/" element={<LoginPage />} />
@@ -44,6 +46,7 @@ const Router = () => {
           <Route path="/detail/:id" element={<ScheduleDetailPage />} />
           <Route path="/friendsdetail/:id" element={<ScheduleDetailPage />} />
           <Route path="/schedule" element={<ScheduleRegisterPage />} />
+          <Route path="/schedule/edit" element={<ScheduleRegisterPage />} />
 
           {/* 무한스크롤 */}
           <Route path="/mainInfinite" element={<InfiniteScroll />} />

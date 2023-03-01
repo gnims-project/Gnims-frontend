@@ -41,7 +41,7 @@ const MainScheduleCards = ({ schedules }) => {
   return (
     <div
       onClick={onDetail}
-      className={`w-[335px] h-[180px] bg-white rounded-[10px]`}
+      className={`w-[335px] h-[180px] bg-white rounded-[10px]  border border-solid border-[#E8E8E8]  shadow-md`}
     >
       <div
         className={`flex items-center  h-[14px] ${bgColor} rounded-t-[10px] `}
