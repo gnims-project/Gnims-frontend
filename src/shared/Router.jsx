@@ -24,6 +24,7 @@ import PastEventsPage from "../page/PastEventsPage";
 import UserSearchPage from "../page/UserSearchPage";
 import FriendsMain from "../components/main/FriendsMain";
 
+
 const Router = () => {
   return (
     <Container>
@@ -41,7 +42,6 @@ const Router = () => {
           )}
           <Route path="/detail/:id" element={<ScheduleDetailPage />} />
           <Route path="/schedule" element={<ScheduleRegisterPage />} />
-          {/* <Route path="/detail/edit/:id" element={<ScheduleEditPage />} /> */}
 
           {/* 무한스크롤 */}
           <Route path="/mainInfinite" element={<InfiniteScroll />} />
