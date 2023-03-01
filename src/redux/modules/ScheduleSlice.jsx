@@ -76,7 +76,7 @@ export const __postSchedule = createAsyncThunk(
     try {
       console.log("보내는 스케줄", payload);
       const data = await ScheduleApi.postScheduleApi(payload.Schedule);
-      payload.dispatch(__getSchedule({ userId: payload.userId, page: 0 }));
+      payload.dispatch(__getSchedule(payload.userId));
       if (data.status === 201) {
       }
       // return thunkAPI.fulfillWithValue(data.data);
