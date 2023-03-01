@@ -22,7 +22,6 @@ import ProfileEditPage from "../page/ProfileEditPage";
 import InfiniteScroll from "../components/main/InfiniteScroll";
 import PastEventsPage from "../page/PastEventsPage";
 import UserSearchPage from "../page/UserSearchPage";
-import ScheduleEditPage from "../page/ScheduleEditPage";
 
 const Router = () => {
   return (
@@ -40,7 +39,6 @@ const Router = () => {
           )}
           <Route path="/detail/:id" element={<ScheduleDetailPage />} />
           <Route path="/schedule" element={<ScheduleRegisterPage />} />
-          {/* <Route path="/detail/edit/:id" element={<ScheduleEditPage />} /> */}
 
           {/* 무한스크롤 */}
           <Route path="/mainInfinite" element={<InfiniteScroll />} />
