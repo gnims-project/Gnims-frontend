@@ -40,11 +40,11 @@ const FollowingCard = ({ following }) => {
         <div className="flex w-[119px] items-center">{following.username}</div>
       </div>
       {isFollowed ? (
-        <div className="flex items-center w-[62px] h-[39px] justify-center text-sm rounded-[4px] text-white bg-[#A31414]">
+        <div className="flex items-center w-[62px] h-[39px] justify-center text-sm rounded-[4px] text-white bg-[#A31414] cursor-pointer">
           <span onClick={handleClick}>{isFollowed ? "취소" : "팔로우"}</span>
         </div>
       ) : (
-        <div className="flex items-center w-[62px] h-[39px] justify-center text-sm rounded-[4px] text-white bg-[#002C51]">
+        <div className="flex items-center w-[62px] h-[39px] justify-center text-sm rounded-[4px] text-white bg-[#002C51] cursor-pointer">
           <span onClick={handleClick}>{isFollowed ? "취소" : "팔로우"}</span>
         </div>
       )}
