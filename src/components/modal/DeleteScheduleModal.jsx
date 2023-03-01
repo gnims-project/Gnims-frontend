@@ -3,7 +3,6 @@ import React from "react";
 const DeleteScheduleModal = (confirmDeleteHandler, setDeleteModalOpen) => {
   return (
     <div>
-      딜리트모달이지롱{" "}
       <div className="text-black pt-8 items-center w-[300px] h-[167px]  text-center rounded-[16px] fixed top-[250px] bg-white">
         <div className="text-[18px] font-bold flex flex-col ">
           해당 일정을 삭제하시겠습니까?{" "}

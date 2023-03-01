@@ -4,7 +4,7 @@ import backIncom from "../../img/arrowback.png";
 const TopNavTitleBar = ({ children }) => {
   const navigate = useNavigate();
   return (
-    <div className="relative">
+    <div className="relative ">
       <div className="h-[48px] w-full bg-white flex items-center">
         <div className="h-[48px]">
           <img
