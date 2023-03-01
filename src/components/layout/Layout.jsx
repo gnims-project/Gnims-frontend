@@ -62,6 +62,9 @@ const Layout = ({ children }) => {
       case "/editProfile":
         setHeader(() => <TopNavTitleBar>프로필 변경</TopNavTitleBar>);
         break;
+      case "/login/auth/InputEmail":
+        setHeader(() => <TopNavTitleBar>이메일 입력</TopNavTitleBar>);
+        break;
       default:
         setHeader(null);
         break;
