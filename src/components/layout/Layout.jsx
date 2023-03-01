@@ -28,8 +28,19 @@ const Layout = ({ children }) => {
       case `/detail/${id}`:
         setHeader(() => <TopNavBar />);
         break;
+      case `/friendsdetail/${id}`:
+        setHeader(() => (
+          <TopNavTitleBar>
+            {sessionStorage.getItem("clickedUserName")}님의 일정
+          </TopNavTitleBar>
+        ));
+        break;
       case `/friends/${id}`:
-        setHeader(() => <TopNavTitleBar>내 친구의 일정</TopNavTitleBar>);
+        setHeader(() => (
+          <TopNavTitleBar>
+            {sessionStorage.getItem("clickedUserName")}님의 일정
+          </TopNavTitleBar>
+        ));
         break;
       case "/schedule":
         setHeader(() => <TopNavTitleBar>일정 추가</TopNavTitleBar>);

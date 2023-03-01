@@ -42,7 +42,7 @@ const FriendsScheduleCard = ({ schedules }) => {
   }, [invitees, dDay, schedules.invitees]);
 
   const onDetail = () => {
-    navigate(`/detail/${schedules.eventId}`);
+    navigate(`/friendsdetail/${schedules.eventId}`);
   };
 
   return (

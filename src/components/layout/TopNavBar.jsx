@@ -13,7 +13,7 @@ const TopNavBar = () => {
         <img
           src={gnimsLogo}
           alt="gnimsLogo"
-          className="mt-[4px] h-[40px] cursor-pointer"
+          className="mt-[15px] h-[20px] w-[73px] cursor-pointer"
           onClick={() => {
             navigate("/main");
           }}

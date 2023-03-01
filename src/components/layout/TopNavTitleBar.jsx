@@ -14,11 +14,10 @@ const TopNavTitleBar = ({ children }) => {
             //navigate 경로는 검색페이지루트가 정해지면 변경하면됩니다
             onClick={() => {
               navigate(-1);
-              console.log("검색페이지로이동");
             }}
           />
         </div>
-        <div className="absolute left-[145px] text-textBlack font-lg text-[20px]">
+        <div className="m-auto flex items-center text-textBlack font-lg text-[20px]">
           {children}
         </div>
       </div>

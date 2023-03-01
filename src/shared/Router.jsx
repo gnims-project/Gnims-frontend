@@ -40,6 +40,7 @@ const Router = () => {
             <Route path="/" element={<LoginPage />} />
           )}
           <Route path="/detail/:id" element={<ScheduleDetailPage />} />
+          <Route path="/friendsdetail/:id" element={<ScheduleDetailPage />} />
           <Route path="/schedule" element={<ScheduleRegisterPage />} />
           {/* <Route path="/detail/edit/:id" element={<ScheduleEditPage />} /> */}
 
