@@ -29,7 +29,7 @@ const ScheduleInvitation = () => {
   return (
     <div>
       <div className="flex p-5 gap-[30px] justify-items-center">
-        <div className="">
+        <div>
           <img
             className="rounded-full object-fill w-[86px] h-[86px]"
             src={profileImage}
