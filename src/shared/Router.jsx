@@ -1,33 +1,20 @@
 import React from "react";
 import { Route, Routes, Navigate} from "react-router-dom";
 import Layout from "../components/layout/Layout";
-import LoginPage from "../page/LoginPage";
-import SignupPage from "../page/SingupPage";
 import KakaoLogin from "../components/login/KakaoLogin";
 import KakaoLoginLoding from "../components/login/KakaoLoginLoding";
-import NaverLoginPage from "../page/NaverLoginPage";
 import NaverLoginLoding from "../components/login/NaverLoginLoding";
-import FollowPage from "../page/FollowPage";
 import Profile from "../components/mypage/Profile";
-import ScheduleRegisterPage from "../page/ScheduleRegisterPage";
-import ScheduleDetailPage from "../page/ScheduleDetailPage";
-import MainPage from "../page/MainPage";
-import SetProfileNamePage from "../page/SetProfileNamePage";
-import SetProfileImgPage from "../page/SetProfileImgPage";
-import NotificationsPage from "../page/NotificationsPage";
 import ScheduleInvitation from "../components/mypage/ScheduleInvitation";
-import ProfileEditPage from "../page/ProfileEditPage";
 import InfiniteScroll from "../components/main/InfiniteScroll";
-import PastEventsPage from "../page/PastEventsPage";
-import UserSearchPage from "../page/UserSearchPage";
-import InputEmailPage from "../page/InputEmailPage";
 import FriendsMain from "../components/main/FriendsMain";
-import ChangePasswordPage from "../page/ChangePasswordPage";
+import {ChangePasswordPage,InputEmailPage,UserSearchPage,PastEventsPage,ProfileEditPage,NotificationsPage,
+        SetProfileImgPage,SetProfileNamePage,MainPage,ScheduleDetailPage,ScheduleRegisterPage,FollowPage,
+        NaverLoginPage,SignupPage,LoginPage}from "../page/index"
 
 
 const Router = () => {
   const userId = sessionStorage.getItem("userId");
-  console.log(userId)
   return (
       <Layout>
         <Routes>
