@@ -32,6 +32,7 @@ const NotificationsList = () => {
           );
         });
         console.log(res);
+        console.log(notification);
       });
     };
     getNoti();
@@ -80,12 +81,12 @@ const NotificationsList = () => {
             newNotification.message
           );
 
-          setNotification((prevNotifications) => [
+          setNotifications((prevNotifications) => [
             newNotification,
             ...prevNotifications,
           ]);
           setNotification(
-            [...new Set(notification.map(JSON.stringify))].map(JSON.parse)
+            [...new Set(notifications.map(JSON.stringify))].map(JSON.parse)
           );
           console.log(
             "notifications 전체 배열은 이렇게 생겼어요",
@@ -112,12 +113,12 @@ const NotificationsList = () => {
             newNotification.message
           );
           console.log("follow알림도착!", data.message);
-          setNotification((prevNotifications) => [
+          setNotifications((prevNotifications) => [
             newNotification,
             ...prevNotifications,
           ]);
           setNotification(
-            [...new Set(notification.map(JSON.stringify))].map(JSON.parse)
+            [...new Set(notifications.map(JSON.stringify))].map(JSON.parse)
           );
         });
       } catch (error) {
@@ -126,10 +127,11 @@ const NotificationsList = () => {
     };
     fetchSse();
     console.log(notification);
+    console.log(notifications);
     return () => {
-      // eventSource.close();
+      eventSource.close();
     };
-  }, []);
+  }, [notifications, notification]);
 
   return (
     <div className="bg-[#FFFFFF] h-full">
@@ -148,7 +150,7 @@ const NotificationsList = () => {
                     ? navigate("/scheduleinvitation")
                     : navigate("/follow");
                 }}
-                className="pl-[20px] pr-[20px] pt-[20px] h-[86px]  text-right text-[#121213] border-solid border-[rgb(219,219,219)] border-b-[1px]"
+                className="pl-[20px] pr-[20px] pt-[20px] h-[86px]  text-left text-[#121213] border-solid border-[rgb(219,219,219)] border-b-[1px]"
               >
                 <div>
                   {notification.notificationType === "FRIENDSHIP" ? (
@@ -164,11 +166,11 @@ const NotificationsList = () => {
                       className="h-[26px] w-[26px] "
                     />
                   )}
-                  <div className="mt-[-20px] text-[14px] mr-[-5px]">
+                  <div className="mt-[-30px] text-[14px] ml-[50px]">
                     {notification.message}
                   </div>
                   <br />
-                  <span className="text-[#6F6F6F] text-[13px]">
+                  <span className="text-[#6F6F6F] text-[13px] ml-[50px]">
                     {notification.date}
                   </span>
                 </div>
