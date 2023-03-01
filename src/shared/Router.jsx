@@ -22,6 +22,8 @@ import ProfileEditPage from "../page/ProfileEditPage";
 import InfiniteScroll from "../components/main/InfiniteScroll";
 import PastEventsPage from "../page/PastEventsPage";
 import UserSearchPage from "../page/UserSearchPage";
+import FriendsMain from "../components/main/FriendsMain";
+
 
 const Router = () => {
   return (
@@ -31,6 +33,7 @@ const Router = () => {
           {/* 메인과 디테일 페이지 */}
           {/* <Route path="/main" element={<MainPage />} /> */}
           <Route path="/main" element={<MainPage />} />
+          <Route path="/friends/:id" element={<FriendsMain />} />
           {/* <Route path="/main" element={<InfiniteScroll />} /> */}
           {sessionStorage.getItem("nickname") ? (
             <Route path="/" element={<MainPage />} />

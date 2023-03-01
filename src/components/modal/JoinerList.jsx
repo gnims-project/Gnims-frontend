@@ -40,9 +40,9 @@ const JoinerList = ({
 
   return (
     <div className="mt-[20px] ">
-      <div className="pl-[10px] ">
+      <div className="pl-[10px] pr-[10px]">
         <div
-          className="flex  p-[10px] rounded-[10px]"
+          className="flex p-[10px] rounded-[10px]"
           //배경색바뀌는부분
           style={bgStyle}
           onClick={() => selectHandler(following.followId)}

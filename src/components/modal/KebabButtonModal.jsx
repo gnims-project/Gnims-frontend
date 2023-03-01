@@ -67,7 +67,7 @@ const KebabModal = ({ setModalOpen, id }) => {
             </div>
             <div
               onClick={scheduleEditHandler}
-              className="text-[#121213] font-bold pt-[23px] h-[60px] flex row border-solid border-[rgb(226,226,226)] border-b-[1px]"
+              className="cursor-pointer text-[#121213] font-bold pt-[23px] h-[60px] flex row border-solid border-[rgb(226,226,226)] border-b-[1px]"
             >
               <img
                 src={editIcon}
@@ -78,7 +78,7 @@ const KebabModal = ({ setModalOpen, id }) => {
             </div>
             <div
               onClick={scheduleDeleteHandler}
-              className="text-[#A31414] font-bold pt-[23px] h-[60px] flex row border-solid border-[rgb(226,226,226)] border-b-[1px]"
+              className="cursor-pointer text-[#A31414] font-bold pt-[23px] h-[60px] flex row border-solid border-[rgb(226,226,226)] border-b-[1px]"
             >
               <img
                 src={deleteIcon}
@@ -88,7 +88,7 @@ const KebabModal = ({ setModalOpen, id }) => {
               삭제
             </div>
             <div
-              className="m-auto text-center pt-[22px] h-[60px] font-bold"
+              className="cursor-pointer m-auto text-center pt-[22px] h-[60px] font-bold"
               onClick={closeModal}
             >
               닫기
