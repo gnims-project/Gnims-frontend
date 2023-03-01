@@ -13,7 +13,7 @@ const TopNavBar = () => {
         <img
           src={gnimsLogo}
           alt="gnimsLogo"
-          className="mt-[4px] h-[40px]"
+          className="mt-[4px] h-[40px] cursor-pointer"
           onClick={() => {
             navigate("/main");
           }}
@@ -21,7 +21,7 @@ const TopNavBar = () => {
       </div>
       <div className="flex flex-row gap-[19px]">
         <img
-          className="h-[24px] w-[24px] flex left-[255px] mt-[13px]"
+          className="h-[24px] w-[24px] flex left-[255px] cursor-pointer mt-[13px]"
           src={searchIcon}
           alt="검색버튼"
           //navigate 경로는 검색페이지루트가 정해지면 변경하면됩니다
@@ -31,7 +31,7 @@ const TopNavBar = () => {
           }}
         />
         <img
-          className="h-[24px] w-[24px] flex left-[293px] mt-[13px]"
+          className="h-[24px] cursor-pointer w-[24px] flex left-[293px] mt-[13px]"
           src={plusIcon}
           alt="추가버튼"
           onClick={() => {
@@ -41,8 +41,7 @@ const TopNavBar = () => {
           }}
         />
         <img
-          className="h-[24px] w-[24px] flex left-[331px] mt-[13px]
-      "
+          className="h-[24px] w-[24px] cursor-pointer flex left-[331px] mt-[13px]"
           src={notifyIcon}
           alt="알림버튼"
           onClick={() => {

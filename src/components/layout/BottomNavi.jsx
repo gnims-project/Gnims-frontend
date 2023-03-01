@@ -23,7 +23,7 @@ const BottomNavi = () => {
               handleIconClick("follow");
               navigate("/follow");
             }}
-            className="w-[24px] h-[24px]"
+            className="w-[24px] cursor-pointer h-[24px]"
           >
             <img
               src={onIcon === "follow" ? onFollow : offFollow}
@@ -37,7 +37,7 @@ const BottomNavi = () => {
               handleIconClick("home");
               navigate("/main");
             }}
-            className="w-[24px] h-[24px]"
+            className="w-[24px] h-[24px] cursor-pointer"
           >
             <img src={onIcon === "home" ? onHome : offHome} alt="홈" />
             {/* <img src={onIcon[1]? onHome : offHome} alt="홈" /> */}
@@ -48,7 +48,7 @@ const BottomNavi = () => {
               handleIconClick("My");
               navigate("/profile");
             }}
-            className="px-[3.5px] py-[5.5px] w-[24px] h-[24px]"
+            className="cursor-pointer px-[3.5px] c py-[5.5px] w-[24px] h-[24px]"
           >
             <img src={onIcon === "My" ? onMy : offMy} alt="마이" />
             {/* <img src={onIcon[2] ? onMy : offMy} alt="마이" /> */}

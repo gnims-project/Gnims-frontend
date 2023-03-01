@@ -17,6 +17,7 @@ import ScheduleModal from "../modal/ScheduleModal";
 // state.type:"add" 은 스케줄 추가, state.type:edit은 수정
 const ScheduleAdd = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   //스케줄 추가, 수정 분기를 결정할 state 값을 받아옴
   const { state } = useLocation();
 
@@ -27,11 +28,10 @@ const ScheduleAdd = () => {
       dispatch(scheduleReset());
     }
   }, []);
+
   //전역으로 받아오는 state
   const oldSchedule = useSelector((state) => state.ScheduleSlice.oldschedules);
   console.log("수정할 스케줄", oldSchedule);
-
-  const navigate = useNavigate();
 
   //필요한 변수들
   //날짜
@@ -41,8 +41,11 @@ const ScheduleAdd = () => {
       : ""
   );
 
-  const [selectedColor, setColorSelected] = useState("sora");
-  const [bgColor, setBgColor] = useState("bg-sora");
+
+  const [selectedColor, setColorSelected] = useState(
+    state.type === "edit" ? oldSchedule.cardColor : "sora"
+  );
+
 
   //제목
   const [subject, setSubject] = useState(
@@ -54,9 +57,27 @@ const ScheduleAdd = () => {
     state.type === "edit" ? oldSchedule.content : ""
   );
 
-  const [borderSora, setBorderSora] = useState("border-blackBorder");
-  const [borderPink, setBorderPink] = useState("border-none");
-  const [borderGreen, setBorderGreen] = useState("border-none");
+  const [borderSora, setBorderSora] = useState(
+    state.type !== "edit"
+      ? "border-blackBorder"
+      : oldSchedule.cardColor === "sora"
+      ? "border-blackBorder"
+      : "border-none"
+  );
+  const [borderPink, setBorderPink] = useState(
+    state.type !== "edit"
+      ? "border-none"
+      : oldSchedule.cardColor === "pink"
+      ? "border-blackBorder"
+      : "border-none"
+  );
+  const [borderGreen, setBorderGreen] = useState(
+    state.type !== "edit"
+      ? "border-none"
+      : oldSchedule.cardColor === "green"
+      ? "border-blackBorder"
+      : "border-none"
+  );
 
   //완료모달&경고모달
   const [modalOpen, setModalOpen] = useState(false);
@@ -88,7 +109,7 @@ const ScheduleAdd = () => {
   const onContentChangeHandler = (e) => {
     setContent(e.target.value);
   };
-  //팔로우 선택 // 추가작업 필요
+  //팔로우 선택
   const [participants, setParticipants] = useState([]);
   const onParticipantsChangeHandler = (e) => {
     // setParticipants(e.target.value);
@@ -157,7 +178,7 @@ const ScheduleAdd = () => {
       )}
       {modalOpen && <ScheduleModal setModalOpen={setModalOpen} />}
       {completeModal && (
-        <ScheduleAddModal setCompleteModal={setCompleteModal} />
+        <ScheduleAddModal state={state} setCompleteModal={setCompleteModal} />
       )}
       <div className="text-[#121213] ">
         <div className={"bg-[#F8FCFF] flex p-[20px] text-base"}>
@@ -166,19 +187,19 @@ const ScheduleAdd = () => {
               카드 테마 색상
               <div className="flex flex-row mt-4 ">
                 <div
-                  className={`${borderSora} border-solid border-[4px] rounded-[4px] w-[42px] h-[42px] bg-sora`}
+                  className={`${borderSora} border-solid border-[4px] cursor-pointer rounded-[4px] w-[42px] h-[42px] bg-sora`}
                   onClick={eventHandlerSora}
                 >
                   {""}
                 </div>
                 <div
-                  className={`${borderPink} border-solid border-[4px] rounded-[4px] ml-[17px] w-[42px] h-[42px] bg-pink`}
+                  className={`${borderPink} border-solid border-[4px] cursor-pointer rounded-[4px] ml-[17px] w-[42px] h-[42px] bg-pink`}
                   onClick={eventHandlerPink}
                 >
                   {""}
                 </div>
                 <div
-                  className={`${borderGreen} border-solid border-[4px] rounded-[4px] ml-[17px] w-[42px] h-[42px] bg-green`}
+                  className={`${borderGreen} border-solid border-[4px] cursor-pointer rounded-[4px] ml-[17px] w-[42px] h-[42px] bg-green`}
                   onClick={eventHandlerGreen}
                 >
                   {""}
@@ -188,7 +209,7 @@ const ScheduleAdd = () => {
             <div className="justify-center mt-6 font-medium ">
               날짜와 시간
               <DatePicker
-                className="static justify-center w-full h-12 mt-4 font-light text-center text-black rounded-md shadow bg-input placeholder-placeHolder text-l hover:bg-sky-100"
+                className="static z-[-20] justify-center cursor-pointer w-full h-12 mt-4 font-light text-center text-black rounded-md shadow bg-input placeholder-placeHolder text-l hover:bg-sky-100"
                 dateFormat="yyyy년 MM월 dd일 h:mm aa"
                 selected={selectedDate}
                 minDate={new Date()}
@@ -198,7 +219,7 @@ const ScheduleAdd = () => {
               />
             </div>
             {/* 참여자 input을 클릭시 친구 리스트가 */}
-            <div className="flex flex-col mt-6 font-semibold">
+            <div className="flex cursor-pointer flex-col mt-6 font-semibold">
               참여자
               <div
                 // value={}
@@ -207,28 +228,29 @@ const ScheduleAdd = () => {
                 }}
                 onChange={() => onParticipantsChangeHandler}
                 placeholder="함께할 친구들을 선택해주세요.(최대 5명)"
-                className="mt-4 shadow 
-              hover:bg-sky-100
-              text-center placeholder-placeHolder
-              w-[335px]
-              h-12
-              bg-input
-              justify-center
-              text-l
-              rounded-md
-              text-black
-              font-light
-              p-4
-              disabled
-             "
+                className={`mt-4 shadow hover:bg-sky-100 text-center placeholder-placeHolder w-[335px] h-12 bg-input justify-center text-l rounded-md text-black font-light p-4 ${
+                  state.type === "edit" ? "pointer-events-none" : ""
+                }`}
+                disabled={state.type === "edit"}
               >
-                {joinerWithoutDuplicate.length > 0 ? (
+                {state.type === "edit" ? (
+                  <div className="text-placeHolder">
+                    수정중에는 참여자를 변경 할 수 없습니다.
+                  </div>
+                ) : joinerWithoutDuplicate.length > 0 ? (
                   <div className=" text-placeHolder">{selectedJoinersName}</div>
                 ) : (
                   <div className=" text-placeHolder">
                     함께할 친구들을 선택해주세요.(최대 5명)
                   </div>
                 )}
+                {/* {joinerWithoutDuplicate.length > 0 ? (
+                  <div className=" text-placeHolder">{selectedJoinersName}</div>
+                ) : (
+                  <div className=" text-placeHolder">
+                    함께할 친구들을 선택해주세요.(최대 5명)
+                  </div>
+                )} */}
               </div>
             </div>
             <div className="flex flex-col mt-6 font-medium ">
@@ -236,7 +258,8 @@ const ScheduleAdd = () => {
               <input
                 value={subject}
                 onChange={onSubjectChangeHandler}
-                placeholder="일정 제목을 입력해주세요!(필수)"
+                placeholder="일정 제목을 입력해주세요!(필수, 최대 20자)"
+                maxlength="20"
                 className="mt-4 shadow
               hover:bg-sky-100 placeholder-placeHolder
               text-center
