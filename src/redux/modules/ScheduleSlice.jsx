@@ -60,9 +60,18 @@ export const __getScrollPage = createAsyncThunk(
   "schedule/getScrollPage",
   async (payload, thunkAPI) => {
     try {
-      console.log("__getScrollPage실행여부", payload);
-      const { data } = await ScheduleApi.getInfiniteScrollPage(payload);
-      console.log("슬라이스 데이터 확인여부", data.data);
+      console.log("__getScrollPage실행여부", payload.page);
+      const data = await ScheduleApi.getInfiniteScrollPage(payload);
+      console.log(data.data);
+      if (data.status === 200) {
+        if (data.data.totalPage === payload.page) {
+          payload.endRef.current = true;
+          return thunkAPI.fulfillWithValue(data.data.data);
+        }
+
+        payload.preventRef.current = true;
+        return thunkAPI.fulfillWithValue(data.data.data);
+      }
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       console.log(error);
@@ -157,6 +166,7 @@ export const ScheduleSlice = createSlice({
     [__getScrollPage.fulfilled]: (state, action) => {
       state.isLoading = false;
       console.log("slice getScrollpage", action.payload);
+      console.log("fullfiled action", action.payload);
       state.schedules = [...state.schedules, ...action.payload];
     },
     [__getScrollPage.rejected]: (state, action) => {

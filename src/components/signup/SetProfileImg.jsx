@@ -21,7 +21,7 @@ const SetProfileImg = () => {
   const imgRef = useRef();
   const [image, setImage] = useState(profilImg);
   const [imageFile, setImageFile] = useState("");
-
+  const [disabled, setDisabled] = useState(false);
   const imagePreview = () => {
     const reader = new FileReader();
     reader.readAsDataURL(imgRef.current.files[0]);
@@ -74,6 +74,9 @@ const SetProfileImg = () => {
   };
   const onMoalClose = () => {
     setOpen({ isOpen: false });
+    if (disabled) {
+      navigate("/login");
+    }
   };
 
   //이메일 회원가입시 백단 연결
@@ -91,18 +94,30 @@ const SetProfileImg = () => {
         },
       })
       .then((response) => {
-        console.log(response);
-        alert(`${response.data.message}`);
-        navigate("/login");
-        setLoading(false);
+        console.log(response.status);
+        if (response.status === 201) {
+          setDisabled(() => true);
+          console.log(response);
+          setModalStr({
+            modalTitle: "회원가입완료!",
+            modalMessage: "그님스와 함께 약속들을 관리해보아요!",
+          });
+          sessionStorage.removeItem("userName");
+          sessionStorage.removeItem("email");
+          sessionStorage.removeItem("password");
+          sessionStorage.removeItem("nickname");
+          sessionStorage.removeItem("singup");
+          onModalOpen();
+        }
       })
       .catch((error) => {
+        setDisabled(() => false);
         console.log(error.response);
         const { data } = error.response;
         if (data.status === 400) {
           console.log(data.message);
           setModalStr({
-            modalTitle: data.messages,
+            modalTitle: "다시 한 번 확인해주세요",
             modalMessage: "닉네임과 이름을 다시 한 번 확인해주세요.",
           });
           onModalOpen();
@@ -165,6 +180,7 @@ const SetProfileImg = () => {
             </div>
           </div>
           <button
+            disabled={disabled}
             onClick={onSingup}
             className="h-[50px] rounded w-full bg-[#002C51] font-[700] text-[#ffff] mt-[24px]"
           >

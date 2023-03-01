@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
+import MoonLoader from "react-spinners/MoonLoader";
 
-const IsModal = ({ isModalOpen, onMoalClose, message }) => {
+const IsModal = ({ isModalOpen, onMoalClose, message, isLoding }) => {
   const modalStr = message.ModalStr;
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -43,20 +44,36 @@ const IsModal = ({ isModalOpen, onMoalClose, message }) => {
       onRequestClose={() => setModalIsOpen(false)}
     >
       <div className="grid grid-flow-row gap-[20px] text-center">
-        <div className="flex flex-col items-center gap-[14px] mt-[10px]">
-          <h1 className="px-[10px]  text-[#12396F] text-[18px] font-[700] whitespace-pre-line">
-            {modalStr.modalTitle}
-          </h1>
-          <p className="font-[400] text-[14px] text-[#12396F] whitespace-pre">
-            {modalStr.modalMessage}
-          </p>
-        </div>
-        <button
-          className=" w-full bg-[#002C51] h-[40px] rounded-[4px] font-[600] text-[#fff]"
-          onClick={onMoalClose}
-        >
-          확인
-        </button>
+        {isLoding ? (
+          <div className="flex flex-col items-center mt-[35px]">
+            <MoonLoader
+              color="#36a6d6"
+              cssOverride={{}}
+              loading
+              size={50}
+              speedMultiplier={1}
+            />
+          </div>
+        ) : (
+          <>
+            <div className="flex flex-col items-center gap-[14px] mt-[10px]">
+              <h1 className="px-[10px]  text-[#12396F] text-[18px] font-[700] whitespace-pre-line">
+                {modalStr.modalTitle}
+              </h1>
+              <div className="h-[20px]">
+                <p className="font-[400] text-[14px] text-[#12396F] whitespace-pre">
+                  {modalStr.modalMessage}
+                </p>
+              </div>
+            </div>
+            <button
+              className=" w-full bg-[#002C51] h-[40px] rounded-[4px] font-[600] text-[#fff]"
+              onClick={onMoalClose}
+            >
+              확인
+            </button>
+          </>
+        )}
       </div>
     </Modal>
   );
