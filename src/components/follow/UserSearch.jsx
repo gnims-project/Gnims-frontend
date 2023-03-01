@@ -4,12 +4,15 @@ import { debounce } from "lodash";
 import { UserApi } from "../../api/UserApi";
 import SearchCards from "./SearchCards";
 import { useRef } from "react";
+import LoadingPage from "../../page/LoadingPage";
 
 const UserSearch = () => {
   const [user, setUser] = useState([]);
   const userSearchName = useRef();
   const [time, Settime] = useState(0);
+  const [loading, setLoading] = useState(false);
   const onUserSearch = (event) => {
+    setLoading(true);
     const { value } = event.target;
     console.log("test");
     Settime(() => 1000);
@@ -23,6 +26,7 @@ const UserSearch = () => {
       const userInfo = response.data;
       console.log(userInfo);
       setUser(() => userInfo);
+      setLoading(false);
     } catch (e) {
       console.log("api 호출 실패");
     }
@@ -34,6 +38,7 @@ const UserSearch = () => {
 
   return (
     <div className="container md mb-[50px]">
+      {loading && <LoadingPage />}
       <div className="">
         <div className="relative">
           <input

@@ -10,11 +10,13 @@ const IsModal = ({ isModalOpen, onMoalClose, message, isLoding }) => {
     overlay: {
       position: "fixed",
       top: 0,
-      left: 10,
-      right: 10,
+      left: 0,
+      right: 0,
       bottom: 0,
+      alignItems: "center",
       backgroundColor: "#53535339",
       zIndex: 10,
+      // width: "375px",
     },
     content: {
       justifyContent: "center",

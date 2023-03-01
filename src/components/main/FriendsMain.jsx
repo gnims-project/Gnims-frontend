@@ -16,20 +16,9 @@ const FriendsMain = () => {
   };
 
   useEffect(() => {
-    window.addEventListener("beforeunload", clearSessionStorage);
     getSchdule();
-    // 컴포넌트가 언마운트될 때, beforeunload 이벤트 해제
-    return () => {
-      window.removeEventListener("beforeunload", clearSessionStorage);
-    };
   }, []);
 
-  const clearSessionStorage = () => {
-    // 세션 스토리지 지우기
-    sessionStorage.removeItem("clickedUserName");
-    sessionStorage.removeItem("clickedUserImg");
-    console.log("비웠다");
-  };
   return (
     <>
       <div className="container">

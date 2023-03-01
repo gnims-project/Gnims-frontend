@@ -41,11 +41,9 @@ const ScheduleAdd = () => {
       : ""
   );
 
-
   const [selectedColor, setColorSelected] = useState(
     state.type === "edit" ? oldSchedule.cardColor : "sora"
   );
-
 
   //제목
   const [subject, setSubject] = useState(
@@ -160,16 +158,12 @@ const ScheduleAdd = () => {
       sessionStorage.removeItem("selectedJoiner");
       sessionStorage.removeItem("selectedJoinerNames");
       console.log("생성된 스케쥴:", newSchedule);
-      setTimeout(() => navigate("/main"), 2000);
+      setTimeout(() => navigate("/main"), 1000);
     } else {
       setModalOpen(true);
     }
   };
   const [followingListOpen, setFollowingListOpen] = useState(false);
-
-  // useEffect(() => {
-  //   console.log("오늘의 날짜는", today);
-  // }, []);
 
   return (
     <>
@@ -209,7 +203,7 @@ const ScheduleAdd = () => {
             <div className="justify-center mt-6 font-medium ">
               날짜와 시간
               <DatePicker
-                className="static z-[-20] justify-center cursor-pointer w-full h-12 mt-4 font-light text-center text-black rounded-md shadow bg-input placeholder-placeHolder text-l hover:bg-sky-100"
+                className="relative -z-9 justify-center cursor-pointer w-full h-12 mt-4 font-light text-center text-black rounded-md shadow bg-input placeholder-placeHolder text-l hover:bg-sky-100"
                 dateFormat="yyyy년 MM월 dd일 h:mm aa"
                 selected={selectedDate}
                 minDate={new Date()}
@@ -244,13 +238,6 @@ const ScheduleAdd = () => {
                     함께할 친구들을 선택해주세요.(최대 5명)
                   </div>
                 )}
-                {/* {joinerWithoutDuplicate.length > 0 ? (
-                  <div className=" text-placeHolder">{selectedJoinersName}</div>
-                ) : (
-                  <div className=" text-placeHolder">
-                    함께할 친구들을 선택해주세요.(최대 5명)
-                  </div>
-                )} */}
               </div>
             </div>
             <div className="flex flex-col mt-6 font-medium ">
