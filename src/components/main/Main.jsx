@@ -33,11 +33,11 @@ const Main = () => {
   };
 
   useEffect(() => {
-    const getemail = sessionStorage.getItem("email");
+    const getNickname = sessionStorage.getItem("nickname");
     const getprofilImg = sessionStorage.getItem("profileImage");
     const userId = sessionStorage.getItem("userId");
 
-    if (nickName && getemail) {
+    if (getNickname && userId) {
       if (getprofilImg) {
         setProfileImg(getprofilImg);
       }
@@ -45,7 +45,7 @@ const Main = () => {
     } else {
       navigate(`/login`);
     }
-  }, [navigate, nickName]);
+  }, [navigate, nickName, dispatch]);
 
   return (
     <>

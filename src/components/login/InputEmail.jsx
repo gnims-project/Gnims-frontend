@@ -225,7 +225,15 @@ const InputEmail = () => {
               />
               <div
                 onClick={onSendEmail}
+<<<<<<< HEAD
                 className="bg-[#FFFFFF] h-[50px] flex items-center border-solid border-2 text-[16px] font-[600] border-[#002C51] p-[5px] rounded-[4px] cursor-pointer"
+=======
+<<<<<<< Updated upstream
+                className=" bg-[#FFFFFF] flex items-center h-[50px] p-[5px] border-solid border-2 text-[16px] font-[600] border-[#002C51] rounded-[4px] leading-[28px] cursor-pointer"
+=======
+                className="bg-[#FFFFFF] h-[50px] flex items-center border-solid border-2 text-[16px] font-[600] border-[#002C51] p-[5px] rounded-[4px] cursor-pointer"
+>>>>>>> Stashed changes
+>>>>>>> 882c003dc362d87eeda9013aa11f153e22807a5a
               >
                 인증 요청
               </div>

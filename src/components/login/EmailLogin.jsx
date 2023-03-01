@@ -26,9 +26,7 @@ const EmailLogin = () => {
     shadowEmail: "",
     shadowPassword: "",
   });
-  const { isLoading } = useSelector((state) => state.LoginSlice);
 
-  console.log(isLoading);
   //서버에 전달하기 위한 input Ref 생성
   const userEmailRef = useRef();
   const userPasswordRef = useRef();
@@ -138,7 +136,6 @@ const EmailLogin = () => {
     window.location.href = KAKAO_AUTH_URL;
   };
 
-  console.log({ style });
   return (
     <div className="container h-full md ">
       <div className="ml-[20px] mr-[20px] ">
@@ -209,7 +206,10 @@ const EmailLogin = () => {
           </form>
           <div className="mt-[26px] grid grid-cols-2 text-center">
             <div className="border-4 border-indigo-600">
-              <button className="text-textBlack text-[16px] font-[400] px-[30px] py-[10px]">
+              <button
+                className="text-textBlack text-[16px] font-[400] px-[30px] py-[10px]"
+                onClick={() => navigate("/login/auth/InputEmail")}
+              >
                 비밀번호 재설정
               </button>
             </div>
