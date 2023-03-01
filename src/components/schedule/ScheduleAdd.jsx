@@ -17,6 +17,7 @@ import ScheduleModal from "../modal/ScheduleModal";
 // state.type:"add" 은 스케줄 추가, state.type:edit은 수정
 const ScheduleAdd = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   //스케줄 추가, 수정 분기를 결정할 state 값을 받아옴
   const { state } = useLocation();
 
@@ -27,11 +28,10 @@ const ScheduleAdd = () => {
       dispatch(scheduleReset());
     }
   }, []);
+
   //전역으로 받아오는 state
   const oldSchedule = useSelector((state) => state.ScheduleSlice.oldschedules);
   console.log("수정할 스케줄", oldSchedule);
-
-  const navigate = useNavigate();
 
   //필요한 변수들
   //날짜
@@ -41,7 +41,11 @@ const ScheduleAdd = () => {
       : ""
   );
 
-  const [selectedColor, setColorSelected] = useState("sora");
+
+  const [selectedColor, setColorSelected] = useState(
+    state.type === "edit" ? oldSchedule.cardColor : "sora"
+  );
+
 
   //제목
   const [subject, setSubject] = useState(
@@ -53,9 +57,27 @@ const ScheduleAdd = () => {
     state.type === "edit" ? oldSchedule.content : ""
   );
 
-  const [borderSora, setBorderSora] = useState("border-blackBorder");
-  const [borderPink, setBorderPink] = useState("border-none");
-  const [borderGreen, setBorderGreen] = useState("border-none");
+  const [borderSora, setBorderSora] = useState(
+    state.type !== "edit"
+      ? "border-blackBorder"
+      : oldSchedule.cardColor === "sora"
+      ? "border-blackBorder"
+      : "border-none"
+  );
+  const [borderPink, setBorderPink] = useState(
+    state.type !== "edit"
+      ? "border-none"
+      : oldSchedule.cardColor === "pink"
+      ? "border-blackBorder"
+      : "border-none"
+  );
+  const [borderGreen, setBorderGreen] = useState(
+    state.type !== "edit"
+      ? "border-none"
+      : oldSchedule.cardColor === "green"
+      ? "border-blackBorder"
+      : "border-none"
+  );
 
   //완료모달&경고모달
   const [modalOpen, setModalOpen] = useState(false);
@@ -87,7 +109,7 @@ const ScheduleAdd = () => {
   const onContentChangeHandler = (e) => {
     setContent(e.target.value);
   };
-  //팔로우 선택 // 추가작업 필요
+  //팔로우 선택
   const [participants, setParticipants] = useState([]);
   const onParticipantsChangeHandler = (e) => {
     // setParticipants(e.target.value);
@@ -156,7 +178,7 @@ const ScheduleAdd = () => {
       )}
       {modalOpen && <ScheduleModal setModalOpen={setModalOpen} />}
       {completeModal && (
-        <ScheduleAddModal setCompleteModal={setCompleteModal} />
+        <ScheduleAddModal state={state} setCompleteModal={setCompleteModal} />
       )}
       <div className="text-[#121213] ">
         <div className={"bg-[#F8FCFF] flex p-[20px] text-base"}>
@@ -206,28 +228,29 @@ const ScheduleAdd = () => {
                 }}
                 onChange={() => onParticipantsChangeHandler}
                 placeholder="함께할 친구들을 선택해주세요.(최대 5명)"
-                className="mt-4 shadow 
-              hover:bg-sky-100
-              text-center placeholder-placeHolder
-              w-[335px]
-              h-12
-              bg-input
-              justify-center
-              text-l
-              rounded-md
-              text-black
-              font-light
-              p-4
-              disabled
-             "
+                className={`mt-4 shadow hover:bg-sky-100 text-center placeholder-placeHolder w-[335px] h-12 bg-input justify-center text-l rounded-md text-black font-light p-4 ${
+                  state.type === "edit" ? "pointer-events-none" : ""
+                }`}
+                disabled={state.type === "edit"}
               >
-                {joinerWithoutDuplicate.length > 0 ? (
+                {state.type === "edit" ? (
+                  <div className="text-placeHolder">
+                    수정중에는 참여자를 변경 할 수 없습니다.
+                  </div>
+                ) : joinerWithoutDuplicate.length > 0 ? (
                   <div className=" text-placeHolder">{selectedJoinersName}</div>
                 ) : (
                   <div className=" text-placeHolder">
                     함께할 친구들을 선택해주세요.(최대 5명)
                   </div>
                 )}
+                {/* {joinerWithoutDuplicate.length > 0 ? (
+                  <div className=" text-placeHolder">{selectedJoinersName}</div>
+                ) : (
+                  <div className=" text-placeHolder">
+                    함께할 친구들을 선택해주세요.(최대 5명)
+                  </div>
+                )} */}
               </div>
             </div>
             <div className="flex flex-col mt-6 font-medium ">
