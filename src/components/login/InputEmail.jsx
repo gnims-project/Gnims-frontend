@@ -4,33 +4,47 @@ import LoginSignupInputBox from "../layout/input/LoginSignupInputBox";
 import IsModal from "../modal/Modal";
 import { useRef } from "react";
 import { LoginApi } from "../../api/LoginApi";
+import { useNavigate } from "react-router";
 
 const InputEmail = () => {
+  const navigator = useNavigate();
   const emailRef = useRef();
   const authenticationNumberRef = useRef();
+  const emailRegulationExp =
+    /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+
   const [style, setStyle] = useState({
     bgColorEmail: "bg-inputBox",
     shadowEmail: "",
     bgColorAuthenticationNumber: "bg-inputBox",
     shadowAuthenticationNumber: "",
   });
-  const [regulation, setRegulation] = useState("");
+  const [regulation, SetRegulation] = useState({
+    emailError: "",
+    authenticationNumberError: "",
+  });
   const [isOpen, setOpen] = useState(false);
   const [ModalStr, setModalStr] = useState({
     modalTitle: "",
     modalMessage: "",
   });
   const [isLoding, setIsLoding] = useState(false);
-  const [InputCheck, setInputCheck] = useState(false);
+  const [InputCheck, setInputCheck] = useState({ input: false, modal: false });
+
   const onModalOpen = () => {
     setOpen({ isOpen: true });
   };
   const onMoalClose = () => {
     setOpen({ isOpen: false });
+    if (InputCheck.modal) {
+      navigator("/ChangePassword");
+    }
   };
 
   const onInputColor = (event) => {
-    const { id, value } = event.target;
+    const { id } = event.target;
+    const emailRefCurrent = emailRef.current;
+    const authenticationNumberRefCurrent = authenticationNumberRef.current;
     if (id === "email") {
       console.log("email입니다");
       setStyle(() => ({
@@ -38,12 +52,26 @@ const InputEmail = () => {
         bgColorEmail: "bg-inputBoxFocus",
         shadowEmail: "drop-shadow-inputBoxShadow",
       }));
-      if (value.trim() === "") {
+      if (emailRefCurrent.value.trim() === "") {
         setStyle(() => ({
           ...style,
           bgColorEmail: "bg-inputBox",
           shadowEmail: "",
         }));
+      }
+      if (emailRegulationExp.test(emailRefCurrent.value)) {
+        SetRegulation(() => ({
+          ...regulation,
+          emailError: "",
+        }));
+      } else {
+        SetRegulation(() => ({
+          ...regulation,
+          emailError: "올바른 이메일 형식이 아닙니다.",
+        }));
+
+        emailRefCurrent.focus();
+        return;
       }
     } else {
       setStyle(() => ({
@@ -51,7 +79,7 @@ const InputEmail = () => {
         bgColorAuthenticationNumber: "bg-inputBoxFocus",
         shadowAuthenticationNumber: "drop-shadow-inputBoxShadow",
       }));
-      if (value.trim() === "") {
+      if (authenticationNumberRefCurrent.value.trim() === "") {
         setStyle(() => ({
           ...style,
           bgColorAuthenticationNumber: "bg-inputBox",
@@ -64,10 +92,19 @@ const InputEmail = () => {
   const onSendEmail = () => {
     const email = emailRef.current;
     if (email.value.trim() === "") {
-      setRegulation(() => "이메일을 입력해주세요");
+      SetRegulation(() => ({
+        ...regulation,
+        emailError: "이메일을 입력해주세요",
+      }));
+      email.focus();
+      return;
     } else {
-      setRegulation(() => "");
+      SetRegulation(() => ({
+        ...regulation,
+        emailError: "",
+      }));
     }
+
     sendEmail({ email: email.value });
   };
 
@@ -77,11 +114,15 @@ const InputEmail = () => {
       onModalOpen();
       const data = await LoginApi.SendEmailAuthenticationNumber(payload);
       setIsLoding(() => false);
-      setModalStr({
-        modalTitle: "이메일함을 확인해주세요",
-        modalMessage: "인증번호를 입력해주세요",
-      });
-      setInputCheck(() => true);
+      console.log(data);
+      if (data.status === 200) {
+        sessionStorage.setItem("changePasswordEmail", payload.email);
+        setModalStr({
+          modalTitle: "이메일함을 확인해주세요",
+          modalMessage: "인증번호를 입력해주세요",
+        });
+        setInputCheck(() => ({ ...InputCheck, input: true }));
+      }
     } catch (error) {
       console.log(error.response);
       const { data } = error.response;
@@ -100,16 +141,34 @@ const InputEmail = () => {
     const authenticationNumber = authenticationNumberRef.current;
 
     if (email.value.trim() === "") {
-      setRegulation(() => "이메일을 입력해주세요");
+      SetRegulation(() => ({
+        ...regulation,
+        emailError: "이메일을 입력해주세요",
+      }));
       email.focus();
       return;
-    } else if (authenticationNumber.value.trim() === "") {
-      setRegulation(() => "인증번호를 입력해주세요");
-      authenticationNumber.focus();
-      return;
+    } else {
+      SetRegulation(() => ({
+        ...regulation,
+        emailError: "",
+      }));
     }
 
-    if (InputCheck) {
+    if (authenticationNumber.value.trim() === "") {
+      SetRegulation(() => ({
+        ...regulation,
+        authenticationNumberError: "인증번호를 입력해주세요",
+      }));
+      authenticationNumber.focus();
+      return;
+    } else {
+      SetRegulation(() => ({
+        ...regulation,
+        authenticationNumberError: "",
+      }));
+    }
+
+    if (InputCheck.input) {
       onSubmitNextPageAxios({
         email: email.value,
         code: authenticationNumber.value,
@@ -121,18 +180,27 @@ const InputEmail = () => {
     try {
       setIsLoding(() => true);
       onModalOpen();
-      const data = await LoginApi.SendAuthenticationNumber(payload);
+      const { data } = await LoginApi.SendAuthenticationNumber(payload);
       setIsLoding(() => false);
       console.log(data);
+      if (data.status === 200) {
+        setModalStr({
+          ...ModalStr,
+          modalTitle: data.message,
+          modalMessage: "",
+        });
+        setInputCheck(() => ({ ...InputCheck, modal: true }));
+      }
     } catch (error) {
       console.log(error.response);
       const { data } = error.response;
       if (data.status === 400) {
         setIsLoding(() => false);
-        setModalStr({
+        setModalStr(() => ({
+          ...ModalStr,
           modalTitle: "인증번호 실패",
           modalMessage: `인증번호가 잘못 입력되었습니다. \n 인증요청을 재시도 해주세요.`,
-        });
+        }));
       }
     }
   };
@@ -157,14 +225,18 @@ const InputEmail = () => {
               />
               <div
                 onClick={onSendEmail}
+<<<<<<< Updated upstream
                 className=" bg-[#FFFFFF] flex items-center h-[50px] p-[5px] border-solid border-2 text-[16px] font-[600] border-[#002C51] rounded-[4px] leading-[28px] cursor-pointer"
+=======
+                className="bg-[#FFFFFF] h-[50px] flex items-center border-solid border-2 text-[16px] font-[600] border-[#002C51] p-[5px] rounded-[4px] cursor-pointer"
+>>>>>>> Stashed changes
               >
                 인증 요청
               </div>
             </div>
             <div className="flex items-center h-[20px]">
               <p className=" w-full font-[500] text-[16px]  text-[#DE0D0D] flex items-center">
-                {regulation}
+                {regulation.emailError}
               </p>
             </div>
             <div className="h-[full]">
@@ -177,6 +249,11 @@ const InputEmail = () => {
                 shadow={style.shadowAuthenticationNumber}
                 ref={authenticationNumberRef}
               />
+            </div>
+            <div className="flex items-center h-[20px]">
+              <p className=" w-full font-[500] text-[16px]  text-[#DE0D0D] flex items-center">
+                {regulation.authenticationNumberError}
+              </p>
             </div>
           </div>
           <div>

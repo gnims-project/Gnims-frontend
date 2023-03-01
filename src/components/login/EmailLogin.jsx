@@ -136,7 +136,6 @@ const EmailLogin = () => {
     window.location.href = KAKAO_AUTH_URL;
   };
 
-  console.log({ style });
   return (
     <div className="container h-full md ">
       <div className="ml-[20px] mr-[20px] ">

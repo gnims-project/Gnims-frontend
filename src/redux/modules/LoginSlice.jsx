@@ -108,6 +108,9 @@ const LoginSlice = createSlice({
     setMessage: (state, action) => {
       state.message = action.payload;
     },
+    setEmail: (state, action) => {
+      state.email = action.payload;
+    },
   },
   extraReducers: {
     //카카오 소셜로그인
