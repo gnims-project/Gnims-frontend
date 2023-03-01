@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 import MoonLoader from "react-spinners/MoonLoader";
+
 const IsModal = ({ isModalOpen, onMoalClose, message, isLoding }) => {
   const modalStr = message.ModalStr;
 
