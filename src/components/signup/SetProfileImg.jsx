@@ -94,7 +94,13 @@ const SetProfileImg = () => {
         console.log(response);
         alert(`${response.data.message}`);
         navigate("/login");
+        sessionStorage.removeItem("userName");
+        sessionStorage.removeItem("email");
+        sessionStorage.removeItem("password");
+        sessionStorage.removeItem("email");
+        sessionStorage.removeItem("singup");
         setLoading(false);
+
       })
       .catch((error) => {
         console.log(error.response);

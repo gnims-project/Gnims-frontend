@@ -40,7 +40,7 @@ const SearchCards = ({ userInfo }) => {
         <div className="flex w-[119px] items-center">{userInfo.username}</div>
       </div>
       {isFollowed || (
-        <div className="flex items-center w-[62px] h-[39px] justify-center text-sm rounded-[4px] text-white bg-[#002C51]">
+        <div className="flex items-center w-[62px] h-[39px] justify-center text-sm rounded-[4px] text-white bg-[#002C51] cursor-pointer">
           <span onClick={handleClick}>{isFollowed || "팔로우"}</span>
         </div>
       )}
