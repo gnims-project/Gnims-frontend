@@ -18,8 +18,6 @@ const Layout = ({ children }) => {
       case "/":
         if (userId !== null) {
           setHeader(() => <TopNavBar />);
-        } else {
-          setHeader(() => <TopNavTitleBar></TopNavTitleBar>);
         }
         break;
       case "/main":
@@ -82,6 +80,8 @@ const Layout = ({ children }) => {
         pagePathName.pathname === "/signup" ||
         pagePathName.pathname === "/signup/setProfileName" ||
         pagePathName.pathname === "/signup/setProfileImg" ||
+        pagePathName.pathname === "/main" ||
+        pagePathName.pathname === "/" ||
         pagePathName.pathname === `/detail/${id}` ? null : (
           <BottomNavi />
         )}
