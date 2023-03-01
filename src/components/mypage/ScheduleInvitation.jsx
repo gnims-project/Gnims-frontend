@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import LoadingPage from "../../page/LoadingPage";
 import { __getInvitation } from "../../redux/modules/InvitationSlice";
 import InvitationCard from "./ InvitationCard";
 import PageInfoCard from "./PageInfoCard";
@@ -19,7 +20,11 @@ const ScheduleInvitation = () => {
   }, [dispatch]);
 
   if (isLoading) {
-    return <div>로딩 중....</div>;
+    return (
+      <div>
+        <LoadingPage />
+      </div>
+    );
   }
 
   if (error) {
@@ -29,18 +34,9 @@ const ScheduleInvitation = () => {
   return (
     <div>
       <div className="flex p-5 gap-[30px] justify-items-center">
-        <div>
-          <img
-            className="rounded-full object-fill w-[86px] h-[86px]"
-            src={profileImage}
-            alt="사용자 프로필 사진"
-          />
-        </div>
-        <div>
-          <div className="text-[18px] font-[600] w-[198px] h-[44] py-[20px] leading-[21px]">
-            <span>{nickname} 님에게 온 일정 초대를 한 번에 볼 수 있어요.</span>
-          </div>
-        </div>
+        <PageInfoCard profileImg={profileImage} nickname={nickname}>
+          에게 온 일정 초대를 한 번에 볼 수 있어요.
+        </PageInfoCard>
       </div>
       <div>
         {invitation.map((invit) => (

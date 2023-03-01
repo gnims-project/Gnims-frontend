@@ -43,6 +43,9 @@ const Layout = ({ children }) => {
       case "/schedule":
         setHeader(() => <TopNavTitleBar>일정 추가</TopNavTitleBar>);
         break;
+      case "/schedule/edit":
+        setHeader(() => <TopNavTitleBar>일정 수정</TopNavTitleBar>);
+        break;
       case "/signup":
         setHeader(() => <TopNavTitleBar> 회원가입 </TopNavTitleBar>);
         break;
@@ -75,6 +78,9 @@ const Layout = ({ children }) => {
         break;
       case "/login/auth/InputEmail":
         setHeader(() => <TopNavTitleBar>이메일 입력</TopNavTitleBar>);
+        break;
+      case "/ChangePassword":
+        setHeader(() => <TopNavTitleBar>비밀번호 수정</TopNavTitleBar>);
         break;
       default:
         setHeader(null);
