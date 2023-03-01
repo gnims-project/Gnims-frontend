@@ -22,9 +22,9 @@ import ProfileEditPage from "../page/ProfileEditPage";
 import InfiniteScroll from "../components/main/InfiniteScroll";
 import PastEventsPage from "../page/PastEventsPage";
 import UserSearchPage from "../page/UserSearchPage";
-import ScheduleEditPage from "../page/ScheduleEditPage";
 import InputEmailPage from "../page/InputEmailPage";
 import FriendsMain from "../components/main/FriendsMain";
+import ChangePasswordPage from "../page/ChangePasswordPage";
 
 const Router = () => {
   return (
@@ -69,6 +69,7 @@ const Router = () => {
           <Route path="/follow" element={<FollowPage />} />
           <Route path="/pastEvents" element={<PastEventsPage />} />
           <Route path="/editProfile" element={<ProfileEditPage />} />
+          <Route path="/ChangePassword" element={<ChangePasswordPage />} />
           {/* 알람 */}
           <Route path="/notification" element={<NotificationsPage />} />
 
