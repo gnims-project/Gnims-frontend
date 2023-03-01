@@ -15,11 +15,11 @@ const Main = () => {
   console.log(schedules);
   const [nickName, setNickname] = useState(sessionStorage.getItem("nickname"));
   useEffect(() => {
-    const getemail = sessionStorage.getItem("email");
+    const getNickname = sessionStorage.getItem("nickname");
     const getprofilImg = sessionStorage.getItem("profileImage");
     const userId = sessionStorage.getItem("userId");
 
-    if (nickName && getemail) {
+    if (getNickname && userId) {
       if (getprofilImg) {
         setProfileImg(getprofilImg);
         dispatch(__getSchedule(userId));
@@ -27,7 +27,7 @@ const Main = () => {
     } else {
       navigate(`/login`);
     }
-  }, [navigate, nickName]);
+  }, [navigate, nickName, dispatch]);
 
   return (
     <>

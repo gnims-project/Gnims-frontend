@@ -41,7 +41,7 @@ const UserSearch = () => {
             placeholder="찾고자 하는 사용자 이름을 입력해 주세요."
           ></input>
           <img
-            className="absolute top-[20px] right-[40px]"
+            className="absolute top-[15px] right-[40px]"
             src={searchIcon}
             alt="돋보기 아이콘"
           />
