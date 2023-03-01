@@ -24,6 +24,7 @@ import PastEventsPage from "../page/PastEventsPage";
 import UserSearchPage from "../page/UserSearchPage";
 import ScheduleEditPage from "../page/ScheduleEditPage";
 import InputEmailPage from "../page/InputEmailPage";
+import FriendsMain from "../components/main/FriendsMain";
 
 const Router = () => {
   return (
@@ -33,14 +34,15 @@ const Router = () => {
           {/* 메인과 디테일 페이지 */}
           {/* <Route path="/main" element={<MainPage />} /> */}
           <Route path="/main" element={<MainPage />} />
-          {sessionStorage.getItem("userId") ? (
+          <Route path="/friends/:id" element={<FriendsMain />} />
+          {/* <Route path="/main" element={<InfiniteScroll />} /> */}
+          {sessionStorage.getItem("nickname") ? (
             <Route path="/" element={<MainPage />} />
           ) : (
             <Route path="/" element={<LoginPage />} />
           )}
           <Route path="/detail/:id" element={<ScheduleDetailPage />} />
           <Route path="/schedule" element={<ScheduleRegisterPage />} />
-          {/* <Route path="/detail/edit/:id" element={<ScheduleEditPage />} /> */}
 
           {/* 무한스크롤 */}
           <Route path="/mainInfinite" element={<InfiniteScroll />} />

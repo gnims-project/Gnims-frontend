@@ -34,7 +34,10 @@ const Main = () => {
       <div className="container">
         <div className="grid grid-flow-row mt-[] ml-[20px] mr-[20px]">
           <div className="mt-[30px] w-full h-[80px] bg-[#FFFFFF] rounded-[10px] drop-shadow-lg">
-            <div className="flex flex-row gap-[10px]">
+            <div
+              className="flex flex-row gap-[10px] cursor-pointer"
+              onClick={() => navigate("/profile")}
+            >
               <div className="p-[10px]">
                 <img
                   className="h-[60px] w-[60px] rounded-full"

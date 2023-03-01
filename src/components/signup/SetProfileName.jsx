@@ -178,7 +178,7 @@ const SetProfileName = () => {
       <div className="container md ">
         <div className="grid grid-flow-row gap-[9px]  ml-[20px] mr-[20px] mt-[36px]">
           <div className="font-[700] text-[32px] text-textBlack">
-            <h1>그남스 여정 준비 시작!</h1>
+            <h1>그님스 여정 준비 시작!</h1>
           </div>
           <div className="text-textBlack font-[400] text-[24px]">
             <label htmlFor="userName" className="cursor-pointer ">
