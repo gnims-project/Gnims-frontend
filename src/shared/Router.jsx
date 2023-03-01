@@ -33,12 +33,7 @@ const Router = () => {
           {/* 메인과 디테일 페이지 */}
           {/* <Route path="/main" element={<MainPage />} /> */}
           <Route path="/main" element={<MainPage />} />
-<<<<<<< HEAD
-          {/* <Route path="/main" element={<InfiniteScroll />} /> */}
-          {sessionStorage.getItem("nickname") ? (
-=======
           {sessionStorage.getItem("userId") ? (
->>>>>>> dev/passwordChange
             <Route path="/" element={<MainPage />} />
           ) : (
             <Route path="/" element={<LoginPage />} />
@@ -63,12 +58,8 @@ const Router = () => {
           <Route path="/kakaoLogin" element={<KakaoLogin />} />
           <Route path="auth/kakao/callback" element={<KakaoLoginLoding />} />
           <Route path="/naver/login" element={<NaverLoginPage />} />
-<<<<<<< HEAD
-          <Route path="/social/naver-login" element={<NaverLoginLoding />} />
-=======
           <Route path="/auth/naver/callback" element={<NaverLoginLoding />} />
           <Route path="/login/auth/InputEmail" element={<InputEmailPage />} />
->>>>>>> dev/passwordChange
 
           {/* 마이페이지 */}
           <Route path="/profile" element={<Profile />} />

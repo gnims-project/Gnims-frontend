@@ -157,7 +157,7 @@ const InputEmail = () => {
               />
               <div
                 onClick={onSendEmail}
-                className="bg-[#FFFFFF] border-solid border-2 text-[16px] font-[600] border-[#002C51] p-[10px] rounded-[4px] leading-[28px] cursor-pointer"
+                className=" bg-[#FFFFFF] flex items-center h-[50px] p-[5px] border-solid border-2 text-[16px] font-[600] border-[#002C51] rounded-[4px] leading-[28px] cursor-pointer"
               >
                 인증 요청
               </div>
