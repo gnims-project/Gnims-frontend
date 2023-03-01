@@ -22,13 +22,9 @@ import ProfileEditPage from "../page/ProfileEditPage";
 import InfiniteScroll from "../components/main/InfiniteScroll";
 import PastEventsPage from "../page/PastEventsPage";
 import UserSearchPage from "../page/UserSearchPage";
-import ScheduleEditPage from "../page/ScheduleEditPage";
 import InputEmailPage from "../page/InputEmailPage";
-<<<<<<< Updated upstream
 import FriendsMain from "../components/main/FriendsMain";
-=======
 import ChangePasswordPage from "../page/ChangePasswordPage";
->>>>>>> Stashed changes
 
 const Router = () => {
   return (
