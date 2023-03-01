@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import MainScheduleCards from "./MainScheduleCards";
 import { __getSchedule } from "../../redux/modules/ScheduleSlice";
@@ -9,9 +8,8 @@ import desc from "../../img/desc.png";
 import SelectorSort from "../modal/SelectorSort";
 
 const Main = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const nickName = useState(sessionStorage.getItem("nickname"));
+  const nickName = sessionStorage.getItem("nickname");
   const getRandom = Math.floor(Math.random() * (4 + 0) + 0);
   const { schedules } = useSelector((state) => state.ScheduleSlice);
   const [sortList, setSortList] = useState("D-Day");
@@ -53,7 +51,7 @@ const Main = () => {
             </div>
           </div>
           <div>
-            {/* <InfiniteScroll /> */}
+              {/* <InfiniteScroll /> */}
             <div className="flex flex-col gap-[30px]  rounded-[10px] ">
               {schedules?.map((list) => {
                 return (
