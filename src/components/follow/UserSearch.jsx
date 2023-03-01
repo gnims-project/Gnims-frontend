@@ -26,6 +26,7 @@ const UserSearch = () => {
       const userInfo = response.data;
       console.log(userInfo);
       setUser(() => userInfo);
+      setLoading(false);
     } catch (e) {
       console.log("api 호출 실패");
     }
