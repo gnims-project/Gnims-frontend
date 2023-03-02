@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import Layout from "../components/layout/Layout";
 import KakaoLogin from "../components/login/KakaoLogin";
@@ -28,8 +28,16 @@ import {
 } from "../page/index";
 
 const Router = () => {
-  const userId = sessionStorage.getItem("userId");
+  const [userId, setUserId] = useState(null);
+  console.log(userId);
   console.log(userId ? "참" : "거짓");
+
+  useEffect(() => {
+    const getUserId = sessionStorage.getItem("userId");
+    setUserId(() => getUserId);
+    console.log(userId);
+  }, [userId]);
+
   return (
     <Layout>
       <Routes>
@@ -40,6 +48,7 @@ const Router = () => {
         ) : (
           <Route path="/" element={<LoginPage />} />
         )}
+
         <Route
           path="/main"
           element={userId ? <MainPage /> : <Navigate replace to="/login" />}
@@ -100,7 +109,10 @@ const Router = () => {
         />
 
         {/* 로그인 */}
-        <Route path="/login" element={<LoginPage />} />
+        <Route
+          path="/login"
+          element={userId ? <Navigate replace to="/main" /> : <LoginPage />}
+        />
         <Route path="/kakaoLogin" element={<KakaoLogin />} />
         <Route path="auth/kakao/callback" element={<KakaoLoginLoding />} />
         <Route path="/naver/login" element={<NaverLoginPage />} />
