@@ -11,6 +11,7 @@ import NaverLogin from "../../page/NaverLoginPage";
 import Label from "../layout/Label";
 import LoginSignupInputBox from "../layout/input/LoginSignupInputBox";
 import gnimsLogo from "../../img/gnimslogo1.png";
+import { EventSourcePolyfill } from "event-source-polyfill";
 
 const EmailLogin = () => {
   const dispatch = useDispatch();
@@ -89,11 +90,28 @@ const EmailLogin = () => {
   const onMoalClose = () => {
     setOpen({ isOpen: false });
   };
-
+  let eventSource;
+  const fetchSse = async () => {
+    try {
+      //EventSource생성.
+      eventSource = new EventSourcePolyfill("https://eb.jxxhxxx.shop/connect", {
+        //headers에 토큰을 꼭 담아줘야 500이 안뜬다.
+        headers: {
+          Authorization: sessionStorage.getItem("accessToken"),
+        },
+        withCredentials: true,
+      });
+      // SSE 연결 성공 시 호출되는 이벤트 핸들러
+      eventSource.onopen = () => {
+        console.log("SSE 연결완료");
+      };
+    } catch (error) {
+      console.log("에러발생:", error);
+    }
+  };
   //서버에 전달
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
-
     const userEmailCurrent = userEmailRef.current;
     const userPasswordCurrent = userPasswordRef.current;
     const emailValue = userEmailCurrent.value;
@@ -120,7 +138,7 @@ const EmailLogin = () => {
       return;
     }
 
-    dispatch(
+    await dispatch(
       __emailLogin({
         email: emailValue,
         password: passwordValue,
@@ -129,6 +147,7 @@ const EmailLogin = () => {
         setModalStr,
       })
     );
+    onSubmit().then(fetchSse());
   };
 
   //카카오 로그인

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { instance } from "../../shared/AxiosInstance";
-import FriendsScheduleCard from "./FriendsScheduleCard";
+import MainScheduleCards from "./MainScheduleCards";
 
 const FriendsMain = () => {
   const id = useParams();
@@ -44,7 +44,7 @@ const FriendsMain = () => {
             <div className="flex flex-col gap-[30px] mt-[28px] rounded-[10px]">
               {schedule?.map((list) => {
                 return (
-                  <FriendsScheduleCard key={list.eventId} schedules={list} />
+                  <MainScheduleCards key={list.eventId} schedules={list} />
                 );
               })}
             </div>

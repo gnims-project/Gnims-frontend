@@ -2,20 +2,50 @@ import React, { useEffect, useState } from "react";
 import { EventSourcePolyfill } from "event-source-polyfill";
 import mentionIcon from "../../img/mention.png";
 import followIcon from "../../img/follow.png";
+import { useNavigate } from "react-router-dom";
+import { instance } from "../../shared/AxiosInstance";
 
 const NotificationsList = () => {
+  const navigate = useNavigate();
   //notifications는 최대 20개까지 알림을 담는 배열이다. [{id:34523452345, message:'안녕하세요'},{...},...]이런구조
   const [notifications, setNotifications] = useState([]);
+  const [notification, setNotification] = useState([]);
   const [recieveAt, setRecieveAt] = useState("");
+
+  const getNoti = async () => {
+    await instance.get("/notifications").then((res) => {
+      const newNotifications = res.data.data.map((data) => ({
+        id: data.notificationId,
+        message: data.message,
+        notificationType: data.notificationType,
+        date: data.dateTime.toString().split("T")[0],
+        isChecked: data.isChecked,
+      }));
+      setNotifications((prevNotifications) => [
+        ...newNotifications,
+        ...prevNotifications,
+      ]);
+    });
+  };
+
+  useEffect(() => {
+    getNoti();
+  }, []);
+
+  useEffect(() => {
+    const newNotification = [...new Set(notifications.map(JSON.stringify))].map(
+      JSON.parse
+    );
+    setNotification(newNotification);
+  }, [notifications]);
+
   useEffect(() => {
     let eventSource;
-
     const fetchSse = async () => {
       try {
         //EventSource생성.
         eventSource = new EventSourcePolyfill(
-          `https://eb.jxxhxxx.shop/connect`,
-          // "http://shinjeong.shop:8080/subscribe",
+          "https://eb.jxxhxxx.shop/connect",
           {
             //headers에 토큰을 꼭 담아줘야 500이 안뜬다.
             headers: {
@@ -34,57 +64,34 @@ const NotificationsList = () => {
           console.log("알림이 도착했습니다", data);
           console.log("data.content만 출력하면 이렇게", data.content);
           console.log(data);
-          const newNotification = {
-            id: Date.now(),
-            message: event.data,
-          };
-          setNotifications((prevNotifications) => [
-            newNotification,
-            ...prevNotifications,
-          ]);
         };
-        // eventSource.addEventListener("connect")이벤트핸들러는 새로운 알림을 notifications배열에 추가한다.
+        // 연결시에 콘솔이 찍힌다.
         eventSource.addEventListener("connect", (event) => {
-          const newNotification = {
-            id: Date.now(),
-            message: event.data,
-          };
-          console.log("connect 타입으로 연결.");
-          console.log(
-            "newNotification의 메세지만출력:",
-            newNotification.message
-          );
-          console.log("connect 데이터의 전체구조는:", event);
-
-          //20개까지만 notifications배열에 저장해서 리턴문에 보여주기위한 코드
-          setNotifications((prevNotifications) => [
-            newNotification,
-            ...prevNotifications,
-          ]);
-          console.log("notifications 배열은 이렇게 생겼어요", notifications);
+          console.log("connect 연결!", event);
         });
+
         eventSource.addEventListener("invite", (event) => {
           const data = JSON.parse(event.data);
           console.log("parsing한거", data);
           const newNotification = {
-            id: Date.now(),
+            id: data.notificationId,
             message: data.message,
+            notificationType: data.notificationType,
+            date: data.createAt.toString().split("T")[0],
+            isChecked: data.isChecked,
           };
-          const time = data.createAt;
-          setRecieveAt(time);
-          console.log(time);
-          console.log("newNotification 구조???????", newNotification);
           console.log(
             "invite newNotification message?????",
             newNotification.message
           );
-          console.log("파싱한 data", data);
-          console.log("data메세지만", data.message);
 
           setNotifications((prevNotifications) => [
             newNotification,
             ...prevNotifications,
           ]);
+          setNotification(
+            [...new Set(notifications.map(JSON.stringify))].map(JSON.parse)
+          );
           console.log(
             "notifications 전체 배열은 이렇게 생겼어요",
             notifications
@@ -95,10 +102,13 @@ const NotificationsList = () => {
           const data = JSON.parse(event.data);
           console.log("parsing한거", data);
           const newNotification = {
-            id: Date.now(),
+            id: data.notificationId,
             message: data.message,
+            notificationType: data.notificationType,
+            date: data.createAt.toString().split("T")[0],
+            isChecked: data.isChecked,
           };
-          const time = data.createAt;
+          const time = data.dateTime;
           setRecieveAt(time);
           console.log(time);
           console.log("newNotification follow 구조???????", newNotification);
@@ -106,16 +116,13 @@ const NotificationsList = () => {
             "follow newNotification message?????",
             newNotification.message
           );
-          console.log("파싱한 data", data);
-          console.log("data메세지만", data.message);
-
+          console.log("follow알림도착!", data.message);
           setNotifications((prevNotifications) => [
             newNotification,
             ...prevNotifications,
           ]);
-          console.log(
-            "notifications 전체 배열은 이렇게 생겼어요",
-            notifications
+          setNotification(
+            [...new Set(notifications.map(JSON.stringify))].map(JSON.parse)
           );
         });
       } catch (error) {
@@ -123,44 +130,54 @@ const NotificationsList = () => {
       }
     };
     fetchSse();
+    console.log(notification);
     return () => {
       eventSource.close();
-      console.log("notifications 배열은 이렇게 생겼어요", notifications);
     };
-  }, []);
+  }, [notification]);
 
   return (
     <div className="bg-[#FFFFFF] h-full">
       <div>
-        {notifications.map((notification) => (
+        {notification.map((notification) => (
           <div key={notification.id}>
             <div>
-              {notification.message.includes("안녕하세요") ? null : (
-                <div className="pl-[20px] pr-[20px] pt-[20px]  h-[86px] bg-[#F4F4F4] text-right text-[#121213] border-solid border-[rgb(219,219,219)] border-b-[1px]">
-                  <div>
-                    {notification.message.includes("팔로우") ? (
-                      <img
-                        src={followIcon}
-                        alt="followIcon"
-                        className="h-[26px] w-[26px] flex "
-                      />
-                    ) : (
-                      <img
-                        src={mentionIcon}
-                        alt="mentionIcon"
-                        className="h-[26px] w-[26px] "
-                      />
-                    )}
-                    <div className="mt-[-20px] text-[14px] mr-[-5px]">
-                      {notification.message}
-                    </div>
-                    <br />
-                    <span className="text-[#6F6F6F] text-[13px]">
-                      {recieveAt}
-                    </span>
+              <div
+                style={
+                  notification.isChecked === true
+                    ? { backgroundColor: "#F4F4F4", fontWeight: "light" }
+                    : { fontWeight: "bold", backgroundColor: "white" }
+                }
+                onClick={() => {
+                  notification.notificationType === "SCHEDULE"
+                    ? navigate("/scheduleinvitation")
+                    : navigate("/follow");
+                }}
+                className="pl-[20px] pr-[20px] pt-[20px] h-[86px]  text-left text-[#121213] border-solid border-[rgb(219,219,219)] border-b-[1px]"
+              >
+                <div>
+                  {notification.notificationType === "FRIENDSHIP" ? (
+                    <img
+                      src={followIcon}
+                      alt="followIcon"
+                      className="h-[26px] w-[26px] flex "
+                    />
+                  ) : (
+                    <img
+                      src={mentionIcon}
+                      alt="mentionIcon"
+                      className="h-[26px] w-[26px] "
+                    />
+                  )}
+                  <div className="mt-[-30px] text-[14px] ml-[50px]">
+                    {notification.message}
                   </div>
+                  <br />
+                  <span className="text-[#6F6F6F] text-[13px] ml-[50px]">
+                    {notification.date}
+                  </span>
                 </div>
-              )}
+              </div>
             </div>
           </div>
         ))}
