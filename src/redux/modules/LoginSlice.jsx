@@ -23,7 +23,7 @@ export const __emailLogin = createAsyncThunk(
       sessionStorage.setItem("nickname", nickname);
       sessionStorage.setItem("profileImage", profileImage);
       alert(`${nickname}님 어서오세요.`);
-      payload.navigate("/main");
+      window.location.href = "/main";
     } catch (error) {
       console.log(error);
       const { data } = error.response;
