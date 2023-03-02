@@ -28,22 +28,23 @@ instance.interceptors.request.use(
   }
 );
 
-instance.interceptors.response.use(
-  function (response) {
-    return response;
-  },
-  function (error) {
-    const errMsg = error.response.status;
+// instance.interceptors.response.use(
+//   function (response) {
+//     console.log(response);
+//     return response;
+//   },
+//   function (error) {
+//     const errMsg = error.response.status;
 
-    if (errMsg === 401) {
-      window.location.href = "/login";
-      return;
-    }
+//     if (errMsg === 401) {
+//       window.location.href = "/login";
+//       return;
+//     }
 
-    if (errMsg === 500) {
-      window.location.href = "/*";
-      return;
-    }
-    return Promise.reject(error);
-  }
-);
+//     if (errMsg === 500) {
+//       window.location.href = "/*";
+//       return;
+//     }
+//     return Promise.reject(error);
+//   }
+// );
