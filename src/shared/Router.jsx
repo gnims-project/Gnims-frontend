@@ -58,6 +58,8 @@ const Router = () => {
           {/* 찾기 */}
           <Route path="/userSearch" element={userId? <UserSearchPage /> : <Navigate replace to='/login' />} />
 
+          {/* 개발중 */}
+          <Route path="/developing" element={<DevelopIng />} />
         </Routes>
       </Layout>
    
