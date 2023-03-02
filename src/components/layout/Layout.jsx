@@ -8,13 +8,11 @@ import { useState } from "react";
 import TopNavTitleBar from "./TopNavTitleBar";
 
 const Layout = ({ children }) => {
-
   const pagePathName = useLocation();
   const [header, setHeader] = useState(null);
   const id = pagePathName.pathname.split("/")[2];
 
   useEffect(() => {
-    
     const userId = sessionStorage.getItem("userId");
     const pageName = pagePathName.pathname;
 
@@ -31,10 +29,10 @@ const Layout = ({ children }) => {
         setHeader(() => <TopNavBar />);
         break;
       case `/friendsdetail/${id}`:
-        setHeader(() => ( ()=>(
+        setHeader(() => () => (
           <TopNavTitleBar>
             {sessionStorage.getItem("clickedUserName")}님의 일정
-          </TopNavTitleBar>)
+          </TopNavTitleBar>
         ));
         break;
       case `/friends/${id}`:
@@ -85,6 +83,9 @@ const Layout = ({ children }) => {
         break;
       case "/ChangePassword":
         setHeader(() => <TopNavTitleBar>비밀번호 수정</TopNavTitleBar>);
+        break;
+      case "/developing":
+        setHeader(() => <TopNavTitleBar>개발중...</TopNavTitleBar>);
         break;
       default:
         setHeader(null);

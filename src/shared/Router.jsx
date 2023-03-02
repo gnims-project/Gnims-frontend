@@ -24,8 +24,8 @@ import {
   NaverLoginPage,
   SignupPage,
   LoginPage,
+  DevelopIng,
 } from "../page/index";
-import DevelopIng from "../page/DevelopIng";
 
 const Router = () => {
   const userId = sessionStorage.getItem("userId");

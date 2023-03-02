@@ -3,7 +3,7 @@ import developIng from "../img/developIng.png";
 
 const DevelopIng = () => {
   return (
-    <div className=" mt-[200px]">
+    <div className="relative top-[230px]">
       <div className="flex flex-col gap-[40px] items-center mx-auto w-[167px] h-[237px]">
         <div>
           <img src={developIng} alt="개발중" />
