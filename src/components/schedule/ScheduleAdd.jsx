@@ -7,7 +7,6 @@ import {
   scheduleReset,
   __postSchedule,
   __editSchedule,
-  __getSchedule,
   __getScheduleDetail,
 } from "../../redux/modules/ScheduleSlice";
 import FollowingModal from "../modal/FollowingModal";
@@ -203,7 +202,7 @@ const ScheduleAdd = () => {
             <div className="justify-center mt-6 font-medium ">
               날짜와 시간
               <DatePicker
-                className="relative -z-9 justify-center cursor-pointer w-full h-12 mt-4 font-light text-center text-black rounded-md shadow bg-input placeholder-placeHolder text-l hover:bg-sky-100"
+                className="relative -z-9 justify-center cursor-pointer w-[335px] h-12 mt-4 font-light text-center text-black rounded-md shadow bg-input placeholder-placeHolder text-l hover:bg-sky-100"
                 dateFormat="yyyy년 MM월 dd일 h:mm aa"
                 selected={selectedDate}
                 minDate={new Date()}
