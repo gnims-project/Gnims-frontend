@@ -91,22 +91,9 @@ const Router = () => {
         />
 
         {/* 회원가입 */}
-        <Route
-          path="/signup"
-          element={userId ? <SignupPage /> : <Navigate replace to="/login" />}
-        />
-        <Route
-          path="/signup/setProfileName"
-          element={
-            userId ? <SetProfileNamePage /> : <Navigate replace to="/login" />
-          }
-        />
-        <Route
-          path="/signup/setProfileImg"
-          element={
-            userId ? <SetProfileImgPage /> : <Navigate replace to="/login" />
-          }
-        />
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/signup/setProfileName" element={<SetProfileNamePage />} />
+        <Route path="/signup/setProfileImg" element={<SetProfileImgPage />} />
 
         {/* 로그인 */}
         <Route
