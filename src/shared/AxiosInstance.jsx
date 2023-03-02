@@ -1,4 +1,7 @@
 import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router";
+import LoadingPage from "../page/LoadingPage";
 
 export const instance = axios.create({
   //로컬
@@ -21,6 +24,26 @@ instance.interceptors.request.use(
   },
   (error) => {
     window.location("/login");
+    return Promise.reject(error);
+  }
+);
+
+instance.interceptors.response.use(
+  function (response) {
+    return response;
+  },
+  function (error) {
+    const errMsg = error.response.status;
+
+    if (errMsg === 401) {
+      window.location.href = "/login";
+      return;
+    }
+
+    if (errMsg === 500) {
+      window.location.href = "/*";
+      return;
+    }
     return Promise.reject(error);
   }
 );
