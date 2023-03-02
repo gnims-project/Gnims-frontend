@@ -54,9 +54,14 @@ const InvitationCard = ({ invit }) => {
           </ul>
         </div>
         <div className="flex relative top-[16px]">
-          <div className="flex gap-[35px] ml-[23px]">
+          <div className="flex gap-[30px] ml-[23px]">
             <span className="text-sm">{invit.date}</span>
-            <span className="text-sm">{`${morningAfternoon[1]} ${time}`}</span>
+            {hourClock > 12 ? (
+              <span className="text-sm">{`${morningAfternoon[1]} ${time}`}</span>
+            ) : (
+              <span className="text-sm">{`${morningAfternoon[0]} ${time}`}</span>
+            )}
+
             <span className="text-sm truncate">from.{invit.hostname}</span>
           </div>
         </div>
