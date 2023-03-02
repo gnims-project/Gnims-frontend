@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import MainScheduleCards from "./MainScheduleCards";
 import { __getSchedule } from "../../redux/modules/ScheduleSlice";
+import MainScheduleCards from "./MainScheduleCards";
 import BottomNavi from "../layout/BottomNavi";
 import desc from "../../img/desc.png";
 import SelectorSort from "../modal/SelectorSort";
@@ -53,11 +52,7 @@ const Main = () => {
           <div>
               {/* <InfiniteScroll /> */}
             <div className="flex flex-col gap-[30px]  rounded-[10px] ">
-              {schedules?.map((list) => {
-                return (
-                  <MainScheduleCards key={list.eventId} schedules={list} />
-                );
-              })}
+              { schedules?.map((list) => { return (<MainScheduleCards key={list.eventId} schedules={list} />); })}
             </div>
           </div>
         </div>

@@ -2,11 +2,7 @@ import React from "react";
 import ProfileEdit from "../components/mypage/ProfileEdit";
 
 const ProfileEditPage = () => {
-  return (
-    <div>
-      <ProfileEdit />
-    </div>
-  );
+  return <ProfileEdit />
 };
 
 export default ProfileEditPage;

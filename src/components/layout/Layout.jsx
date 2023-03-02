@@ -8,12 +8,16 @@ import { useState } from "react";
 import TopNavTitleBar from "./TopNavTitleBar";
 
 const Layout = ({ children }) => {
+
   const pagePathName = useLocation();
   const [header, setHeader] = useState(null);
   const id = pagePathName.pathname.split("/")[2];
+
   useEffect(() => {
+    
     const userId = sessionStorage.getItem("userId");
     const pageName = pagePathName.pathname;
+
     switch (pageName) {
       case "/":
         if (userId !== null) {
@@ -27,10 +31,10 @@ const Layout = ({ children }) => {
         setHeader(() => <TopNavBar />);
         break;
       case `/friendsdetail/${id}`:
-        setHeader(() => (
+        setHeader(() => ( ()=>(
           <TopNavTitleBar>
             {sessionStorage.getItem("clickedUserName")}님의 일정
-          </TopNavTitleBar>
+          </TopNavTitleBar>)
         ));
         break;
       case `/friends/${id}`:
