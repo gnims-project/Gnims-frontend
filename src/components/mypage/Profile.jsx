@@ -53,7 +53,7 @@ const Profile = () => {
             {email}
           </div>
           <div
-            className="flex cursor-pointer gap-10 pt-2"
+            className="flex gap-10 pt-2 cursor-pointer"
             onClick={() => navigate("/follow")}
           >
             <div className="text-[16px] font-normal leading-[17px]">
@@ -105,7 +105,7 @@ const Profile = () => {
         </div>
         <div
           onClick={() => {
-            navigate();
+            navigate("/developing");
           }}
           className="flex gap-[130px] p-[15px] border-b-[1px] border-[#BBD7FF] border-solid bg-white w-[375px] h-[50px] cursor-pointer"
         >
@@ -114,7 +114,7 @@ const Profile = () => {
         </div>
         <div
           onClick={() => {
-            navigate();
+            navigate("/developing");
           }}
           className="flex gap-[130px] p-[15px] border-b-[1px] border-[#BBD7FF] border-solid bg-white w-[375px] h-[50px] cursor-pointer"
         >

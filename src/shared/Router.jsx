@@ -25,6 +25,7 @@ import UserSearchPage from "../page/UserSearchPage";
 import InputEmailPage from "../page/InputEmailPage";
 import FriendsMain from "../components/main/FriendsMain";
 import ChangePasswordPage from "../page/ChangePasswordPage";
+import DevelopIng from "../page/DevelopIng";
 
 const Router = () => {
   const nickname = sessionStorage.getItem("nickname");
@@ -79,6 +80,8 @@ const Router = () => {
 
           {/* 찾기 */}
           <Route path="/userSearch" element={<UserSearchPage />} />
+          {/* 개발중 */}
+          <Route path="/developing" element={<DevelopIng />} />
         </Routes>
       </Layout>
     </Container>
