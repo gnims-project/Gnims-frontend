@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { instance } from "../../shared/AxiosInstance";
-
 import MainScheduleCards from "./MainScheduleCards";
 
 const FriendsMain = () => {

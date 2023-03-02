@@ -12,30 +12,34 @@ const NotificationsList = () => {
   const [notification, setNotification] = useState([]);
   const [recieveAt, setRecieveAt] = useState("");
 
+  const getNoti = async () => {
+    await instance.get("/notifications").then((res) => {
+      const newNotifications = res.data.data.map((data) => ({
+        id: data.notificationId,
+        message: data.message,
+        notificationType: data.notificationType,
+        date: data.dateTime.toString().split("T")[0],
+        isChecked: data.isChecked,
+      }));
+      setNotifications((prevNotifications) => [
+        ...newNotifications,
+        ...prevNotifications,
+      ]);
+    });
+  };
+
   useEffect(() => {
-    const getNoti = async () => {
-      await instance.get("/notifications").then((res) => {
-        res.data.data.map(function (data, i) {
-          const newNotification = {
-            id: data.notificationId,
-            message: data.message,
-            notificationType: data.notificationType,
-            date: data.dateTime.toString().split("T")[0],
-            isChecked: data.isChecked,
-          };
-          setNotifications((prevNotifications) => [
-            newNotification,
-            ...prevNotifications,
-          ]);
-          setNotification(
-            [...new Set(notifications.map(JSON.stringify))].map(JSON.parse)
-          );
-        });
-        console.log(res);
-        console.log(notification);
-      });
-    };
     getNoti();
+  }, []);
+
+  useEffect(() => {
+    const newNotification = [...new Set(notifications.map(JSON.stringify))].map(
+      JSON.parse
+    );
+    setNotification(newNotification);
+  }, [notifications]);
+
+  useEffect(() => {
     let eventSource;
     const fetchSse = async () => {
       try {
@@ -127,11 +131,10 @@ const NotificationsList = () => {
     };
     fetchSse();
     console.log(notification);
-    console.log(notifications);
     return () => {
       eventSource.close();
     };
-  }, [notifications, notification]);
+  }, [notification]);
 
   return (
     <div className="bg-[#FFFFFF] h-full">
