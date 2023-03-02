@@ -133,12 +133,7 @@ const Router = () => {
             userId ? <ProfileEditPage /> : <Navigate replace to="/login" />
           }
         />
-        <Route
-          path="/ChangePassword"
-          element={
-            userId ? <ChangePasswordPage /> : <Navigate replace to="/login" />
-          }
-        />
+        <Route path="/ChangePassword" element={<ChangePasswordPage />} />
 
         {/* 알람 */}
         <Route
