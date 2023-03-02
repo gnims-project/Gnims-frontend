@@ -29,15 +29,17 @@ import {
 
 const Router = () => {
   const userId = sessionStorage.getItem("userId");
+  console.log(userId ? "참" : "거짓");
   return (
     <Layout>
       <Routes>
         {/* 메인과 디테일 페이지 */}
         {/* <Route path="/main" element={<InfiniteScroll />} /> */}
-        <Route
-          path="/"
-          element={userId ? <MainPage /> : <Navigate replace to="/login" />}
-        />
+        {userId ? (
+          <Route path="/" element={<MainPage />} />
+        ) : (
+          <Route path="/" element={<LoginPage />} />
+        )}
         <Route
           path="/main"
           element={userId ? <MainPage /> : <Navigate replace to="/login" />}
