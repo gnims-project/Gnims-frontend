@@ -14,6 +14,24 @@ import SetProfileImgPage from "./SetProfileImgPage";
 import SetProfileNamePage from "./SetProfileNamePage";
 import SignupPage from "./SingupPage";
 import UserSearchPage from "./UserSearchPage";
+import DevelopIng from "./DevelopIng";
 
-export {ChangePasswordPage, FollowPage, InputEmailPage, LoadingPage, LoginPage, MainPage, NaverLoginPage, NotificationsPage, PastEventsPage, ProfileEditPage,
-ScheduleDetailPage,ScheduleRegisterPage,SetProfileImgPage,SetProfileNamePage,SignupPage,UserSearchPage}
+export {
+  ChangePasswordPage,
+  FollowPage,
+  InputEmailPage,
+  LoadingPage,
+  LoginPage,
+  MainPage,
+  NaverLoginPage,
+  NotificationsPage,
+  PastEventsPage,
+  ProfileEditPage,
+  ScheduleDetailPage,
+  ScheduleRegisterPage,
+  SetProfileImgPage,
+  SetProfileNamePage,
+  SignupPage,
+  UserSearchPage,
+  DevelopIng,
+};
