@@ -161,7 +161,6 @@ const EmailLogin = () => {
         <div className="grid grid-rows mt-[100px]">
           <div className="h-[150px]">
             <div className="mx-auto  w-[150px] h-[64px] overflow-hidden gap-[10px] ">
-              그님스를 많이 이용해주세요.
               <img
                 src={gnimsLogo}
                 alt="그님스 로고입니다."
