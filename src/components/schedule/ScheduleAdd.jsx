@@ -166,87 +166,90 @@ const ScheduleAdd = () => {
 
   return (
     <>
-      {followingListOpen && (
-        <FollowingModal setFollowingListOpen={setFollowingListOpen} />
-      )}
-      {modalOpen && <ScheduleModal setModalOpen={setModalOpen} />}
-      {completeModal && (
-        <ScheduleAddModal state={state} setCompleteModal={setCompleteModal} />
-      )}
-      <div className="text-[#121213] ">
-        <div className={"bg-[#F8FCFF] flex p-[20px] text-base"}>
-          <form>
-            <div className={"font-medium mt-[20px]"}>
-              카드 테마 색상
-              <div className="flex flex-row mt-4 ">
-                <div
-                  className={`${borderSora} border-solid border-[4px] cursor-pointer rounded-[4px] w-[42px] h-[42px] bg-sora`}
-                  onClick={eventHandlerSora}
-                >
-                  {""}
-                </div>
-                <div
-                  className={`${borderPink} border-solid border-[4px] cursor-pointer rounded-[4px] ml-[17px] w-[42px] h-[42px] bg-pink`}
-                  onClick={eventHandlerPink}
-                >
-                  {""}
-                </div>
-                <div
-                  className={`${borderGreen} border-solid border-[4px] cursor-pointer rounded-[4px] ml-[17px] w-[42px] h-[42px] bg-green`}
-                  onClick={eventHandlerGreen}
-                >
-                  {""}
+      <div className="w-[375px]">
+        {followingListOpen && (
+          <FollowingModal setFollowingListOpen={setFollowingListOpen} />
+        )}
+        {modalOpen && <ScheduleModal setModalOpen={setModalOpen} />}
+        {completeModal && (
+          <ScheduleAddModal state={state} setCompleteModal={setCompleteModal} />
+        )}
+        <div className="text-[#121213] ">
+          <div className={"bg-[#F8FCFF] flex p-[20px] text-base"}>
+            <form>
+              <div className={"font-medium mt-[20px]"}>
+                카드 테마 색상
+                <div className="flex flex-row mt-4 ">
+                  <div
+                    className={`${borderSora} border-solid border-[4px] cursor-pointer rounded-[4px] w-[42px] h-[42px] bg-sora`}
+                    onClick={eventHandlerSora}
+                  >
+                    {""}
+                  </div>
+                  <div
+                    className={`${borderPink} border-solid border-[4px] cursor-pointer rounded-[4px] ml-[17px] w-[42px] h-[42px] bg-pink`}
+                    onClick={eventHandlerPink}
+                  >
+                    {""}
+                  </div>
+                  <div
+                    className={`${borderGreen} border-solid border-[4px] cursor-pointer rounded-[4px] ml-[17px] w-[42px] h-[42px] bg-green`}
+                    onClick={eventHandlerGreen}
+                  >
+                    {""}
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="justify-center mt-6 font-medium ">
-              날짜와 시간
-              <DatePicker
-                className="relative -z-9 justify-center cursor-pointer w-[335px] h-12 mt-4 font-light text-center text-black rounded-md shadow bg-input placeholder-placeHolder text-l hover:bg-sky-100"
-                dateFormat="yyyy년 MM월 dd일 h:mm aa"
-                selected={selectedDate}
-                minDate={new Date()}
-                onChange={(date) => setSelectedDate(date)}
-                showTimeSelect
-                placeholderText="날짜를 선택해주세요!(필수)"
-              />
-            </div>
-            {/* 참여자 input을 클릭시 친구 리스트가 */}
-            <div className="flex cursor-pointer flex-col mt-6 font-semibold">
-              참여자
-              <div
-                // value={}
-                onClick={() => {
-                  setFollowingListOpen(true);
-                }}
-                onChange={() => onParticipantsChangeHandler}
-                placeholder="함께할 친구들을 선택해주세요.(최대 5명)"
-                className={`mt-4 shadow hover:bg-sky-100 text-center placeholder-placeHolder w-[335px] h-12 bg-input justify-center text-l rounded-md text-black font-light p-4 ${
-                  state.type === "edit" ? "pointer-events-none" : ""
-                }`}
-                disabled={state.type === "edit"}
-              >
-                {state.type === "edit" ? (
-                  <div className="text-placeHolder">
-                    수정중에는 참여자를 변경 할 수 없습니다.
-                  </div>
-                ) : joinerWithoutDuplicate.length > 0 ? (
-                  <div className=" text-placeHolder">{selectedJoinersName}</div>
-                ) : (
-                  <div className=" text-placeHolder">
-                    함께할 친구들을 선택해주세요.(최대 5명)
-                  </div>
-                )}
+              <div className="justify-center mt-6 font-medium ">
+                날짜와 시간
+                <DatePicker
+                  className="relative -z-9 justify-center cursor-pointer w-[335px] h-12 mt-4 font-light text-center text-black rounded-md shadow bg-input placeholder-placeHolder text-l hover:bg-sky-100"
+                  dateFormat="yyyy년 MM월 dd일 h:mm aa"
+                  selected={selectedDate}
+                  minDate={new Date()}
+                  onChange={(date) => setSelectedDate(date)}
+                  showTimeSelect
+                  placeholderText="날짜를 선택해주세요!(필수)"
+                />
               </div>
-            </div>
-            <div className="flex flex-col mt-6 font-medium ">
-              일정 제목{" "}
-              <input
-                value={subject}
-                onChange={onSubjectChangeHandler}
-                placeholder="일정 제목을 입력해주세요!(필수, 최대 20자)"
-                maxlength="20"
-                className="mt-4 shadow
+              {/* 참여자 input을 클릭시 친구 리스트가 */}
+              <div className="flex cursor-pointer flex-col mt-6 font-semibold">
+                참여자
+                <div
+                  // value={}
+                  onClick={() => {
+                    setFollowingListOpen(true);
+                  }}
+                  onChange={() => onParticipantsChangeHandler}
+                  placeholder="함께할 친구들을 선택해주세요.(최대 5명)"
+                  className={`mt-4 shadow hover:bg-sky-100 text-center placeholder-placeHolder w-[335px] h-12 bg-input justify-center text-l rounded-md text-black font-light p-4 ${
+                    state.type === "edit" ? "pointer-events-none" : ""
+                  }`}
+                  disabled={state.type === "edit"}
+                >
+                  {state.type === "edit" ? (
+                    <div className="text-placeHolder">
+                      수정중에는 참여자를 변경 할 수 없습니다.
+                    </div>
+                  ) : joinerWithoutDuplicate.length > 0 ? (
+                    <div className=" text-placeHolder">
+                      {selectedJoinersName}
+                    </div>
+                  ) : (
+                    <div className=" text-placeHolder">
+                      함께할 친구들을 선택해주세요.(최대 5명)
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="flex flex-col mt-6 font-medium ">
+                일정 제목{" "}
+                <input
+                  value={subject}
+                  onChange={onSubjectChangeHandler}
+                  placeholder="일정 제목을 입력해주세요!(필수, 최대 20자)"
+                  maxlength="20"
+                  className="mt-4 shadow
               hover:bg-sky-100 placeholder-placeHolder
               text-center
               w-[335px]
@@ -258,16 +261,18 @@ const ScheduleAdd = () => {
               text-black
               font-light
               p-4"
-              />
-            </div>
-            <div className="flex flex-col mt-6 font-medium ">
-              일정 내용
-              <input
-                value={content}
-                onChange={onContentChangeHandler}
-                placeholder="일정 내용을 입력해주세요.(선택)"
-                className="mt-4
+                />
+              </div>
+              <div className="flex flex-col mt-6 font-medium ">
+                일정 내용
+                <input
+                  value={content}
+                  onChange={onContentChangeHandler}
+                  placeholder="일정 내용을 입력해주세요.(선택)"
+                  maxlength="200"
+                  className="mt-4
               shadow
+              
               hover:bg-sky-100 placeholder-placeHolder
               text-center
               w-[335px]
@@ -279,15 +284,16 @@ const ScheduleAdd = () => {
               font-light
              p-4
              place-itmes-start"
-              />
-            </div>
-            <button
-              onClick={scheduleAddHandler}
-              className="mt-8 rounded-lg text-[16px] pt-[15px] font-semibold bg-[#002C51] text-white text-center align-middle w-[335px] h-[50px] justify-center flex shadow"
-            >
-              등록 완료
-            </button>
-          </form>
+                />
+              </div>
+              <button
+                onClick={scheduleAddHandler}
+                className="mt-8 rounded-lg text-[16px] pt-[15px] font-semibold bg-[#002C51] text-white text-center align-middle w-[335px] h-[50px] justify-center flex shadow"
+              >
+                등록 완료
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </>
