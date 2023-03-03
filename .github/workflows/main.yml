@@ -31,4 +31,4 @@ jobs:
           aws s3 cp \
             --recursive \
             --region ap-northeast-2 \
-            build s3://gnimsbuckettest
+            build s3://gnims.kr
