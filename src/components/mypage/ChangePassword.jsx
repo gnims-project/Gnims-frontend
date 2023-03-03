@@ -4,6 +4,7 @@ import LoginSignupInputBox from "../layout/input/LoginSignupInputBox";
 import IsModal from "../modal/Modal";
 import { useNavigate } from "react-router";
 import { UserApi } from "../../api/UserApi";
+import { async } from "q";
 
 const ChangePassword = () => {
   const navigator = useNavigate();
@@ -42,6 +43,7 @@ const ChangePassword = () => {
     if (InputCheck.modal && userId) {
       navigator("/main");
     } else if (InputCheck.modal && email) {
+      console.log("Login페이지로 가줘");
       navigator("/login");
     } else if (!InputCheck.input && !InputCheck.modal) {
       navigator("/login/auth/InputEmail");
@@ -176,31 +178,33 @@ const ChangePassword = () => {
 
   const onCangePassWordAxios = async (payload) => {
     try {
-      setIsLoding(() => true);
+      setIsLoding(true);
       onModalOpen();
       const data = await UserApi.passwordChange(payload);
-      setIsLoding(() => false);
+      setIsLoding(false);
       console.log(data);
       if (data.status === 200) {
+        setInputCheck({ ...InputCheck, modal: true });
         sessionStorage.removeItem("changePasswordEmail");
-        setInputCheck(() => ({ ...InputCheck, modal: true }));
-        setModalStr(() => ({
+        console.log("동작확인", setInputCheck);
+        console.log("동작확인", InputCheck.modal);
+        setModalStr({
           ...ModalStr,
           modalTitle: "비밀번호 변경을 성공했어요",
           modalMessage: "새로운 비밀번호로 변경이 되었습니다. ",
-        }));
+        });
       }
     } catch (error) {
       const { data } = error.response;
-      setIsLoding(() => false);
+      setIsLoding(false);
       if (data.status === 400) {
-        setInputCheck(() => ({ input: false, modal: false }));
-        setModalStr(() => ({
+        setInputCheck({ input: false, modal: false });
+        setModalStr({
           ...ModalStr,
           modalTitle: "비밀번호변경 실패",
           modalMessage:
             "인증번호가 유효하지 않습니다. \n 다시 인증요청을 재시도 해주세요.",
-        }));
+        });
       }
     }
   };
