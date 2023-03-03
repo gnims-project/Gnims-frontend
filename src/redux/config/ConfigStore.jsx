@@ -4,8 +4,7 @@ import ScheduleSlice from "../modules/ScheduleSlice";
 import SingupSlice from "../modules/SingupSlice";
 import InvitationSlice from "../modules/InvitationSlice";
 import FollowSlice from "../modules/FollowSlice";
-import NotificationSlice from "../modules/notificationSlice";
-
+import NotificationSlice from "../modules/NotificationSlice";
 
 const store = configureStore({
   reducer: {

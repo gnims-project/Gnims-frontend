@@ -4,8 +4,10 @@ import mentionIcon from "../../img/mention.png";
 import followIcon from "../../img/follow.png";
 import { useNavigate } from "react-router-dom";
 import { instance } from "../../shared/AxiosInstance";
+import { useDispatch } from "react-redux";
 
 const NotificationsList = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   //notifications는 최대 20개까지 알림을 담는 배열이다. [{id:34523452345, message:'안녕하세요'},{...},...]이런구조
   const [notifications, setNotifications] = useState([]);
@@ -56,20 +58,19 @@ const NotificationsList = () => {
             withCredentials: true,
           }
         );
-        // SSE 연결 성공 시 호출되는 이벤트 핸들러
+        // // SSE 연결 성공 시 호출되는 이벤트 핸들러
         eventSource.onopen = () => {
-          console.log("SSE 연결완료");
+          console.log("SSE onopen");
         };
         //알림이 왔을 때 취할 액션은 이 아래에.
         eventSource.onmessage = async (event) => {
           const data = await JSON.parse(event.data);
-          console.log("알림이 도착했습니다", data);
           console.log("data.content만 출력하면 이렇게", data.content);
           console.log(data);
         };
         // 연결시에 콘솔이 찍힌다.
         eventSource.addEventListener("connect", (event) => {
-          console.log("connect 연결!", event);
+          console.log(event.data);
         });
 
         eventSource.addEventListener("invite", (event) => {
@@ -82,7 +83,7 @@ const NotificationsList = () => {
             date: data.dateTime.toString().split("T")[0],
             isChecked: data.isChecked,
           };
-          console.log("invite메세지 도착! parsing한거", data);
+          alert("invite메세지 도착! parsing한거", data);
           setNotifications((prevNotifications) => [
             newNotification,
             ...prevNotifications,
