@@ -1,31 +1,28 @@
+
 name: React build
-
 on:
-  push:
-    branches:
-      - TestServer
-
+  pull_request:
+    branches: [testServer]
 jobs:
-  deploy:
-    runs-on: ubuntu-20.04
+  build:
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout source code
-        uses: actions/checkout@master
-
+        uses: actions/checkout@v2
       - name: Cache node modules
         uses: actions/cache@v2
         with:
           path: node_modules
-          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.OS }}-master-build-${{ hashFiles(‘**/yarn.lock’) }}
           restore-keys: |
             ${{ runner.OS }}-build-
             ${{ runner.OS }}-
-      - name: yarn install
-        run: yarn install
-
+      - name: Install Dependencies
+        run: yarn
       - name: Build
-        run: CI='' yarn build
-
+        run: yarn build
+        env:
+          CI: “”
       - name: Deploy
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY_ID }}
