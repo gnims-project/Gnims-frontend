@@ -2,7 +2,7 @@
 name: React build
 on:
   pull_request:
-    branches: [testServer]
+    branches: [TestServer]
 jobs:
   build:
     runs-on: ubuntu-latest
