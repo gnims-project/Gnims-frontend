@@ -3,7 +3,7 @@
 name: React build
 
 on:
-  push:
+   push:
     branches:
       - main
 
@@ -22,7 +22,6 @@ jobs:
           restore-keys: |
             ${{ runner.OS }}-build-
             ${{ runner.OS }}-
-
       - name: yarn install
         run: yarn install
 
@@ -31,10 +30,10 @@ jobs:
 
       - name: Deploy
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET_ACCESS_KEY }}
         run: |
           aws s3 cp \
             --recursive \
             --region ap-northeast-2 \
-            build s3://gnimsbuckettest
+            build s3://gnims.kr
