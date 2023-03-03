@@ -10,17 +10,19 @@ const NotificationsList = () => {
   //notifications는 최대 20개까지 알림을 담는 배열이다. [{id:34523452345, message:'안녕하세요'},{...},...]이런구조
   const [notifications, setNotifications] = useState([]);
   const [notification, setNotification] = useState([]);
-  const [recieveAt, setRecieveAt] = useState("");
 
   const getNoti = async () => {
     await instance.get("/notifications").then((res) => {
+      console.log(res);
       const newNotifications = res.data.data.map((data) => ({
         id: data.notificationId,
         message: data.message,
         notificationType: data.notificationType,
         date: data.dateTime.toString().split("T")[0],
         isChecked: data.isChecked,
+        time: data.dateTime.toString().split("T")[1].split(".")[0].slice(0, 5),
       }));
+      console.log(newNotifications);
       setNotifications((prevNotifications) => [
         ...newNotifications,
         ...prevNotifications,
@@ -72,19 +74,15 @@ const NotificationsList = () => {
 
         eventSource.addEventListener("invite", (event) => {
           const data = JSON.parse(event.data);
-          console.log("parsing한거", data);
+          console.log("invite메세지 도착! parsing한거", data);
           const newNotification = {
             id: data.notificationId,
             message: data.message,
             notificationType: data.notificationType,
-            date: data.createAt.toString().split("T")[0],
+            date: data.dateTime.toString().split("T")[0],
             isChecked: data.isChecked,
           };
-          console.log(
-            "invite newNotification message?????",
-            newNotification.message
-          );
-
+          console.log("invite메세지 도착! parsing한거", data);
           setNotifications((prevNotifications) => [
             newNotification,
             ...prevNotifications,
@@ -92,30 +90,19 @@ const NotificationsList = () => {
           setNotification(
             [...new Set(notifications.map(JSON.stringify))].map(JSON.parse)
           );
-          console.log(
-            "notifications 전체 배열은 이렇게 생겼어요",
-            notifications
-          );
         });
 
         eventSource.addEventListener("follow", (event) => {
           const data = JSON.parse(event.data);
-          console.log("parsing한거", data);
+          console.log("follow메세지 도착! parsing한거", data);
           const newNotification = {
             id: data.notificationId,
             message: data.message,
             notificationType: data.notificationType,
-            date: data.createAt.toString().split("T")[0],
+            date: data.dateTime.toString().split("T")[0],
             isChecked: data.isChecked,
           };
-          const time = data.dateTime;
-          setRecieveAt(time);
-          console.log(time);
-          console.log("newNotification follow 구조???????", newNotification);
-          console.log(
-            "follow newNotification message?????",
-            newNotification.message
-          );
+
           console.log("follow알림도착!", data.message);
           setNotifications((prevNotifications) => [
             newNotification,
@@ -149,6 +136,7 @@ const NotificationsList = () => {
                     : { fontWeight: "bold", backgroundColor: "white" }
                 }
                 onClick={() => {
+                  instance.get(`/notifications/${notification.id}`);
                   notification.notificationType === "SCHEDULE"
                     ? navigate("/scheduleinvitation")
                     : navigate("/follow");
@@ -175,6 +163,7 @@ const NotificationsList = () => {
                   <br />
                   <span className="text-[#6F6F6F] text-[13px] ml-[50px]">
                     {notification.date}
+                    <span className="ml-[5px]">{notification.time}</span>
                   </span>
                 </div>
               </div>

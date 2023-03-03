@@ -142,6 +142,12 @@ const Router = () => {
             userId ? <NotificationsPage /> : <Navigate replace to="/login" />
           }
         />
+        <Route
+          path="/notifications/:id"
+          element={
+            userId ? <ScheduleInvitation /> : <Navigate replace to="/login" />
+          }
+        />
 
         {/* 찾기 */}
         <Route
