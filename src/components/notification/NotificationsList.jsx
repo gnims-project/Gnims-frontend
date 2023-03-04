@@ -58,7 +58,7 @@ const NotificationsList = () => {
             withCredentials: true,
           }
         );
-        // // SSE 연결 성공 시 호출되는 이벤트 핸들러
+        // SSE 연결 성공 시 호출되는 이벤트 핸들러
         eventSource.onopen = () => {
           console.log("SSE onopen");
         };

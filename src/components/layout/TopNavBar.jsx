@@ -36,12 +36,12 @@ const TopNavBar = () => {
       };
       eventSource.addEventListener("follow", (e) => {
         const data = JSON.parse(e.data);
-        alert(data.message);
+        // alert(data.message);
         setAllChecked("");
       });
       eventSource.addEventListener("invite", (e) => {
         const data = JSON.parse(e.data);
-        alert(data.message);
+        // alert(data.message);
         setAllChecked("");
       });
     } catch (error) {
