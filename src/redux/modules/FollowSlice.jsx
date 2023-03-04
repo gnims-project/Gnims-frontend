@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { instance } from "../../shared/AxiosInstance";
+import { useDispatch } from "react-redux";
 
 const initialState = {
   followingList: [],
@@ -31,7 +32,6 @@ export const __getFollowing = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await instance.get(`/friendship/followings`);
-      console.log("팔로잉", data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       console.log(error.response.data.errorMessage);
