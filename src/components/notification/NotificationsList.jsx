@@ -83,7 +83,7 @@ const NotificationsList = () => {
             date: data.dateTime.toString().split("T")[0],
             isChecked: data.isChecked,
           };
-          alert("invite메세지 도착! parsing한거", data);
+          // alert("invite메세지 도착! parsing한거", data);
           setNotifications((prevNotifications) => [
             newNotification,
             ...prevNotifications,
