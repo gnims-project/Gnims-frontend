@@ -80,10 +80,10 @@ const MainScheduleCards = ({ schedules }) => {
               <div className="h-[40px]">
                 <div hidden={inviteesList.hidden} className="flex space-x-32">
                   <div className="flex -space-x-5 overflow-hidden ">
-                    {invitees.map((list) => {
+                    {invitees.map((list, index) => {
                       return (
                         <div
-                          key={list.username}
+                          key={index}
                           className="flex  rounded-full border-white border-2"
                         >
                           <img

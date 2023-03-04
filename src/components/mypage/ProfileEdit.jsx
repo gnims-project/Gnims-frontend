@@ -10,7 +10,10 @@ const ProfileEdit = () => {
   const profileImage = sessionStorage.getItem("profileImage");
   const [image, setImage] = useState(profileImage);
   const [loading, setLoading] = useState(true);
-
+  const isImageSelected =
+    imgRef.current && imgRef.current.files && imgRef.current.files.length > 0;
+  const isDisabled = loading || !isImageSelected;
+  //이미지 미리보기
   const imagePreview = () => {
     const reader = new FileReader();
     reader.readAsDataURL(imgRef.current.files[0]);
@@ -21,18 +24,31 @@ const ProfileEdit = () => {
       };
     });
   };
-
+  //프로필이미지 삭제하는 핸들러
+  const imgResetHandle = async () => {
+    setLoading(true);
+    const formData = new FormData();
+    formData.append("image", null);
+    const response = await UserApi.editProfile(formData);
+    console.log(response);
+    if (response.status === 200) {
+      alert("프로필이미지가 변경되었습니다!");
+      setLoading(false);
+      navigate("/main");
+      sessionStorage.setItem("profileImage", response.data.data.profileImage);
+    }
+  };
+  //변경핸들러
   const editHandler = async () => {
     setLoading(true);
     try {
       const imgFile = imgRef.current.files[0];
       console.log(imgFile);
       const formData = new FormData();
-      formData.append("image", imgFile);
-      console.log(formData);
-      for (const [key, value] of formData.entries()) {
-        console.log(key, value);
+      if (imgFile !== undefined) {
+        formData.append("image", imgFile);
       }
+
       const response = await UserApi.editProfile(formData);
       console.log(response);
       if (response.status === 200) {
@@ -98,12 +114,21 @@ const ProfileEdit = () => {
               />
             </div>
           </div>
-          <button
-            className="h-[50px] rounded w-full bg-[#002C51] font-[700] text-[#ffff] mt-[24px]"
-            onClick={editHandler}
-          >
-            수정 완료
-          </button>
+          <div className="flex row">
+            <button
+              className="h-[50px] rounded w-1/2 bg-[#002C51] font-[700] text-[#ffff] mt-[24px]"
+              onClick={editHandler}
+              disabled={isDisabled}
+            >
+              수정 완료
+            </button>
+            <button
+              className="h-[50px] rounded w-1/2 ml-[15px] bg-[#6F6F6F] font-[700] text-[#ffff] mt-[24px]"
+              onClick={imgResetHandle}
+            >
+              기본 이미지로 변경
+            </button>
+          </div>
         </div>
       </div>
     </div>

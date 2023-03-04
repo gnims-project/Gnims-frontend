@@ -4,23 +4,26 @@ import mentionIcon from "../../img/mention.png";
 import followIcon from "../../img/follow.png";
 import { useNavigate } from "react-router-dom";
 import { instance } from "../../shared/AxiosInstance";
+import { useDispatch } from "react-redux";
 
 const NotificationsList = () => {
   const navigate = useNavigate();
   //notifications는 최대 20개까지 알림을 담는 배열이다. [{id:34523452345, message:'안녕하세요'},{...},...]이런구조
   const [notifications, setNotifications] = useState([]);
   const [notification, setNotification] = useState([]);
-  const [recieveAt, setRecieveAt] = useState("");
 
   const getNoti = async () => {
     await instance.get("/notifications").then((res) => {
+      console.log(res);
       const newNotifications = res.data.data.map((data) => ({
         id: data.notificationId,
         message: data.message,
         notificationType: data.notificationType,
         date: data.dateTime.toString().split("T")[0],
         isChecked: data.isChecked,
+        time: data.dateTime.toString().split("T")[1].split(".")[0].slice(0, 5),
       }));
+      console.log(newNotifications);
       setNotifications((prevNotifications) => [
         ...newNotifications,
         ...prevNotifications,
@@ -56,35 +59,29 @@ const NotificationsList = () => {
         );
         // SSE 연결 성공 시 호출되는 이벤트 핸들러
         eventSource.onopen = () => {
-          console.log("SSE 연결완료");
+          console.log("SSE onopen");
         };
         //알림이 왔을 때 취할 액션은 이 아래에.
         eventSource.onmessage = async (event) => {
           const data = await JSON.parse(event.data);
-          console.log("알림이 도착했습니다", data);
-          console.log("data.content만 출력하면 이렇게", data.content);
-          console.log(data);
         };
         // 연결시에 콘솔이 찍힌다.
         eventSource.addEventListener("connect", (event) => {
-          console.log("connect 연결!", event);
+          console.log(event.data);
         });
 
         eventSource.addEventListener("invite", (event) => {
           const data = JSON.parse(event.data);
-          console.log("parsing한거", data);
+          console.log("invite메세지 도착! parsing한거", data);
+          // alert("초대가 도착했습니다", data.message);
           const newNotification = {
             id: data.notificationId,
             message: data.message,
             notificationType: data.notificationType,
-            date: data.createAt.toString().split("T")[0],
+            date: data.dateTime.toString().split("T")[0],
             isChecked: data.isChecked,
           };
-          console.log(
-            "invite newNotification message?????",
-            newNotification.message
-          );
-
+          // alert("invite메세지 도착! parsing한거", data);
           setNotifications((prevNotifications) => [
             newNotification,
             ...prevNotifications,
@@ -92,30 +89,19 @@ const NotificationsList = () => {
           setNotification(
             [...new Set(notifications.map(JSON.stringify))].map(JSON.parse)
           );
-          console.log(
-            "notifications 전체 배열은 이렇게 생겼어요",
-            notifications
-          );
         });
 
         eventSource.addEventListener("follow", (event) => {
           const data = JSON.parse(event.data);
-          console.log("parsing한거", data);
+          console.log("follow메세지 도착! parsing한거", data);
           const newNotification = {
             id: data.notificationId,
             message: data.message,
             notificationType: data.notificationType,
-            date: data.createAt.toString().split("T")[0],
+            date: data.dateTime.toString().split("T")[0],
             isChecked: data.isChecked,
           };
-          const time = data.dateTime;
-          setRecieveAt(time);
-          console.log(time);
-          console.log("newNotification follow 구조???????", newNotification);
-          console.log(
-            "follow newNotification message?????",
-            newNotification.message
-          );
+
           console.log("follow알림도착!", data.message);
           setNotifications((prevNotifications) => [
             newNotification,
@@ -137,7 +123,7 @@ const NotificationsList = () => {
   }, [notification]);
 
   return (
-    <div className="bg-[#FFFFFF] h-full">
+    <div className="bg-[#FFFFFF] w-[375px] h-full">
       <div>
         {notification.map((notification) => (
           <div key={notification.id}>
@@ -149,6 +135,7 @@ const NotificationsList = () => {
                     : { fontWeight: "bold", backgroundColor: "white" }
                 }
                 onClick={() => {
+                  instance.get(`/notifications/${notification.id}`);
                   notification.notificationType === "SCHEDULE"
                     ? navigate("/scheduleinvitation")
                     : navigate("/follow");
@@ -175,6 +162,7 @@ const NotificationsList = () => {
                   <br />
                   <span className="text-[#6F6F6F] text-[13px] ml-[50px]">
                     {notification.date}
+                    <span className="ml-[5px]">{notification.time}</span>
                   </span>
                 </div>
               </div>
