@@ -7,7 +7,6 @@ import { instance } from "../../shared/AxiosInstance";
 import { useDispatch } from "react-redux";
 
 const NotificationsList = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   //notifications는 최대 20개까지 알림을 담는 배열이다. [{id:34523452345, message:'안녕하세요'},{...},...]이런구조
   const [notifications, setNotifications] = useState([]);
@@ -65,8 +64,6 @@ const NotificationsList = () => {
         //알림이 왔을 때 취할 액션은 이 아래에.
         eventSource.onmessage = async (event) => {
           const data = await JSON.parse(event.data);
-          console.log("data.content만 출력하면 이렇게", data.content);
-          console.log(data);
         };
         // 연결시에 콘솔이 찍힌다.
         eventSource.addEventListener("connect", (event) => {
@@ -76,6 +73,7 @@ const NotificationsList = () => {
         eventSource.addEventListener("invite", (event) => {
           const data = JSON.parse(event.data);
           console.log("invite메세지 도착! parsing한거", data);
+          // alert("초대가 도착했습니다", data.message);
           const newNotification = {
             id: data.notificationId,
             message: data.message,
@@ -125,7 +123,7 @@ const NotificationsList = () => {
   }, [notification]);
 
   return (
-    <div className="bg-[#FFFFFF] h-full">
+    <div className="bg-[#FFFFFF] w-[375px] h-full">
       <div>
         {notification.map((notification) => (
           <div key={notification.id}>

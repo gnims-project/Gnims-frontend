@@ -114,7 +114,7 @@ const ProfileEdit = () => {
               />
             </div>
           </div>
-          <diV className="flex row">
+          <div className="flex row">
             <button
               className="h-[50px] rounded w-1/2 bg-[#002C51] font-[700] text-[#ffff] mt-[24px]"
               onClick={editHandler}
@@ -128,7 +128,7 @@ const ProfileEdit = () => {
             >
               기본 이미지로 변경
             </button>
-          </diV>
+          </div>
         </div>
       </div>
     </div>
