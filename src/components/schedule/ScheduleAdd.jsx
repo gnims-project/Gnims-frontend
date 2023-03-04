@@ -106,22 +106,23 @@ const ScheduleAdd = () => {
   const onContentChangeHandler = (e) => {
     setContent(e.target.value);
   };
-  //팔로우 선택
-  const [participants, setParticipants] = useState([]);
-  const onParticipantsChangeHandler = (e) => {
-    // setParticipants(e.target.value);
-  };
+  //참여자 선택
 
   const joinerArray =
     sessionStorage.getItem("selectedJoiner") &&
     sessionStorage.getItem("selectedJoiner").split(",");
-
+  const participants = [];
   participants.push(joinerArray);
   let joinerWithoutDuplicate = [...new Set(joinerArray)];
 
   //time값 구하는 작업
-  const splicedDate = [selectedDate].toString().split(" ");
-  const time = splicedDate[4];
+  const time =
+    selectedDate && selectedDate.toString().split(" ")[4].slice(0, 5);
+  const date = new Date(+selectedDate + 3240 * 10000)
+    .toISOString()
+    .replace("T", " ")
+    .replace(/\..*/, "")
+    .split(" ")[0];
   const selectedJoinersName = sessionStorage.getItem("selectedJoinerNames");
   //전체내용을 서버로 보내는 부분.
   const scheduleAddHandler = (e) => {
@@ -130,7 +131,7 @@ const ScheduleAdd = () => {
     if (subject.length > 0 && [selectedDate].toString().length > 0) {
       const newSchedule = {
         cardColor: selectedColor,
-        date: selectedDate.toISOString().slice(0, 10),
+        date: date,
         time: time,
         subject: subject,
         content: content,
@@ -216,11 +217,9 @@ const ScheduleAdd = () => {
               <div className="flex cursor-pointer flex-col mt-6 font-semibold">
                 참여자
                 <div
-                  // value={}
                   onClick={() => {
                     setFollowingListOpen(true);
                   }}
-                  onChange={() => onParticipantsChangeHandler}
                   placeholder="함께할 친구들을 선택해주세요.(최대 5명)"
                   className={`mt-4 shadow hover:bg-sky-100 text-center placeholder-placeHolder w-[335px] h-12 bg-input justify-center text-l rounded-md text-black font-light p-4 ${
                     state.type === "edit" ? "pointer-events-none" : ""
@@ -248,7 +247,7 @@ const ScheduleAdd = () => {
                   value={subject}
                   onChange={onSubjectChangeHandler}
                   placeholder="일정 제목을 입력해주세요!(필수, 최대 20자)"
-                  maxlength="20"
+                  maxLength="20"
                   className="mt-4 shadow
               hover:bg-sky-100 placeholder-placeHolder
               text-center
@@ -269,7 +268,7 @@ const ScheduleAdd = () => {
                   value={content}
                   onChange={onContentChangeHandler}
                   placeholder="일정 내용을 입력해주세요.(선택)"
-                  maxlength="200"
+                  maxLength="200"
                   className="mt-4
               shadow
               
