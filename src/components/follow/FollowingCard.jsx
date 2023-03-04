@@ -14,7 +14,12 @@ const FollowingCard = ({ following }) => {
   );
 
   const handleClick = (e) => {
-    dispatch(__postFollowState(following.followId));
+    dispatch(
+      __postFollowState({
+        id: following.followId,
+        state: "following",
+      })
+    );
     setIsFollowed(!isFollowed);
   };
 

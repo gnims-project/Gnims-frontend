@@ -19,38 +19,45 @@ const FollowList = () => {
     followerBD: "border-b-[1px] border-black",
     followingBD: "",
   });
-  const followerList = useSelector((state) => state.FollowSlice.followerList);
-  const followingList = useSelector((state) => state.FollowSlice.followingList);
-  const followerCounter = useSelector(
-    (state) => state.FollowSlice.followerCount
-  );
-  const followingCounter = useSelector(
-    (state) => state.FollowSlice.followingCount
-  );
+  const follower = useSelector((state) => state.FollowSlice.follower);
+  const following = useSelector((state) => state.FollowSlice.following);
+
+  console.log("follower", follower);
+  console.log("following", following);
+  // const followerCounter = useSelector(
+  //   (state) => state.FollowSlice.followerCount
+  // );
+  // const followingCounter = useSelector(
+  //   (state) => state.FollowSlice.followingCount
+  // );
 
   useEffect(() => {
     dispatch(__getFollowing());
-  }, []);
+  }, [activeTab]);
 
   useEffect(() => {
     dispatch(__getFollowerCount());
     dispatch(__getFollowingCount());
-  }, [followerCounter, followingCounter]);
+  }, [follower, following]);
+
+  // console.log("follower", follower);
+  // console.log("following", following);
 
   const handleTabChange = (tab) => {
+    console.log(tab);
     setActiveTab(tab);
     if (tab === "following") {
       setBdColor({
         followerBD: "border-b-[1px] border-black",
         followingBD: "",
       });
-      dispatch(__getFollower());
+      dispatch(__getFollowing());
     } else {
       setBdColor({
         followerBD: "",
         followingBD: "border-b-[1px] border-black",
       });
-      dispatch(__getFollowing());
+      dispatch(__getFollower());
     }
   };
 
@@ -61,19 +68,19 @@ const FollowList = () => {
           className={`${bdColor.followerBD} w-1/2 h-[40px] p-[10px] text-[18px] cursor-pointer`}
           onClick={() => handleTabChange("following")}
         >
-          팔로잉 {followingCounter}명
+          팔로잉 {following.followingCount}명
         </button>
         <button
           className={`${bdColor.followingBD} w-1/2 h-[40px] p-[10px] text-[18px] cursor-pointer`}
           onClick={() => handleTabChange("follower")}
         >
-          팔로워 {followerCounter}명
+          팔로워 {follower.followerCount}명
         </button>
       </div>
       <div>
         {activeTab === "following" ? (
           <div>
-            {followingList.map((following) => {
+            {following.followingList?.map((following) => {
               return (
                 <FollowingCard key={following.followId} following={following} />
               );
@@ -81,9 +88,13 @@ const FollowList = () => {
           </div>
         ) : (
           <div>
-            {followerList.map((follower) => {
+            {follower.followerList?.map((follower) => {
               return (
-                <FollowerCard key={follower.followId} follower={follower} />
+                <FollowerCard
+                  key={follower.followId}
+                  follower={follower}
+                  following={following}
+                />
               );
             })}
           </div>

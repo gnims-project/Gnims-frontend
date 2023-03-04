@@ -7,7 +7,7 @@ import {
   __getFollowingCount,
 } from "../../redux/modules/FollowSlice";
 
-const FollowerCard = ({ follower }) => {
+const FollowerCard = ({ follower, following }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isFollowed, setIsFollowed] = useState(
@@ -15,11 +15,11 @@ const FollowerCard = ({ follower }) => {
   );
 
   const [btnColor, setBtnColor] = useState(
-    follower.followStatus === "ACTIVE" ? "#A31414" : "#002C51"
+    following.followStatus === "ACTIVE" ? "#A31414" : "#002C51"
   );
 
   const handleClick = (e) => {
-    dispatch(__postFollowState(follower.followId));
+    dispatch(__postFollowState({ id: follower.followId, state: "follower" }));
     setIsFollowed(!isFollowed);
   };
 
