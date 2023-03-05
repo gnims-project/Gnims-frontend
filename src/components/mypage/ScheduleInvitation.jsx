@@ -33,9 +33,9 @@ const ScheduleInvitation = () => {
 
   return (
     <div>
-      <div className="flex p-5 gap-[30px] justify-items-center">
+      <div className="flex gap-[30px] ">
         <PageInfoCard profileImg={profileImage} nickname={nickname}>
-          에게 온 일정 초대를 한 번에 볼 수 있어요.
+          에게 <p>온 일정 초대를 한 번에 볼 수 있어요.</p>
         </PageInfoCard>
       </div>
       <div>
