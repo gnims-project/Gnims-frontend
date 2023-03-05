@@ -22,9 +22,6 @@ const FollowList = () => {
   const follower = useSelector((state) => state.FollowSlice.follower);
   const following = useSelector((state) => state.FollowSlice.following);
 
-  console.log("follower", follower);
-  console.log("following", following);
-
   useEffect(() => {
     dispatch(__getFollowing());
   }, [activeTab]);
