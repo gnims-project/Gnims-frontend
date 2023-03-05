@@ -68,22 +68,6 @@ export const __kakaologin = createAsyncThunk(
             alert("그님스를 이용하려면 프로필 정보를 입력해줘야합니다.");
             return window.location.assign("/signup/setProfileName");
           }
-          // const accessToken = res.headers.get("Authorization");
-          // const nickname = res.data.nickname;
-          // const email = res.data.email;
-
-          // // 유저 토큰,닉네임,이메일이 있다면 가져온 후 세팅
-          // if (accessToken && nickname && email) {
-          //   localStorage.setItem("token", accessToken);
-          //   localStorage.setItem("nickname", nickname);
-          //   localStorage.setItem("email", email);
-          //   alert(`소셜로그인 인증 완료! ${nickname}님 환영합니다!`);
-          //   return window.location.assign("/");
-          // }
-          // else {
-          //   alert("인증 오류! 다시 시도해주세요!");
-          //   return window.location.assign("/");
-          // }
         });
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
