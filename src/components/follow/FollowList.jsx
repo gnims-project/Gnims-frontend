@@ -1,41 +1,51 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { __getFollower, __getFollowing } from "../../redux/modules/FollowSlice";
+import {
+  __getFollower,
+  __getFollowing,
+  __getFollowerCount,
+  __getFollowingCount,
+} from "../../redux/modules/FollowSlice";
 import FollowerCard from "./FollowerCard";
 import FollowingCard from "./FollowingCard";
 
 const FollowList = () => {
   const dispatch = useDispatch();
   //탭 상태 변화
-  const [activeTab, setActiveTab] = useState("follower");
+  const [activeTab, setActiveTab] = useState("following");
 
   //조건부 렌더링 설정하기 위한 스테이트
   const [bdColor, setBdColor] = useState({
     followerBD: "border-b-[1px] border-black",
     followingBD: "",
   });
-  const followerList = useSelector((state) => state.FollowSlice.followerList);
-  const followingList = useSelector((state) => state.FollowSlice.followingList);
+  const follower = useSelector((state) => state.FollowSlice.follower);
+  const following = useSelector((state) => state.FollowSlice.following);
 
   useEffect(() => {
-    dispatch(__getFollower());
-  }, [FollowList]);
+    dispatch(__getFollowing());
+  }, [activeTab]);
+
+  useEffect(() => {
+    dispatch(__getFollowerCount());
+    dispatch(__getFollowingCount());
+  }, [follower, following]);
 
   const handleTabChange = (tab) => {
+    console.log(tab);
     setActiveTab(tab);
-    if (tab === "follower") {
-      //
+    if (tab === "following") {
       setBdColor({
         followerBD: "border-b-[1px] border-black",
         followingBD: "",
       });
-      dispatch(__getFollower());
+      dispatch(__getFollowing());
     } else {
       setBdColor({
         followerBD: "",
         followingBD: "border-b-[1px] border-black",
       });
-      dispatch(__getFollowing());
+      dispatch(__getFollower());
     }
   };
 
@@ -44,31 +54,35 @@ const FollowList = () => {
       <div className="flex">
         <button
           className={`${bdColor.followerBD} w-1/2 h-[40px] p-[10px] text-[18px] cursor-pointer`}
-          onClick={() => handleTabChange("follower")}
+          onClick={() => handleTabChange("following")}
         >
-          팔로워
+          팔로잉 {following.followingCount}명
         </button>
         <button
           className={`${bdColor.followingBD} w-1/2 h-[40px] p-[10px] text-[18px] cursor-pointer`}
-          onClick={() => handleTabChange("following")}
+          onClick={() => handleTabChange("follower")}
         >
-          팔로잉
+          팔로워 {follower.followerCount}명
         </button>
       </div>
       <div>
-        {activeTab === "follower" ? (
+        {activeTab === "following" ? (
           <div>
-            {followerList.map((follower) => {
+            {following.followingList?.map((following) => {
               return (
-                <FollowerCard key={follower.followId} follower={follower} />
+                <FollowingCard key={following.followId} following={following} />
               );
             })}
           </div>
         ) : (
           <div>
-            {followingList.map((following) => {
+            {follower.followerList?.map((follower) => {
               return (
-                <FollowingCard key={following.followId} following={following} />
+                <FollowerCard
+                  key={follower.followId}
+                  follower={follower}
+                  following={following}
+                />
               );
             })}
           </div>

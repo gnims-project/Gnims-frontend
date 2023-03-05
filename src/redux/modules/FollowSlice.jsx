@@ -2,11 +2,15 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { instance } from "../../shared/AxiosInstance";
 
 const initialState = {
-  followingList: [],
-  followerList: [],
+  following: {
+    followingCount: "",
+    followingList: [],
+  },
+  follower: {
+    followerCount: "",
+    followerList: [],
+  },
   followState: [],
-  followingCount: [],
-  followerCount: [],
   isLoading: false,
   error: null,
 };
@@ -31,7 +35,6 @@ export const __getFollowing = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await instance.get(`/friendship/followings`);
-      console.log("팔로잉", data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       console.log(error.response.data.errorMessage);
@@ -43,10 +46,12 @@ export const __getFollowing = createAsyncThunk(
 export const __postFollowState = createAsyncThunk(
   "getFollowState",
   async (payload, thunkAPI) => {
-    console.log("팔로하기", payload);
+    console.log("팔로우 스테이트", payload.state);
     try {
-      const data = await instance.post(`/friendship/followings/${payload}`);
-      return thunkAPI.fulfillWithValue(data.data);
+      const data = await instance.post(`/friendship/followings/${payload.id}`);
+      if (payload.state === "follower") {
+        return thunkAPI.dispatch(__getFollower());
+      } else return thunkAPI.dispatch(__getFollowing());
     } catch (error) {
       console.log(error.response.data.errorMessage);
       return thunkAPI.rejectWithValue(error.response.data.errorMessage);
@@ -59,7 +64,7 @@ export const __getFollowingCount = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const { data } = await instance.get(`/friendship/followings/counting`);
-      console.log("팔로잉 카운트", data.data);
+      // console.log("팔로잉 카운트", data.data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       console.log(error.response.data.errorMessage);
@@ -73,7 +78,7 @@ export const __getFollowerCount = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const { data } = await instance.get(`/friendship/followers/counting`);
-      console.log("팔로워 카운트", data.data);
+      // console.log("팔로워 카운트", data.data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       console.log(error.response.data.errorMessage);
@@ -92,8 +97,9 @@ export const followSlice = createSlice({
       state.isLoading = true;
     },
     [__getFollower.fulfilled]: (state, action) => {
+      console.log("followerList");
       state.isLoading = false;
-      state.followerList = action.payload.data;
+      state.follower.followerList = action.payload.data;
     },
     [__getFollower.rejected]: (state, action) => {
       state.isLoading = false;
@@ -104,8 +110,9 @@ export const followSlice = createSlice({
       state.isLoading = true;
     },
     [__getFollowing.fulfilled]: (state, action) => {
+      console.log("followingList");
       state.isLoading = false;
-      state.followingList = action.payload.data;
+      state.following.followingList = action.payload.data;
     },
     [__getFollowing.rejected]: (state, action) => {
       state.isLoading = false;
@@ -130,7 +137,7 @@ export const followSlice = createSlice({
     },
     [__getFollowingCount.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.followingCount = action.payload;
+      state.following.followingCount = action.payload;
     },
     [__getFollowingCount.rejected]: (state, action) => {
       state.isLoading = false;
@@ -142,7 +149,7 @@ export const followSlice = createSlice({
     },
     [__getFollowerCount.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.followerCount = action.payload;
+      state.follower.followerCount = action.payload;
     },
     [__getFollowerCount.rejected]: (state, action) => {
       state.isLoading = false;

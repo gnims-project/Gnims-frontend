@@ -1,30 +1,37 @@
-import React, { useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { __postFollowState } from "../../redux/modules/FollowSlice";
+import {
+  __postFollowState,
+  __getFollowerCount,
+  __getFollowingCount,
+} from "../../redux/modules/FollowSlice";
 
 const FollowerCard = ({ follower }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isFollowed, setIsFollowed] = useState(
-    follower.followStatus === "ACTIVE" || "INIT"
+    follower.followStatus === "ACTIVE"
   );
 
   const [btnColor, setBtnColor] = useState(
-    follower.followStatus === "ACTIVE" || "INIT" ? "#A31414" : "#002C51"
+    follower.followStatus === "ACTIVE" ? "#A31414" : "#002C51"
   );
 
   const handleClick = (e) => {
-    dispatch(__postFollowState(follower.followId));
+    dispatch(__postFollowState({ id: follower.followId, state: "follower" }));
     setIsFollowed(!isFollowed);
-    if (isFollowed) setBtnColor("#002C51");
-    else setBtnColor("#A31414");
   };
+
+  useLayoutEffect(() => {
+    if (isFollowed) setBtnColor("#A31414");
+    else setBtnColor("#002C51");
+  }, [follower]);
 
   return (
     <div className="flex gap-[90px] w-full mt-[16px]">
       <div
-        className="flex gap-[14px] "
+        className="flex gap-[14px]"
         onClick={() => {
           navigate(`/friends/${follower.followId}`);
           sessionStorage.setItem("clickedUserName", follower.username);
@@ -42,11 +49,11 @@ const FollowerCard = ({ follower }) => {
       </div>
       {isFollowed ? (
         <div className="flex items-center w-[62px] h-[39px] justify-center text-sm rounded-[4px] text-white bg-[#A31414]">
-          <span onClick={handleClick}>{isFollowed ? "취소" : "팔로우"}</span>
+          <span onClick={handleClick}>{isFollowed ? "삭제" : "팔로우"}</span>
         </div>
       ) : (
         <div className="flex items-center w-[62px] h-[39px] justify-center text-sm rounded-[4px] text-white bg-[#002C51]">
-          <span onClick={handleClick}>{isFollowed ? "취소" : "팔로우"}</span>
+          <span onClick={handleClick}>{isFollowed ? "삭제" : "팔로우"}</span>
         </div>
       )}
     </div>
