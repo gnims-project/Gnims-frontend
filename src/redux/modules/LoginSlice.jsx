@@ -57,9 +57,12 @@ export const __kakaologin = createAsyncThunk(
           if (res.data.message !== "non-member") {
             const accessToken = res.headers.get("Authorization");
             const nickname = res.data.data.nickname;
+            const userId = res.data.data.userId;
             console.log(nickname);
             sessionStorage.setItem("token", accessToken);
             sessionStorage.setItem("nickname", nickname);
+            sessionStorage.setItem("userId", userId);
+
             alert("그님스에 오신걸 환영합니다");
             return window.location.assign("/main");
 
