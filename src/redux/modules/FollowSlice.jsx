@@ -11,8 +11,6 @@ const initialState = {
     followerList: [],
   },
   followState: [],
-  // followingCount: [],
-  // followerCount: [],
   isLoading: false,
   error: null,
 };
