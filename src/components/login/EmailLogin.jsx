@@ -146,14 +146,14 @@ const EmailLogin = () => {
               <img
                 src={gnimsLogo}
                 alt="곰캐릭터가 우쭐거리며 왠지 잘될 것 같은 기분포즈 중"
-                className="h-full w-full "
+                className="w-full h-full "
               />
             </div>
           </div>
           <form className="mt-[-40px]">
             <div className=" grid grid-row-3 gap-[10px]">
               <div className="">
-                <div className=" grid grid-row-2">
+                <div className="grid  grid-row-2">
                   <Label htmlFor="userEmail">이메일</Label>
                   <LoginSignupInputBox
                     type="email"
@@ -209,7 +209,7 @@ const EmailLogin = () => {
             <div className="border-4 border-indigo-600">
               <button
                 className="text-textBlack text-[16px] font-[400] px-[30px] py-[10px]"
-                onClick={() => navigate("/login/auth/InputEmail")}
+                onClick={() => navigate("/developing")}
               >
                 비밀번호 재설정
               </button>
