@@ -77,7 +77,7 @@ const Profile = () => {
         </div>
         <div
           onClick={() => {
-            navigate("/login/auth/InputEmail");
+            navigate("/developing");
           }}
           className="flex gap-[130px] p-[15px] border-b-[1px] border-[#BBD7FF] border-solid bg-white w-[375px] h-[50px] cursor-pointer"
         >
