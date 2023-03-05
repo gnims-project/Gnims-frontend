@@ -19,10 +19,10 @@ const PastEvents = () => {
 
   return (
     <div className="container container-md pr-[19px] pl-[21px]">
-      <div className="grid grid-flow-row gap-[24px]">
+      <div className="grid grid-flow-row gap-[24px] ">
         <div>
           <PageInfoCard profileImg={profileImg} nickname={nickname}>
-            의 멋진 일대기를<p>돌아볼까요?</p>
+            ,<p>멋진 일대기를 돌아볼까요?</p>
           </PageInfoCard>
         </div>
         <div className="grid grid-flow-row gap-[30px]">
