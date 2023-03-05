@@ -9,13 +9,12 @@ import SelectorSort from "../modal/SelectorSort";
 const Main = () => {
   const dispatch = useDispatch();
   const nickName = sessionStorage.getItem("nickname");
-  const getRandom = Math.floor(Math.random() * (4 + 0) + 0);
+  const getRandom = Math.floor(Math.random() * (3 + 0) + 0);
   const { schedules } = useSelector((state) => state.ScheduleSlice);
   const [sortList, setSortList] = useState("D-Day");
   const [modalOpen, setModalOpen] = useState(false);
   const welcomText = [
     "환영합니다.",
-    "오늘도 그님스가 응원할게요.",
     "좋은하루 되세요!",
     "안녕하세요.",
   ];
