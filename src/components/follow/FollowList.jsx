@@ -24,12 +24,6 @@ const FollowList = () => {
 
   console.log("follower", follower);
   console.log("following", following);
-  // const followerCounter = useSelector(
-  //   (state) => state.FollowSlice.followerCount
-  // );
-  // const followingCounter = useSelector(
-  //   (state) => state.FollowSlice.followingCount
-  // );
 
   useEffect(() => {
     dispatch(__getFollowing());
@@ -39,9 +33,6 @@ const FollowList = () => {
     dispatch(__getFollowerCount());
     dispatch(__getFollowingCount());
   }, [follower, following]);
-
-  // console.log("follower", follower);
-  // console.log("following", following);
 
   const handleTabChange = (tab) => {
     console.log(tab);
