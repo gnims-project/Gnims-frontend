@@ -24,7 +24,7 @@ const FollowList = () => {
 
   useEffect(() => {
     dispatch(__getFollowing());
-  }, [activeTab]);
+  }, []);
 
   useEffect(() => {
     dispatch(__getFollowerCount());

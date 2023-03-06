@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import Modal from "react-modal";
 import MoonLoader from "react-spinners/MoonLoader";
-
-const IsModal = ({ isModalOpen, onMoalClose, message, isLoding }) => {
+import { useSelector } from "react-redux";
+const IsModal = ({ onMoalClose, message, isLoding }) => {
   const modalStr = message.ModalStr;
+  const modalState = useSelector((state) => state.SingupSlice.modal);
 
-  const [modalIsOpen, setModalIsOpen] = useState(false);
   const modalStyle = {
     overlay: {
       position: "fixed",
@@ -35,7 +35,7 @@ const IsModal = ({ isModalOpen, onMoalClose, message, isLoding }) => {
   };
   return (
     <Modal
-      isOpen={isModalOpen}
+      isOpen={modalState.isOpen}
       style={modalStyle}
       ariaHideApp={false}
       aria={{
@@ -43,7 +43,6 @@ const IsModal = ({ isModalOpen, onMoalClose, message, isLoding }) => {
         describedby: "full_description",
       }}
       shouldCloseOnEsc={false}
-      onRequestClose={() => setModalIsOpen(false)}
     >
       <div className="grid grid-flow-row gap-[20px] text-center">
         {isLoding ? (

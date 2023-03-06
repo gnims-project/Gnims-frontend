@@ -7,8 +7,9 @@ import Label from "../layout/Label";
 import LoginSignupInputBox from "../layout/input/LoginSignupInputBox";
 import {
   __nickNameCheck,
-  userInfoState,
   setSingup,
+  __openModal,
+  __closeModal,
 } from "../../redux/modules/SingupSlice";
 
 const Signup = () => {
@@ -27,7 +28,7 @@ const Signup = () => {
     shadowPassword: "",
     shadowPasswordCheck: "",
   });
-  const [isOpen, setOpen] = useState(false);
+
   const [ModalStr, setModalStr] = useState({
     modalTitle: "",
     modalMessage: "",
@@ -42,11 +43,6 @@ const Signup = () => {
   const PasswordCheckRef = useRef();
 
   //이름, 이메일, 비밀번호, 닉네임 정규 표현식
-  const nameRegulationExp = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|]+$/;
-  const emailRegulationExp =
-    /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-  const passwordRegulationExp = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,16}$/;
-  const nickNameReglationExp = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,8}$/;
 
   //아이디 비밀번호가 틀렸을시 문구
   const [regulation, SetRegulation] = useState({
@@ -57,24 +53,24 @@ const Signup = () => {
     regulationNickName: "",
   });
 
+  const { nickNameDoubleCheck } = useSelector((state) => state.SingupSlice);
+
   //중복확인여부
   const [doubleCheck, setDoubleCheck] = useState({
-    emailDoubleCheck: false,
     passwordDoubleCheck: false,
-    nickNameDoubleCheck: false,
+    emailDoubleCheck: false,
   });
   //모달창
-  const onModalOpen = () => {
-    setOpen({ isOpen: true });
-  };
+
   const onMoalClose = () => {
-    setOpen({ isOpen: false });
+    dispatch(__closeModal());
   };
 
   //=============== 항목별 유효성검사===================
 
   //이름
   const nameValidationTest = (nameValidation) => {
+    const nameRegulationExp = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|]+$/;
     if (!nameRegulationExp.test(nameValidation.value)) {
       SetRegulation(() => ({
         ...regulation,
@@ -93,6 +89,8 @@ const Signup = () => {
 
   //이메일
   const emailValidationTest = (emailValidation) => {
+    const emailRegulationExp =
+      /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
     if (emailRegulationExp.test(emailValidation.value)) {
       SetRegulation(() => ({
         ...regulation,
@@ -111,6 +109,7 @@ const Signup = () => {
 
   //닉네임
   const nickNameValidationTest = (nickNameValidation) => {
+    const nickNameReglationExp = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,8}$/;
     if (nickNameReglationExp.test(nickNameValidation.value)) {
       SetRegulation(() => ({
         ...regulation,
@@ -129,6 +128,7 @@ const Signup = () => {
 
   //비밀번호
   const passwordValidationTest = (passwordValidation) => {
+    const passwordRegulationExp = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,16}$/;
     if (passwordRegulationExp.test(passwordValidation.value)) {
       SetRegulation(() => ({
         ...regulation,
@@ -181,20 +181,18 @@ const Signup = () => {
           modalTitle: response.message,
           modalMessage: "",
         });
-        onModalOpen();
+        dispatch(__openModal());
       })
       .catch((error) => {
         const { data } = error.response;
+        console.log(data);
         if (data.status === 400) {
           setModalStr({
-            modalTitle: data.message,
+            modalTitle: "이메일을 확인해주세요.",
             modalMessage: "이메일을 확인해주세요.",
           });
-          setDoubleCheck(() => ({
-            ...doubleCheck,
-            emailDoubleCheck: false,
-          }));
-          onModalOpen();
+
+          dispatch(__openModal());
         } else {
           console.log(error);
         }
@@ -247,7 +245,7 @@ const Signup = () => {
 
       nickNameCurrent.focus();
       return;
-    } else if (!doubleCheck.nickNameDoubleCheck) {
+    } else if (!nickNameDoubleCheck) {
       SetRegulation(() => ({
         ...regulation,
         regulationNickName: "",
@@ -261,7 +259,6 @@ const Signup = () => {
     dispatch(
       __nickNameCheck({
         nickname: nickNameCurrent.value,
-        onModalOpen,
         setModalStr,
         doubleCheck,
         setDoubleCheck,
@@ -290,72 +287,77 @@ const Signup = () => {
     const passwordCheckValue = userPasswordCheckCurrnet.value;
 
     if (id === "userName") {
-      setStyle(() => ({
-        ...style,
-        bgColorName: "bg-inputBoxFocus",
-        shadowName: "drop-shadow-inputBoxShadow",
-      }));
       if (nameValue.trim() === "") {
         setStyle(() => ({
           ...style,
           bgColorName: "bg-inputBox",
           shadowName: "",
         }));
+      } else {
+        setStyle(() => ({
+          ...style,
+          bgColorName: "bg-inputBoxFocus",
+          shadowName: "drop-shadow-inputBoxShadow",
+        }));
       }
       nameValidationTest(userNameCurrent);
     } else if (id === "userEmail") {
-      setStyle(() => ({
-        ...style,
-        bgColorEmail: "bg-inputBoxFocus",
-        shadowEmail: "drop-shadow-inputBoxShadow",
-      }));
       if (emailValue.trim() === "") {
         setStyle(() => ({
           ...style,
           bgColorEmail: "bg-inputBox",
           shadowEmail: "",
         }));
+      } else {
+        setStyle(() => ({
+          ...style,
+          bgColorEmail: "bg-inputBoxFocus",
+          shadowEmail: "drop-shadow-inputBoxShadow",
+        }));
       }
       emailValidationTest(userEmailCurrent);
     } else if (id === "userNickName") {
-      setStyle(() => ({
-        ...style,
-        bgColorNickname: "bg-inputBoxFocus",
-        shadowNickname: "drop-shadow-inputBoxShadow",
-      }));
       if (nickNameValue.trim() === "") {
         setStyle(() => ({
           ...style,
           bgColorNickname: "bg-inputBox",
           shadowNickname: "",
         }));
+      } else {
+        setStyle(() => ({
+          ...style,
+          bgColorNickname: "bg-inputBoxFocus",
+          shadowNickname: "drop-shadow-inputBoxShadow",
+        }));
       }
       nickNameValidationTest(userNickNameCurrent);
     } else if (id === "userPassword") {
-      setStyle(() => ({
-        ...style,
-        bgColorPassword: "bg-inputBoxFocus",
-        shadowPassword: "drop-shadow-inputBoxShadow",
-      }));
       if (passwordValue.trim() === "") {
         setStyle(() => ({
           ...style,
           bgColorPassword: "bg-inputBox",
           shadowPassword: "",
         }));
+      } else {
+        setStyle(() => ({
+          ...style,
+          bgColorPassword: "bg-inputBoxFocus",
+          shadowPassword: "drop-shadow-inputBoxShadow",
+        }));
       }
       passwordValidationTest(userPasswordCurrent);
     } else if (id === "passwordCheck") {
-      setStyle(() => ({
-        ...style,
-        bgColorPasswordCheck: "bg-inputBoxFocus",
-        shadowPasswordCheck: "drop-shadow-inputBoxShadow",
-      }));
       if (passwordCheckValue.trim() === "") {
         setStyle(() => ({
           ...style,
           bgColorPasswordCheck: "bg-inputBox",
           shadowPasswordCheck: "",
+        }));
+      } else {
+        setStyle(() => ({
+          ...style,
+          bgColorPasswordCheck: "bg-inputBoxFocus",
+          shadowPasswordCheck: "drop-shadow-inputBoxShadow",
         }));
       }
       passwordCheckValidationTest(userPasswordCheckCurrnet);
@@ -425,7 +427,7 @@ const Signup = () => {
       return;
     } else {
       nickNameValidationTest(userNickNameCurrent);
-      if (!doubleCheck.nickNameDoubleCheck) {
+      if (!nickNameDoubleCheck) {
         SetRegulation(() => ({
           ...regulation,
           regulationNickName: "닉네임 중복확인 해주세요.",
@@ -494,7 +496,7 @@ const Signup = () => {
     <>
       <div className="container">
         <div className=" grid grid-flow-row ml-[20px] mr-[20px] gap-[32px]">
-          <div className=" grid grid-flow-row gap-[10px] mt-[106px]">
+          <div className=" grid grid-flow-row gap-[10px] mt-[30px]">
             <div>
               <h1 className="font-[700] text-textBlack text-[32px] mb-[10px]">
                 Welcome Gnims!
@@ -559,7 +561,8 @@ const Signup = () => {
                     placeholder="2~8자리 숫자,한글,영문을 입력해주세요."
                     onChange={onValidity}
                     className={`${style.bgColorNickname} ${style.shadowNickname} w-full px-1 h-[50px] text-[16px]  placeholder-inputPlaceHoldText`}
-                    disabled={doubleCheck.nickNameDoubleCheck}
+                    disabled={nickNameDoubleCheck}
+                    maxLength={8}
                     autoComplete="off"
                   ></input>
                   <button
@@ -623,11 +626,7 @@ const Signup = () => {
               </button>
             </div>
           </form>
-          <IsModal
-            isModalOpen={isOpen.isOpen}
-            onMoalClose={onMoalClose}
-            message={{ ModalStr }}
-          />
+          <IsModal onMoalClose={onMoalClose} message={{ ModalStr }} />
         </div>
       </div>
     </>
