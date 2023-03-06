@@ -32,7 +32,6 @@ const FollowList = () => {
   }, [follower, following]);
 
   const handleTabChange = (tab) => {
-    console.log(tab);
     setActiveTab(tab);
     if (tab === "following") {
       setBdColor({

@@ -8,7 +8,6 @@ import MoonLoader from "react-spinners/MoonLoader";
 const InfiniteScroll = () => {
   const dispatch = useDispatch();
   const { schedules, isLoading } = useSelector((state) => state.ScheduleSlice);
-  console.log(isLoading);
   //페이징 생성
   const [page, setPage] = useState(0);
   //중복 실행 방저

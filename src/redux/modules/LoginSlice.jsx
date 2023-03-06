@@ -14,7 +14,7 @@ export const __emailLogin = createAsyncThunk(
         email: payload.email,
         password: payload.password,
       });
-      console.log(data);
+
       const accessToken = data.headers.get("Authorization");
       const { email, nickname, profileImage, userId } = data.data.data;
       sessionStorage.setItem("accessToken", accessToken);
@@ -25,9 +25,7 @@ export const __emailLogin = createAsyncThunk(
       alert(`${nickname}님 어서오세요.`);
       window.location.href = "/main";
     } catch (error) {
-      console.log(error);
       const { data } = error.response;
-      console.log(data);
       if (data.status === 401) {
         payload.setModalStr({
           modalTitle: "ID를 찾을 수 없어요.",
@@ -51,21 +49,17 @@ export const __kakaologin = createAsyncThunk(
   //전달 받은 코드 비동기로 처리
   async (code, thunkAPI) => {
     try {
-      console.log("페이로드?", code);
       const data = await instance
         .post("social/kakao-login", { code })
         .then((res) => {
-          console.log("서버에서 보내는값?", res.data.data);
           const email = res.data.data.email;
           sessionStorage.setItem("email", email);
           sessionStorage.setItem("socialCode", "KAKAO");
-
           if (res.data.message !== "non-member") {
             const accessToken = res.headers.get("Authorization");
             const nickname = res.data.data.nickname;
             const userId = res.data.data.userId;
             const profileImage = res.data.data.profileImage;
-            console.log(nickname);
             sessionStorage.setItem("accessToken", accessToken);
             sessionStorage.setItem("nickname", nickname);
             sessionStorage.setItem("userId", userId);

@@ -9,9 +9,7 @@ const JoinerList = ({
   setSelectedUserNames,
   selectedUserNames,
 }) => {
-  useEffect(() => {
-    console.log(selectedUserIds);
-  }, [selectedUserIds]);
+  useEffect(() => {}, [selectedUserIds]);
 
   function selectHandler(followId) {
     // 기존 선택된 사용자 ID 리스트에서 해당 아이디가 이미 선택되어 있는지 확인

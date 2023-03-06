@@ -14,7 +14,6 @@ const NotificationsList = () => {
 
   const getNoti = async () => {
     await instance.get("/notifications").then((res) => {
-      console.log(res);
       const newNotifications = res.data.data.map((data) => ({
         id: data.notificationId,
         message: data.message,
@@ -23,7 +22,6 @@ const NotificationsList = () => {
         isChecked: data.isChecked,
         time: data.dateTime.toString().split("T")[1].split(".")[0].slice(0, 5),
       }));
-      console.log(newNotifications);
       setNotifications((prevNotifications) => [
         ...newNotifications,
         ...prevNotifications,
@@ -72,7 +70,6 @@ const NotificationsList = () => {
 
         eventSource.addEventListener("invite", (event) => {
           const data = JSON.parse(event.data);
-          console.log("invite메세지 도착! parsing한거", data);
           // alert("초대가 도착했습니다", data.message);
           const newNotification = {
             id: data.notificationId,
@@ -93,7 +90,6 @@ const NotificationsList = () => {
 
         eventSource.addEventListener("follow", (event) => {
           const data = JSON.parse(event.data);
-          console.log("follow메세지 도착! parsing한거", data);
           const newNotification = {
             id: data.notificationId,
             message: data.message,
@@ -102,7 +98,6 @@ const NotificationsList = () => {
             isChecked: data.isChecked,
           };
 
-          console.log("follow알림도착!", data.message);
           setNotifications((prevNotifications) => [
             newNotification,
             ...prevNotifications,
@@ -116,7 +111,6 @@ const NotificationsList = () => {
       }
     };
     fetchSse();
-    console.log(notification);
     return () => {
       eventSource.close();
     };

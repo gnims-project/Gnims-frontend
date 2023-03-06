@@ -78,7 +78,6 @@ const TopNavBar = () => {
         await setAllChecked("");
       });
     } catch (error) {
-      console.log("에러발생:", error);
       if (eventSource) eventSource.close();
     }
   };
@@ -113,7 +112,6 @@ const TopNavBar = () => {
             //navigate 경로는 검색페이지루트가 정해지면 변경하면됩니다
             onClick={() => {
               navigate("/userSearch");
-              console.log("검색페이지로이동");
             }}
           />
           <img
@@ -121,7 +119,6 @@ const TopNavBar = () => {
             src={plusIcon}
             alt="추가버튼"
             onClick={() => {
-              console.log("스케쥴추가페이지로이동!");
               //스케줄 추가를 하기 위한 파라미터 값을 넘긴다.
               navigate("/schedule", { state: { type: "add", id: "" } });
             }}
@@ -132,7 +129,6 @@ const TopNavBar = () => {
               src={notifyIcon}
               alt="알림버튼"
               onClick={() => {
-                console.log("알림페이지로 이동");
                 navigate("/notification");
               }}
             />

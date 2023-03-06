@@ -23,7 +23,6 @@ export const __getFollower = createAsyncThunk(
       const data = await instance.get(`/friendship/followers`);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      console.log(error.response.data.errorMessage);
       return thunkAPI.rejectWithValue(error.response.data.errorMessage);
     }
   }
@@ -37,7 +36,6 @@ export const __getFollowing = createAsyncThunk(
       const data = await instance.get(`/friendship/followings`);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      console.log(error.response.data.errorMessage);
       return thunkAPI.rejectWithValue(error.response.data.errorMessage);
     }
   }
@@ -46,14 +44,12 @@ export const __getFollowing = createAsyncThunk(
 export const __postFollowState = createAsyncThunk(
   "getFollowState",
   async (payload, thunkAPI) => {
-    console.log("팔로우 스테이트", payload);
     try {
       const data = await instance.post(`/friendship/followings/${payload.id}`);
       if (payload.state === "follower") {
         return thunkAPI.dispatch(__getFollower());
       } else return thunkAPI.dispatch(__getFollowing());
     } catch (error) {
-      console.log(error.response.data.errorMessage);
       return thunkAPI.rejectWithValue(error.response.data.errorMessage);
     }
   }
@@ -64,10 +60,8 @@ export const __getFollowingCount = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const { data } = await instance.get(`/friendship/followings/counting`);
-      // console.log("팔로잉 카운트", data.data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      console.log(error.response.data.errorMessage);
       return thunkAPI.rejectWithValue(error.response.data.errorMessage);
     }
   }
@@ -78,10 +72,9 @@ export const __getFollowerCount = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const { data } = await instance.get(`/friendship/followers/counting`);
-      // console.log("팔로워 카운트", data.data);
+
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      console.log(error.response.data.errorMessage);
       return thunkAPI.rejectWithValue(error.response.data.errorMessage);
     }
   }
@@ -97,7 +90,6 @@ export const followSlice = createSlice({
       state.isLoading = true;
     },
     [__getFollower.fulfilled]: (state, action) => {
-      console.log("followerList");
       state.isLoading = false;
       state.follower.followerList = action.payload.data;
     },
@@ -110,7 +102,6 @@ export const followSlice = createSlice({
       state.isLoading = true;
     },
     [__getFollowing.fulfilled]: (state, action) => {
-      console.log("followingList");
       state.isLoading = false;
       state.following.followingList = action.payload.data;
     },
@@ -125,7 +116,6 @@ export const followSlice = createSlice({
     [__postFollowState.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.followState = action.payload;
-      console.log(action.payload);
     },
     [__postFollowState.rejected]: (state, action) => {
       state.isLoading = false;

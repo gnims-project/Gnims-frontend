@@ -13,11 +13,8 @@ export const __getInvitation = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const { data } = await instance.get(`v2/events/pending`);
-      console.log("초대 스케줄", data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      console.log("무슨에러?", error);
-      console.log(error.response.data.errorMessage);
       return thunkAPI.rejectWithValue(error.response.data.errorMessage);
     }
   }
@@ -29,7 +26,6 @@ export const refuseInvitation = (payload) => {
     await instance
       .post(`/events/${payload}/rejection`)
       .then((res) => {
-        console.log("거절후", res);
         dispatch(__getInvitation());
       })
       .catch((error) => {
@@ -44,7 +40,6 @@ export const acceptInvitation = (payload) => {
     await instance
       .post(`/events/${payload}/acceptance`)
       .then((res) => {
-        console.log("수락후", res);
         dispatch(__getInvitation());
       })
       .catch((error) => {
