@@ -34,7 +34,7 @@ export const __emailLogin = createAsyncThunk(
           modalMessage: "이메일와 비밀번호를  \n  다시 한 번 확인해주세요.",
         });
         payload.dispatch(__openModal(payload.dispatch));
-      } else if (data.status === 403) {
+      } else{
         payload.setModalStr({
           modalTitle: "ID를 찾을 수 없어요.",
           modalMessage: "이메일와 비밀번호를  \n  다시 한 번 확인해주세요.",
