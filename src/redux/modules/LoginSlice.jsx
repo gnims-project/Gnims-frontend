@@ -62,7 +62,6 @@ export const __kakaologin = createAsyncThunk(
             sessionStorage.setItem("accessToken", accessToken);
             sessionStorage.setItem("nickname", nickname);
             sessionStorage.setItem("userId", userId);
-
             alert("그님스에 오신걸 환영합니다");
             return window.location.assign("/main");
 
