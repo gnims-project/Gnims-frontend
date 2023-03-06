@@ -6,8 +6,6 @@ import {
 } from "../../redux/modules/InvitationSlice";
 
 const InvitationCard = ({ invit }) => {
-  console.log("뭘까요?", invit);
-
   const hourClock = invit.time.split(":", 2)[0];
   let hour = 0;
   const min = invit.time.split(":", 2)[1];

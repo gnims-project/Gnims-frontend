@@ -30,7 +30,6 @@ const ScheduleAdd = () => {
 
   //전역으로 받아오는 state
   const oldSchedule = useSelector((state) => state.ScheduleSlice.oldschedules);
-  console.log("수정할 스케줄", oldSchedule);
 
   //필요한 변수들
   //날짜
@@ -157,7 +156,6 @@ const ScheduleAdd = () => {
       setCompleteModal(true);
       sessionStorage.removeItem("selectedJoiner");
       sessionStorage.removeItem("selectedJoinerNames");
-      console.log("생성된 스케쥴:", newSchedule);
       setTimeout(() => navigate("/main"), 1000);
     } else {
       setModalOpen(true);

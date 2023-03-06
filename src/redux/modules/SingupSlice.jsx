@@ -3,7 +3,6 @@ import { SignupApi } from "../../api/Signup";
 
 export const __openModal = () => {
   return async function (dispatch) {
-    console.log("동작확인");
     dispatch(openModal(true));
   };
 };
@@ -17,7 +16,6 @@ export const __closeModal = () => {
 //닉네임 중복확인
 export const __nickNameCheck = ({ nickname, setModalStr }) => {
   return async function (dispatch) {
-    console.log(nickname);
     SignupApi.nickNameDoubleCheck({ nickname: nickname })
       .then((response) => {
         setModalStr({
@@ -28,9 +26,7 @@ export const __nickNameCheck = ({ nickname, setModalStr }) => {
         dispatch(isNickNameDoubleCheck(true));
       })
       .catch((error) => {
-        console.log(error);
         const { data } = error.response;
-        console.log(data);
         if (data.status === 400) {
           setModalStr({
             modalTitle: "닉네임을 확인해주세요.",
@@ -59,7 +55,6 @@ export const __sginup = async ({
 }) => {
   await SignupApi.Signup({ username, nickname, email, password })
     .then((response) => {
-      console.log(response);
       setModalStr(() => response.message);
       onModalOpen();
       window.history.back();
@@ -67,7 +62,6 @@ export const __sginup = async ({
     .catch((error) => {
       const { data } = error.response;
       if (data.status === 401) {
-        console.log(data.message);
         setModalStr(data.message);
         onModalOpen();
       }
@@ -104,7 +98,6 @@ const SingupSlice = createSlice({
       state.modal.isOpen = action.payload;
     },
     userInfoState: (state, action) => {
-      console.log(action.payload);
       state.userInfo = action.payload;
     },
     setNameNickName: (state, action) => {

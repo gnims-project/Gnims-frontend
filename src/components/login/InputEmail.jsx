@@ -46,7 +46,6 @@ const InputEmail = () => {
     const emailRefCurrent = emailRef.current;
     const authenticationNumberRefCurrent = authenticationNumberRef.current;
     if (id === "email") {
-      console.log("email입니다");
       setStyle(() => ({
         ...style,
         bgColorEmail: "bg-inputBoxFocus",
@@ -114,7 +113,6 @@ const InputEmail = () => {
       onModalOpen();
       const data = await LoginApi.SendEmailAuthenticationNumber(payload);
       setIsLoding(() => false);
-      console.log(data);
       if (data.status === 200) {
         sessionStorage.setItem("changePasswordEmail", payload.email);
         setModalStr({
@@ -124,7 +122,6 @@ const InputEmail = () => {
         setInputCheck(() => ({ ...InputCheck, input: true }));
       }
     } catch (error) {
-      console.log(error.response);
       const { data } = error.response;
       if (data.status === 400) {
         setIsLoding(() => false);
@@ -182,7 +179,7 @@ const InputEmail = () => {
       onModalOpen();
       const { data } = await LoginApi.SendAuthenticationNumber(payload);
       setIsLoding(() => false);
-      console.log(data);
+
       if (data.status === 200) {
         setModalStr({
           ...ModalStr,
@@ -192,7 +189,6 @@ const InputEmail = () => {
         setInputCheck(() => ({ ...InputCheck, modal: true }));
       }
     } catch (error) {
-      console.log(error.response);
       const { data } = error.response;
       if (data.status === 400) {
         setIsLoding(() => false);
