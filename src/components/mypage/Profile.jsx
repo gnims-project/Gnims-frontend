@@ -13,10 +13,10 @@ const Profile = () => {
 
   //팔로잉과 팔로워 수를 가져오는 스테이트
   const followerCounter = useSelector(
-    (state) => state.FollowSlice.followerCount
+    (state) => state.FollowSlice.follower.followerCount
   );
   const followingCounter = useSelector(
-    (state) => state.FollowSlice.followingCount
+    (state) => state.FollowSlice.following.followingCount
   );
   //로컬 스토리지에 있는 데이터를 가져오는 코드
   const nickname = sessionStorage.getItem("nickname");
@@ -126,7 +126,7 @@ const Profile = () => {
         <div
           onClick={() => {
             sessionStorage.clear();
-            navigate("/main");
+            navigate("/login");
           }}
           className="flex gap-[130px] mt-[22px] p-[15px] border-b-[1px] border-[#BBD7FF] border-solid bg-white w-[375px] h-[50px] cursor-pointer"
         >

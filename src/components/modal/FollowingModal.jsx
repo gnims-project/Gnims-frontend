@@ -13,7 +13,8 @@ const FollowingModal = ({ setFollowingListOpen }) => {
     sessionStorage.setItem("selectedJoinerNames", filteredSelectedNames);
     setFollowingListOpen(false);
   };
-  const followingList = useSelector((state) => state.FollowSlice.followingList);
+
+  const following = useSelector((state) => state.FollowSlice.following);
   useEffect(() => {
     dispatch(__getFollowing());
   }, [dispatch]);
@@ -28,7 +29,7 @@ const FollowingModal = ({ setFollowingListOpen }) => {
         <div className="text-black pt-8 items-center w-[300px] h-[560px] text-center rounded-[16px] mt-[60px] z-20 bg-white ">
           참여자 선택
           <div className="overflow-auto h-[400px] mt-[25px]">
-            {followingList.map((following) => {
+            {following.followingList?.map((following) => {
               return (
                 <JoinerList
                   key={following.followId}

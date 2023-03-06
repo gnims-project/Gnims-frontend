@@ -46,12 +46,16 @@ const ScheduleDetail = () => {
            `}
           >
             <div className="flex flex-row-reverse ">
-              <img
-                className={`h-[20px] ${isHidden} row cursor-pointer`}
-                src={kebab}
-                alt="케밥메뉴"
+              <div
+                className="w-[40px] mr-[-30px] right-0"
                 onClick={showModalHandler}
-              />
+              >
+                <img
+                  className={`h-[20px] ${isHidden} row cursor-pointer`}
+                  src={kebab}
+                  alt="케밥메뉴"
+                />
+              </div>
             </div>
             <div className="flex space-x-3 text-[18px]  font-light ">
               <div>{schedule.date}</div> <div> {time}</div>
