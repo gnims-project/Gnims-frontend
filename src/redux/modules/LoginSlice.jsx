@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { instance } from "../../shared/AxiosInstance";
-import axios from "axios";
 import { LoginApi } from "../../api/LoginApi";
-import { setSingup } from "./SingupSlice";
+import { useDispatch } from "react-redux";
+import { __openModal } from "./SingupSlice";
 
 //이메일 로그인
 
@@ -33,7 +33,7 @@ export const __emailLogin = createAsyncThunk(
           modalTitle: "ID를 찾을 수 없어요.",
           modalMessage: "이메일와 비밀번호를  \n  다시 한 번 확인해주세요.",
         });
-        payload.onModalOpen();
+        payload.dispatch(__openModal(payload.dispatch));
       }
     }
   }

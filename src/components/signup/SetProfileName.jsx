@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { __nickNameCheck } from "../../redux/modules/SingupSlice";
+import { __closeModal, __nickNameCheck } from "../../redux/modules/SingupSlice";
 import Label from "../layout/Label";
 import LoginSignupInputBox from "../layout/input/LoginSignupInputBox";
 import IsModal from "../modal/Modal";
@@ -9,16 +9,14 @@ import IsModal from "../modal/Modal";
 const SetProfileName = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [isOpen, setOpen] = useState(false);
   const [ModalStr, setModalStr] = useState({
     modalTitle: "",
     modalMessage: "",
   });
   const userNameRef = useRef();
   const userNickNameRef = useRef();
-  const [doubleCheck, setDoubleCheck] = useState({
-    nickNameDoubleCheck: false,
-  });
+
+  const { nickNameDoubleCheck } = useSelector((state) => state.SingupSlice);
 
   const [style, setStyle] = useState({
     bgColorName: "bg-inputBox",
@@ -34,7 +32,7 @@ const SetProfileName = () => {
     ) {
       navigate("/signup/setProfileImg");
     }
-  }, [dispatch, doubleCheck, navigate]);
+  }, [dispatch, navigate]);
 
   const nameRegulationExp = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|]+$/;
   const nickNameReglationExp = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,8}$/;
@@ -96,11 +94,9 @@ const SetProfileName = () => {
   };
 
   //모달창
-  const onModalOpen = () => {
-    setOpen({ isOpen: true });
-  };
   const onMoalClose = () => {
-    setOpen({ isOpen: false });
+    console.log("닫기 동족하나?");
+    dispatch(__closeModal(dispatch));
   };
 
   const onNickNameCheck = (event) => {
@@ -117,10 +113,7 @@ const SetProfileName = () => {
     dispatch(
       __nickNameCheck({
         nickname: nickNameCurrent.value,
-        onModalOpen,
         setModalStr,
-        doubleCheck: doubleCheck,
-        setDoubleCheck: setDoubleCheck,
       })
     );
   };
@@ -160,7 +153,7 @@ const SetProfileName = () => {
       }));
       userNickNameCurrent.focus();
       return;
-    } else if (!doubleCheck) {
+    } else if (!nickNameDoubleCheck) {
       SetRegulation(() => ({
         ...regulation,
         regulationNickName: "닉네임 중복확인 해주세요.",
@@ -224,8 +217,10 @@ const SetProfileName = () => {
                   ref={userNickNameRef}
                   placeholder="2~8자리 숫자,한글,영문을 입력해주세요."
                   onChange={onValidity}
+                  maxLength={8}
                   className={`${style.bgColorNickname} ${style.shadowNickname} w-full px-1 h-[50px] text-[16px]  placeholder-inputPlaceHoldText`}
-                  disabled={doubleCheck.nickNameDoubleCheck}
+                  disabled={nickNameDoubleCheck}
+                  autoComplete="off"
                 ></input>
                 <button
                   className="absolute right-[8px]  mt-[18px] font-[600] text-textBlack text-[16px]"
@@ -249,11 +244,7 @@ const SetProfileName = () => {
             </button>
           </div>
         </form>
-        <IsModal
-          isModalOpen={isOpen.isOpen}
-          onMoalClose={onMoalClose}
-          message={{ ModalStr }}
-        />
+        <IsModal onMoalClose={onMoalClose} message={{ ModalStr }} />
       </div>
     </>
   );

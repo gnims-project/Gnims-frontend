@@ -1,36 +1,34 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { Action } from "@remix-run/router";
+import { createSlice } from "@reduxjs/toolkit";
 import { SignupApi } from "../../api/Signup";
 
+export const __openModal = () => {
+  return async function (dispatch) {
+    console.log("동작확인");
+    dispatch(openModal(true));
+  };
+};
+
+export const __closeModal = () => {
+  return async function (dispatch) {
+    dispatch(closeModal(false));
+  };
+};
+
 //닉네임 중복확인
-export const __nickNameCheck = ({
-  nickname,
-  onModalOpen,
-  setModalStr,
-  setDoubleCheck,
-  doubleCheck,
-  SetRegulation,
-  regulation,
-}) => {
+export const __nickNameCheck = ({ nickname, setModalStr }) => {
   return async function (dispatch) {
     console.log(nickname);
     SignupApi.nickNameDoubleCheck({ nickname: nickname })
       .then((response) => {
-        console.log(response.message);
-        setDoubleCheck(() => ({ ...doubleCheck, nickNameDoubleCheck: true }));
-        SetRegulation(() => ({
-          ...regulation,
-          regulationNickName: "",
-        }));
-        console.log("어디까지 찍힐까?");
         setModalStr({
           modalTitle: response.message,
           modalMessage: "",
         });
-        onModalOpen();
+        dispatch(__openModal());
         dispatch(isNickNameDoubleCheck(true));
       })
       .catch((error) => {
+        console.log(error);
         const { data } = error.response;
         console.log(data);
         if (data.status === 400) {
@@ -38,13 +36,13 @@ export const __nickNameCheck = ({
             modalTitle: "닉네임을 확인해주세요.",
             modalMessage: data.message,
           });
-          onModalOpen();
+          dispatch(__openModal());
         } else {
           setModalStr({
             modalTitle: "닉네임을 확인해주세요.",
             modalMessage: data.message,
           });
-          onModalOpen();
+          dispatch(__openModal());
         }
       });
   };
@@ -84,6 +82,9 @@ const initialState = {
     password: null,
     profileImage: null,
   },
+  modal: {
+    isOpen: false,
+  },
   singup: null,
   NameNickName: null,
   error: null,
@@ -96,6 +97,12 @@ const SingupSlice = createSlice({
   name: "singup",
   initialState,
   reducers: {
+    openModal: (state, action) => {
+      state.modal.isOpen = action.payload;
+    },
+    closeModal: (state, action) => {
+      state.modal.isOpen = action.payload;
+    },
     userInfoState: (state, action) => {
       console.log(action.payload);
       state.userInfo = action.payload;
@@ -117,5 +124,7 @@ export const {
   setNameNickName,
   setSingup,
   isNickNameDoubleCheck,
+  openModal,
+  closeModal,
 } = SingupSlice.actions;
 export default SingupSlice.reducer;

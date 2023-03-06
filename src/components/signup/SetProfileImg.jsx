@@ -2,17 +2,15 @@ import React, { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import profilImg from "../../img/ProfilImg.png";
 import inputImgIcon from "../../img/Component01.png";
-import { SignupApi } from "../../api/Signup";
 import IsModal from "../modal/Modal";
 import axios from "axios";
 import { useNavigate } from "react-router";
-import { instance } from "../../shared/AxiosInstance";
 import LoadingPage from "../../page/LoadingPage";
-
+import { __closeModal, __openModal } from "../../redux/modules/SingupSlice";
 const SetProfileImg = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  const [isOpen, setOpen] = useState(false);
   const [ModalStr, setModalStr] = useState({
     modalTitle: "",
     modalMessage: "",
@@ -69,11 +67,9 @@ const SetProfileImg = () => {
   };
 
   //모달창
-  const onModalOpen = () => {
-    setOpen({ isOpen: true });
-  };
+
   const onMoalClose = () => {
-    setOpen({ isOpen: false });
+    dispatch(__closeModal(dispatch));
     if (disabled) {
       navigate("/login");
     }
@@ -107,7 +103,8 @@ const SetProfileImg = () => {
           sessionStorage.removeItem("password");
           sessionStorage.removeItem("nickname");
           sessionStorage.removeItem("singup");
-          onModalOpen();
+          dispatch(__openModal());
+          setLoading(false);
         }
       })
       .catch((error) => {
@@ -120,7 +117,8 @@ const SetProfileImg = () => {
             modalTitle: "다시 한 번 확인해주세요",
             modalMessage: "닉네임과 이름을 다시 한 번 확인해주세요.",
           });
-          onModalOpen();
+          dispatch(__openModal());
+          setLoading(false);
         }
       });
   };
@@ -188,11 +186,7 @@ const SetProfileImg = () => {
           </button>
         </div>
       </div>
-      <IsModal
-        isModalOpen={isOpen.isOpen}
-        onMoalClose={onMoalClose}
-        message={{ ModalStr }}
-      />
+      <IsModal onMoalClose={onMoalClose} message={{ ModalStr }} />
     </div>
   );
 };
