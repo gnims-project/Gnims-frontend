@@ -15,6 +15,8 @@ import SetProfileNamePage from "./SetProfileNamePage";
 import SignupPage from "./SingupPage";
 import UserSearchPage from "./UserSearchPage";
 import DevelopIng from "./DevelopIng";
+import Page404 from "./Page404";
+import Page500 from "./Page500";
 
 export {
   ChangePasswordPage,
@@ -34,4 +36,6 @@ export {
   SignupPage,
   UserSearchPage,
   DevelopIng,
+  Page404,
+  Page500,
 };
