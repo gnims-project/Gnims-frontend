@@ -1,17 +1,18 @@
 import React from "react";
-import kakaologo from "../../img/kakao_login_medium_narrow.png";
-import { KAKAO_AUTH_URL } from "../../shared/OAuth";
 
-const KakaoLogin = () => {
-  //버튼을 눌렀을때 인가 코드를 받아기 위한 주소로 넘어감
-  const onClickKakaoLongin = () => {
-    window.location.href = KAKAO_AUTH_URL;
-  };
+const LoginButton = ({ onEvent, img }) => {
   return (
-    <div onClick={onClickKakaoLongin}>
-      <img src={kakaologo} alt="카카오로그인"></img>
+    <div
+      className="h-[60px] w-[60px] justify-center rounded-full shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0"
+      onClick={onEvent}
+    >
+      <img
+        className="h-full w-full rounded-full"
+        src={img}
+        alt="로그인버튼들"
+      />
     </div>
   );
 };
 
-export default KakaoLogin;
+export default LoginButton;
