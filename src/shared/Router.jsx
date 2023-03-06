@@ -25,6 +25,8 @@ import {
   SignupPage,
   LoginPage,
   DevelopIng,
+  Page404,
+  Page500,
 } from "../page/index";
 
 const Router = () => {
@@ -147,6 +149,8 @@ const Router = () => {
 
         {/* 개발중 */}
         <Route path="/developing" element={<DevelopIng />} />
+        <Route path="/404error" element={<Page404 />} />
+        <Route path="/500error" element={<Page500 />} />
       </Routes>
     </Layout>
   );
