@@ -14,17 +14,14 @@ const UserSearch = () => {
   const onUserSearch = (event) => {
     setLoading(true);
     const { value } = event.target;
-    console.log("test");
     Settime(() => 1000);
-    handlePrice(value);
+    handleSearch(value);
   };
 
-  const handlePrice = debounce(async (payload) => {
+  const handleSearch = debounce(async (payload) => {
     try {
-      console.log(payload);
       const response = await UserApi.userSearch(payload);
       const userInfo = response.data;
-      console.log(userInfo);
       setUser(() => userInfo);
       setLoading(false);
     } catch (e) {
@@ -33,7 +30,7 @@ const UserSearch = () => {
   }, time);
 
   useEffect(() => {
-    handlePrice();
+    handleSearch();
   }, []);
 
   return (
@@ -51,7 +48,7 @@ const UserSearch = () => {
             className=" cursor-pointer"
             onClick={() => {
               Settime(() => 0);
-              handlePrice(userSearchName.current.value);
+              handleSearch(userSearchName.current.value);
             }}
           >
             <img

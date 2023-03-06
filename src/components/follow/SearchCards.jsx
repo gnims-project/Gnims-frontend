@@ -7,14 +7,18 @@ const SearchCards = ({ userInfo }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isFollowed, setIsFollowed] = useState(userInfo.isFollowed === true);
-  console.log(isFollowed);
 
   const [btnColor, setBtnColor] = useState(
     userInfo.isFollowed === true ? null : "#002C51"
   );
 
   const handleClick = (e) => {
-    dispatch(__postFollowState(userInfo.userId));
+    dispatch(
+      __postFollowState({
+        id: userInfo.userId,
+        state: "following",
+      })
+    );
     setIsFollowed(!isFollowed);
     if (isFollowed) setBtnColor("#002C51");
     else setBtnColor(null);
