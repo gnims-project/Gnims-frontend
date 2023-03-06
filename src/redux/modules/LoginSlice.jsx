@@ -59,7 +59,7 @@ export const __kakaologin = createAsyncThunk(
             const nickname = res.data.data.nickname;
             const userId = res.data.data.userId;
             console.log(nickname);
-            sessionStorage.setItem("token", accessToken);
+            sessionStorage.setItem("accessToken", accessToken);
             sessionStorage.setItem("nickname", nickname);
             sessionStorage.setItem("userId", userId);
 

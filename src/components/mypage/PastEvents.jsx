@@ -13,7 +13,6 @@ const PastEvents = () => {
   const profileImg = sessionStorage.getItem("profileImage");
 
   useEffect(() => {
-    console.log("실행");
     dispatch(__getPastSchedlue());
   }, []);
 

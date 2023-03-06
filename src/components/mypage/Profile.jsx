@@ -126,7 +126,7 @@ const Profile = () => {
         <div
           onClick={() => {
             sessionStorage.clear();
-            navigate("/main");
+            navigate("/login");
           }}
           className="flex gap-[130px] mt-[22px] p-[15px] border-b-[1px] border-[#BBD7FF] border-solid bg-white w-[375px] h-[50px] cursor-pointer"
         >
