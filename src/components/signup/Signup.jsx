@@ -496,7 +496,7 @@ const Signup = () => {
     <>
       <div className="container">
         <div className=" grid grid-flow-row ml-[20px] mr-[20px] gap-[32px]">
-          <div className=" grid grid-flow-row gap-[10px] mt-[106px]">
+          <div className=" grid grid-flow-row gap-[10px] mt-[30px]">
             <div>
               <h1 className="font-[700] text-textBlack text-[32px] mb-[10px]">
                 Welcome Gnims!
