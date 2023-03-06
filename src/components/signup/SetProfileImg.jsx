@@ -77,10 +77,8 @@ const SetProfileImg = () => {
 
   //이메일 회원가입시 백단 연결
   const sginupAxios = async ({ formData, data, url }) => {
-    console.log(data);
     const json = JSON.stringify(data);
     const blob = new Blob([json], { type: "application/json" });
-    console.log(blob);
     formData.append("data", blob);
 
     await axios
@@ -90,10 +88,9 @@ const SetProfileImg = () => {
         },
       })
       .then((response) => {
-        console.log(response.status);
         if (response.status === 201) {
           setDisabled(() => true);
-          console.log(response);
+
           setModalStr({
             modalTitle: "회원가입완료!",
             modalMessage: "그님스와 함께 약속들을 관리해보아요!",
@@ -109,10 +106,8 @@ const SetProfileImg = () => {
       })
       .catch((error) => {
         setDisabled(() => false);
-        console.log(error.response);
         const { data } = error.response;
         if (data.status === 400) {
-          console.log(data.message);
           setModalStr({
             modalTitle: "다시 한 번 확인해주세요",
             modalMessage: "닉네임과 이름을 다시 한 번 확인해주세요.",

@@ -22,7 +22,6 @@ export const ScheduleApi = {
   },
   //스케줄 수정
   editScheduleApi: (payload) => {
-    console.log("수정데이터?", payload);
     const data = instance.put(`/events/${payload.eventId}`, payload.Schedule);
     return data;
   },

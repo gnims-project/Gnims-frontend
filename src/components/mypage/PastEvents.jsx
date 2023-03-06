@@ -8,7 +8,6 @@ import PageInfoCard from "./PageInfoCard";
 const PastEvents = () => {
   const dispatch = useDispatch();
   const { pastSchedules } = useSelector((state) => state.ScheduleSlice);
-  console.log(pastSchedules);
   const nickname = sessionStorage.getItem("nickname");
   const profileImg = sessionStorage.getItem("profileImage");
 

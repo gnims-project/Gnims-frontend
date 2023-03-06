@@ -95,7 +95,6 @@ const SetProfileName = () => {
 
   //모달창
   const onMoalClose = () => {
-    console.log("닫기 동족하나?");
     dispatch(__closeModal(dispatch));
   };
 

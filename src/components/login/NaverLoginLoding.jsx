@@ -9,8 +9,6 @@ function NaverLoginLoding() {
 
   const getToken = async () => {
     const navertoken = window.location.href.split("=")[1].split("&")[0];
-    console.log(navertoken);
-
     // sessionStorage.setItem("NaverAuthorization", navertoken);
   };
 
@@ -24,16 +22,12 @@ function NaverLoginLoding() {
 
       .then((res) => {
         //이미 멤버라면 Authorization이 담겨 올 것이고, member라고
-        console.log("res", res);
-        console.log("email?", res.data.data.email);
-        console.log("member?", res.data.message);
         const email = res.data.data.email;
         if (res.data.message !== "non-member") {
           const accessToken = res.headers.get("Authorization");
           const nickname = res.data.data.nickname;
           const userId = res.data.data.userId;
           const profileImage = res.data.data.profileImage;
-          console.log(nickname);
           sessionStorage.setItem("accessToken", accessToken);
           sessionStorage.setItem("nickname", nickname);
           sessionStorage.setItem("profileImage", profileImage);
@@ -50,7 +44,6 @@ function NaverLoginLoding() {
           return window.location.assign("/signup/setProfileName");
         }
       });
-    // console.log(data);
   };
 
   useEffect(() => {

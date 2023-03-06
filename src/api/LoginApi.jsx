@@ -7,7 +7,6 @@ export const LoginApi = {
   },
 
   KakaoLogin: async (payload) => {
-    console.log("카카오 페이로드", payload);
     return await instance.post("kakao/login", payload);
   },
 

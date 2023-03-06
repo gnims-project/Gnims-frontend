@@ -25,7 +25,6 @@ const KebabModal = ({ setModalOpen, id }) => {
   const confirmDeleteHandler = () => {
     //DELETE 기능넣으면 됨
     dispatch(__deleteSchedule([id, userId, dispatch]));
-    console.log(id);
     navigate("/main");
   };
 

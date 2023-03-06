@@ -30,7 +30,6 @@ const ProfileEdit = () => {
     const formData = new FormData();
     formData.append("image", null);
     const response = await UserApi.editProfile(formData);
-    console.log(response);
     if (response.status === 200) {
       alert("프로필이미지가 변경되었습니다!");
       setLoading(false);
@@ -43,14 +42,12 @@ const ProfileEdit = () => {
     setLoading(true);
     try {
       const imgFile = imgRef.current.files[0];
-      console.log(imgFile);
       const formData = new FormData();
       if (imgFile !== undefined) {
         formData.append("image", imgFile);
       }
 
       const response = await UserApi.editProfile(formData);
-      console.log(response);
       if (response.status === 200) {
         alert("프로필이미지가 변경되었습니다!");
         setLoading(false);
