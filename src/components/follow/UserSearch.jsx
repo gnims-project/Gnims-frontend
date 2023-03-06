@@ -52,7 +52,7 @@ const UserSearch = () => {
             }}
           >
             <img
-              className="absolute top-[15px] right-[40px]"
+              className="absolute top-[15px] right-[15px]"
               src={searchIcon}
               alt="돋보기 아이콘"
             />

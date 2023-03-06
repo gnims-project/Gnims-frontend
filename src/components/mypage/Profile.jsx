@@ -23,8 +23,8 @@ const Profile = () => {
   const nickname = sessionStorage.getItem("nickname");
   const email = sessionStorage.getItem("email");
   const profileImage = sessionStorage.getItem("profileImage");
-  const moveToFeedbackForm = (window.location.href =
-    "https://docs.google.com/forms/d/e/1FAIpQLSdOP_FEmMG5f0OtAER0ha4PR53XdXX6qVGLGMxYevd_ixD4QA/viewform");
+  const FeedbackForm =
+    "https://docs.google.com/forms/d/e/1FAIpQLSdOP_FEmMG5f0OtAER0ha4PR53XdXX6qVGLGMxYevd_ixD4QA/viewform";
 
   //페이지 렌더링시 팔로우 정보를 가져와야함
   useEffect(() => {
@@ -116,7 +116,9 @@ const Profile = () => {
           <img src={Vector} alt="화살표" className="h-[18px] w-[10px]" />
         </div>
         <div
-          onClick={moveToFeedbackForm}
+          onClick={() => {
+            window.open(FeedbackForm);
+          }}
           className="flex gap-[130px] p-[15px] border-b-[1px] border-[#BBD7FF] border-solid bg-white w-[375px] h-[50px] cursor-pointer"
         >
           <span className="text-sm w-[175px] h-[20px]">
