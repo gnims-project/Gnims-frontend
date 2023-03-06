@@ -24,7 +24,7 @@ const InvitationCard = ({ invit }) => {
 
   const onRefuseHanddler = (e) => {
     e.stopPropagation();
-    const result = window.confirm("거절?");
+    const result = window.confirm("초대를 거절하시겠습니까?");
     if (result) {
       return dispatch(refuseInvitation(invit.eventId));
     }
@@ -32,7 +32,7 @@ const InvitationCard = ({ invit }) => {
 
   const onAcceptHanddler = (e) => {
     e.stopPropagation();
-    const result = window.confirm("수락?");
+    const result = window.confirm("초대를 수락하시겠습니까?");
     if (result) {
       return dispatch(acceptInvitation(invit.eventId));
     }
