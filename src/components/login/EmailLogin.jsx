@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import IsModal from "../modal/Modal";
 import kakaologo from "../../img/kakao_login_medium_narrow.png";
 import { KAKAO_AUTH_URL } from "../../shared/OAuth";
-import LoginButton from "../button/LoginButton";
+import KakaoLogin from "./KakaoLogin";
 import "../style/login.css";
 import { __emailLogin } from "../../redux/modules/LoginSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -153,7 +153,7 @@ const EmailLogin = () => {
           <form className="mt-[-40px]">
             <div className=" grid grid-row-3 gap-[10px]">
               <div className="">
-                <div className="grid  grid-row-2">
+                <div className="grid grid-row-2">
                   <Label htmlFor="userEmail">이메일</Label>
                   <LoginSignupInputBox
                     type="email"
@@ -234,7 +234,7 @@ const EmailLogin = () => {
               </p>
             </div>
             <div className="text-center">
-              <LoginButton onEvent={onClickKakaoLongin} img={kakaologo} />
+              <KakaoLogin onEvent={onClickKakaoLongin} img={kakaologo} />
               <p className="mt-[20px] text-[#12396F] font-[400] text-[14px]">
                 카카오
               </p>
