@@ -12,11 +12,11 @@ import Label from "../layout/Label";
 import LoginSignupInputBox from "../layout/input/LoginSignupInputBox";
 import gnimsLogo from "../../img/gnimslogo1.png";
 import { EventSourcePolyfill } from "event-source-polyfill";
+import { __closeModal } from "../../redux/modules/SingupSlice";
 
 const EmailLogin = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [isOpen, setOpen] = useState(false);
   const [ModalStr, setModalStr] = useState({
     modalTitle: "",
     modalMessage: "",
@@ -84,11 +84,9 @@ const EmailLogin = () => {
   };
 
   //모달창
-  const onModalOpen = () => {
-    setOpen({ isOpen: true });
-  };
+
   const onMoalClose = () => {
-    setOpen({ isOpen: false });
+    dispatch(__closeModal());
   };
 
   //서버에 전달
@@ -124,8 +122,8 @@ const EmailLogin = () => {
       __emailLogin({
         email: emailValue,
         password: passwordValue,
+        dispatch,
         navigate,
-        onModalOpen,
         setModalStr,
       })
     );
@@ -240,11 +238,7 @@ const EmailLogin = () => {
               </p>
             </div>
           </div>
-          <IsModal
-            isModalOpen={isOpen.isOpen}
-            onMoalClose={onMoalClose}
-            message={{ ModalStr }}
-          />
+          <IsModal onMoalClose={onMoalClose} message={{ ModalStr }} />
         </div>
       </div>
     </div>
