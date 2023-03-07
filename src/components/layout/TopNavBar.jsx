@@ -50,7 +50,7 @@ const TopNavBar = () => {
       });
       // SSE 연결 성공 시 호출되는 이벤트 핸들러
       eventSource.onopen = () => {
-        console.log("SSE 연결완료");
+        // console.log("SSE 연결완료");
       };
       eventSource.onmessage = async function (event) {
         const data = JSON.parse(event.data);
@@ -87,7 +87,7 @@ const TopNavBar = () => {
     //컴포넌트가 언마운트될 때 eventSource를 닫음
     return () => {
       eventSource && eventSource.close();
-      console.log("event source closed.");
+      // console.log("event source closed.");
     };
   }, []);
 
