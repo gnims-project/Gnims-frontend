@@ -26,6 +26,10 @@ const ScheduleAdd = () => {
     } else {
       dispatch(scheduleReset());
     }
+    return () => {
+      sessionStorage.removeItem("selectedJoiner");
+      sessionStorage.removeItem("selectedJoinerNames");
+    };
   }, []);
 
   //전역으로 받아오는 state
