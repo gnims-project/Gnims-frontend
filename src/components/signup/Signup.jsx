@@ -70,7 +70,7 @@ const Signup = () => {
 
   //이름
   const nameValidationTest = (nameValidation) => {
-    const nameRegulationExp = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|]{2,8}$/;
+    const nameRegulationExp = /^[a-zA-Z가-힣]{1,12}$/;
     if (!nameRegulationExp.test(nameValidation.value)) {
       SetRegulation(() => ({
         ...regulation,
@@ -90,7 +90,7 @@ const Signup = () => {
   //이메일
   const emailValidationTest = (emailValidation) => {
     const emailRegulationExp =
-      /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+      /^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$/;
     if (emailRegulationExp.test(emailValidation.value)) {
       SetRegulation(() => ({
         ...regulation,
@@ -109,7 +109,7 @@ const Signup = () => {
 
   //닉네임
   const nickNameValidationTest = (nickNameValidation) => {
-    const nickNameReglationExp = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,8}$/;
+    const nickNameReglationExp = /^[a-zA-Z0-9가-힣]{2,8}$/;
     if (nickNameReglationExp.test(nickNameValidation.value)) {
       SetRegulation(() => ({
         ...regulation,
@@ -128,7 +128,7 @@ const Signup = () => {
 
   //비밀번호
   const passwordValidationTest = (passwordValidation) => {
-    const passwordRegulationExp = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,16}$/;
+    const passwordRegulationExp = /^(?=.*[a-zA-Z])(?=.*\\d)[a-zA-Z\\d]{8,16}$/;
     if (passwordRegulationExp.test(passwordValidation.value)) {
       SetRegulation(() => ({
         ...regulation,
@@ -519,7 +519,7 @@ const Signup = () => {
                   placeholder="사용자의 이름을 입력해주세요."
                   bgColor={style.bgColorName}
                   shadow={style.shadowName}
-                  maxLength={8}
+                  maxLength={11}
                 />
                 <div className="flex items-center h-[40px]">
                   <p className=" w-full font-[500] text-[16px]  text-[#DE0D0D] flex items-center">
