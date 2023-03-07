@@ -34,8 +34,8 @@ const SetProfileName = () => {
     }
   }, [dispatch, navigate]);
 
-  const nameRegulationExp = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|]+$/;
-  const nickNameReglationExp = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,8}$/;
+  const nameRegulationExp = /^[a-zA-Z가-힣]{1,12}$/;
+  const nickNameReglationExp = /^[a-zA-Z0-9가-힣]{2,8}$/;
 
   //아이디 비밀번호가 틀렸을시 문구
   const [regulation, SetRegulation] = useState({
@@ -195,6 +195,7 @@ const SetProfileName = () => {
                   placeholder="사용자의 이름을 입력해주세요."
                   onChange={onValidity}
                   bgColor={style.bgColorName}
+                  maxLength={11}
                 />
               </div>
               <div>

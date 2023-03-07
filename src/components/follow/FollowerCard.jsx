@@ -11,11 +11,11 @@ const FollowerCard = ({ follower }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isFollowed, setIsFollowed] = useState(
-    follower.followStatus === "ACTIVE"
+    follower.followStatus === "ACTIVE" || "INIT"
   );
 
   const [btnColor, setBtnColor] = useState(
-    follower.followStatus === "ACTIVE" ? "#A31414" : "#002C51"
+    follower.followStatus === "ACTIVE" || "INIT" ? "#A31414" : "#002C51"
   );
 
   const handleClick = (e) => {
