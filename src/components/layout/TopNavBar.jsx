@@ -85,9 +85,10 @@ const TopNavBar = () => {
     fetchSse();
     getNoti();
     //컴포넌트가 언마운트될 때 eventSource를 닫음
-    //return () => {
-    //   eventSource && eventSource.close();
-    // };
+    return () => {
+      eventSource && eventSource.close();
+      console.log("event source closed.");
+    };
   }, []);
 
   return (
