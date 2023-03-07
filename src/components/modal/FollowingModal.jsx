@@ -5,24 +5,23 @@ import JoinerList from "./JoinerList";
 
 const FollowingModal = ({ setFollowingListOpen }) => {
   const dispatch = useDispatch();
-  //   const [selectedUserIds, setSelectedUserIds] = useState([]);
-  const submitHandler = () => {
-    const filteredSelectedId = [...new Set(selectedUserIds)];
-    const filteredSelectedNames = [...new Set(selectedUserNames)];
-    sessionStorage.setItem("selectedJoiner", filteredSelectedId);
-    sessionStorage.setItem("selectedJoinerNames", filteredSelectedNames);
-    setFollowingListOpen(false);
-  };
 
   const following = useSelector((state) => state.FollowSlice.following);
-  useEffect(() => {
-    dispatch(__getFollowing());
-  }, [dispatch]);
   const [selectedUserIds, setSelectedUserIds] = useState([]);
   const [selectedUserNames, setSelectedUserNames] = useState([]);
+
   const closeFollowModal = () => {
     setFollowingListOpen(false);
   };
+  const submitHandler = () => {
+    sessionStorage.setItem("selectedJoiner", selectedUserIds);
+    sessionStorage.setItem("selectedJoinerNames", selectedUserNames);
+    setFollowingListOpen(false);
+  };
+  useEffect(() => {
+    dispatch(__getFollowing());
+  }, [dispatch]);
+
   return (
     <>
       <div className="h-full w-[375px]  bg-black bg-opacity-50  justify-center fixed bottom-0 z-10 flex">
