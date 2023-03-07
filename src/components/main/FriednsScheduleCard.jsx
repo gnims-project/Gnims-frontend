@@ -70,12 +70,10 @@ const FriednsScheduleCard = ({ schedules }) => {
                 {schedules.dday === 0 ? <>DAY</> : <>{schedules.dday}</>}
               </div>
             </div>
-
             <div className="grid grid-flow-row gap-[17px]">
               <div className="text-[18px] font-[700]">
                 <div>{schedules.subject}</div>
               </div>
-
               <div className="h-[40px]">
                 <div hidden={inviteesList.hidden} className="flex space-x-32">
                   <div className="flex -space-x-5 overflow-hidden ">
