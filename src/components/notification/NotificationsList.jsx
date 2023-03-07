@@ -48,7 +48,7 @@ const NotificationsList = () => {
         eventSource = new EventSourcePolyfill(
           "https://eb.jxxhxxx.shop/connect",
           {
-            //headers에 토큰을 꼭 담아줘야 500이 안뜬다.
+            //headers에 토큰을 꼭 담아줘야 401이 안뜬다.
             headers: {
               Authorization: sessionStorage.getItem("accessToken"),
             },
