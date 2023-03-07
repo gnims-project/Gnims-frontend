@@ -35,7 +35,7 @@ export const __getSchedule = createAsyncThunk(
       const { data } = await ScheduleApi.getSccheduleApi(payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
 );
@@ -47,7 +47,7 @@ export const __getScheduleDetail = createAsyncThunk(
       const { data } = await instance.get(`/events/${payload}`);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
 );
@@ -68,7 +68,7 @@ export const __getScrollPage = createAsyncThunk(
       }
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
 );
