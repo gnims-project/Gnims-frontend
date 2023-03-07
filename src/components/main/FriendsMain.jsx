@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { instance } from "../../shared/AxiosInstance";
@@ -38,7 +38,7 @@ const FriendsMain = () => {
   };
   useLayoutEffect(() => {
     getSchdule();
-  }, [schedule]);
+  }, []);
 
   return (
     <>

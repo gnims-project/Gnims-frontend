@@ -29,7 +29,7 @@ export const refuseInvitation = (payload) => {
         dispatch(__getInvitation());
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
       });
   };
 };
@@ -43,7 +43,7 @@ export const acceptInvitation = (payload) => {
         dispatch(__getInvitation());
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
       });
   };
 };
