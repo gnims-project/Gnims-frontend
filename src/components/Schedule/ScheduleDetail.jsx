@@ -70,7 +70,7 @@ const ScheduleDetail = () => {
           <div>
             {/* 참여자는 2명이상일 때부터 화면에 보입니다. */}
             {numberOfJoiner !== 1 ? (
-              <div className="mt-[30px] h-[98px] mx-auto]">
+              <div className="mt-[30px] ml-[20px] h-[98px]">
                 참여자
                 <div className="bg-white h-[50px] w-[335px] mt-[20px] p-[15px] drop-shadow-lg flex rounded-lg">
                   {joiner &&
