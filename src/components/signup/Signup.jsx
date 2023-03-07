@@ -183,7 +183,7 @@ const Signup = () => {
       })
       .catch((error) => {
         const { data } = error.response;
-        console.log(data);
+        // console.log(data);
         if (data.status === 400) {
           setModalStr({
             modalTitle: "이메일을 확인해주세요.",
@@ -192,7 +192,7 @@ const Signup = () => {
 
           dispatch(__openModal());
         } else {
-          console.log(error);
+          // console.log(error);
         }
       });
   };

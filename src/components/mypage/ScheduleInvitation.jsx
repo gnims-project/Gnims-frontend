@@ -13,7 +13,6 @@ const ScheduleInvitation = () => {
   const { isLoading, error, invitation } = useSelector(
     (state) => state.InvitationSlice
   );
-  console.log("무슨 스테이트?", invitation);
 
   useEffect(() => {
     dispatch(__getInvitation());
