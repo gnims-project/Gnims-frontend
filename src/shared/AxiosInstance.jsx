@@ -35,11 +35,11 @@ instance.interceptors.response.use(
       window.location.href = "/main";
       return;
     }
-    if (errMsg === 403) {
-      alert("팔로우한 사람들만 일정을 볼 수 있습니다.");
-      window.history.back(-1);
-      return;
-    }
+    // if (errMsg === 403) {
+    //   alert("팔로우한 사람들만 일정을 볼 수 있습니다.");
+    //   window.history.back(-1);
+    //   return;
+    // }
     if (errMsg === 500) {
       window.location.href = "/500error";
       return;

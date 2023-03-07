@@ -29,7 +29,7 @@ const Layout = ({ children }) => {
         setHeader(() => <TopNavBar />);
         break;
       case `/friendsdetail/${id}`:
-        setHeader(() => () => (
+        setHeader(() => (
           <TopNavTitleBar>
             {sessionStorage.getItem("clickedUserName")}님의 일정
           </TopNavTitleBar>

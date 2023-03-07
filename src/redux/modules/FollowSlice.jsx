@@ -45,6 +45,7 @@ export const __postFollowState = createAsyncThunk(
   "getFollowState",
   async (payload, thunkAPI) => {
     try {
+      // console.log(payload);
       const data = await instance.post(`/friendship/followings/${payload.id}`);
       if (payload.state === "follower") {
         return thunkAPI.dispatch(__getFollower());

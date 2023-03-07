@@ -57,7 +57,7 @@ const NotificationsList = () => {
         );
         // SSE 연결 성공 시 호출되는 이벤트 핸들러
         eventSource.onopen = () => {
-          console.log("SSE onopen");
+          // console.log("SSE onopen");
         };
         //알림이 왔을 때 취할 액션은 이 아래에.
         eventSource.onmessage = async (event) => {
@@ -65,7 +65,7 @@ const NotificationsList = () => {
         };
         // 연결시에 콘솔이 찍힌다.
         eventSource.addEventListener("connect", (event) => {
-          console.log(event.data);
+          // console.log(event.data);
         });
 
         eventSource.addEventListener("invite", (event) => {
@@ -107,13 +107,11 @@ const NotificationsList = () => {
           );
         });
       } catch (error) {
-        console.log("에러발생:", error);
+        // console.log("에러발생:", error);
       }
     };
-    fetchSse();
-    return () => {
-      eventSource.close();
-    };
+    // @0307 14:20 현재페이지에서 CORS에러생기고 4번씩 요청보내는 문제가 있음. 알림페이지에서는 SSE연결 하지않는걸로.
+    // fetchSse();
   }, [notification]);
 
   return (

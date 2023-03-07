@@ -57,7 +57,7 @@ const ProfileEdit = () => {
       const { imageUrl } = response.data.data.profileImage;
       setImage(imageUrl);
     } catch (error) {
-      console.error(error);
+      // console.error(error);
     }
   };
   useEffect(() => {
