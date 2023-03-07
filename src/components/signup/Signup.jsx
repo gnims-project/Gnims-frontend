@@ -608,7 +608,7 @@ const Signup = () => {
                     ref={PasswordCheckRef}
                     bgColor={style.bgColorPasswordCheck}
                     shadow={style.shadowPasswordCheck}
-                    maxLength={18}
+                    maxLength={16}
                   />
                 </div>
                 <div className="flex items-center h-[40px]">
