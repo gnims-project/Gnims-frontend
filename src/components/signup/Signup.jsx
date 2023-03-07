@@ -42,8 +42,6 @@ const Signup = () => {
   const userPasswordRef = useRef();
   const PasswordCheckRef = useRef();
 
-  //이름, 이메일, 비밀번호, 닉네임 정규 표현식
-
   //아이디 비밀번호가 틀렸을시 문구
   const [regulation, SetRegulation] = useState({
     regulationName: "",
@@ -90,7 +88,7 @@ const Signup = () => {
   //이메일
   const emailValidationTest = (emailValidation) => {
     const emailRegulationExp =
-      /^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$/;
+      /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
     if (emailRegulationExp.test(emailValidation.value)) {
       SetRegulation(() => ({
         ...regulation,
@@ -128,7 +126,7 @@ const Signup = () => {
 
   //비밀번호
   const passwordValidationTest = (passwordValidation) => {
-    const passwordRegulationExp = /^(?=.*[a-zA-Z])(?=.*\\d)[a-zA-Z\\d]{8,16}$/;
+    const passwordRegulationExp = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,16}$/;
     if (passwordRegulationExp.test(passwordValidation.value)) {
       SetRegulation(() => ({
         ...regulation,
@@ -590,6 +588,7 @@ const Signup = () => {
                     onChange={onValidity}
                     bgColor={style.bgColorPassword}
                     shadow={style.shadowPassword}
+                    maxLength={16}
                   />
                 </div>
                 <div className="flex items-center h-[40px]">
@@ -609,6 +608,7 @@ const Signup = () => {
                     ref={PasswordCheckRef}
                     bgColor={style.bgColorPasswordCheck}
                     shadow={style.shadowPasswordCheck}
+                    maxLength={16}
                   />
                 </div>
                 <div className="flex items-center h-[40px]">
