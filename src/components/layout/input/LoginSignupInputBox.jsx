@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react";
 
 const LoginSignupInputBox = forwardRef((props, ref) => {
-  const { type, placeholder, onChange, id, bgColor, shadow } = props;
+  const { type, placeholder, onChange, id, bgColor, shadow, maxLength } = props;
   return (
     <>
       <div>
@@ -13,6 +13,7 @@ const LoginSignupInputBox = forwardRef((props, ref) => {
           ref={ref}
           placeholder={placeholder}
           onChange={onChange}
+          maxLength={maxLength}
           autoComplete="off"
         />
       </div>

@@ -70,7 +70,7 @@ const Signup = () => {
 
   //이름
   const nameValidationTest = (nameValidation) => {
-    const nameRegulationExp = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|]+$/;
+    const nameRegulationExp = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|]{2,8}$/;
     if (!nameRegulationExp.test(nameValidation.value)) {
       SetRegulation(() => ({
         ...regulation,
@@ -519,6 +519,7 @@ const Signup = () => {
                   placeholder="사용자의 이름을 입력해주세요."
                   bgColor={style.bgColorName}
                   shadow={style.shadowName}
+                  maxLength={8}
                 />
                 <div className="flex items-center h-[40px]">
                   <p className=" w-full font-[500] text-[16px]  text-[#DE0D0D] flex items-center">
