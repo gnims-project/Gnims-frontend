@@ -183,12 +183,21 @@ const Signup = () => {
       })
       .catch((error) => {
         const { data } = error.response;
-        // console.log(data);
+
+        console.log(data);
         if (data.status === 400) {
-          setModalStr({
-            modalTitle: "이메일을 확인해주세요.",
-            modalMessage: "이메일을 확인해주세요.",
-          });
+          if (Array.isArray(data.messages)) {
+            console.log(data.messages[0]);
+            setModalStr({
+              modalTitle: "이메일을 확인해주세요.",
+              modalMessage: data.messages[0],
+            });
+          } else {
+            setModalStr({
+              modalTitle: data.message,
+              modalMessage: "이메일을 확인해주세요.",
+            });
+          }
 
           dispatch(__openModal());
         } else {
@@ -541,6 +550,7 @@ const Signup = () => {
                   <button
                     className="absolute right-[5px] mt-[18px] font-[600] text-textBlack text-[16px]"
                     onClick={onEmailDoubleCheck}
+                    disabled={doubleCheck.emailDoubleCheck}
                   >
                     중복 확인
                   </button>
@@ -567,6 +577,7 @@ const Signup = () => {
                   <button
                     className="absolute right-[5px] mt-[18px] font-[600] text-textBlack text-[16px]"
                     onClick={onNickNameCheck}
+                    disabled={nickNameDoubleCheck}
                   >
                     중복 확인
                   </button>

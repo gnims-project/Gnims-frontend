@@ -27,17 +27,31 @@ export const __nickNameCheck = ({ nickname, setModalStr }) => {
       })
       .catch((error) => {
         const { data } = error.response;
+        console.log(data);
         if (data.status === 400) {
-          setModalStr({
-            modalTitle: "닉네임을 확인해주세요.",
-            modalMessage: data.message,
-          });
+          if (Array.isArray(data.messages)) {
+            setModalStr({
+              modalTitle: "닉네임을 확인해주세요.",
+              modalMessage: "올바른 형식의 닉네임이 아닙니다.",
+            });
+          } else {
+            setModalStr({
+              modalTitle: data.message,
+              modalMessage: "닉네임을 확인해주세요.",
+            });
+          }
+
           dispatch(__openModal());
         } else {
-          setModalStr({
-            modalTitle: "닉네임을 확인해주세요.",
-            modalMessage: data.message,
-          });
+          console.log(data.messages);
+          if (Array.isArray(data.messages)) {
+            console.log("안녕하세요");
+            setModalStr({
+              modalTitle: "닉네임을 확인해주세요.",
+              modalMessage: data.messages,
+            });
+          }
+
           dispatch(__openModal());
         }
       });

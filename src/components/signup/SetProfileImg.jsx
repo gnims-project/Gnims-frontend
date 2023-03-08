@@ -108,10 +108,18 @@ const SetProfileImg = () => {
         setDisabled(() => false);
         const { data } = error.response;
         if (data.status === 400) {
-          setModalStr({
-            modalTitle: "다시 한 번 확인해주세요",
-            modalMessage: "닉네임과 이름을 다시 한 번 확인해주세요.",
-          });
+          if (Array.isArray(data.messages)) {
+            setModalStr({
+              modalTitle: data.messages[0],
+              modalMessage: "다시 한 번 확인해주세요",
+            });
+          } else {
+            setModalStr({
+              modalTitle: "다시 한 번 확인해주세요",
+              modalMessage: "닉네임과 이름을 다시 한 번 확인해주세요.",
+            });
+          }
+
           dispatch(__openModal());
           setLoading(false);
         }
