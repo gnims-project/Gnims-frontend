@@ -4,13 +4,22 @@ import mentionIcon from "../../img/mention.png";
 import followIcon from "../../img/follow.png";
 import { useNavigate } from "react-router-dom";
 import { instance } from "../../shared/AxiosInstance";
-import { useDispatch } from "react-redux";
+import refreshIcon from "../../img/refresh.png";
 
 const NotificationsList = () => {
   const navigate = useNavigate();
-  //notifications는 최대 20개까지 알림을 담는 배열이다. [{id:34523452345, message:'안녕하세요'},{...},...]이런구조
+  //notifications는 알림을 담는 배열이다.
   const [notifications, setNotifications] = useState([]);
   const [notification, setNotification] = useState([]);
+
+  const readAll = async () => {
+    const promises = notification.map((noti) =>
+      instance.get(`/notifications/${noti.id}`)
+    );
+    await Promise.all(promises);
+    // 여기서 responses 배열을 처리한다.
+    window.location.reload();
+  };
 
   const getNoti = async () => {
     await instance.get("/notifications").then((res) => {
@@ -116,6 +125,14 @@ const NotificationsList = () => {
 
   return (
     <div className="bg-[#FFFFFF] w-[375px] h-full">
+      <div className="flex flex-row-reverse">
+        <div
+          onClick={readAll}
+          className=" text-[12px] font-extralight items-center w-[100px] flex h-[19px] justify-center  rounded-[4px] text-black bg-[#E8E8E8] cursor-pointer"
+        >
+          모두 읽음처리
+        </div>
+      </div>
       <div>
         {notification.map((notification) => (
           <div key={notification.id}>
