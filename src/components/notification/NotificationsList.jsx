@@ -13,10 +13,11 @@ const NotificationsList = () => {
   const [notification, setNotification] = useState([]);
 
   const readAll = async () => {
-    const promises = notification.map((noti) =>
-      instance.get(`/notifications/${noti.id}`)
-    );
-    await Promise.all(promises);
+    await instance.put("/notifications");
+    // const promises = notification.map((noti) =>
+    //   instance.get(`/notifications/${noti.id}`)
+    // );
+    // await Promise.all(promises);
     // 여기서 responses 배열을 처리한다.
     window.location.reload();
   };
@@ -128,9 +129,9 @@ const NotificationsList = () => {
       <div className="flex flex-row-reverse">
         <div
           onClick={readAll}
-          className=" text-[12px] font-extralight items-center w-[100px] flex h-[19px] justify-center  rounded-[4px] text-black bg-[#E8E8E8] cursor-pointer"
+          className=" text-[14px] font-extralight items-center w-[100px] flex h-[40px] justify-center  rounded-[4px] text-[#002C51]  cursor-pointer"
         >
-          모두 읽음처리
+          모두 읽음표시
         </div>
       </div>
       <div>
