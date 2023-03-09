@@ -21,8 +21,6 @@ const SetProfileName = () => {
   const [style, setStyle] = useState({
     bgColorName: "bg-inputBox",
     bgColorNickname: "bg-inputBox",
-    shadowName: "",
-    shadowNickname: "",
   });
 
   useEffect(() => {
@@ -50,12 +48,10 @@ const SetProfileName = () => {
       setStyle(() => ({
         ...style,
         bgColorName: "bg-inputBoxFocus",
-        shadowName: "drop-shadow-inputBoxShadow",
       }));
       if (value.trim() === "") {
         setStyle(() => ({
           bgColorName: "bg-inputBox",
-          shadowName: "",
         }));
       }
       if (!nameRegulationExp.test(value)) {
@@ -73,13 +69,11 @@ const SetProfileName = () => {
       setStyle(() => ({
         ...style,
         bgColorNickname: "bg-inputBoxFocus",
-        shadowNickname: "drop-shadow-inputBoxShadow",
       }));
       if (value.trim() === "") {
         setStyle(() => ({
           ...style,
           bgColorNickname: "bg-inputBox",
-          shadowNickname: "",
         }));
       }
       if (nickNameReglationExp.test(value)) {
@@ -218,7 +212,7 @@ const SetProfileName = () => {
                   placeholder="2~8자리 숫자,한글,영문을 입력해주세요."
                   onChange={onValidity}
                   maxLength={8}
-                  className={`${style.bgColorNickname} ${style.shadowNickname} w-full px-1 h-[50px] text-[16px]  placeholder-inputPlaceHoldText`}
+                  className={`${style.bgColorNickname} w-full px-1 h-[50px] text-[16px]  placeholder-inputPlaceHoldText`}
                   disabled={nickNameDoubleCheck}
                   autoComplete="off"
                 ></input>

@@ -15,9 +15,7 @@ const InputEmail = () => {
 
   const [style, setStyle] = useState({
     bgColorEmail: "bg-inputBox",
-    shadowEmail: "",
     bgColorAuthenticationNumber: "bg-inputBox",
-    shadowAuthenticationNumber: "",
   });
   const [regulation, SetRegulation] = useState({
     emailError: "",
@@ -49,13 +47,11 @@ const InputEmail = () => {
       setStyle(() => ({
         ...style,
         bgColorEmail: "bg-inputBoxFocus",
-        shadowEmail: "drop-shadow-inputBoxShadow",
       }));
       if (emailRefCurrent.value.trim() === "") {
         setStyle(() => ({
           ...style,
           bgColorEmail: "bg-inputBox",
-          shadowEmail: "",
         }));
       }
       if (emailRegulationExp.test(emailRefCurrent.value)) {
@@ -76,13 +72,11 @@ const InputEmail = () => {
       setStyle(() => ({
         ...style,
         bgColorAuthenticationNumber: "bg-inputBoxFocus",
-        shadowAuthenticationNumber: "drop-shadow-inputBoxShadow",
       }));
       if (authenticationNumberRefCurrent.value.trim() === "") {
         setStyle(() => ({
           ...style,
           bgColorAuthenticationNumber: "bg-inputBox",
-          shadowAuthenticationNumber: "",
         }));
       }
     }
@@ -217,7 +211,7 @@ const InputEmail = () => {
                 onChange={onInputColor}
                 autoComplete="off"
                 placeholder="아이디(이메일) 입니다."
-                className={`w-[234px] px-3 h-[50px] ${style.bgColorEmail} ${style.shadowEmail} placeholder-inputPlaceHoldText`}
+                className={`w-[234px] px-3 h-[50px] ${style.bgColorEmail}  placeholder-inputPlaceHoldText`}
               />
               <div
                 onClick={onSendEmail}
@@ -238,7 +232,6 @@ const InputEmail = () => {
                 placeholder="인증번호 입력"
                 onChange={onInputColor}
                 bgColor={style.bgColorAuthenticationNumber}
-                shadow={style.shadowAuthenticationNumber}
                 ref={authenticationNumberRef}
               />
             </div>
