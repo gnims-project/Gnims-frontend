@@ -52,7 +52,7 @@ const FriednsScheduleCard = ({ schedules }) => {
         </ul>
       </div>
 
-      <div className="pt-[20px] pl-[22px] pr-[22px]">
+      <div className="py-[20px] pl-[22px] pr-[22px]">
         <div className="text-textBlack ">
           <div className="grid grid-flow-row gap-[20px]">
             <div className="flex flex-row h-[21px] gap-[25px] text-[16px] font-[400]">
@@ -99,9 +99,6 @@ const FriednsScheduleCard = ({ schedules }) => {
               </div>
             </div>
           </div>
-        </div>
-        <div className="flex h-[40px] text-rigth">
-          <div className="items-center text-right w-full rigth-0 "></div>
         </div>
       </div>
     </div>
