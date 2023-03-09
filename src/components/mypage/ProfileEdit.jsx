@@ -15,9 +15,9 @@ const ProfileEdit = () => {
   const isDisabled = loading || !isImageSelected;
   let a;
   if (isDisabled) {
-    a = "[#6F6F6F]";
+    a = "bg-[#6F6F6F]";
   } else {
-    a = "[#002C51]";
+    a = "bg-[#002C51]";
   }
 
   //이미지 미리보기
@@ -40,7 +40,7 @@ const ProfileEdit = () => {
     if (response.status === 200) {
       alert("프로필이미지가 변경되었습니다!");
       setLoading(false);
-      navigate("/main");
+      navigate("/profile");
       sessionStorage.setItem("profileImage", response.data.data.profileImage);
     }
   };
@@ -120,7 +120,7 @@ const ProfileEdit = () => {
           </div>
           <div className="flex row">
             <button
-              className={`h-[50px] rounded w-1/2 bg-${a} font-[700] text-[#ffff] mt-[24px]`}
+              className={`h-[50px] rounded w-1/2 ${a} font-[700] text-[#ffff] mt-[24px]`}
               onClick={editHandler}
               disabled={isDisabled}
             >
