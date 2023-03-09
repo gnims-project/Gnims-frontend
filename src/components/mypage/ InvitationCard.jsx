@@ -42,7 +42,7 @@ const InvitationCard = ({ invit }) => {
         <div
           className={`flex items-center h-[14px] ${bgColor} rounded-t-[10px]`}
         >
-          <ul className="ml-[9px] flex flex-row gap-[4px]">
+          <ul className="ml-[10px] flex flex-row gap-[4px]">
             {[0, 1, 2].map((list) => (
               <li
                 key={list}
@@ -52,7 +52,7 @@ const InvitationCard = ({ invit }) => {
           </ul>
         </div>
         <div className="flex relative top-[16px]">
-          <div className="flex gap-[30px] ml-[23px]">
+          <div className="flex gap-[30px] m-auto">
             <span className="text-sm">{invit.date}</span>
             {hourClock > 12 ? (
               <span className="text-sm">{`${morningAfternoon[1]} ${time}`}</span>
