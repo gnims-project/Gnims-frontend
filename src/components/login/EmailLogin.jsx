@@ -24,8 +24,6 @@ const EmailLogin = () => {
   const [style, setStyle] = useState({
     bgColorEmail: "bg-inputBox",
     bgColorPassword: "bg-inputBox",
-    shadowEmail: "",
-    shadowPassword: "",
   });
 
   //서버에 전달하기 위한 input Ref 생성
@@ -50,13 +48,11 @@ const EmailLogin = () => {
       setStyle(() => ({
         ...style,
         bgColorEmail: "bg-inputBoxFocus",
-        shadowEmail: "drop-shadow-inputBoxShadow",
       }));
       if (value.trim() === "") {
         setStyle(() => ({
           ...style,
           bgColorEmail: "bg-inputBox",
-          shadowEmail: "",
         }));
       }
       if (!emailRegulationExp.test(value)) {
@@ -68,13 +64,11 @@ const EmailLogin = () => {
       setStyle(() => ({
         ...style,
         bgColorPassword: "bg-inputBoxFocus",
-        shadowPassword: "drop-shadow-inputBoxShadow",
       }));
       if (value.trim() === "") {
         setStyle(() => ({
           ...style,
           bgColorPassword: "bg-inputBox",
-          shadowPassword: "",
         }));
       }
       if (!passwordRegulationExp.test(value)) {
@@ -159,7 +153,6 @@ const EmailLogin = () => {
                     ref={userEmailRef}
                     onChange={onValidity}
                     placeholder="아이디(이메일) 입력"
-                    shadow={style.shadowEmail}
                     bgColor={style.bgColorEmail}
                   />
                 </div>
@@ -181,7 +174,6 @@ const EmailLogin = () => {
                     onChange={onValidity}
                     id="userPassword"
                     placeholder="비밀번호 입력"
-                    shadow={style.shadowPassword}
                     bgColor={style.bgColorPassword}
                   />
                 </div>
