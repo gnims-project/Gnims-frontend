@@ -13,6 +13,13 @@ const ProfileEdit = () => {
   const isImageSelected =
     imgRef.current && imgRef.current.files && imgRef.current.files.length > 0;
   const isDisabled = loading || !isImageSelected;
+  let a;
+  if (isDisabled) {
+    a = "[#6F6F6F]";
+  } else {
+    a = "[#002C51]";
+  }
+
   //이미지 미리보기
   const imagePreview = () => {
     const reader = new FileReader();
@@ -113,14 +120,14 @@ const ProfileEdit = () => {
           </div>
           <div className="flex row">
             <button
-              className="h-[50px] rounded w-1/2 bg-[#002C51] font-[700] text-[#ffff] mt-[24px]"
+              className={`h-[50px] rounded w-1/2 bg-${a} font-[700] text-[#ffff] mt-[24px]`}
               onClick={editHandler}
               disabled={isDisabled}
             >
               수정 완료
             </button>
             <button
-              className="h-[50px] rounded w-1/2 ml-[15px] bg-[#6F6F6F] font-[700] text-[#ffff] mt-[24px]"
+              className="h-[50px] rounded w-1/2 ml-[15px] bg-[#002C51] font-[700] text-[#ffff] mt-[24px]"
               onClick={imgResetHandle}
             >
               기본 이미지로 변경
