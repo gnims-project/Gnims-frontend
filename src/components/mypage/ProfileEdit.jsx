@@ -97,7 +97,7 @@ const ProfileEdit = () => {
               <div className="h-[40px] w-[40px] justify-center mx-auto absolute right-0 left-14 bottom-0 ">
                 <label htmlFor="profileImg">
                   <img
-                    className="w-full cursor-pointer h-full rounded-full drop-shadow-lg"
+                    className="w-full h-full rounded-full cursor-pointer drop-shadow-lg"
                     src={inputImgIcon}
                     alt="프로필이미지수정아이콘"
                   />
