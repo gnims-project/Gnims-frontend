@@ -16,14 +16,14 @@ const BottomNavi = () => {
   return (
     <div className="relative">
       <div className="min-w-[375px] h-[50px] bg-white items-center justify-center flex">
-        <div className="flex gap-[77px] pt-[13px] justify-center">
+        <div className="flex gap-[77px] pt-[7px] justify-center">
           <div
             onClick={() => {
               // setOnicon([true,false,false])
               handleIconClick("follow");
               navigate("/follow");
             }}
-            className="w-[24px] cursor-pointer h-[24px]"
+            className="px-[4px] py-[4px] w-[30px] h-[30px] cursor-pointer "
           >
             <img
               src={onIcon === "follow" ? onFollow : offFollow}
@@ -37,7 +37,7 @@ const BottomNavi = () => {
               handleIconClick("home");
               navigate("/main");
             }}
-            className="w-[24px] h-[24px] cursor-pointer"
+            className="px-[4px] py-[2px] w-[30px] h-[30px] cursor-pointer "
           >
             <img src={onIcon === "home" ? onHome : offHome} alt="홈" />
             {/* <img src={onIcon[1]? onHome : offHome} alt="홈" /> */}
@@ -48,9 +48,13 @@ const BottomNavi = () => {
               handleIconClick("My");
               navigate("/profile");
             }}
-            className="cursor-pointer px-[3.5px] c py-[5.5px] w-[24px] h-[24px]"
+            className="cursor-pointer px-[4px] py-[4px] w-[30px] h-[30px]"
           >
-            <img src={onIcon === "My" ? onMy : offMy} alt="마이" />
+            <img
+              src={onIcon === "My" ? onMy : offMy}
+              alt="마이"
+              className="w-[24px]"
+            />
             {/* <img src={onIcon[2] ? onMy : offMy} alt="마이" /> */}
           </div>
         </div>
