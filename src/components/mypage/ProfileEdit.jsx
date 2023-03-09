@@ -15,9 +15,9 @@ const ProfileEdit = () => {
   const isDisabled = loading || !isImageSelected;
   let a;
   if (isDisabled) {
-    a = "[#6F6F6F]";
+    a = "bg-[#6F6F6F]";
   } else {
-    a = "[#002C51]";
+    a = "bg-[#002C51]";
   }
 
   //이미지 미리보기
@@ -40,7 +40,7 @@ const ProfileEdit = () => {
     if (response.status === 200) {
       alert("프로필이미지가 변경되었습니다!");
       setLoading(false);
-      navigate("/main");
+      navigate("/profile");
       sessionStorage.setItem("profileImage", response.data.data.profileImage);
     }
   };
@@ -58,7 +58,7 @@ const ProfileEdit = () => {
       if (response.status === 200) {
         alert("프로필이미지가 변경되었습니다!");
         setLoading(false);
-        navigate("/main");
+        navigate("/profile");
         sessionStorage.setItem("profileImage", response.data.data.profileImage);
       }
       const { imageUrl } = response.data.data.profileImage;
@@ -97,7 +97,7 @@ const ProfileEdit = () => {
               <div className="h-[40px] w-[40px] justify-center mx-auto absolute right-0 left-14 bottom-0 ">
                 <label htmlFor="profileImg">
                   <img
-                    className="w-full cursor-pointer h-full rounded-full drop-shadow-lg"
+                    className="w-full h-full rounded-full cursor-pointer drop-shadow-lg"
                     src={inputImgIcon}
                     alt="프로필이미지수정아이콘"
                   />
@@ -120,7 +120,7 @@ const ProfileEdit = () => {
           </div>
           <div className="flex row">
             <button
-              className={`h-[50px] rounded w-1/2 bg-${a} font-[700] text-[#ffff] mt-[24px]`}
+              className={`h-[50px] rounded w-1/2 ${a} font-[700] text-[#ffff] mt-[24px]`}
               onClick={editHandler}
               disabled={isDisabled}
             >

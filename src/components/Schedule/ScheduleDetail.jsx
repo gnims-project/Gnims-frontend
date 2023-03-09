@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import kebab from "../../img/kebab.png";
 import BottomNavi from "../layout/BottomNavi";
 import KebabModal from "../modal/KebabButtonModal";
 import { useDispatch, useSelector } from "react-redux";
-import { __getScheduleDetail } from "../../redux/modules/ScheduleSlice";
+import {
+  __getScheduleDetail,
+  scheduleReset,
+} from "../../redux/modules/ScheduleSlice";
 import schedulealoneIcon from "../../img/schedulealone.png";
 
 const ScheduleDetail = () => {
@@ -18,9 +21,14 @@ const ScheduleDetail = () => {
   //id구하기
   const { id } = useParams();
   const time = schedule.time?.split(":", 2).join(":");
-  useEffect(() => {
+
+  useLayoutEffect(() => {
     dispatch(__getScheduleDetail(id));
+    return () => {
+      dispatch(scheduleReset());
+    };
   }, []);
+
   const joiner = schedule.invitees;
   const numberOfJoiner = joiner && joiner.length;
   const hostId = schedule.hostId;
