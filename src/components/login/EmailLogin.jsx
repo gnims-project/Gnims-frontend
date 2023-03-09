@@ -24,8 +24,6 @@ const EmailLogin = () => {
   const [style, setStyle] = useState({
     bgColorEmail: "bg-inputBox",
     bgColorPassword: "bg-inputBox",
-    shadowEmail: "",
-    shadowPassword: "",
   });
 
   //서버에 전달하기 위한 input Ref 생성
@@ -50,13 +48,11 @@ const EmailLogin = () => {
       setStyle(() => ({
         ...style,
         bgColorEmail: "bg-inputBoxFocus",
-        shadowEmail: "drop-shadow-inputBoxShadow",
       }));
       if (value.trim() === "") {
         setStyle(() => ({
           ...style,
           bgColorEmail: "bg-inputBox",
-          shadowEmail: "",
         }));
       }
       if (!emailRegulationExp.test(value)) {
@@ -68,13 +64,11 @@ const EmailLogin = () => {
       setStyle(() => ({
         ...style,
         bgColorPassword: "bg-inputBoxFocus",
-        shadowPassword: "drop-shadow-inputBoxShadow",
       }));
       if (value.trim() === "") {
         setStyle(() => ({
           ...style,
           bgColorPassword: "bg-inputBox",
-          shadowPassword: "",
         }));
       }
       if (!passwordRegulationExp.test(value)) {
@@ -136,11 +130,11 @@ const EmailLogin = () => {
   };
 
   return (
-    <div className="container h-full md ">
+    <div className="container h-full">
       <div className="ml-[20px] mr-[20px] ">
-        <div className="grid grid-rows mt-[100px]">
+        <div className="grid grid-rows pt-[100px]">
           <div className="h-[150px]">
-            <div className="mx-auto  w-[150px] h-[64px] overflow-hidden gap-[10px] ">
+            <div className="mx-auto w-[150px] h-[64px] overflow-hidden gap-[10px] ">
               <img
                 src={gnimsLogo}
                 alt="곰캐릭터가 우쭐거리며 왠지 잘될 것 같은 기분포즈 중"
@@ -194,7 +188,6 @@ const EmailLogin = () => {
                   </p>
                 </div>
               </div>
-
               <button
                 onClick={onSubmit}
                 className="h-[50px] rounded w-full bg-[#002C51] font-[700] text-[#ffff] mt-[24px]"
@@ -203,18 +196,18 @@ const EmailLogin = () => {
               </button>
             </div>
           </form>
-          <div className="mt-[26px] grid grid-cols-2 text-center">
-            <div className="border-4 border-indigo-600">
+          <div className="my-[40px] flex text-center">
+            <div className="border-black border-solid border-r-[1px]">
               <button
-                className="text-textBlack text-[16px] font-[400] px-[30px] py-[10px]"
+                className="text-textBlack text-[16px] font-[400] px-[30px] pr-[37px]"
                 onClick={() => navigate("/developing")}
               >
                 비밀번호 재설정
               </button>
             </div>
-            <div>
+            <div className="pl-[15px]">
               <button
-                className="text-textBlack text-[16px] font-[400] px-[30px] py-[10px] "
+                className="text-textBlack text-[16px] font-[400] px-[30px] pl-[40px] "
                 onClick={() => navigate(`/signup`)}
               >
                 회원가입
@@ -247,5 +240,4 @@ const EmailLogin = () => {
     </div>
   );
 };
-
 export default EmailLogin;

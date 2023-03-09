@@ -22,11 +22,6 @@ const Signup = () => {
     bgColorNickname: "bg-inputBox",
     bgColorPassword: "bg-inputBox",
     bgColorPasswordCheck: "bg-inputBox",
-    shadowName: "",
-    shadowEmail: "",
-    shadowNickname: "",
-    shadowPassword: "",
-    shadowPasswordCheck: "",
   });
 
   const [ModalStr, setModalStr] = useState({
@@ -298,13 +293,11 @@ const Signup = () => {
         setStyle(() => ({
           ...style,
           bgColorName: "bg-inputBox",
-          shadowName: "",
         }));
       } else {
         setStyle(() => ({
           ...style,
           bgColorName: "bg-inputBoxFocus",
-          shadowName: "drop-shadow-inputBoxShadow",
         }));
       }
       nameValidationTest(userNameCurrent);
@@ -313,13 +306,11 @@ const Signup = () => {
         setStyle(() => ({
           ...style,
           bgColorEmail: "bg-inputBox",
-          shadowEmail: "",
         }));
       } else {
         setStyle(() => ({
           ...style,
           bgColorEmail: "bg-inputBoxFocus",
-          shadowEmail: "drop-shadow-inputBoxShadow",
         }));
       }
       emailValidationTest(userEmailCurrent);
@@ -328,13 +319,11 @@ const Signup = () => {
         setStyle(() => ({
           ...style,
           bgColorNickname: "bg-inputBox",
-          shadowNickname: "",
         }));
       } else {
         setStyle(() => ({
           ...style,
           bgColorNickname: "bg-inputBoxFocus",
-          shadowNickname: "drop-shadow-inputBoxShadow",
         }));
       }
       nickNameValidationTest(userNickNameCurrent);
@@ -343,13 +332,11 @@ const Signup = () => {
         setStyle(() => ({
           ...style,
           bgColorPassword: "bg-inputBox",
-          shadowPassword: "",
         }));
       } else {
         setStyle(() => ({
           ...style,
           bgColorPassword: "bg-inputBoxFocus",
-          shadowPassword: "drop-shadow-inputBoxShadow",
         }));
       }
       passwordValidationTest(userPasswordCurrent);
@@ -358,13 +345,11 @@ const Signup = () => {
         setStyle(() => ({
           ...style,
           bgColorPasswordCheck: "bg-inputBox",
-          shadowPasswordCheck: "",
         }));
       } else {
         setStyle(() => ({
           ...style,
           bgColorPasswordCheck: "bg-inputBoxFocus",
-          shadowPasswordCheck: "drop-shadow-inputBoxShadow",
         }));
       }
       passwordCheckValidationTest(userPasswordCheckCurrnet);
@@ -511,7 +496,7 @@ const Signup = () => {
             </div>
             <div className="font-[500] text-textBlack text-[24px] ">
               <p className="mb-[15px]">일정관리, 공유의 샛별</p>
-              <p>그님스는 여러분을 환영해요!</p>
+              <p className=" leading-[23px]">그님스는 여러분을 환영해요!</p>
             </div>
           </div>
           <form className="">
@@ -525,7 +510,6 @@ const Signup = () => {
                   onChange={onValidity}
                   placeholder="사용자의 이름을 입력해주세요."
                   bgColor={style.bgColorName}
-                  shadow={style.shadowName}
                   maxLength={11}
                 />
                 <div className="flex items-center h-[40px]">
@@ -544,7 +528,7 @@ const Signup = () => {
                     placeholder="아이디로 사용할 이메일을 입력해주세요."
                     onChange={onValidity}
                     disabled={doubleCheck.emailDoubleCheck}
-                    className={`${style.bgColorEmail} ${style.shadowEmail} w-full px-1 h-[50px] text-[16px]  placeholder-inputPlaceHoldText`}
+                    className={`${style.bgColorEmail} w-full px-1 h-[50px] text-[16px]  placeholder-inputPlaceHoldText`}
                     autoComplete="off"
                   ></input>
                   <button
@@ -569,7 +553,7 @@ const Signup = () => {
                     ref={userNickNameRef}
                     placeholder="2~8자리 숫자,한글,영문을 입력해주세요."
                     onChange={onValidity}
-                    className={`${style.bgColorNickname} ${style.shadowNickname} w-full px-1 h-[50px] text-[16px]  placeholder-inputPlaceHoldText`}
+                    className={`${style.bgColorNickname} w-full px-1 h-[50px] text-[16px]  placeholder-inputPlaceHoldText`}
                     disabled={nickNameDoubleCheck}
                     maxLength={8}
                     autoComplete="off"
@@ -598,7 +582,6 @@ const Signup = () => {
                     placeholder="8~16자리 영문 대소문자, 숫자 조합"
                     onChange={onValidity}
                     bgColor={style.bgColorPassword}
-                    shadow={style.shadowPassword}
                     maxLength={16}
                   />
                 </div>
@@ -618,7 +601,6 @@ const Signup = () => {
                     onChange={onValidity}
                     ref={PasswordCheckRef}
                     bgColor={style.bgColorPasswordCheck}
-                    shadow={style.shadowPasswordCheck}
                     maxLength={16}
                   />
                 </div>
@@ -634,7 +616,7 @@ const Signup = () => {
                 onClick={onSubmit}
                 className="h-[50px] rounded w-full bg-[#002C51] font-[700] text-[#ffff] mt-[24px] mb-[69px]"
               >
-                회원가입 완료
+                다음
               </button>
             </div>
           </form>

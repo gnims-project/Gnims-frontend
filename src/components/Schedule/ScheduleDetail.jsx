@@ -48,28 +48,26 @@ const ScheduleDetail = () => {
         </div>
         {modalOpen && <KebabModal setModalOpen={setModalOpen} id={id} />}
         <div
-          className={`h-[212px] bg-${schedule.cardColor} pl-[18px] w-[375px] pt-[23px] pr-[21px] text-white 
+          className={`h-[202px] bg-${schedule.cardColor} pl-[18px] w-[375px] pt-[23px] pr-[21px] text-white align-
            `}
         >
-          <div className="flex flex-row-reverse ">
+          <div className="flex space-x-3 text-[18px]  font-extralight ">
+            <div>{schedule.date}</div> <div> {time}</div>
             <div
-              className="w-[40px] mr-[-30px] right-0"
+              className="w-[160px] flex pl-[155px]"
               onClick={showModalHandler}
             >
               <img
-                className={`h-[20px] ${isHidden} row cursor-pointer`}
+                className={`h-[20px] ${isHidden} row cursor-pointer `}
                 src={kebab}
                 alt="케밥메뉴"
               />
             </div>
           </div>
-          <div className="flex space-x-3 text-[18px]  font-light ">
-            <div>{schedule.date}</div> <div> {time}</div>
-          </div>
           <div className="mt-[28px] font-semibold text-[24px]">
             {schedule.subject}
-          </div>{" "}
-          <div className="place-content-end font-light flex text-[18px] mt-[45px]">
+          </div>
+          <div className="place-content-end font-extralight flex text-[18px] mt-[66px]">
             D-
             {schedule.dday === 0 ? <div>DAY</div> : <div>{schedule.dday}</div>}
           </div>
@@ -80,7 +78,7 @@ const ScheduleDetail = () => {
             {numberOfJoiner !== 1 ? (
               <div className="mt-[30px] ml-[20px] h-[98px]">
                 참여자
-                <div className="bg-white h-[50px] w-[335px] mt-[20px] p-[15px] drop-shadow-lg flex rounded-lg">
+                <div className="bg-white h-[50px] border-solid border-[1px] border-[#E2E2E2] w-[335px] mt-[20px] p-[15px] lg flex rounded-lg">
                   {joiner &&
                     joiner.map((a) => {
                       return (
@@ -97,7 +95,7 @@ const ScheduleDetail = () => {
           {schedule.content ? (
             <div className="h-[234px] ml-[20px] mt-[30px] mb-[8px] ">
               일정내용{" "}
-              <div className="bg-white word-wrap break-words whitespace-normal  shadow-lg h-[186px] w-[335px] mt-[20px] p-[20px] flex rounded-lg">
+              <div className="bg-white border-solid border-[1px] border-[#E2E2E2] word-wrap break-words whitespace-normal h-[186px] w-[335px] mt-[20px] p-[20px] flex rounded-lg">
                 <div className="w-[295px] ">{schedule.content}</div>
               </div>
             </div>

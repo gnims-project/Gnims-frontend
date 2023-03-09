@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import searchIcon from "../../img/searchIcon.png";
-import plusIcon from "../../img/plusIcon.png";
-import notifyIcon from "../../img/notifyIcon.png";
+import searchIcon from "../../img/searchIcon.svg";
+import plusIcon from "../../img/plusIcon.svg";
+import notifyIcon from "../../img/notifyIcon.svg";
 import { useNavigate } from "react-router-dom";
 import gnimsLogo from "../../img/gnimsLogo.png";
 import { instance } from "../../shared/AxiosInstance";
@@ -105,18 +105,17 @@ const TopNavBar = () => {
             }}
           />
         </div>
-        <div className="flex flex-row gap-[19px]">
+        <div className="flex flex-row gap-[23px]">
           <img
-            className="h-[24px] w-[24px] flex left-[255px] cursor-pointer mt-[13px]"
+            className="h-[19px] w-[19px] flex cursor-pointer mt-[18px]"
             src={searchIcon}
             alt="검색버튼"
-            //navigate 경로는 검색페이지루트가 정해지면 변경하면됩니다
             onClick={() => {
               navigate("/userSearch");
             }}
           />
           <img
-            className="h-[24px] cursor-pointer w-[24px] flex left-[293px] mt-[13px]"
+            className="h-[14px] cursor-pointer w-[14px] flex mt-[19px]"
             src={plusIcon}
             alt="추가버튼"
             onClick={() => {
@@ -126,7 +125,7 @@ const TopNavBar = () => {
           />
           <div className={`w-[30px] bg-${allchecked}`}>
             <img
-              className="h-[24px] w-[24px] cursor-pointer flex left-[331px] mt-[13px]"
+              className="h-[21px] w-[18px] cursor-pointer flex  mt-[15px]"
               src={notifyIcon}
               alt="알림버튼"
               onClick={() => {
