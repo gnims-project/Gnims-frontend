@@ -496,7 +496,7 @@ const Signup = () => {
             </div>
             <div className="font-[500] text-textBlack text-[24px] ">
               <p className="mb-[15px]">일정관리, 공유의 샛별</p>
-              <p>그님스는 여러분을 환영해요!</p>
+              <p className=" leading-[23px]">그님스는 여러분을 환영해요!</p>
             </div>
           </div>
           <form className="">
@@ -553,7 +553,7 @@ const Signup = () => {
                     ref={userNickNameRef}
                     placeholder="2~8자리 숫자,한글,영문을 입력해주세요."
                     onChange={onValidity}
-                    className={`${style.bgColorNickname}w-full px-1 h-[50px] text-[16px]  placeholder-inputPlaceHoldText`}
+                    className={`${style.bgColorNickname} w-full px-1 h-[50px] text-[16px]  placeholder-inputPlaceHoldText`}
                     disabled={nickNameDoubleCheck}
                     maxLength={8}
                     autoComplete="off"
@@ -616,7 +616,7 @@ const Signup = () => {
                 onClick={onSubmit}
                 className="h-[50px] rounded w-full bg-[#002C51] font-[700] text-[#ffff] mt-[24px] mb-[69px]"
               >
-                회원가입 완료
+                다음
               </button>
             </div>
           </form>
