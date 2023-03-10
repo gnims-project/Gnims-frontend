@@ -31,12 +31,12 @@
 <td align="center"><a target="_blank" rel="noopener noreferrer nofollow" href="https://user-images.githubusercontent.com/87173870/224207947-eba11f6c-b055-46d8-b3e0-d82b5cc6f62a.png?size=100"><img src="https://user-images.githubusercontent.com/87173870/224207947-eba11f6c-b055-46d8-b3e0-d82b5cc6f62a.png?size=100" alt="신정" style="max-width: 100%;"></a></td>
 </tr>
 <tr>
-<td align="center"><a href="https://github.com/jxxhxxx">승주</a></td>
-<td align="center"><a href="https://github.com/jxxhxxx">동환</a></td>
-<td align="center"><a href="https://github.com/jxxhxxx">채정</a></td>
+<td align="center"><a href="https://github.com/haruharuganda">승주</a></td>
+<td align="center"><a href="https://github.com/dong-fa">동환</a></td>
+<td align="center"><a href="https://github.com/AngelaChaejung">채정</a></td>
 <td align="center"><a href="https://github.com/jxxhxxx">재헌</a></td>
-<td align="center"><a href="https://github.com/jxxhxxx">민우</a></td>
-<td align="center"><a href="https://github.com/jxxhxxx">신정</a></td>
+<td align="center"><a href="https://github.com/ymw1023">민우</a></td>
+<td align="center"><a href="https://github.com/LeeShinJeong">신정</a></td>
 </tr>
 </tbody>
 </table>
