@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import searchIcon from "../../img/searchIcon.png";
+import searchIcon from "../../img/searchIcon.svg";
 import { debounce } from "lodash";
 import { UserApi } from "../../api/UserApi";
 import SearchCards from "./SearchCards";

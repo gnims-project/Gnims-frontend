@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import selectedIcon from "../../img/participantsSelected.png";
+import selectedIcon from "../../img/participantsSelected.svg";
 
 //props로 받아올 것들...
 const JoinerList = ({

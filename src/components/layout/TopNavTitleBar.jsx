@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import backIncom from "../../img/arrowback.png";
+import backIncom from "../../img/arrowback.svg";
 
 const TopNavTitleBar = ({ children }) => {
   const navigate = useNavigate();
