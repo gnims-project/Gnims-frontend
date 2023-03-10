@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { EventSourcePolyfill } from "event-source-polyfill";
-import mentionIcon from "../../img/mention.png";
-import followIcon from "../../img/follow.png";
+import mentionIcon from "../../img/mention.svg";
+import followIcon from "../../img/follow.svg";
 import { useNavigate } from "react-router-dom";
 import { instance } from "../../shared/AxiosInstance";
-import refreshIcon from "../../img/refresh.png";
 
 const NotificationsList = () => {
   const navigate = useNavigate();

@@ -48,7 +48,7 @@ const BottomNavi = () => {
               handleIconClick("My");
               navigate("/profile");
             }}
-            className="cursor-pointer px-[4px] py-[4px] w-[30px] h-[30px]"
+            className="cursor-pointer px-[4px] py-[7px] w-[30px] h-[30px]"
           >
             <img
               src={onIcon === "My" ? onMy : offMy}
