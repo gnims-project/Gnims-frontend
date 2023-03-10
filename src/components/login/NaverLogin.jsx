@@ -23,12 +23,11 @@ const NaverLogin = () => {
   };
   //원형아이콘클릭해도 네이버로그인이 가능.
   const handleClick = () => {
-    // navigate("/developing");
-    // naverRef.current.children[0].click();
+    naverRef.current.children[0].click();
   };
   // 화면 첫 렌더링이후 바로 실행
   useEffect(() => {
-    // initializeNaverLogin();
+    initializeNaverLogin();
   }, []);
 
   return (

@@ -218,10 +218,7 @@ const EmailLogin = () => {
             <div>간편 로그인</div>
           </div>
           <div className="flex gap-[110px] mx-auto h-[100px] mt-[46px]">
-            <div
-              className="text-center "
-              onClick={() => navigate("/developing")}
-            >
+            <div className="text-center ">
               <NaverLogin />
               <p className="mt-[20px] text-[#12396F] font-[400] text-[14px]">
                 네이버
