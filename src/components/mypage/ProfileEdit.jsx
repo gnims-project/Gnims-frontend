@@ -73,8 +73,8 @@ const ProfileEdit = () => {
   return (
     <div>
       {loading && <LoadingPage />}
-      <div className="text-left text-[25px] font-thin mt-[30px] ml-[15px]">
-        현재 설정된 프로필이미지를 <br />
+      <div className="text-left text-[24px] leadding-[32px] font-[400] tracking-tighter mt-[30px] ml-[15px]">
+        현재 설정된 프로필 이미지를 <br />
         변경할 수 있어요.
       </div>
       <div className="grid grid-flow-row ml-[20px] mr-[20px]">

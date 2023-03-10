@@ -19,7 +19,7 @@ const TopNavTitleBar = ({ children }) => {
             }}
           />
         </div>
-        <div className="m-auto flex items-center text-textBlack font-lg text-[20px]">
+        <div className="m-auto flex items-center font-[700] leading-[24px] text-[20px]">
           {children}
         </div>
       </div>
