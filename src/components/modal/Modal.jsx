@@ -2,6 +2,7 @@ import React from "react";
 import Modal from "react-modal";
 import MoonLoader from "react-spinners/MoonLoader";
 import { useSelector } from "react-redux";
+import { useLayoutEffect } from "react";
 const IsModal = ({ onMoalClose, message, isLoding }) => {
   const modalStr = message.ModalStr;
   const modalState = useSelector((state) => state.SingupSlice.modal);
@@ -16,7 +17,6 @@ const IsModal = ({ onMoalClose, message, isLoding }) => {
       alignItems: "center",
       backgroundColor: "#53535339",
       zIndex: 10,
-      // width: "375px",
     },
     content: {
       justifyContent: "center",
@@ -33,6 +33,7 @@ const IsModal = ({ onMoalClose, message, isLoding }) => {
       padding: "16px",
     },
   };
+
   return (
     <Modal
       isOpen={modalState.isOpen}
@@ -42,7 +43,7 @@ const IsModal = ({ onMoalClose, message, isLoding }) => {
         labelledby: "heading",
         describedby: "full_description",
       }}
-      shouldCloseOnEsc={false}
+      shouldCloseOnEsc={true}
     >
       <div className="grid grid-flow-row gap-[20px] text-center">
         {isLoding ? (

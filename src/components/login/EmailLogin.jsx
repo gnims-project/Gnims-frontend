@@ -6,12 +6,11 @@ import { KAKAO_AUTH_URL } from "../../shared/OAuth";
 import KakaoLogin from "./KakaoLogin";
 import "../style/login.css";
 import { __emailLogin } from "../../redux/modules/LoginSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import NaverLogin from "../../page/NaverLoginPage";
 import Label from "../layout/Label";
 import LoginSignupInputBox from "../layout/input/LoginSignupInputBox";
 import gnimsLogo from "../../img/gnimslogo1.png";
-import { EventSourcePolyfill } from "event-source-polyfill";
 import { __closeModal } from "../../redux/modules/SingupSlice";
 
 const EmailLogin = () => {
@@ -200,7 +199,7 @@ const EmailLogin = () => {
             <div className="border-black border-solid border-r-[1px]">
               <button
                 className="text-textBlack text-[16px] font-[400] px-[30px] pr-[37px]"
-                onClick={() => navigate("/developing")}
+                onClick={() => navigate("/login/auth/InputEmail")}
               >
                 비밀번호 재설정
               </button>
