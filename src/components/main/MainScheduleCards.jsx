@@ -41,7 +41,7 @@ const MainScheduleCards = ({ schedules }) => {
   return (
     <div
       onClick={onDetail}
-      className={`w-[335px] h-[180px] bg-white rounded-[10px]  border border-solid border-[#E8E8E8]  shadow-md`}
+      className={`w-[335px] h-[180px] bg-white rounded-[10px] border border-solid border-[#E8E8E8]  shadow-md`}
     >
       <div
         className={`flex items-center  h-[14px] ${bgColor} rounded-t-[10px] `}
@@ -73,7 +73,7 @@ const MainScheduleCards = ({ schedules }) => {
             </div>
 
             <div className="grid grid-flow-row gap-[17px]">
-              <div className="text-[18px] font-[700]">
+              <div className="text-[18px] leading-[21px] tracking-tighter font-[700]">
                 <div>{schedules.subject}</div>
               </div>
 
@@ -84,7 +84,7 @@ const MainScheduleCards = ({ schedules }) => {
                       return (
                         <div
                           key={index}
-                          className="flex  rounded-full border-white border-2"
+                          className="flex border-2 border-white rounded-full"
                         >
                           <img
                             className="inline-block h-[40px] w-[40px] rounded-full"

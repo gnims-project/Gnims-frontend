@@ -66,7 +66,7 @@ const InvitationCard = ({ invit }) => {
         <div className="mx-[23px] relative top-[40px]">
           <div className="h-[58px] truncate text-md">{invit.subject}</div>
         </div>
-        <div className="flex relative top-[36px] h-[57px] text-center items-center border-t-[1px] border-[#BBD7FF] border-solid">
+        <div className="flex relative top-[36px] h-[57px] text-center items-center border-t-[1px] border-[#E8E8E8] border-solid">
           <div
             onClick={onRefuseHanddler}
             className="flex items-center justify-center flex-1 h-full text-center text-md"
@@ -75,7 +75,7 @@ const InvitationCard = ({ invit }) => {
           </div>
           <div
             onClick={onAcceptHanddler}
-            className="flex text-center justify-center items-center flex-1 border-l-[1px] h-full border-[#BBD7FF] border-solid text-md"
+            className="flex text-center justify-center items-center flex-1 border-l-[1px] h-full border-[#E8E8E8] border-solid text-md"
           >
             수락
           </div>

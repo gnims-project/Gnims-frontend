@@ -216,7 +216,7 @@ const ScheduleAdd = () => {
                 />
               </div>
               {/* 참여자 input을 클릭시 친구 리스트가 */}
-              <div className="flex cursor-pointer flex-col mt-6 font-semibold">
+              <div className="flex flex-col mt-6 font-semibold cursor-pointer">
                 참여자
                 <div
                   onClick={() => {
