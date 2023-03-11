@@ -1,8 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { instance } from "../../shared/AxiosInstance";
 import { LoginApi } from "../../api/LoginApi";
-import { useDispatch } from "react-redux";
-import { openModal, __openModal } from "./SingupSlice";
+import { __openModal } from "./SingupSlice";
 
 //이메일 로그인
 
@@ -54,7 +53,7 @@ export const __kakaologin = createAsyncThunk(
   async (code, thunkAPI, setMessage, setPath, setIsModalOpen) => {
     try {
       const data = await instance
-        .post("social/kakao-login", { code: code })
+        .post("social/kakao-login", code)
         .then((res) => {
           const email = res.data.data.email;
           sessionStorage.setItem("email", email);
