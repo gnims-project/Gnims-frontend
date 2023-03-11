@@ -27,7 +27,6 @@ export const __nickNameCheck = ({ nickname, setModalStr }) => {
       })
       .catch((error) => {
         const { data } = error.response;
-        console.log(data);
         if (data.status === 400) {
           if (Array.isArray(data.messages)) {
             setModalStr({
@@ -43,9 +42,7 @@ export const __nickNameCheck = ({ nickname, setModalStr }) => {
 
           dispatch(__openModal());
         } else {
-          console.log(data.messages);
           if (Array.isArray(data.messages)) {
-            console.log("안녕하세요");
             setModalStr({
               modalTitle: "닉네임을 확인해주세요.",
               modalMessage: data.messages,
@@ -59,14 +56,7 @@ export const __nickNameCheck = ({ nickname, setModalStr }) => {
 };
 
 //회원가입
-export const __sginup = async ({
-  username,
-  nickname,
-  email,
-  password,
-  setModalStr,
-  onModalOpen,
-}) => {
+export const __sginup = async ({ username, nickname, email, password, setModalStr, onModalOpen }) => {
   await SignupApi.Signup({ username, nickname, email, password })
     .then((response) => {
       setModalStr(() => response.message);
@@ -126,12 +116,6 @@ const SingupSlice = createSlice({
   },
 });
 
-export const {
-  userInfoState,
-  setNameNickName,
-  setSingup,
-  isNickNameDoubleCheck,
-  openModal,
-  closeModal,
-} = SingupSlice.actions;
+export const { userInfoState, setNameNickName, setSingup, isNickNameDoubleCheck, openModal, closeModal } =
+  SingupSlice.actions;
 export default SingupSlice.reducer;

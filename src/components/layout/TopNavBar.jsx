@@ -57,9 +57,6 @@ const TopNavBar = () => {
       eventSource.addEventListener("invite_response", async (e) => {
         const data = JSON.parse(e.data);
         const message = data.message;
-
-        console.log(data);
-        console.log(message);
         setContent(message);
         setOpen(true);
       });

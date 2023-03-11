@@ -35,10 +35,9 @@ const NotificationsList = () => {
     await instance.put("/notifications");
     window.location.reload();
   };
-  console.log(notification);
+
   const getNoti = async () => {
     await instance.get("/notifications").then((res) => {
-      console.log(res);
       const newNotifications = res.data.data.map((data) => ({
         id: data.notificationId,
         message: data.message,
