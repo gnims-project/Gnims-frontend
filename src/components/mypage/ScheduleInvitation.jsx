@@ -10,9 +10,7 @@ const ScheduleInvitation = () => {
   const profileImage = sessionStorage.getItem("profileImage");
   const dispatch = useDispatch();
 
-  const { isLoading, error, invitation } = useSelector(
-    (state) => state.InvitationSlice
-  );
+  const { isLoading, error, invitation } = useSelector((state) => state.InvitationSlice);
 
   useEffect(() => {
     dispatch(__getInvitation());
@@ -32,7 +30,7 @@ const ScheduleInvitation = () => {
 
   return (
     <div>
-      <div className="flex gap-[30px] ">
+      <div className="flex gap-[30px] pt-5">
         <PageInfoCard profileImg={profileImage} nickname={nickname}>
           에게 <p>온 일정 초대를 한 번에 볼 수 있어요.</p>
         </PageInfoCard>
