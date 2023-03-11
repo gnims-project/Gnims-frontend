@@ -50,10 +50,10 @@ export const __emailLogin = createAsyncThunk(
 export const __kakaologin = createAsyncThunk(
   "kakaologin",
   //전달 받은 코드 비동기로 처리
-  async (code, thunkAPI, setMessage, setPath, setIsModalOpen) => {
+  async (code, thunkAPI) => {
     try {
       const data = await instance
-        .post("social/kakao-login", code)
+        .post("social/kakao-login", { code })
         .then((res) => {
           const email = res.data.data.email;
           sessionStorage.setItem("email", email);
@@ -68,16 +68,13 @@ export const __kakaologin = createAsyncThunk(
             sessionStorage.setItem("userId", userId);
             sessionStorage.setItem("profileImage", profileImage);
             sessionStorage.setItem("socialCode", "social");
-            setIsModalOpen(true);
-            setMessage("그님스에 오신걸 환영합니다");
-            setPath("/main");
-            // return window.location.assign("/main");
+            alert("그님스에 오신걸 환영합니다");
+            return window.location.assign("/main");
 
             //멤버가 아닐시 프로필 정보를 받는 페이지로 돌려야함
           } else if (res.data.message === "non-member") {
-            setIsModalOpen(true);
-            setMessage("그님스를 이용하려면 프로필 정보를 입력해줘야합니다.");
-            setPath("/signup/setProfileName");
+            alert("그님스를 이용하려면 프로필 정보를 입력해줘야합니다.");
+            return window.location.assign("/signup/setProfileName");
           }
         });
       // return thunkAPI.fulfillWithValue(data);
@@ -178,18 +175,18 @@ const LoginSlice = createSlice({
   },
   extraReducers: {
     //카카오 소셜로그인
-    // [__kakaologin.pending]: (state) => {
-    //   state.isLoading = true;
-    // },
-    // [__kakaologin.fulfilled]: (state, action) => {
-    //   state.isLoading = false;
-    //   state.loginCheck = true;
-    //   state.email = action.payload;
-    // },
-    // [__kakaologin.rejected]: (state, action) => {
-    //   state.isLoading = false;
-    //   state.error = action.payload;
-    // },
+     [__kakaologin.pending]: (state) => {
+       state.isLoading = true;
+     },
+     [__kakaologin.fulfilled]: (state, action) => {
+       state.isLoading = false;
+       state.loginCheck = true;
+       state.email = action.payload;
+    },
+     [__kakaologin.rejected]: (state, action) => {
+       state.isLoading = false;
+       state.error = action.payload;
+     },
     [__sendEmail.pending]: (state) => {
       state.isLoading = true;
     },
