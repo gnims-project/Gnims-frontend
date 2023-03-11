@@ -11,9 +11,9 @@ const PageInfoCard = ({ profileImg, nickname, children }) => {
             alt="사용자 프로필 사진"
           />
         </div>
-        <div className="pt-2 border-2 w-full ">
-          <div className="text-[18px] pt-[12px] leading-[21px] w-[198px]">
-            <span className="font-[600]">{nickname}</span>님{children}
+        <div className="w-full pt-2 border-2 ">
+          <div className="text-[18px] pt-[12px] leading-[21px] tracking-tighter w-[198px]">
+            <span className="font-[600]">{nickname}</span> 님{children}
           </div>
         </div>
       </div>

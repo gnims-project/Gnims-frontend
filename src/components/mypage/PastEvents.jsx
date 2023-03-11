@@ -16,7 +16,7 @@ const PastEvents = () => {
   }, []);
 
   return (
-    <div className="container container-md pr-[19px] pl-[21px]">
+    <div className="container container-md pt-[34px] pr-[19px] pl-[21px]">
       <div className="grid grid-flow-row gap-[24px] ">
         <div>
           <PageInfoCard profileImg={profileImg} nickname={nickname}>

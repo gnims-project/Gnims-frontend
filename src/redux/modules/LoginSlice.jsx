@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { instance } from "../../shared/AxiosInstance";
 import { LoginApi } from "../../api/LoginApi";
 import { useDispatch } from "react-redux";
-import { __openModal } from "./SingupSlice";
+import { openModal, __openModal } from "./SingupSlice";
 
 //이메일 로그인
 
@@ -81,11 +81,74 @@ export const __kakaologin = createAsyncThunk(
   }
 );
 
+export const __sendEmail = createAsyncThunk(
+  "sendEamil",
+  async ({ email, setModalStr }, thunkAPI) => {
+    try {
+      const data = await LoginApi.SendEmailAuthenticationNumber(email);
+      if (data.status === 200) {
+        sessionStorage.setItem("changePasswordEmail", email);
+        setModalStr({
+          modalTitle: "이메일함을 확인해주세요",
+          modalMessage: "인증번호를 입력해주세요",
+        });
+        return thunkAPI.fulfillWithValue(data.data);
+      }
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      const { data } = error.response;
+      if (data.status === 400) {
+        setModalStr({
+          modalTitle: data.message,
+          modalMessage: "이메일을 확인해주세요.",
+        });
+        return thunkAPI.rejectWithValue(data);
+      }
+      return thunkAPI.rejectWithValue(data);
+    }
+  }
+);
+
+export const __NextPage = createAsyncThunk(
+  "onSubnitNextPage",
+  async ({ dispatch, setModalStr, email, code }, thunkAPI) => {
+    try {
+      dispatch(__openModal(dispatch));
+      const { data } = await LoginApi.SendAuthenticationNumber({ email, code });
+
+      if (data.status === 200) {
+        setModalStr({
+          modalTitle: data.message,
+          modalMessage: "",
+        });
+        sessionStorage.setItem("changePasswordEmail", email);
+        return thunkAPI.fulfillWithValue(data.data);
+      }
+    } catch (error) {
+      const { data } = error.response;
+      if (data.status === 400) {
+        setModalStr(() => ({
+          modalTitle: "인증번호 실패",
+          modalMessage: `인증번호가 잘못 입력되었습니다. \n 인증요청을 재시도 해주세요.`,
+        }));
+        dispatch(__openModal(dispatch));
+        return thunkAPI.rejectWithValue(data);
+      }
+      dispatch(__openModal(dispatch));
+      return thunkAPI.rejectWithValue(data);
+    }
+  }
+);
 const initialState = {
   error: null,
   isLoading: false,
   message: "",
   email: "",
+  emailCheck: false,
+  check: {
+    emailCheck: false,
+    authenticationNumberCheck: false,
+  },
 };
 
 const LoginSlice = createSlice({
@@ -100,6 +163,10 @@ const LoginSlice = createSlice({
     },
     setEmail: (state, action) => {
       state.email = action.payload;
+    },
+    resetCheck: (state) => {
+      state.check.emailCheck = false;
+      state.check.authenticationNumberCheck = false;
     },
   },
   extraReducers: {
@@ -116,8 +183,31 @@ const LoginSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
+    [__sendEmail.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__sendEmail.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.check.emailCheck = true;
+    },
+    [__sendEmail.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+    [__NextPage.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__NextPage.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.check.authenticationNumberCheck = true;
+    },
+    [__NextPage.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
   },
 });
 
-export const { isLoading, isLogin, setMessage } = LoginSlice.actions;
+export const { isLoading, isLogin, setMessage, resetCheck } =
+  LoginSlice.actions;
 export default LoginSlice.reducer;

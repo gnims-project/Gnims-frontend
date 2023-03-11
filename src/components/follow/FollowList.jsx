@@ -52,13 +52,13 @@ const FollowList = () => {
     <div className="relative grid top-[30px] gap-[10px] px-[20px]">
       <div className="flex">
         <button
-          className={`${bdColor.followerBD} w-1/2 h-[40px] p-[10px] text-[18px] cursor-pointer`}
+          className={`${bdColor.followerBD} w-1/2 h-[40px] p-[10px] text-[18px] font-[400] leading-[21px] cursor-pointer`}
           onClick={() => handleTabChange("following")}
         >
           팔로잉 {following.followingCount}명
         </button>
         <button
-          className={`${bdColor.followingBD} w-1/2 h-[40px] p-[10px] text-[18px] cursor-pointer`}
+          className={`${bdColor.followingBD} w-1/2 h-[40px] p-[10px] text-[18px] font-[400] leading-[21px] cursor-pointer`}
           onClick={() => handleTabChange("follower")}
         >
           팔로워 {follower.followerCount}명

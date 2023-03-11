@@ -49,22 +49,18 @@ const Profile = () => {
           />
         </div>
         <div className="inline-block pt-2">
-          <div className="text-lg font-semibold leading-[21px]">
+          <div className="text-lg font-semibold leading-[21px] tracking-tighter">
             {nickname} 님
           </div>
-          <div className="text-[14px] leading-[17px] font-light align-top">
+          <div className="text-[14px] text-[#121213] leading-[17px] font-light tracking-tighter align-top">
             {email}
           </div>
           <div
-            className="flex gap-10 pt-2 cursor-pointer"
+            className="flex pt-2 cursor-pointer gap-[40px]"
             onClick={() => navigate("/follow")}
           >
-            <div className="text-[16px] font-normal leading-[17px]">
-              팔로잉 {followingCounter}
-            </div>
-            <div className="text-[16px]  font-normal leading-[17px]">
-              팔로워 {followerCounter}
-            </div>
+            <div className="text-sm font-normal">팔로잉 {followingCounter}</div>
+            <div className="text-sm font-normal">팔로워 {followerCounter}</div>
           </div>
         </div>
       </div>
@@ -73,16 +69,16 @@ const Profile = () => {
           onClick={() => {
             navigate("/editProfile");
           }}
-          className="flex gap-[160px] p-[15px] border-b-[1px] border-[#BBD7FF] border-solid bg-white w-[375px] h-[50px] cursor-pointer"
+          className="flex gap-[160px] p-[15px] border-b-[1px] border-[#E8E8E8] border-solid bg-white w-[375px] h-[50px] cursor-pointer"
         >
           <span className="text-sm w-[175px] h-[20px]">프로필 변경</span>
           <img src={Vector} alt="화살표" className="h-[24px] w-[22px]" />
         </div>
         <div
           onClick={() => {
-            navigate("/developing");
+            navigate("/login/auth/InputEmail");
           }}
-          className="flex gap-[160px] p-[15px] border-b-[1px] border-[#BBD7FF] border-solid bg-white w-[375px] h-[50px] cursor-pointer"
+          className="flex gap-[160px] p-[15px] border-b-[1px] border-[#E8E8E8] border-solid bg-white w-[375px] h-[50px] cursor-pointer"
         >
           <span className="text-sm w-[175px] h-[20px]">비밀번호 재설정</span>
           <img src={Vector} alt="화살표" className="h-[24px] w-[22px]" />
@@ -91,7 +87,7 @@ const Profile = () => {
           onClick={() => {
             navigate("/pastEvents");
           }}
-          className="flex gap-[160px] p-[15px] border-b-[1px] border-[#BBD7FF] border-solid bg-white w-[375px] h-[50px] cursor-pointer"
+          className="flex gap-[160px] p-[15px] border-b-[1px] border-[#E8E8E8] border-solid bg-white w-[375px] h-[50px] cursor-pointer"
         >
           <span className="text-sm w-[175px] h-[20px]">나의 지난 일정</span>
 
@@ -101,7 +97,7 @@ const Profile = () => {
           onClick={() => {
             navigate("/scheduleinvitation");
           }}
-          className="flex gap-[160px] p-[15px] border-b-[1px] border-[#BBD7FF] border-solid bg-white w-[375px] h-[50px] cursor-pointer"
+          className="flex gap-[160px] p-[15px] border-b-[1px] border-[#E8E8E8] border-solid bg-white w-[375px] h-[50px] cursor-pointer"
         >
           <span className="text-sm w-[175px] h-[20px]">내게 온 초대 목록</span>
           <img src={Vector} alt="화살표" className="h-[24px] w-[22px]" />
@@ -110,7 +106,7 @@ const Profile = () => {
           onClick={() => {
             navigate("/developing");
           }}
-          className="flex gap-[160px] p-[15px] border-b-[1px] border-[#BBD7FF] border-solid bg-white w-[375px] h-[50px] cursor-pointer"
+          className="flex gap-[160px] p-[15px] border-b-[1px] border-[#E8E8E8] border-solid bg-white w-[375px] h-[50px] cursor-pointer"
         >
           <span className="text-sm w-[175px] h-[20px]">알림 설정</span>
           <img src={Vector} alt="화살표" className="h-[24px] w-[22px]" />
@@ -119,7 +115,7 @@ const Profile = () => {
           onClick={() => {
             window.open(FeedbackForm);
           }}
-          className="flex gap-[160px] p-[15px] border-b-[1px] border-[#BBD7FF] border-solid bg-white w-[375px] h-[50px] cursor-pointer"
+          className="flex gap-[160px] p-[15px] border-b-[1px] border-[#E8E8E8] border-solid bg-white w-[375px] h-[50px] cursor-pointer"
         >
           <span className="text-sm w-[175px] h-[20px]">
             그님스 피드백 보내기
@@ -131,7 +127,7 @@ const Profile = () => {
             sessionStorage.clear();
             navigate("/login");
           }}
-          className="flex gap-[160px] mt-[22px] p-[15px] border-b-[1px] border-[#BBD7FF] border-solid bg-white w-[375px] h-[50px] cursor-pointer"
+          className="flex gap-[160px] mt-[22px] p-[15px] border-b-[1px] border-[#E8E8E8] border-solid bg-white w-[375px] h-[50px] cursor-pointer"
         >
           <span className="text-sm text-[#911A33] w-[175px] h-[20px]">
             로그아웃

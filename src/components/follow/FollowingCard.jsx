@@ -45,7 +45,9 @@ const FollowingCard = ({ following }) => {
             alt="프로필"
           />
         </div>
-        <div className="flex w-[119px] items-center">{following.username}</div>
+        <div className="flex w-[119px] text-sm font-[400] items-center">
+          {following.username}
+        </div>
       </div>
       {isFollowed ? (
         <div className="flex items-center w-[62px] h-[39px] justify-center text-sm rounded-[4px] text-white bg-[#A31414] cursor-pointer">

@@ -11,7 +11,7 @@ export const LoginApi = {
   },
 
   SendEmailAuthenticationNumber: async (payload) => {
-    return await instance.post("/auth/password", payload);
+    return await instance.post("/auth/password", { email: payload });
   },
 
   SendAuthenticationNumber: async (payload) => {
