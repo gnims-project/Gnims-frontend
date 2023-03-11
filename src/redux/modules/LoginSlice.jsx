@@ -1,8 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { instance } from "../../shared/AxiosInstance";
 import { LoginApi } from "../../api/LoginApi";
-import { useDispatch } from "react-redux";
-import { openModal, __openModal } from "./SingupSlice";
+import { __openModal } from "./SingupSlice";
 
 //이메일 로그인
 
@@ -78,7 +77,7 @@ export const __kakaologin = createAsyncThunk(
             return window.location.assign("/signup/setProfileName");
           }
         });
-      return thunkAPI.fulfillWithValue(data);
+      // return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       window.location.assign("/");
       return thunkAPI.rejectWithValue(error);
@@ -176,18 +175,18 @@ const LoginSlice = createSlice({
   },
   extraReducers: {
     //카카오 소셜로그인
-    [__kakaologin.pending]: (state) => {
-      state.isLoading = true;
+     [__kakaologin.pending]: (state) => {
+       state.isLoading = true;
+     },
+     [__kakaologin.fulfilled]: (state, action) => {
+       state.isLoading = false;
+       state.loginCheck = true;
+       state.email = action.payload;
     },
-    [__kakaologin.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      state.loginCheck = true;
-      state.email = action.payload;
-    },
-    [__kakaologin.rejected]: (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
+     [__kakaologin.rejected]: (state, action) => {
+       state.isLoading = false;
+       state.error = action.payload;
+     },
     [__sendEmail.pending]: (state) => {
       state.isLoading = true;
     },
