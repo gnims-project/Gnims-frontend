@@ -6,7 +6,6 @@ const LoginSignupInputBox = forwardRef((props, ref) => {
     <>
       <div>
         <input
-          // className={`w-full px-3 h-[50px] ${bgColor} focus:bg-inputBoxFocus placeholder-inputText `}
           className={`w-full px-3 h-[50px] ${bgColor} placeholder-inputPlaceHoldText`}
           type={type}
           id={id}

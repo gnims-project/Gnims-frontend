@@ -10,7 +10,11 @@ import {
   __NextPage,
   resetCheck,
 } from "../../redux/modules/LoginSlice";
-import { __openModal, __closeModal } from "../../redux/modules/SingupSlice";
+import {
+  __openModal,
+  __closeModal,
+  openModal,
+} from "../../redux/modules/SingupSlice";
 import { useEffect } from "react";
 
 const InputEmail = () => {
@@ -149,9 +153,7 @@ const InputEmail = () => {
         authenticationNumberError: "",
       }));
     }
-    console.log(authenticationNumberCheck);
     if (emailCheck && !authenticationNumberCheck) {
-      console.log("안녕");
       dispatch(
         __NextPage({
           email: email.value,
@@ -170,9 +172,11 @@ const InputEmail = () => {
   };
 
   useEffect(() => {
+    if (sessionStorage.getItem("socialCode")) {
+      navigator(-1);
+    }
     return () => {
       dispatch(resetCheck());
-      console.log(emailCheck);
     };
   }, []);
   return (

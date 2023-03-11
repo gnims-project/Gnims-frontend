@@ -197,7 +197,6 @@ const ChangePassword = () => {
       const { data } = error.response;
       if (data.status === 400) {
         setInputCheck({ input: false, modal: false });
-        console.log(data);
         setModalStr({
           ...ModalStr,
           modalTitle: "비밀번호변경 실패",
