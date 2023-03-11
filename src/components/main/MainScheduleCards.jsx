@@ -28,7 +28,7 @@ const MainScheduleCards = ({ schedules }) => {
     if (invitees.length > 1) {
       setInviteesList(() => ({
         hidden: false,
-        inviteesList: `${schedules.invitees[0].username} 외 ${
+        inviteesList: `${schedules.invitees[0].username}외 ${
           invitees.length - 1
         }명`,
       }));
