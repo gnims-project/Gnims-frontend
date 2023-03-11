@@ -14,7 +14,6 @@ const Main = () => {
   const nickName = sessionStorage.getItem("nickname");
   const getRandom = Math.floor(Math.random() * (3 + 0) + 0);
   const { schedules, sortList } = useSelector((state) => state.ScheduleSlice);
-  //const [sortList, setSortList] = useState("D-Day");
   const [modalOpen, setModalOpen] = useState(false);
   const welcomText = ["환영합니다.", "좋은하루 되세요!", "안녕하세요."];
 
@@ -24,7 +23,7 @@ const Main = () => {
 
   useEffect(() => {
     const userId = sessionStorage.getItem("userId");
-    console.log("실행");
+
     if (sortList === "D-Day") {
       dispatch(__getSchedule({ userId: userId, sortedBy: "event.dDay" }));
     } else {
