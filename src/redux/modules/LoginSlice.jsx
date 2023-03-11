@@ -113,7 +113,6 @@ export const __NextPage = createAsyncThunk(
   "onSubnitNextPage",
   async ({ dispatch, setModalStr, email, code }, thunkAPI) => {
     try {
-      console.log(email, code);
       dispatch(__openModal(dispatch));
       const { data } = await LoginApi.SendAuthenticationNumber({ email, code });
 
@@ -203,7 +202,6 @@ const LoginSlice = createSlice({
       state.check.authenticationNumberCheck = true;
     },
     [__NextPage.rejected]: (state, action) => {
-      console.log("실패");
       state.isLoading = false;
       state.error = action.payload;
     },
