@@ -178,6 +178,7 @@ const EmailLogin = () => {
                     placeholder="비밀번호 입력"
                     shadow={style.shadowPassword}
                     bgColor={style.bgColorPassword}
+                    maxLength={16}
                   />
                 </div>
                 <div className="flex items-center ">

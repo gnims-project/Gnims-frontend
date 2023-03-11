@@ -4,13 +4,16 @@ export const ScheduleApi = {
   //스케줄 전체 조회
   getSccheduleApi: (payload) => {
     //const data = instance.get(`/v2-dto/users/${payload}/events`);
-    const data = instance.get(`/users/${payload}/events`);
+    console.log(payload.sortedBy);
+    const data = instance.get(
+      `/v2/users/${payload.userId}/events?sortedBy=${payload.sortedBy}`
+    );
     return data;
   },
 
   getInfiniteScrollPage: (payload) => {
     const data = instance.get(
-      `/v2-page/users/${payload.userId}/events?page=${payload.page}&size=${3}`
+      `/v2/users/${payload.userId}/events?page=${payload.page}&size=${3}`
     );
     return data;
   },
