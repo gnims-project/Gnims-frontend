@@ -28,9 +28,9 @@ const MainScheduleCards = ({ schedules }) => {
     if (invitees.length > 1) {
       setInviteesList(() => ({
         hidden: false,
-        inviteesList: `${schedules.invitees[0].username} 외 ${
+        inviteesList: `${schedules.invitees[0].username}외 ${
           invitees.length - 1
-        } 명`,
+        }명`,
       }));
     }
   }, [invitees, schedules.invitees]);
@@ -42,7 +42,7 @@ const MainScheduleCards = ({ schedules }) => {
   return (
     <div
       onClick={onDetail}
-      className={`w-[335px] h-[180px] bg-white rounded-[10px] border border-solid border-[#E8E8E8]  shadow-md`}
+      className={`w-[335px] h-[180px] bg-white rounded-[10px] border border-solid border-[#E8E8E8]  shadow-md  cursor-pointer`}
     >
       <div
         className={`flex items-center  h-[14px] ${bgColor} rounded-t-[10px] `}
@@ -81,8 +81,8 @@ const MainScheduleCards = ({ schedules }) => {
               </div>
 
               <div className="h-[40px]">
-                <div hidden={inviteesList.hidden} className="flex space-x-32">
-                  <div className="flex -space-x-5 overflow-hidden ">
+                <div hidden={inviteesList.hidden} className="flex space-x-32 ">
+                  <div className="flex -space-x-8 overflow-hidden ">
                     {invitees?.map((list, index) => {
                       return (
                         <div
