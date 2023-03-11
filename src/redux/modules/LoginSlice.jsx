@@ -80,7 +80,7 @@ export const __kakaologin = createAsyncThunk(
             setPath("/signup/setProfileName");
           }
         });
-      return thunkAPI.fulfillWithValue(data);
+      // return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       window.location.assign("/");
       return thunkAPI.rejectWithValue(error);
