@@ -80,7 +80,7 @@ export const __kakaologin = createAsyncThunk(
             setPath("/signup/setProfileName");
           }
         });
-      return thunkAPI.fulfillWithValue(data);
+      // return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       window.location.assign("/");
       return thunkAPI.rejectWithValue(error);
@@ -178,18 +178,18 @@ const LoginSlice = createSlice({
   },
   extraReducers: {
     //카카오 소셜로그인
-    [__kakaologin.pending]: (state) => {
-      state.isLoading = true;
-    },
-    [__kakaologin.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      state.loginCheck = true;
-      state.email = action.payload;
-    },
-    [__kakaologin.rejected]: (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
+    // [__kakaologin.pending]: (state) => {
+    //   state.isLoading = true;
+    // },
+    // [__kakaologin.fulfilled]: (state, action) => {
+    //   state.isLoading = false;
+    //   state.loginCheck = true;
+    //   state.email = action.payload;
+    // },
+    // [__kakaologin.rejected]: (state, action) => {
+    //   state.isLoading = false;
+    //   state.error = action.payload;
+    // },
     [__sendEmail.pending]: (state) => {
       state.isLoading = true;
     },
