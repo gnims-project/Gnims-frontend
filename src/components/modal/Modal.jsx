@@ -2,7 +2,7 @@ import React from "react";
 import Modal from "react-modal";
 import MoonLoader from "react-spinners/MoonLoader";
 import { useSelector } from "react-redux";
-import { useLayoutEffect } from "react";
+
 const IsModal = ({ onMoalClose, message, isLoding }) => {
   const modalStr = message.ModalStr;
   const modalState = useSelector((state) => state.SingupSlice.modal);
@@ -59,7 +59,7 @@ const IsModal = ({ onMoalClose, message, isLoding }) => {
         ) : (
           <>
             <div className="flex flex-col items-center gap-[14px] mt-[10px]">
-              <h1 className="px-[10px]  text-[#12396F] text-[18px] font-[700] whitespace-pre-line">
+              <h1 className="px-[10px]  text-[#12396F] text-[18px] font-[700] whitespace-pre">
                 {modalStr.modalTitle}
               </h1>
               <div className="h-[20px]">

@@ -13,7 +13,6 @@ import {
 import {
   __openModal,
   __closeModal,
-  openModal,
 } from "../../redux/modules/SingupSlice";
 import { useEffect } from "react";
 
