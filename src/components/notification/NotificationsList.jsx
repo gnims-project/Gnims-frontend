@@ -31,10 +31,7 @@ const NotificationsList = () => {
         isChecked: data.isChecked,
         time: data.dateTime.toString().split("T")[1].split(".")[0].slice(0, 5),
       }));
-      setNotifications((prevNotifications) => [
-        ...newNotifications,
-        ...prevNotifications,
-      ]);
+      setNotifications((prevNotifications) => [...newNotifications, ...prevNotifications]);
     });
   };
 
@@ -43,9 +40,7 @@ const NotificationsList = () => {
   }, []);
 
   useEffect(() => {
-    const newNotification = [...new Set(notifications.map(JSON.stringify))].map(
-      JSON.parse
-    );
+    const newNotification = [...new Set(notifications.map(JSON.stringify))].map(JSON.parse);
     setNotification(newNotification);
   }, [notifications]);
 
@@ -54,16 +49,13 @@ const NotificationsList = () => {
     const fetchSse = async () => {
       try {
         //EventSource생성.
-        eventSource = new EventSourcePolyfill(
-          "https://eb.jxxhxxx.shop/connect",
-          {
-            //headers에 토큰을 꼭 담아줘야 401이 안뜬다.
-            headers: {
-              Authorization: sessionStorage.getItem("accessToken"),
-            },
-            withCredentials: true,
-          }
-        );
+        eventSource = new EventSourcePolyfill("https://eb.jxxhxxx.shop/connection", {
+          //headers에 토큰을 꼭 담아줘야 401이 안뜬다.
+          headers: {
+            Authorization: sessionStorage.getItem("accessToken"),
+          },
+          withCredentials: true,
+        });
         // SSE 연결 성공 시 호출되는 이벤트 핸들러
         eventSource.onopen = () => {
           // console.log("SSE onopen");
@@ -88,13 +80,8 @@ const NotificationsList = () => {
             isChecked: data.isChecked,
           };
           // alert("invite메세지 도착! parsing한거", data);
-          setNotifications((prevNotifications) => [
-            newNotification,
-            ...prevNotifications,
-          ]);
-          setNotification(
-            [...new Set(notifications.map(JSON.stringify))].map(JSON.parse)
-          );
+          setNotifications((prevNotifications) => [newNotification, ...prevNotifications]);
+          setNotification([...new Set(notifications.map(JSON.stringify))].map(JSON.parse));
         });
 
         eventSource.addEventListener("follow", (event) => {
@@ -107,13 +94,8 @@ const NotificationsList = () => {
             isChecked: data.isChecked,
           };
 
-          setNotifications((prevNotifications) => [
-            newNotification,
-            ...prevNotifications,
-          ]);
-          setNotification(
-            [...new Set(notifications.map(JSON.stringify))].map(JSON.parse)
-          );
+          setNotifications((prevNotifications) => [newNotification, ...prevNotifications]);
+          setNotification([...new Set(notifications.map(JSON.stringify))].map(JSON.parse));
         });
       } catch (error) {
         // console.log("에러발생:", error);
@@ -145,29 +127,17 @@ const NotificationsList = () => {
                 }
                 onClick={() => {
                   instance.get(`/notifications/${notification.id}`);
-                  notification.notificationType === "SCHEDULE"
-                    ? navigate("/scheduleinvitation")
-                    : navigate("/follow");
+                  notification.notificationType === "SCHEDULE" ? navigate("/scheduleinvitation") : navigate("/follow");
                 }}
                 className="pl-[20px] pr-[20px] pt-[20px] h-[86px]  text-left text-[#121213] border-solid border-[rgb(219,219,219)] border-b-[1px]"
               >
                 <div>
                   {notification.notificationType === "FRIENDSHIP" ? (
-                    <img
-                      src={followIcon}
-                      alt="followIcon"
-                      className="h-[26px] w-[26px] flex "
-                    />
+                    <img src={followIcon} alt="followIcon" className="h-[26px] w-[26px] flex " />
                   ) : (
-                    <img
-                      src={mentionIcon}
-                      alt="mentionIcon"
-                      className="h-[26px] w-[26px] "
-                    />
+                    <img src={mentionIcon} alt="mentionIcon" className="h-[26px] w-[26px] " />
                   )}
-                  <div className="mt-[-30px] text-[14px] ml-[50px]">
-                    {notification.message}
-                  </div>
+                  <div className="mt-[-30px] text-[14px] ml-[50px]">{notification.message}</div>
                   <br />
                   <span className="text-[#6F6F6F] text-[13px] ml-[50px]">
                     {notification.date}

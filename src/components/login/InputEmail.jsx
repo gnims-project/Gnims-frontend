@@ -10,7 +10,11 @@ import {
   __NextPage,
   resetCheck,
 } from "../../redux/modules/LoginSlice";
-import { __openModal, __closeModal } from "../../redux/modules/SingupSlice";
+import {
+  __openModal,
+  __closeModal,
+  openModal,
+} from "../../redux/modules/SingupSlice";
 import { useEffect } from "react";
 
 const InputEmail = () => {
@@ -168,6 +172,9 @@ const InputEmail = () => {
   };
 
   useEffect(() => {
+    if (sessionStorage.getItem("socialCode")) {
+      navigator(-1);
+    }
     return () => {
       dispatch(resetCheck());
     };

@@ -1,12 +1,15 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import DotLoader from "react-spinners/DotLoader";
+import WelcomeModal from "../modal/WelcomeModal";
 
 function NaverLoginLoding() {
   const userAccessToken = () => {
     window.location.href.includes("access_token") && getToken();
   };
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [message, setMessage] = useState("");
+  const [path, setPath] = useState("");
   const getToken = async () => {
     const navertoken = window.location.href.split("=")[1].split("&")[0];
     // sessionStorage.setItem("NaverAuthorization", navertoken);
@@ -33,15 +36,20 @@ function NaverLoginLoding() {
           sessionStorage.setItem("profileImage", profileImage);
           sessionStorage.setItem("userId", userId);
           sessionStorage.setItem("email", email);
-          alert("그님스에 오신걸 환영합니다");
-          return window.location.assign("/main");
+          sessionStorage.setItem("socialCode", "social");
+          setIsModalOpen(true);
+          setMessage(nickname + "님, 어서오세요!");
+          setPath("/main");
+          return;
 
           //멤버가 아닐시 프로필 정보를 받는 페이지로 돌려야함
         } else if (res.data.message === "non-member") {
-          alert("그님스를 이용하려면 프로필 정보를 입력해줘야합니다.");
           sessionStorage.setItem("email", email);
           sessionStorage.setItem("socialCode", "NAVER");
-          return window.location.assign("/signup/setProfileName");
+          setIsModalOpen(true);
+          setMessage("그님스를 이용하려면 프로필 정보를 입력해줘야합니다.");
+          setPath("/signup/setProfileName");
+          return;
         }
       });
   };
@@ -54,6 +62,7 @@ function NaverLoginLoding() {
 
   return (
     <div>
+      {isModalOpen && <WelcomeModal message={message} path={path} />}
       <div
         style={{
           position: "fixed",
@@ -62,13 +71,7 @@ function NaverLoginLoding() {
           transform: "translate(-50%, -50%)",
         }}
       >
-        <DotLoader
-          color="#36abd6"
-          height={15}
-          width={5}
-          radius={2}
-          margin={2}
-        />
+        <DotLoader color="#36abd6" height={15} width={5} radius={2} margin={2} />
       </div>
     </div>
   );

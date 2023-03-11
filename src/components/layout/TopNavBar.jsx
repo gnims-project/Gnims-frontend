@@ -8,32 +8,22 @@ import { instance } from "../../shared/AxiosInstance";
 import Point from "../../img/point.png";
 import { EventSourcePolyfill } from "event-source-polyfill";
 import NotificationModal from "../modal/NotificationModal";
-import { useDispatch, useSelector } from "react-redux";
-import { openModal, closeModal } from "../../redux/modules/ModalSlice";
+import { useDispatch } from "react-redux";
 
 const TopNavBar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [content, setContent] = useState("");
-  // const { isOpen = false, message = "" } = useSelector(
-  //   (state) => state.modal || {}
-  // );
+
   const [open, setOpen] = useState(false);
   const [allchecked, setAllChecked] = useState("");
-  // const handleModalOpen = (message) => {
-  //   dispatch(openModal({ isOpen: true, message }));
-  // };
-  // const handleCloseModal = () => {
-  //   dispatch(closeModal());
-  // };
+
   const close = () => setOpen(false);
   //DB불러오는 getNoti
   const getNoti = async () => {
     await instance.get("/notifications").then((res) => {
       const notilist = res.data.data.map((data) => data.isChecked);
-      notilist.filter((a) => a === false).length > 0
-        ? setAllChecked("")
-        : setAllChecked("hidden");
+      notilist.filter((a) => a === false).length > 0 ? setAllChecked("") : setAllChecked("hidden");
     });
   };
 
@@ -41,7 +31,7 @@ const TopNavBar = () => {
   const fetchSse = async () => {
     try {
       //EventSource생성.
-      eventSource = new EventSourcePolyfill("https://eb.jxxhxxx.shop/connect", {
+      eventSource = new EventSourcePolyfill("https://eb.jxxhxxx.shop/connection", {
         //headers에 토큰을 꼭 담아줘야 500이 안뜬다.
         headers: {
           Authorization: sessionStorage.getItem("accessToken"),
@@ -132,11 +122,7 @@ const TopNavBar = () => {
                 navigate("/notification");
               }}
             />
-            <img
-              src={Point}
-              alt="알림표시"
-              className={`${allchecked} ml-[20px]`}
-            />
+            <img src={Point} alt="알림표시" className={`${allchecked} ml-[20px]`} />
           </div>
         </div>
       </div>
