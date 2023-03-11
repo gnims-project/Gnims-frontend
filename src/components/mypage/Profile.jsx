@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Vector from "../../img/arrow.svg";
@@ -6,7 +6,6 @@ import {
   __getFollowerCount,
   __getFollowingCount,
 } from "../../redux/modules/FollowSlice";
-import { Link } from "react-router-dom";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -74,15 +73,17 @@ const Profile = () => {
           <span className="text-sm w-[175px] h-[20px]">프로필 변경</span>
           <img src={Vector} alt="화살표" className="h-[24px] w-[22px]" />
         </div>
-        <div
-          onClick={() => {
-            navigate("/login/auth/InputEmail");
-          }}
-          className="flex gap-[160px] p-[15px] border-b-[1px] border-[#E8E8E8] border-solid bg-white w-[375px] h-[50px] cursor-pointer"
-        >
-          <span className="text-sm w-[175px] h-[20px]">비밀번호 재설정</span>
-          <img src={Vector} alt="화살표" className="h-[24px] w-[22px]" />
-        </div>
+        {sessionStorage.getItem("socialCode") ? null : (
+          <div
+            onClick={() => {
+              navigate("/login/auth/InputEmail");
+            }}
+            className="flex gap-[160px] p-[15px] border-b-[1px] border-[#E8E8E8] border-solid bg-white w-[375px] h-[50px] cursor-pointer"
+          >
+            <span className="text-sm w-[175px] h-[20px]">비밀번호 재설정</span>
+            <img src={Vector} alt="화살표" className="h-[24px] w-[22px]" />
+          </div>
+        )}
         <div
           onClick={() => {
             navigate("/pastEvents");

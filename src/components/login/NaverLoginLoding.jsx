@@ -36,6 +36,7 @@ function NaverLoginLoding() {
           sessionStorage.setItem("profileImage", profileImage);
           sessionStorage.setItem("userId", userId);
           sessionStorage.setItem("email", email);
+          sessionStorage.setItem("socialCode", "social");
           setIsModalOpen(true);
           setMessage(nickname + "님, 어서오세요!");
           setPath("/main");
