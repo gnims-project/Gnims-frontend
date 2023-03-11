@@ -178,10 +178,10 @@ const Signup = () => {
       .catch((error) => {
         const { data } = error.response;
 
-        console.log(data);
+    
         if (data.status === 400) {
           if (Array.isArray(data.messages)) {
-            console.log(data.messages[0]);
+          
             setModalStr({
               modalTitle: "이메일을 확인해주세요.",
               modalMessage: data.messages[0],

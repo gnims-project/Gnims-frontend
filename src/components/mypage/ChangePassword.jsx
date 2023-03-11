@@ -232,6 +232,7 @@ const ChangePassword = () => {
                 bgColor={style.bgColorPassword}
                 shadow={style.shadowPassword}
                 ref={passwordRef}
+                maxLength={16}
               />
             </div>
             <div className="flex items-center h-[20px]">
@@ -248,6 +249,7 @@ const ChangePassword = () => {
                 bgColor={style.bgColorPasswordCheck}
                 shadow={style.shadowPasswordCheck}
                 ref={passwordCheckRef}
+                maxLength={16}
               />
             </div>
             <div className="flex items-center h-[20px]">

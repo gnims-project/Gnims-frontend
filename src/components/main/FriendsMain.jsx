@@ -26,7 +26,6 @@ const FriendsMain = () => {
     } catch (e) {
       if (e.response.status === 403) {
         setStatus(403);
-        console.log(status);
       }
     }
   };

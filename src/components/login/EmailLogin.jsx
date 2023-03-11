@@ -178,6 +178,7 @@ const EmailLogin = () => {
                     placeholder="비밀번호 입력"
                     shadow={style.shadowPassword}
                     bgColor={style.bgColorPassword}
+                    maxLength={16}
                   />
                 </div>
                 <div className="flex items-center ">
@@ -185,7 +186,7 @@ const EmailLogin = () => {
                     className="h-[40px] w-full font-[500] text-[16px] text-[#DE0D0D] flex items-center"
                     hidden={regulation.regulationPassword}
                   >
-                    8글자이상 입력 해주세요.
+                    8글자이상 영문숫자 조합으로 입려해주세요.
                   </p>
                 </div>
               </div>
