@@ -25,7 +25,7 @@ const UserSearch = () => {
       setUser(() => userInfo);
       setLoading(false);
     } catch (e) {
-      console.log("api 호출 실패");
+      // console.log("api 호출 실패");
     }
   }, time);
 
@@ -51,11 +51,7 @@ const UserSearch = () => {
               handleSearch(userSearchName.current.value);
             }}
           >
-            <img
-              className="absolute top-[15px] right-[15px]"
-              src={searchIcon}
-              alt="돋보기 아이콘"
-            />
+            <img className="absolute top-[15px] right-[15px]" src={searchIcon} alt="돋보기 아이콘" />
           </div>
         </div>
         <div className="px-[20px]">

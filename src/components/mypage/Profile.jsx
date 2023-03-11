@@ -2,22 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Vector from "../../img/arrow.svg";
-import {
-  __getFollowerCount,
-  __getFollowingCount,
-} from "../../redux/modules/FollowSlice";
+import { __getFollowerCount, __getFollowingCount } from "../../redux/modules/FollowSlice";
 
 const Profile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   //팔로잉과 팔로워 수를 가져오는 스테이트
-  const followerCounter = useSelector(
-    (state) => state.FollowSlice.follower.followerCount
-  );
-  const followingCounter = useSelector(
-    (state) => state.FollowSlice.following.followingCount
-  );
+  const followerCounter = useSelector((state) => state.FollowSlice.follower.followerCount);
+  const followingCounter = useSelector((state) => state.FollowSlice.following.followingCount);
   //로컬 스토리지에 있는 데이터를 가져오는 코드
   const nickname = sessionStorage.getItem("nickname");
   const email = sessionStorage.getItem("email");
@@ -48,16 +41,9 @@ const Profile = () => {
           />
         </div>
         <div className="inline-block pt-2">
-          <div className="text-lg font-semibold leading-[21px] tracking-tighter">
-            {nickname} 님
-          </div>
-          <div className="text-[14px] text-[#121213] leading-[17px] font-light tracking-tighter align-top">
-            {email}
-          </div>
-          <div
-            className="flex pt-2 cursor-pointer gap-[40px]"
-            onClick={() => navigate("/follow")}
-          >
+          <div className="text-lg font-semibold leading-[21px] tracking-tighter">{nickname} 님</div>
+          <div className="text-[14px] text-[#121213] leading-[17px] font-light tracking-tighter align-top">{email}</div>
+          <div className="flex pt-2 cursor-pointer gap-[40px]" onClick={() => navigate("/follow")}>
             <div className="text-sm font-normal">팔로잉 {followingCounter}</div>
             <div className="text-sm font-normal">팔로워 {followerCounter}</div>
           </div>
@@ -105,22 +91,11 @@ const Profile = () => {
         </div>
         <div
           onClick={() => {
-            navigate("/developing");
-          }}
-          className="flex gap-[160px] p-[15px] border-b-[1px] border-[#E8E8E8] border-solid bg-white w-[375px] h-[50px] cursor-pointer"
-        >
-          <span className="text-sm w-[175px] h-[20px]">알림 설정</span>
-          <img src={Vector} alt="화살표" className="h-[24px] w-[22px]" />
-        </div>
-        <div
-          onClick={() => {
             window.open(FeedbackForm);
           }}
           className="flex gap-[160px] p-[15px] border-b-[1px] border-[#E8E8E8] border-solid bg-white w-[375px] h-[50px] cursor-pointer"
         >
-          <span className="text-sm w-[175px] h-[20px]">
-            그님스 피드백 보내기
-          </span>
+          <span className="text-sm w-[175px] h-[20px]">그님스 피드백 보내기</span>
           <img src={Vector} alt="화살표" className="h-[24px] w-[22px]" />
         </div>
         <div
@@ -130,9 +105,7 @@ const Profile = () => {
           }}
           className="flex gap-[160px] mt-[22px] p-[15px] border-b-[1px] border-[#E8E8E8] border-solid bg-white w-[375px] h-[50px] cursor-pointer"
         >
-          <span className="text-sm text-[#911A33] w-[175px] h-[20px]">
-            로그아웃
-          </span>
+          <span className="text-sm text-[#911A33] w-[175px] h-[20px]">로그아웃</span>
         </div>
       </div>
     </div>
