@@ -33,6 +33,7 @@ function NaverLoginLoding() {
           sessionStorage.setItem("profileImage", profileImage);
           sessionStorage.setItem("userId", userId);
           sessionStorage.setItem("email", email);
+          sessionStorage.setItem("socialCode", "social");
           alert("그님스에 오신걸 환영합니다");
           return window.location.assign("/main");
 
