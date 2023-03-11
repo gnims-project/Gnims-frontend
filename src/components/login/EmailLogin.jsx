@@ -80,6 +80,10 @@ const EmailLogin = () => {
 
   const onMoalClose = () => {
     dispatch(__closeModal());
+    if (sessionStorage.getItem("userId")) {
+      console.log("동작해?");
+      navigate("/main");
+    }
   };
 
   //서버에 전달
@@ -120,7 +124,6 @@ const EmailLogin = () => {
         setModalStr,
       })
     );
-    onSubmit();
   };
 
   //카카오 로그인

@@ -30,12 +30,7 @@ import {
 } from "../page/index";
 
 const Router = () => {
-  const [userId, setUserId] = useState(sessionStorage.getItem("userId"));
-
-  useEffect(() => {
-    const getUserId = sessionStorage.getItem("userId");
-    setUserId(() => getUserId);
-  }, [userId]);
+  const userId = useState(sessionStorage.getItem("userId"));
 
   return (
     <Layout>

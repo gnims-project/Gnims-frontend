@@ -22,8 +22,11 @@ export const __emailLogin = createAsyncThunk(
       sessionStorage.setItem("email", email);
       sessionStorage.setItem("nickname", nickname);
       sessionStorage.setItem("profileImage", profileImage);
-      alert(`${nickname}님 어서오세요.`);
-      window.location.href = "/main";
+      payload.setModalStr({
+        modalTitle: `어서오세요. ${nickname}님`,
+      });
+      payload.dispatch(__openModal(payload.dispatch));
+      // window.location.href = "/main";
     } catch (error) {
       const { data } = error.response;
       if (data.status === 401) {

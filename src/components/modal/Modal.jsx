@@ -2,7 +2,7 @@ import React from "react";
 import Modal from "react-modal";
 import MoonLoader from "react-spinners/MoonLoader";
 import { useSelector } from "react-redux";
-import { useLayoutEffect } from "react";
+
 const IsModal = ({ onMoalClose, message, isLoding }) => {
   const modalStr = message.ModalStr;
   const modalState = useSelector((state) => state.SingupSlice.modal);
