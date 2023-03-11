@@ -151,7 +151,6 @@ const InputEmail = () => {
     }
     console.log(authenticationNumberCheck);
     if (emailCheck && !authenticationNumberCheck) {
-      console.log("안녕");
       dispatch(
         __NextPage({
           email: email.value,
@@ -172,7 +171,6 @@ const InputEmail = () => {
   useEffect(() => {
     return () => {
       dispatch(resetCheck());
-      console.log(emailCheck);
     };
   }, []);
   return (
