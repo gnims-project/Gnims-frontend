@@ -23,7 +23,8 @@ export const __emailLogin = createAsyncThunk(
       sessionStorage.setItem("nickname", nickname);
       sessionStorage.setItem("profileImage", profileImage);
       payload.setModalStr({
-        modalTitle: `어서오세요. ${nickname}님`,
+        modalTitle: `${nickname}님 어서오세요.`,
+        modalMessage: `오늘도 그님스와 함께\n행복한 하루 보내세요.`,
       });
       payload.dispatch(__openModal(payload.dispatch));
       // window.location.href = "/main";
