@@ -149,7 +149,6 @@ const InputEmail = () => {
         authenticationNumberError: "",
       }));
     }
-    console.log(authenticationNumberCheck);
     if (emailCheck && !authenticationNumberCheck) {
       dispatch(
         __NextPage({
