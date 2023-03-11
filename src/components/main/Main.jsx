@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { __getSchedule } from "../../redux/modules/ScheduleSlice";
+import {
+  mainScheduleReset,
+  __getSchedule,
+} from "../../redux/modules/ScheduleSlice";
 import MainScheduleCards from "./MainScheduleCards";
 import BottomNavi from "../layout/BottomNavi";
 import desc from "../../img/desc.png";
@@ -10,8 +13,7 @@ const Main = () => {
   const dispatch = useDispatch();
   const nickName = sessionStorage.getItem("nickname");
   const getRandom = Math.floor(Math.random() * (3 + 0) + 0);
-  const { schedules } = useSelector((state) => state.ScheduleSlice);
-  const [sortList, setSortList] = useState("D-Day");
+  const { schedules, sortList } = useSelector((state) => state.ScheduleSlice);
   const [modalOpen, setModalOpen] = useState(false);
   const welcomText = ["환영합니다.", "좋은하루 되세요!", "안녕하세요."];
 
@@ -21,8 +23,16 @@ const Main = () => {
 
   useEffect(() => {
     const userId = sessionStorage.getItem("userId");
-    dispatch(__getSchedule(userId));
-  }, [dispatch]);
+
+    if (sortList === "D-Day") {
+      dispatch(__getSchedule({ userId: userId, sortedBy: "event.dDay" }));
+    } else {
+      dispatch(__getSchedule({ userId: userId, sortedBy: "event.createAt" }));
+    }
+    return () => {
+      dispatch(mainScheduleReset());
+    };
+  }, [sortList]);
 
   return (
     <>
@@ -61,9 +71,11 @@ const Main = () => {
         </div>
       </div>
       <div className="fixed bottom-0">
-        {/* {modalOpen ? false : <BottomNavi />} */}
-        <BottomNavi />
-        {/* {modalOpen && (<SelectorSort setModalOpen={setModalOpen} setSortList={setSortList} /> )} */}
+        {modalOpen ? false : <BottomNavi />}
+        {/* <BottomNavi /> */}
+        {modalOpen && (
+          <SelectorSort setModalOpen={setModalOpen} sortList={sortList} />
+        )}
       </div>
     </>
   );

@@ -16,6 +16,7 @@ const initialState = {
   time: null,
   subject: "",
   content: "",
+  sortList: "D-Day",
   participantsId: null,
   isLoading: false,
 };
@@ -78,8 +79,12 @@ export const __postSchedule = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await ScheduleApi.postScheduleApi(payload.Schedule);
-      payload.dispatch(__getSchedule(payload.userId));
+
       if (data.status === 201) {
+        payload.dispatch(setSortList("새로 등록된 일정"));
+        payload.dispatch(
+          __getSchedule({ userId: payload.userId, sortedBy: "event.createAt" })
+        );
       }
       // return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
@@ -92,7 +97,9 @@ export const __editSchedule = createAsyncThunk(
   "schedule/editSchedule",
   async (payload) => {
     const data = await ScheduleApi.editScheduleApi(payload);
-    payload.dispatch(__getSchedule(payload.userId));
+    payload.dispatch(
+      __getSchedule({ userId: payload.userId, sortedBy: "event.createAt" })
+    );
     return data.data;
   }
 );
@@ -121,6 +128,12 @@ export const ScheduleSlice = createSlice({
     },
     scheduleReset: (state) => {
       state.oldschedules = [];
+    },
+    mainScheduleReset: (state) => {
+      state.schedules = [];
+    },
+    setSortList: (state, action) => {
+      state.sortList = action.payload;
     },
   },
   extraReducers: {
@@ -175,5 +188,6 @@ export const ScheduleSlice = createSlice({
   },
 });
 
-export const { pagePlus, scheduleReset } = ScheduleSlice.actions;
+export const { pagePlus, scheduleReset, mainScheduleReset, setSortList } =
+  ScheduleSlice.actions;
 export default ScheduleSlice.reducer;

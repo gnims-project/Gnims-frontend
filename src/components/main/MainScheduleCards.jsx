@@ -28,7 +28,9 @@ const MainScheduleCards = ({ schedules }) => {
     if (invitees.length > 1) {
       setInviteesList(() => ({
         hidden: false,
-        inviteesList: `${schedules.invitees[0].username} 외 ${invitees.length - 1} 명`,
+        inviteesList: `${schedules.invitees[0].username}외 ${
+          invitees.length - 1
+        }명`,
       }));
     }
   }, [invitees, schedules.invitees]);
@@ -40,9 +42,11 @@ const MainScheduleCards = ({ schedules }) => {
   return (
     <div
       onClick={onDetail}
-      className={`w-[335px] h-[180px] bg-white rounded-[10px] border border-solid border-[#E8E8E8]  shadow-md`}
+      className={`w-[335px] h-[180px] bg-white rounded-[10px] border border-solid border-[#E8E8E8]  shadow-md  cursor-pointer`}
     >
-      <div className={`flex items-center  h-[14px] ${bgColor} rounded-t-[10px] `}>
+      <div
+        className={`flex items-center  h-[14px] ${bgColor} rounded-t-[10px] `}
+      >
         <ul className="ml-[9px] flex flex-row gap-[4px]">
           {[0, 1, 2].map((list) => (
             <li key={list} className="bg-white h-[4px] w-[4px] rounded-full" />
@@ -77,11 +81,14 @@ const MainScheduleCards = ({ schedules }) => {
               </div>
 
               <div className="h-[40px]">
-                <div hidden={inviteesList.hidden} className="flex space-x-32">
-                  <div className="flex -space-x-5 overflow-hidden ">
-                    {invitees.map((list, index) => {
+                <div hidden={inviteesList.hidden} className="flex space-x-32 ">
+                  <div className="flex -space-x-8 overflow-hidden ">
+                    {invitees?.map((list, index) => {
                       return (
-                        <div key={index} className="flex border-2 border-white rounded-full">
+                        <div
+                          key={index}
+                          className="flex border-2 border-white rounded-full"
+                        >
                           <img
                             className="inline-block h-[40px] w-[40px] rounded-full"
                             src={list.profile}
@@ -91,7 +98,9 @@ const MainScheduleCards = ({ schedules }) => {
                       );
                     })}
                   </div>
-                  <div className="flex items-center text-[#6F6F6F]">{inviteesList.inviteesList}</div>
+                  <div className="flex items-center text-[#6F6F6F]">
+                    {inviteesList.inviteesList}
+                  </div>
                 </div>
               </div>
             </div>

@@ -38,7 +38,7 @@ const EmailLogin = () => {
   //이메일, 비밀번호 정규 표현식
   const emailRegulationExp =
     /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-  const passwordRegulationExp = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,16}$/;
+  const passwordRegulationExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/;
 
   //유효성검사
   const onValidity = (event) => {
@@ -80,6 +80,9 @@ const EmailLogin = () => {
 
   const onMoalClose = () => {
     dispatch(__closeModal());
+    if (sessionStorage.getItem("userId")) {
+      navigate("/main");
+    }
   };
 
   //서버에 전달
@@ -120,7 +123,6 @@ const EmailLogin = () => {
         setModalStr,
       })
     );
-    onSubmit();
   };
 
   //카카오 로그인
@@ -176,6 +178,7 @@ const EmailLogin = () => {
                     placeholder="비밀번호 입력"
                     shadow={style.shadowPassword}
                     bgColor={style.bgColorPassword}
+                    maxLength={16}
                   />
                 </div>
                 <div className="flex items-center ">
@@ -183,7 +186,7 @@ const EmailLogin = () => {
                     className="h-[40px] w-full font-[500] text-[16px] text-[#DE0D0D] flex items-center"
                     hidden={regulation.regulationPassword}
                   >
-                    8글자이상 입력 해주세요.
+                    8글자이상 영문숫자 조합으로 입려해주세요.
                   </p>
                 </div>
               </div>

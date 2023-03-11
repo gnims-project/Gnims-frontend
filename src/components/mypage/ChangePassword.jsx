@@ -32,7 +32,7 @@ const ChangePassword = () => {
 
   const [InputCheck, setInputCheck] = useState({ input: false, modal: false });
 
-  const passwordRegulationExp = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,16}$/;
+  const passwordRegulationExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/;
 
   const dispatch = useDispatch();
 
@@ -75,7 +75,7 @@ const ChangePassword = () => {
       } else if (!passwordRegulationExp.test(passwordCurrent.value)) {
         SetRegulation(() => ({
           ...regulation,
-          passwordError: "최소 8 자리에서 영대소문자와 숫자를 포함시켜주세요.",
+          passwordError: "최소 8자리에서 영문자와 숫자를 포함시켜주세요.",
         }));
       } else if (passwordCurrentCheck.value === passwordCurrent.value) {
         SetRegulation(() => ({
@@ -153,7 +153,7 @@ const ChangePassword = () => {
       if (!passwordRegulationExp.test(passwordCurrent.value)) {
         SetRegulation(() => ({
           ...regulation,
-          passwordError: "최소 8 자리에서 영대소문자와 숫자를 포함시켜주세요.",
+          passwordError: "최소 8자리에서 영문자와 숫자를 포함시켜주세요.",
         }));
       }
       passwordCurrentCheck.focus();
@@ -232,6 +232,7 @@ const ChangePassword = () => {
                 bgColor={style.bgColorPassword}
                 shadow={style.shadowPassword}
                 ref={passwordRef}
+                maxLength={16}
               />
             </div>
             <div className="flex items-center h-[20px]">
@@ -248,6 +249,7 @@ const ChangePassword = () => {
                 bgColor={style.bgColorPasswordCheck}
                 shadow={style.shadowPasswordCheck}
                 ref={passwordCheckRef}
+                maxLength={16}
               />
             </div>
             <div className="flex items-center h-[20px]">

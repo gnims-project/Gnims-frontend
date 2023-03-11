@@ -50,12 +50,18 @@ const FollowingCard = ({ following }) => {
         </div>
       </div>
       {isFollowed ? (
-        <div className="flex items-center w-[62px] h-[39px] justify-center text-sm rounded-[4px] text-white bg-[#A31414] cursor-pointer">
-          <span onClick={handleClick}>삭제</span>
+        <div
+          onClick={handleClick}
+          className="flex items-center w-[62px] h-[39px]  justify-center text-sm rounded-[4px] text-white bg-[#A31414] cursor-pointer"
+        >
+          삭제
         </div>
       ) : (
-        <div className="flex items-center w-[62px] h-[39px] justify-center text-sm rounded-[4px] text-white bg-[#002C51] cursor-pointer">
-          <span onClick={handleClick}>팔로우</span>
+        <div
+          onClick={handleClick}
+          className="flex items-center w-[62px] h-[39px] justify-center text-sm rounded-[4px] text-white bg-[#002C51] cursor-pointer"
+        >
+          팔로우
         </div>
       )}
     </div>

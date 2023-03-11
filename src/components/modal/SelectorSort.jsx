@@ -1,10 +1,17 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setSortList } from "../../redux/modules/ScheduleSlice";
 
-const SelectorSort = ({ setSortList, setModalOpen }) => {
-  const [textColor, setTextColor] = useState({
-    dDay: "text-textNavy",
-    new: "text-[#6F6F6F]",
-  });
+const SelectorSort = ({ setModalOpen, sortList }) => {
+  const dispatch = useDispatch();
+  const [textColor, setTextColor] = useState(() =>
+    sortList === "D-Day"
+      ? {
+          dDay: "text-textNavy",
+          new: "text-[#6F6F6F]",
+        }
+      : { dDay: "text-[#6F6F6F]", new: "text-textNavy" }
+  );
 
   const handleTextColor = (text) => {
     if (text === "DDAY") {
@@ -12,13 +19,13 @@ const SelectorSort = ({ setSortList, setModalOpen }) => {
         dDay: "text-textNavy",
         new: "text-[#6F6F6F]",
       }));
-      setSortList(() => "D-Day");
+      dispatch(setSortList("D-Day"));
     } else {
       setTextColor(() => ({
         dDay: "text-[#6F6F6F]",
         new: "text-textNavy",
       }));
-      setSortList(() => "새로 등록된 일정");
+      dispatch(setSortList("새로 등록된 일정"));
     }
   };
   const onHandlerClose = () => {

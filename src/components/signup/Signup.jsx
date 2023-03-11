@@ -121,7 +121,7 @@ const Signup = () => {
 
   //비밀번호
   const passwordValidationTest = (passwordValidation) => {
-    const passwordRegulationExp = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,16}$/;
+    const passwordRegulationExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/;
     if (passwordRegulationExp.test(passwordValidation.value)) {
       SetRegulation(() => ({
         ...regulation,
@@ -130,8 +130,7 @@ const Signup = () => {
     } else {
       SetRegulation(() => ({
         ...regulation,
-        regulationPassword:
-          "최소 8 자리에서 영대소문자와 숫자를 포함시켜주세요.",
+        regulationPassword: "최소 8 자리에서 영문자와 숫자를 포함시켜주세요.",
       }));
 
       passwordValidation.focus();
@@ -179,10 +178,10 @@ const Signup = () => {
       .catch((error) => {
         const { data } = error.response;
 
-        console.log(data);
+    
         if (data.status === 400) {
           if (Array.isArray(data.messages)) {
-            console.log(data.messages[0]);
+          
             setModalStr({
               modalTitle: "이메일을 확인해주세요.",
               modalMessage: data.messages[0],
