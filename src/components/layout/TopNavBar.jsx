@@ -8,13 +8,10 @@ import { instance } from "../../shared/AxiosInstance";
 import Point from "../../img/point.png";
 import { EventSourcePolyfill } from "event-source-polyfill";
 import NotificationModal from "../modal/NotificationModal";
-import { useDispatch } from "react-redux";
 
 const TopNavBar = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [content, setContent] = useState("");
-
   const [open, setOpen] = useState(false);
   const [allchecked, setAllChecked] = useState("");
 
@@ -36,36 +33,35 @@ const TopNavBar = () => {
         headers: {
           Authorization: sessionStorage.getItem("accessToken"),
         },
-        // withCredentials: true,
       });
-      // SSE 연결 성공 시 호출되는 이벤트 핸들러
-      eventSource.onopen = () => {
-        // console.log("SSE 연결완료");
-      };
+
+      eventSource.onopen = () => {};
       eventSource.onmessage = async function (event) {
         const data = JSON.parse(event.data);
         const message = data.message;
         setContent(message);
         setOpen(true);
-        // handleModalOpen(message);
-        await setAllChecked("");
       };
       eventSource.addEventListener("follow", async (e) => {
         const data = JSON.parse(e.data);
         const message = data.message;
         setContent(message);
         setOpen(true);
-        // handleModalOpen(message);
-
-        await setAllChecked("");
       });
       eventSource.addEventListener("invite", async (e) => {
         const data = JSON.parse(e.data);
         const message = data.message;
         setContent(message);
-        // handleModalOpen(message);
         setOpen(true);
-        await setAllChecked("");
+      });
+      eventSource.addEventListener("invite_response", async (e) => {
+        const data = JSON.parse(e.data);
+        const message = data.message;
+
+        console.log(data);
+        console.log(message);
+        setContent(message);
+        setOpen(true);
       });
     } catch (error) {
       if (eventSource) eventSource.close();
@@ -77,7 +73,6 @@ const TopNavBar = () => {
     //컴포넌트가 언마운트될 때 eventSource를 닫음
     return () => {
       eventSource && eventSource.close();
-      // console.log("event source closed.");
     };
   }, []);
 
