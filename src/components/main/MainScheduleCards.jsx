@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const MainScheduleCards = ({ schedules }) => {
   const navigate = useNavigate();
-  const invitees = schedules.invitees;
+  const location = useLocation().pathname;
 
+  const invitees = schedules.invitees;
   const hourClock = schedules.time.split(":", 2)[0];
   let hour = 0;
   const min = schedules.time.split(":", 2)[1];
@@ -27,9 +28,7 @@ const MainScheduleCards = ({ schedules }) => {
     if (invitees.length > 1) {
       setInviteesList(() => ({
         hidden: false,
-        inviteesList: `${schedules.invitees[0].username} 외 ${
-          invitees.length - 1
-        } 명`,
+        inviteesList: `${schedules.invitees[0].username} 외 ${invitees.length - 1} 명`,
       }));
     }
   }, [invitees, schedules.invitees]);
@@ -43,9 +42,7 @@ const MainScheduleCards = ({ schedules }) => {
       onClick={onDetail}
       className={`w-[335px] h-[180px] bg-white rounded-[10px] border border-solid border-[#E8E8E8]  shadow-md`}
     >
-      <div
-        className={`flex items-center  h-[14px] ${bgColor} rounded-t-[10px] `}
-      >
+      <div className={`flex items-center  h-[14px] ${bgColor} rounded-t-[10px] `}>
         <ul className="ml-[9px] flex flex-row gap-[4px]">
           {[0, 1, 2].map((list) => (
             <li key={list} className="bg-white h-[4px] w-[4px] rounded-full" />
@@ -66,10 +63,12 @@ const MainScheduleCards = ({ schedules }) => {
                   {time}
                 </div>
               )}
-              <div className="font-[700]">
-                D-
-                {schedules.dday === 0 ? <>DAY</> : <>{schedules.dday}</>}
-              </div>
+              {location !== "/pastEvents" ? (
+                <div className="font-[700]">
+                  D-
+                  {schedules.dday === 0 ? <>DAY</> : <>{schedules.dday}</>}
+                </div>
+              ) : null}
             </div>
 
             <div className="grid grid-flow-row gap-[17px]">
@@ -82,10 +81,7 @@ const MainScheduleCards = ({ schedules }) => {
                   <div className="flex -space-x-5 overflow-hidden ">
                     {invitees.map((list, index) => {
                       return (
-                        <div
-                          key={index}
-                          className="flex border-2 border-white rounded-full"
-                        >
+                        <div key={index} className="flex border-2 border-white rounded-full">
                           <img
                             className="inline-block h-[40px] w-[40px] rounded-full"
                             src={list.profile}
@@ -95,9 +91,7 @@ const MainScheduleCards = ({ schedules }) => {
                       );
                     })}
                   </div>
-                  <div className="flex items-center text-[#6F6F6F]">
-                    {inviteesList.inviteesList}
-                  </div>
+                  <div className="flex items-center text-[#6F6F6F]">{inviteesList.inviteesList}</div>
                 </div>
               </div>
             </div>

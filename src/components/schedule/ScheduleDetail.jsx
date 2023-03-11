@@ -4,10 +4,7 @@ import kebab from "../../img/kebab.png";
 import BottomNavi from "../layout/BottomNavi";
 import KebabModal from "../modal/KebabButtonModal";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  __getScheduleDetail,
-  scheduleReset,
-} from "../../redux/modules/ScheduleSlice";
+import { __getScheduleDetail, scheduleReset } from "../../redux/modules/ScheduleSlice";
 import schedulealoneIcon from "../../img/schedulealone.png";
 
 const ScheduleDetail = () => {
@@ -40,7 +37,7 @@ const ScheduleDetail = () => {
   }
 
   return (
-    <div className="width-[375px]">
+    <div className="width-[375px] h-screen">
       <div className="bg-[#F8FCFF] h-full width-[375px]">
         <div className="fixed bottom-0">
           {/* 케밥모달이 열리면 bottomNavi는 사라집니다 */}
@@ -53,20 +50,11 @@ const ScheduleDetail = () => {
         >
           <div className="flex space-x-3 text-[18px]  font-extralight ">
             <div>{schedule.date}</div> <div> {time}</div>
-            <div
-              className="w-[160px] flex pl-[155px]"
-              onClick={showModalHandler}
-            >
-              <img
-                className={`h-[20px] ${isHidden} row cursor-pointer `}
-                src={kebab}
-                alt="케밥메뉴"
-              />
+            <div className="w-[160px] flex pl-[155px]" onClick={showModalHandler}>
+              <img className={`h-[20px] ${isHidden} row cursor-pointer `} src={kebab} alt="케밥메뉴" />
             </div>
           </div>
-          <div className="mt-[28px] font-semibold text-[24px]">
-            {schedule.subject}
-          </div>
+          <div className="mt-[28px] font-semibold text-[24px]">{schedule.subject}</div>
           <div className="place-content-end font-extralight flex text-[18px] mt-[66px]">
             D-
             {schedule.dday === 0 ? <div>DAY</div> : <div>{schedule.dday}</div>}
@@ -81,9 +69,7 @@ const ScheduleDetail = () => {
                 <div className="bg-white h-[50px] border-solid border-[1px] border-[#E2E2E2] w-[335px] mt-[20px] p-[15px] lg flex rounded-lg">
                   {joiner &&
                     joiner.map((a) => {
-                      return (
-                        <span className="text-sm ml-[5px]">{a.username}</span>
-                      );
+                      return <span className="text-sm ml-[5px]">{a.username}</span>;
                     })}
                 </div>
               </div>
