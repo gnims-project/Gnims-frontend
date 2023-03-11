@@ -81,7 +81,6 @@ const EmailLogin = () => {
   const onMoalClose = () => {
     dispatch(__closeModal());
     if (sessionStorage.getItem("userId")) {
-      console.log("동작해?");
       navigate("/main");
     }
   };
