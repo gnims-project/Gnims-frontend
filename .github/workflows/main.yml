@@ -21,6 +21,7 @@ jobs:
           echo "REACT_APP_NAVER_CALLBACK_URL=${{ secrets.REACT_APP_NAVER_CALLBACK_URL }}" >> .env
           echo "REACT_APP_NAVER_CLIENT_ID=${{ secrets.REACT_APP_NAVER_CLIENT_ID }}" >> .env
           cat .env
+
       - name: Cache node modules
         uses: actions/cache@v1
         with:
