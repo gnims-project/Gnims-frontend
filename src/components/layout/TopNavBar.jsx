@@ -20,7 +20,9 @@ const TopNavBar = () => {
   const getNoti = async () => {
     await instance.get("/notifications").then((res) => {
       const notilist = res.data.data.map((data) => data.isChecked);
-      notilist.filter((a) => a === false).length > 0 ? setAllChecked("") : setAllChecked("hidden");
+      notilist.filter((a) => a === false).length > 0
+        ? setAllChecked("")
+        : setAllChecked("hidden");
     });
   };
 
@@ -28,12 +30,15 @@ const TopNavBar = () => {
   const fetchSse = async () => {
     try {
       //EventSource생성.
-      eventSource = new EventSourcePolyfill("https://eb.jxxhxxx.shop/connection", {
-        //headers에 토큰을 꼭 담아줘야 500이 안뜬다.
-        headers: {
-          Authorization: sessionStorage.getItem("accessToken"),
-        },
-      });
+      eventSource = new EventSourcePolyfill(
+        `${process.env.REACT_APP_BASE_URL}/connection`,
+        {
+          //headers에 토큰을 꼭 담아줘야 500이 안뜬다.
+          headers: {
+            Authorization: sessionStorage.getItem("accessToken"),
+          },
+        }
+      );
 
       eventSource.onopen = () => {};
       eventSource.onmessage = async function (event) {
@@ -114,7 +119,11 @@ const TopNavBar = () => {
                 navigate("/notification");
               }}
             />
-            <img src={Point} alt="알림표시" className={`${allchecked} ml-[20px]`} />
+            <img
+              src={Point}
+              alt="알림표시"
+              className={`${allchecked} ml-[20px]`}
+            />
           </div>
         </div>
       </div>
