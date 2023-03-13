@@ -19,7 +19,7 @@ jobs:
           echo "REACT_APP_KAKAO_REDIRECT_URI=${{ secrets.REACT_APP_KAKAO_REDIRECT_URI }}" >> .env
           echo "REACT_APP_KAKAO_REST_API_KEY=${{ secrets.REACT_APP_KAKAO_REST_API_KEY }}" >> .env
           echo "REACT_APP_NAVER_CALLBACK_URL=${{ secrets.REACT_APP_NAVER_CALLBACK_URL }}" >> .env
-          echo "REACT_APP_NAVER_CLIENT_ID=${{ REACT_APP_NAVER_CLIENT_ID }}" >> .env
+          echo "REACT_APP_NAVER_CLIENT_ID=${{ secrets.REACT_APP_NAVER_CLIENT_ID }}" >> .env
           cat .env
       - name: Cache node modules
         uses: actions/cache@v1
