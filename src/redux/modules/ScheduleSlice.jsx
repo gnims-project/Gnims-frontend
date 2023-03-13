@@ -1,6 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import { useDispatch } from "react-redux";
 import { ScheduleApi } from "../../api/ScheduleApi";
 import { instance } from "../../shared/AxiosInstance";
 
@@ -22,9 +20,9 @@ const initialState = {
 };
 export const __deleteSchedule = createAsyncThunk(
   "schedule/delete",
-  async (id) => {
-    const response = await ScheduleApi.deleteScheduleApi(id[0]);
-    id[2](__getSchedule(id[1]));
+  async ({ id, userId, dispatch }) => {
+    const response = await ScheduleApi.deleteScheduleApi(id);
+    dispatch(__getSchedule({ userId: userId, sortedBy: "event.dDay" }));
     return response.data;
   }
 );
