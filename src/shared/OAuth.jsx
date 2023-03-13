@@ -5,8 +5,8 @@ REST_API_KEY 는 다를수 있어도 REDIRECT URI만큼은 백앤드와 프론�
 */
 
 //민우님 카카오 api
-const REST_API_KEY = "6e659b5f78ef7ca493658b8cefa98aa2";
-const REDIRECT_URI = "https://gnims.kr/auth/kakao/callback"; // 배포후 변경 주소
+const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
+const REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI; // 배포후 변경 주소
 //const REDIRECT_URI = "http://localhost:3000/auth/kakao/callback";
 
 export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
