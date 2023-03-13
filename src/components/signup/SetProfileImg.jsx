@@ -43,8 +43,7 @@ const SetProfileImg = () => {
       formData.append("image", null);
     }
     if (singup === "emailLogin") {
-      //const url = "http://hayangaeul.shop/auth/signup";
-      const url = "https://eb.jxxhxxx.shop/auth/signup";
+      const url = `${process.env.REACT_APP_BASE_URL}/auth/signup`;
       const data = {
         username: sessionStorage.getItem("userName"),
         nickname: sessionStorage.getItem("nickname"),
@@ -53,8 +52,7 @@ const SetProfileImg = () => {
       };
       sginupAxios({ data, formData, url });
     } else {
-      //const url = "http://hayangaeul.shop/social/signup";
-      const url = "https://eb.jxxhxxx.shop/social/signup";
+      const url = `${process.env.REACT_APP_BASE_URL}/social/signup`;
       const data = {
         username: sessionStorage.getItem("userName"),
         nickname: sessionStorage.getItem("nickname"),

@@ -18,7 +18,7 @@ function NaverLoginLoding() {
   const sendTokenAndGetAuthorization = async () => {
     await axios
       .post(
-        "https://eb.jxxhxxx.shop/social/naver-login",
+        `${process.env.REACT_APP_BASE_URL}/social/naver-login`,
 
         { token: window.location.href.split("=")[1].split("&")[0] }
       )
@@ -71,7 +71,13 @@ function NaverLoginLoding() {
           transform: "translate(-50%, -50%)",
         }}
       >
-        <DotLoader color="#36abd6" height={15} width={5} radius={2} margin={2} />
+        <DotLoader
+          color="#36abd6"
+          height={15}
+          width={5}
+          radius={2}
+          margin={2}
+        />
       </div>
     </div>
   );
