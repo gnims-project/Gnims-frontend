@@ -48,6 +48,29 @@
 [👉그님스 노션 페이지 바로가기](https://mountainous-promise-a24.notion.site/GNIMS-67a550352fb543b2b880f2998a5d2af2) <br>
 [👉그님스 기술 블로그 바로가기](https://gnims.tistory.com) <br>
 
+## :eyes: 그님스 미리보기
+<table>
+  <tr>
+    <td align="center"><strong>소셜로그인</strong></td>
+    <td align="center"><strong>일정</strong></td>
+    <td align="center"><strong>일정추가</strong></td>
+  </tr>
+   <tr>
+    <td align="center"><img src="https://user-images.githubusercontent.com/97508841/225238961-606650ee-b273-4936-81de-be581ef54d80.gif"/></td>
+    <td align="center"><img src="https://user-images.githubusercontent.com/97508841/225239105-afa54f39-5127-489b-88ea-64553ba6243a.gif"/></td>
+    <td align="center"><img src="https://user-images.githubusercontent.com/97508841/225239476-a3316f12-4cb2-4bce-a470-5b2298a9ef51.gif"/></td>
+  </tr>
+    <tr>
+    <td align="center"><strong>유저검색</strong></td>
+    <td align="center"><strong>알림기능&&일정초대</strong></td>
+    <td align="center"><strong>비밀번호변경</strong></td>
+  </tr>
+   <tr>
+    <td align="center"><img src="https://user-images.githubusercontent.com/97508841/225239885-834288f9-d888-4926-baa7-41b71c8a2459.gif"/></td>
+    <td align="center"><img src="https://user-images.githubusercontent.com/97508841/225243911-e7422fbd-0baf-4359-944d-e071c986d034.gif"/></td>
+    <td align="center"><img src="https://user-images.githubusercontent.com/97508841/225240011-d6fc5d57-6358-47d3-9d30-e5a34d6cdb26.gif"/></td>
+  </tr>
+</table>
 
 ## 시연 영상 📺
 
