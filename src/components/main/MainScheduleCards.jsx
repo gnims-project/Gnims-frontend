@@ -40,13 +40,15 @@ const MainScheduleCards = ({ schedules }) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.5 }}
+      initial={{ opacity: 0, scale: 0.2 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{
         duration: 0.8,
         delay: 0.5,
         ease: [0, 0.71, 0.2, 1.01],
       }}
+      whileHover={{ scale: 1.1, transition: { type: "spring", stiffness: 400, damping: 10 } }}
+      whileTap={{ scale: 1.1 }}
       onClick={onDetail}
       className={`w-[335px] h-[180px] bg-white rounded-[10px] border border-solid border-[#E8E8E8]  shadow-md  cursor-pointer`}
     >
