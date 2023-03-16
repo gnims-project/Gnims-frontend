@@ -74,7 +74,7 @@
 
 ## 시연 영상 📺
 
-준비중이에요!
+ https://www.youtube.com/watch?v=qLN5soxDF5E
 
 ## 프로젝트 기술 스택 ⚙️
 
