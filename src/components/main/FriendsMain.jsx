@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { instance } from "../../shared/AxiosInstance";
@@ -50,26 +50,15 @@ const FriendsMain = () => {
               <div className="mt-[30px] w-full h-[80px] bg-[#FFFFFF] rounded-[10px] drop-shadow-lg">
                 <div className="flex flex-row gap-[10px]">
                   <div className="p-[10px]">
-                    <img
-                      className="h-[60px] w-[60px] rounded-full"
-                      src={friendImg}
-                      alt="프로필이미지"
-                    />
+                    <img className="h-[60px] w-[60px] rounded-full" src={friendImg} alt="프로필이미지" />
                   </div>
                   <div className="flex items-center">
-                    <p className="p-[10px] font-[700] text-[20px] text-textNavy">
-                      {friendName}님의 스케쥴입니다!
-                    </p>
+                    <p className="p-[10px] font-[700] text-[20px] text-textNavy">{friendName}님의 스케쥴입니다!</p>
                   </div>
                 </div>
                 <div className="flex flex-col gap-[30px] mt-[28px] rounded-[10px]">
                   {schedule?.map((list) => {
-                    return (
-                      <FriednsScheduleCard
-                        key={list.eventId}
-                        schedules={list}
-                      />
-                    );
+                    return <FriednsScheduleCard key={list.eventId} schedules={list} />;
                   })}
                 </div>
               </div>
@@ -78,27 +67,17 @@ const FriendsMain = () => {
                 <div className="mt-[30px] w-full h-[80px] bg-[#FFFFFF] rounded-[10px] drop-shadow-lg">
                   <div className="flex flex-row gap-[10px] ">
                     <div className="p-[10px]">
-                      <img
-                        className="h-[60px] w-[60px] rounded-full"
-                        src={friendImg}
-                        alt="프로필이미지"
-                      />
+                      <img className="h-[60px] w-[60px] rounded-full" src={friendImg} alt="프로필이미지" />
                     </div>
                     <div className="flex items-center">
-                      <p className="p-[10px] font-bold text-[20px]">
-                        {friendName}님
-                      </p>
+                      <p className="p-[10px] font-bold text-[20px]">{friendName}님</p>
                       <div className="ml-[55px] mb-[20px]">
                         {button ? (
                           <div
                             onClick={refresh}
                             className="flex  items-center w-[90px] mx-auto h-[39px] justify-center mt-[20px] rounded-[4px] text-white bg-[#FFFFFF] cursor-pointer"
                           >
-                            <img
-                              src={refreshIcon}
-                              alt="새로고침"
-                              className="h-[26px]"
-                            />
+                            <img src={refreshIcon} alt="새로고침" className="h-[26px]" />
                           </div>
                         ) : (
                           <div
@@ -118,10 +97,7 @@ const FriendsMain = () => {
                   />
                   <div className="text-[22px] mt-[40px] font-extralight text-center">
                     현재
-                    <span className="font-black ml-[3px]">
-                      팔로우 하고있지 않은
-                    </span>{" "}
-                    유저예요.
+                    <span className="font-black ml-[3px]">팔로우 하고있지 않은</span> 유저예요.
                     <br />
                     <div className="text-[22px] mt-[5px] text-center">
                       {friendName}님의 스케쥴을 확인하시려면 <br />

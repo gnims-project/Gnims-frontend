@@ -72,6 +72,11 @@
   </tr>
 </table>
 
+## 시연 영상 📺
+
+ https://www.youtube.com/watch?v=qLN5soxDF5E
+
+
 ## 프로젝트 기술 스택 ⚙️
 
 ### 🛠 백앤드
