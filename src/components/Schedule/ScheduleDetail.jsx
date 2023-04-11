@@ -9,32 +9,34 @@ import schedulealoneIcon from "../../img/schedulealone.png";
 
 const ScheduleDetail = () => {
   const dispatch = useDispatch();
-  const schedule = useSelector((state) => state.ScheduleSlice.oldschedules);
-  //  모달 노출시키는 여부
-  const [modalOpen, setModalOpen] = useState(false);
-  const showModalHandler = () => {
-    setModalOpen(true);
-  };
-  //id구하기
   const { id } = useParams();
-  const time = schedule.time?.split(":", 2).join(":");
+  const [modalOpen, setModalOpen] = useState(false);
+  const schedule = useSelector((state) => state.ScheduleSlice.oldschedules);
 
   useLayoutEffect(() => {
     dispatch(__getScheduleDetail(id));
     return () => {
       dispatch(scheduleReset());
     };
-  }, []);
+  }, [dispatch, id]);
 
+  const time = schedule.time?.split(":", 2).join(":");
   const joiner = schedule.invitees;
   const numberOfJoiner = joiner && joiner.length;
   const hostId = schedule.hostId;
+  // let isHidden;
+  // if (hostId !== Number(sessionStorage.getItem("userId"))) {
+  //   isHidden = "hidden";
+  // }
+  //code refactored Mar22
+  const isHidden = hostId !== Number(sessionStorage.getItem("userId")) ? "hidden" : undefined;
+
+  const showModalHandler = () => {
+    setModalOpen(true);
+  };
+  //id구하기
+
   //isHidden은 해당 스케쥴이 본인의 스케쥴이 아닐 땐 케밥버튼이 보이지 않게하기 위해 쓰인다. 기본값은 flex이고,
-  let isHidden;
-  //스케쥴의 참여자에 로그인한 본인의 닉네임이 포함되지 않으면 hidden값이 입혀진다.
-  if (hostId !== Number(sessionStorage.getItem("userId"))) {
-    isHidden = "hidden";
-  }
 
   return (
     <div className="width-[375px]">
