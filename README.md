@@ -76,10 +76,13 @@
 
  https://www.youtube.com/watch?v=qLN5soxDF5E
 
+
 ## 프로젝트 기술 스택 ⚙️
 
 ### 🛠 백앤드
-![벡엔드 스텍](https://user-images.githubusercontent.com/87173870/224219417-80d4e370-5324-46e5-963e-3baa58642559.png)
+
+![벡엔드 스텍](https://user-images.githubusercontent.com/87173870/226785750-906c46d7-c7ad-41a6-8a34-7dd16959578f.png)
+
 
 ### 🛠 프론트앤드
 ![프론트 스텍](https://user-images.githubusercontent.com/87173870/224219442-3e6170b1-e6e2-41b3-a928-08d2f1a7cce1.png)
@@ -88,4 +91,3 @@
 
 <p align="center"><img src="https://user-images.githubusercontent.com/87173870/224208872-18a67047-ad31-43f7-8d34-8a07a2fe68a2.png"></p>
 <br>
-
