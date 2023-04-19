@@ -32,5 +32,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwind-scrollbar-hide"), require("styled-reset")],
+  plugins: [require("tailwind-scrollbar-hide"),
 };
