@@ -2,7 +2,8 @@ import axios from "axios";
 
 export const instance = axios.create({
   //본서버
-  baseURL: process.env.REACT_APP_BASE_URL,
+   baseURL: process.env.REACT_APP_BASE_URL,
+
 });
 
 //서버에 요청을 보내기 전

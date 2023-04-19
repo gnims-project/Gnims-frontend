@@ -185,6 +185,7 @@ const EmailLogin = () => {
                   <p
                     className="h-[40px] w-full font-[500] text-[16px] text-[#DE0D0D] flex items-center"
                     hidden={regulation.regulationPassword}
+                    // hidden={false}
                   >
                     8글자이상 영문숫자 조합으로 입려해주세요.
                   </p>
