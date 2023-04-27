@@ -5,15 +5,13 @@ import MainScheduleCards from "./MainScheduleCards";
 import BottomNavi from "../layout/BottomNavi";
 import desc from "../../img/desc.png";
 import SelectorSort from "../modal/SelectorSort";
-import { motion } from "framer-motion";
+import MainHeader from "./MainHeader";
 
 const Main = () => {
   const dispatch = useDispatch();
-  const nickName = sessionStorage.getItem("nickname");
-  const getRandom = Math.floor(Math.random() * (3 + 0) + 0);
+
   const { schedules, sortList } = useSelector((state) => state.ScheduleSlice);
   const [modalOpen, setModalOpen] = useState(false);
-  const welcomText = ["환영합니다.", "좋은하루 되세요!", "안녕하세요."];
 
   const showModalHandler = () => {
     setModalOpen(true);
@@ -36,11 +34,7 @@ const Main = () => {
     <>
       <div className="container">
         <div className="grid grid-flow-row gap-[26px] ml-[20px] mr-[20px] mb-[75px]">
-          <div className="mt-[30px] h-[56px] bg-[#FFFFFF] rounded-[10px] drop-shadow-lg">
-            <p className="leading-[36px] p-[10px] font-[700] text-md tracking-tighter text-textNavy">
-              {nickName} 님 {welcomText[getRandom]}
-            </p>
-          </div>
+          <MainHeader />
           <div className="flex cursor-pointer ">
             <div
               onClick={showModalHandler}
