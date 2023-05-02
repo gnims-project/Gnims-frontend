@@ -45,7 +45,7 @@ const ScheduleDetail = () => {
           {/* 케밥모달이 열리면 bottomNavi는 사라집니다 */}
           {modalOpen ? false : <BottomNavi />}
         </div>
-        {modalOpen && <KebabModal setModalOpen={setModalOpen} id={id} />}
+        {<KebabModal modalOpen={modalOpen} setModalOpen={setModalOpen} id={id} />}
         <div
           className={`h-[202px] bg-${schedule.cardColor} pl-[18px] w-[375px] pt-[23px] pr-[21px] text-white align-
            `}

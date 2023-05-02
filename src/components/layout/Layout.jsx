@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import React from "react";
 import TopNavBar from "./TopNavBar";
 import BottomNavi from "./BottomNavi";
@@ -94,10 +93,12 @@ const Layout = ({ children }) => {
   }, [pagePathName.pathname, id]);
 
   return (
-    <OutWrap>
-      <Container>
+    <div className="flex flex-1 justify-center">
+      <div className="flex flex-col justify-between h-[100vh] min-w-[375px] bg-[#f8fcff]">
         {header}
-        <Slider>{children}</Slider>
+        <div className="flex flex-1 overflow-scroll scrollbar-hide">
+          {children}
+        </div>
         {pagePathName.pathname === "/login" ||
         pagePathName.pathname === "/signup" ||
         pagePathName.pathname === "/signup/setProfileName" ||
@@ -107,37 +108,8 @@ const Layout = ({ children }) => {
         pagePathName.pathname === `/detail/${id}` ? null : (
           <BottomNavi />
         )}
-      </Container>
-    </OutWrap>
+      </div>
+    </div>
   );
 };
-
 export default Layout;
-
-const OutWrap = styled.div`
-  display: flex;
-  flex: 1;
-  justify-content: center;
-
-  /* box-sizing: border-box; */
-`;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100vh;
-  min-width: 375px;
-  background-color: #f8fcff;
-  font-family: Pretendard-Regular;
-`;
-
-const Slider = styled.div`
-  flex: 1;
-  overflow: scroll;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  ::-webkit-scrollbar {
-    display: none;
-  }
-`;

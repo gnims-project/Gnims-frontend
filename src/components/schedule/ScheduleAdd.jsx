@@ -2,19 +2,21 @@ import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { scheduleReset, __postSchedule, __editSchedule, __getScheduleDetail } from "../../redux/modules/ScheduleSlice";
 import FollowingModal from "../modal/FollowingModal";
 import ScheduleAddModal from "../modal/ScheduleAddModal";
 import ScheduleModal from "../modal/ScheduleModal";
+import useCardColorSelector from "../../customHook/useCardColorSelector";
 
 // state.type:"add" 은 스케줄 추가, state.type:edit은 수정
 const ScheduleAdd = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+
   //스케줄 추가, 수정 분기를 결정할 state 값을 받아옴
   const { state } = useLocation();
 
+  const { border, colorSelected, eventHandler } = useCardColorSelector();
   useEffect(() => {
     if (state.type === "edit") {
       dispatch(__getScheduleDetail(state.id));
@@ -36,51 +38,16 @@ const ScheduleAdd = () => {
     state.type === "edit" ? new Date(oldSchedule.date + "T" + oldSchedule.time) : ""
   );
 
-  const [selectedColor, setColorSelected] = useState(state.type === "edit" ? oldSchedule.cardColor : "sora");
-
   //제목
   const [subject, setSubject] = useState(state.type === "edit" ? oldSchedule.subject : "");
 
   //내용
   const [content, setContent] = useState(state.type === "edit" ? oldSchedule.content : "");
 
-  const [borderSora, setBorderSora] = useState(
-    state.type !== "edit"
-      ? "border-blackBorder"
-      : oldSchedule.cardColor === "sora"
-      ? "border-blackBorder"
-      : "border-none"
-  );
-  const [borderPink, setBorderPink] = useState(
-    state.type !== "edit" ? "border-none" : oldSchedule.cardColor === "pink" ? "border-blackBorder" : "border-none"
-  );
-  const [borderGreen, setBorderGreen] = useState(
-    state.type !== "edit" ? "border-none" : oldSchedule.cardColor === "green" ? "border-blackBorder" : "border-none"
-  );
-
   //완료모달&경고모달
   const [modalOpen, setModalOpen] = useState(false);
   const [completeModal, setCompleteModal] = useState(false);
 
-  //색상지정시 카드의 백그라운드컬러가 바뀌면서 selectedColor에 값이 입혀진다.
-  const eventHandlerSora = () => {
-    setColorSelected("sora");
-    setBorderSora("border-blackBorder");
-    setBorderPink("border-none");
-    setBorderGreen("border-none");
-  };
-  const eventHandlerPink = () => {
-    setColorSelected("pink");
-    setBorderSora("border-none");
-    setBorderPink("border-blackBorder");
-    setBorderGreen("border-none");
-  };
-  const eventHandlerGreen = () => {
-    setColorSelected("green");
-    setBorderSora("border-none");
-    setBorderPink("border-none");
-    setBorderGreen("border-blackBorder");
-  };
   //일정의 제목과 내용, 참여자 onChangeHandler
   const onSubjectChangeHandler = (e) => {
     setSubject(e.target.value);
@@ -105,7 +72,7 @@ const ScheduleAdd = () => {
 
     if (subject.length > 0 && [selectedDate].toString().length > 0) {
       const newSchedule = {
-        cardColor: selectedColor,
+        cardColor: colorSelected,
         date: date,
         time: time,
         subject: subject,
@@ -152,20 +119,20 @@ const ScheduleAdd = () => {
                 카드 테마 색상
                 <div className="flex flex-row mt-4 ">
                   <div
-                    className={`${borderSora} border-solid border-[4px] cursor-pointer rounded-[4px] w-[42px] h-[42px] bg-sora`}
-                    onClick={eventHandlerSora}
+                    className={`${border.sora} border-solid border-[4px] cursor-pointer rounded-[4px] w-[42px] h-[42px] bg-sora`}
+                    onClick={() => eventHandler("sora")}
                   >
                     {""}
                   </div>
                   <div
-                    className={`${borderPink} border-solid border-[4px] cursor-pointer rounded-[4px] ml-[17px] w-[42px] h-[42px] bg-pink`}
-                    onClick={eventHandlerPink}
+                    className={`${border.pink} border-solid border-[4px] cursor-pointer rounded-[4px] ml-[17px] w-[42px] h-[42px] bg-pink`}
+                    onClick={() => eventHandler("pink")}
                   >
                     {""}
                   </div>
                   <div
-                    className={`${borderGreen} border-solid border-[4px] cursor-pointer rounded-[4px] ml-[17px] w-[42px] h-[42px] bg-green`}
-                    onClick={eventHandlerGreen}
+                    className={`${border.green} border-solid border-[4px] cursor-pointer rounded-[4px] ml-[17px] w-[42px] h-[42px] bg-green`}
+                    onClick={() => eventHandler("green")}
                   >
                     {""}
                   </div>

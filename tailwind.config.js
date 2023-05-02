@@ -7,6 +7,11 @@ module.exports = {
         sm: ["16px", "19px"],
         md: ["20px", "24px"],
       },
+
+      fontFamily: {
+        Pretendard: ["Pretendard-Regular"],
+      },
+
       colors: {
         sora: "#538EDF",
         nam: "#015397",
@@ -27,5 +32,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar-hide")],
 };

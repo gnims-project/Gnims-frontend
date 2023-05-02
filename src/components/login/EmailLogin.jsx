@@ -36,8 +36,7 @@ const EmailLogin = () => {
   });
 
   //이메일, 비밀번호 정규 표현식
-  const emailRegulationExp =
-    /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+  const emailRegulationExp = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
   const passwordRegulationExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/;
 
   //유효성검사
@@ -136,11 +135,7 @@ const EmailLogin = () => {
         <div className="grid grid-rows pt-[100px]">
           <div className="h-[150px]">
             <div className="mx-auto w-[150px] h-[64px] overflow-hidden gap-[10px] ">
-              <img
-                src={gnimsLogo}
-                alt="곰캐릭터가 우쭐거리며 왠지 잘될 것 같은 기분포즈 중"
-                className="w-full h-full "
-              />
+              <img src={gnimsLogo} alt="" className="w-full h-full " />
             </div>
           </div>
           <form className="mt-[-40px]">
@@ -185,8 +180,9 @@ const EmailLogin = () => {
                   <p
                     className="h-[40px] w-full font-[500] text-[16px] text-[#DE0D0D] flex items-center"
                     hidden={regulation.regulationPassword}
+                    // hidden={false}
                   >
-                    8글자이상 영문숫자 조합으로 입려해주세요.
+                    8글자이상 영문숫자 조합으로 입력해주세요.
                   </p>
                 </div>
               </div>
@@ -219,18 +215,14 @@ const EmailLogin = () => {
           <div className="hr-sect">
             <div>간편 로그인</div>
           </div>
-          <div className="flex gap-[110px] mx-auto h-[100px] mt-[46px]">
+          <div className="flex gap-[110px] mx-auto h-[100px] mt-[46px] mb-[28px]">
             <div className="text-center ">
               <NaverLogin />
-              <p className="mt-[20px] text-[#12396F] font-[400] text-[14px]">
-                네이버
-              </p>
+              <p className="mt-[20px] text-[#12396F] font-[400] text-[14px]">네이버</p>
             </div>
             <div className="text-center">
               <KakaoLogin onEvent={onClickKakaoLongin} img={kakaologo} />
-              <p className="mt-[20px] text-[#12396F] font-[400] text-[14px]">
-                카카오
-              </p>
+              <p className="mt-[20px] text-[#12396F] font-[400] text-[14px]">카카오</p>
             </div>
           </div>
           <IsModal onMoalClose={onMoalClose} message={{ ModalStr }} />
